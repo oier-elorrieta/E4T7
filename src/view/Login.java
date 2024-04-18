@@ -133,10 +133,11 @@ public class Login extends JFrame {
 					} else {
 						JOptionPane.showMessageDialog(null, "Erabiltzailea edo pasahitza okerra dago.", "Errorea", JOptionPane.ERROR_MESSAGE);
 					}
-					SQLKonexioa.konexioaItxi();
+					
 				} else {
 					JOptionPane.showMessageDialog(null, "ADMIN PARTEA.", "Errorea", JOptionPane.ERROR_MESSAGE);
 				}
+				SQLKonexioa.konexioaItxi();
 			}
 		});
 		
