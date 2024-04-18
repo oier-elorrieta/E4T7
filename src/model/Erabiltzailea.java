@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Erabiltzailea {
 	protected String erabiltzailea;
@@ -46,5 +47,24 @@ public class Erabiltzailea {
 	void setJaiotze_data(Date jaiotze_data) {
 		this.jaiotze_data = jaiotze_data;
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Erabiltzailea other = (Erabiltzailea) obj;
+		return Objects.equals(abizena, other.abizena) && Objects.equals(erabiltzailea, other.erabiltzailea)
+				&& Objects.equals(izena, other.izena) && Objects.equals(jaiotze_data, other.jaiotze_data);
+	}
+
+	@Override
+	public String toString() {
+		return "Erabiltzailea [erabiltzailea=" + erabiltzailea + ", izena=" + izena + ", abizena=" + abizena
+				+ ", jaiotze_data=" + jaiotze_data + "]";
+	}
+		
 }
