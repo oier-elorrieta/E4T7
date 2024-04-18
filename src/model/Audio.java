@@ -26,7 +26,8 @@ public class Audio {
 	void setIraupena(int iraupena) {
 		this.iraupena = iraupena;
 	}
-
+	
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -42,6 +43,6 @@ public class Audio {
 	@Override
 	public String toString() {
 		return "Audio [titulua=" + titulua + ", iraupena=" + iraupena + "]";
-	}	
+	}
 	
 }

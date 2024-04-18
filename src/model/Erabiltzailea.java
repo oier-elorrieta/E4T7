@@ -61,6 +61,7 @@ public class Erabiltzailea {
 				&& Objects.equals(izena, other.izena) && Objects.equals(jaiotze_data, other.jaiotze_data);
 	}
 
+
 	@Override
 	public String toString() {
 		return "Erabiltzailea [erabiltzailea=" + erabiltzailea + ", izena=" + izena + ", abizena=" + abizena
