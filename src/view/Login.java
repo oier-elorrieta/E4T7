@@ -33,6 +33,7 @@ public class Login extends JFrame {
 	private JTextField txtFErabiltzaile;
 	private JPasswordField passwordField;
 	private boolean ondoLogin = false;
+	private boolean ondoLoginAdmin = false;
 
 	/**
 	 * Launch the application.
@@ -119,10 +120,12 @@ public class Login extends JFrame {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				String txtErabil = txtFErabiltzaile.getText();
+				String passwdErabil = passwordField.getText();
 				if (comboBox.getSelectedIndex() == 0) {
 					SQLKonexioa.konexioaIreki();
 					try {
-						ondoLogin = SQLKonexioa.prueba(txtFErabiltzaile.getText(), passwordField.getText());
+						ondoLogin = SQLKonexioa.prueba(txtErabil, passwdErabil);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
@@ -131,11 +134,15 @@ public class Login extends JFrame {
 						dispose();
 						JFrameSortu.menua();
 					} else {
-						JOptionPane.showMessageDialog(null, "Erabiltzailea edo pasahitza okerra dago.", "Errorea", JOptionPane.ERROR_MESSAGE);
+						try {
+							ondoLoginAdmin = SQLKonexioa.prueba(txtErabil, passwdErabil);
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
 					}
 					
 				} else {
-					JOptionPane.showMessageDialog(null, "ADMIN PARTEA.", "Errorea", JOptionPane.ERROR_MESSAGE);
+					
 				}
 				SQLKonexioa.konexioaItxi();
 			}
