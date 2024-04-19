@@ -11,19 +11,19 @@ public class Audio {
 		this.iraupena = iraupena;
 	}
 
-	String getTitulua() {
+	public String getTitulua() {
 		return titulua;
 	}
 
-	void setTitulua(String titulua) {
+	public void setTitulua(String titulua) {
 		this.titulua = titulua;
 	}
 
-	int getIraupena() {
+	public int getIraupena() {
 		return iraupena;
 	}
 
-	void setIraupena(int iraupena) {
+	public void setIraupena(int iraupena) {
 		this.iraupena = iraupena;
 	}
 	

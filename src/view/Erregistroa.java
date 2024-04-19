@@ -6,9 +6,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import model.metodoak.JFrameSortu;
 import model.sql.SQLKonexioa;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -21,6 +24,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Erregistroa extends JFrame {
@@ -149,9 +153,9 @@ public class Erregistroa extends JFrame {
 		txtAbizenak.setBounds(601, 104, 256, 25);
 		contentPane.add(txtAbizenak);
 		
-		JButton btnErregistratu = new JButton("Erregistratu");
+		JButton btnErregistratu = new JButton("Erregistratu (Free)");
 		btnErregistratu.setForeground(Color.RED);
-		btnErregistratu.setFont(new Font("Tahoma", Font.BOLD, 18));
+		btnErregistratu.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnErregistratu.setBounds(620, 485, 185, 46);
 		contentPane.add(btnErregistratu);
 		
@@ -160,39 +164,84 @@ public class Erregistroa extends JFrame {
 		btnAtzera.setBounds(123, 485, 147, 46);
 		contentPane.add(btnAtzera);
 		
+		JLabel lblDataformatuaYyyymmdd = new JLabel("* Data-formatua -> YYYY-MM-DD");
+		lblDataformatuaYyyymmdd.setFont(new Font("Sitka Text", Font.ITALIC, 13));
+		lblDataformatuaYyyymmdd.setBounds(537, 282, 239, 26);
+		contentPane.add(lblDataformatuaYyyymmdd);
+		
+		JButton btnPremiumErosi = new JButton("Premium erosi");
+		btnPremiumErosi.setForeground(Color.BLUE);
+		btnPremiumErosi.setFont(new Font("Tahoma", Font.BOLD, 18));
+		btnPremiumErosi.setBounds(374, 485, 185, 46);
+		contentPane.add(btnPremiumErosi);
+		
 		// ATZERA BOTOIA
 		btnAtzera.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				JFrameSortu.loginMenua();
+			}
+		});
+		
+		// PREMIUM EROSTEKO BOTOIA
+		btnPremiumErosi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
 			}
 		});
 		
-		// PREMIUM EROSTEKO BOTOIA
+		// FREE ERREGISTROAREN BOTOIA
 		btnErregistratu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String hiz = (String) comboBoxHizkuntza.getSelectedItem();
 				String hizkuntza = "";
 				
-				switch (hizkuntza) {
+				switch (hiz) {
 					case "Euskera":
 						hizkuntza = "EU";
+						break;
 					case "Español":
 						hizkuntza = "ES";
+						break;
 					case "English":
 						hizkuntza = "EN";
+						break;
+					case "Français":
+						hizkuntza = "FR";
+						break;
+					case "Deutsch":
+						hizkuntza = "DE";
+						break;
+					case "Catalá":
+						hizkuntza = "CA";
+						break;
+					case "Gaeilg":
+						hizkuntza = "GA";
+						break;
+					case "Arabic":
+						hizkuntza = "AR";
+						break;
 				}
-				Date currentdate = new Date();
-				String date = currentdate.getDay() + "-" + currentdate.getMonth() + "-" + currentdate.getYear()+1900;
-				try {
-					SQLKonexioa.erregistroa(txtIzena.getText(), txtAbizenak.getText(), hizkuntza, txtErabiltzaile.getText(), passwordField.getText(), txtJaiotzeData.getText(), date);
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				
+				LocalDate currentdate = LocalDate.now();
+				String date = currentdate.getYear() + "-" + currentdate.getMonthValue() + "-" + currentdate.getDayOfMonth();
+				if (passwordField.getText().equals(passwordFieldConfirm.getText())) {
+					try {
+						SQLKonexioa.erregistroaFree(txtIzena.getText(), txtAbizenak.getText(), hizkuntza, txtErabiltzaile.getText(), passwordField.getText(), txtJaiotzeData.getText(), date);
+						dispose();
+						JFrameSortu.loginMenua();
+					} catch (ClassNotFoundException e1) {
+						JOptionPane.showMessageDialog(null, "Errorea egon da erregistratzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
+						e1.printStackTrace();
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(null, "Errorea egon da datu basearen konexioarekin!", "Errorea", JOptionPane.ERROR_MESSAGE);
+						e1.printStackTrace();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Pasahitzak ez dira berdinak!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

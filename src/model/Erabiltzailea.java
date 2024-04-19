@@ -8,9 +8,9 @@ public class Erabiltzailea {
 	protected String pasahitza;
 	protected String izena;
 	protected String abizena;
-	protected String jaiotze_data;
+	protected Date jaiotze_data;
 
-	public Erabiltzailea(String erabiltzailea, String pasahitza, String izena, String abizena, String jaiotze_data) {
+	public Erabiltzailea(String erabiltzailea, String pasahitza, String izena, String abizena, Date jaiotze_data) {
 		this.erabiltzailea = erabiltzailea;
 		this.pasahitza = pasahitza;
 		this.izena = izena;
@@ -18,43 +18,43 @@ public class Erabiltzailea {
 		this.jaiotze_data = jaiotze_data;
 	}
 
-	String getErabiltzailea() {
+	public String getErabiltzailea() {
 		return erabiltzailea;
 	}
 
-	void setErabiltzailea(String erabiltzailea) {
+	public void setErabiltzailea(String erabiltzailea) {
 		this.erabiltzailea = erabiltzailea;
 	}
 
-	String getIzena() {
+	public String getIzena() {
 		return izena;
 	}
 
-	void setIzena(String izena) {
+	public void setIzena(String izena) {
 		this.izena = izena;
 	}
 
-	String getAbizena() {
+	public String getAbizena() {
 		return abizena;
 	}
 
-	void setAbizena(String abizena) {
+	public void setAbizena(String abizena) {
 		this.abizena = abizena;
 	}
 
-	String getPasahitza() {
+	public String getPasahitza() {
 		return pasahitza;
 	}
 
-	void setPasahitza(String pasahitza) {
+	public void setPasahitza(String pasahitza) {
 		this.pasahitza = pasahitza;
 	}
 
-	String getJaiotze_data() {
+	Date getJaiotze_data() {
 		return jaiotze_data;
 	}
 
-	void setJaiotze_data(String jaiotze_data) {
+	void setJaiotze_data(Date jaiotze_data) {
 		this.jaiotze_data = jaiotze_data;
 	}
 
