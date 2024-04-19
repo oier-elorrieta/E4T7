@@ -5,12 +5,14 @@ import java.util.Objects;
 
 public class Erabiltzailea {
 	protected String erabiltzailea;
+	protected String pasahitza;
 	protected String izena;
 	protected String abizena;
-	protected Date jaiotze_data;
-	
-	public Erabiltzailea(String erabiltzailea, String izena, String abizena, Date jaiotze_data) {
+	protected String jaiotze_data;
+
+	public Erabiltzailea(String erabiltzailea, String pasahitza, String izena, String abizena, String jaiotze_data) {
 		this.erabiltzailea = erabiltzailea;
+		this.pasahitza = pasahitza;
 		this.izena = izena;
 		this.abizena = abizena;
 		this.jaiotze_data = jaiotze_data;
@@ -40,11 +42,19 @@ public class Erabiltzailea {
 		this.abizena = abizena;
 	}
 
-	Date getJaiotze_data() {
+	String getPasahitza() {
+		return pasahitza;
+	}
+
+	void setPasahitza(String pasahitza) {
+		this.pasahitza = pasahitza;
+	}
+
+	String getJaiotze_data() {
 		return jaiotze_data;
 	}
 
-	void setJaiotze_data(Date jaiotze_data) {
+	void setJaiotze_data(String jaiotze_data) {
 		this.jaiotze_data = jaiotze_data;
 	}
 
@@ -58,14 +68,14 @@ public class Erabiltzailea {
 			return false;
 		Erabiltzailea other = (Erabiltzailea) obj;
 		return Objects.equals(abizena, other.abizena) && Objects.equals(erabiltzailea, other.erabiltzailea)
-				&& Objects.equals(izena, other.izena) && Objects.equals(jaiotze_data, other.jaiotze_data);
+				&& Objects.equals(izena, other.izena) && Objects.equals(jaiotze_data, other.jaiotze_data)
+				&& Objects.equals(pasahitza, other.pasahitza);
 	}
-
 
 	@Override
 	public String toString() {
-		return "Erabiltzailea [erabiltzailea=" + erabiltzailea + ", izena=" + izena + ", abizena=" + abizena
-				+ ", jaiotze_data=" + jaiotze_data + "]";
+		return "Erabiltzailea [erabiltzailea=" + erabiltzailea + ", pasahitza=" + pasahitza + ", izena=" + izena
+				+ ", abizena=" + abizena + ", jaiotze_data=" + jaiotze_data + "]";
 	}
 		
 }

@@ -1,4 +1,4 @@
-package model;
+package model.metodoak;
 
 import javax.swing.WindowConstants;
 import view.*;
@@ -15,7 +15,7 @@ public class JFrameSortu {
 		erregistroMenu.setVisible(true);
     }
 	
-	public static void menua() {
+	public static void menuaBezeroa() {
 		Menua menuaAtera = new Menua();
 		menuaAtera.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		menuaAtera.setVisible(true);

@@ -36,15 +36,40 @@ public class SQLKonexioa {
 		}
 	}
 	
-	public static boolean prueba(String user, String passwd) throws SQLException {
+	public static String loginKonexioa(String user, String passwd) throws SQLException {
 		String SQLquery = "SELECT Erabiltzailea, Pasahitza FROM bezeroa WHERE Erabiltzailea LIKE '"+ user + "'";
 		ResultSet emaitza = query.executeQuery(SQLquery);
 		
 		while (emaitza.next()) {
+			if (emaitza.getString("Erabiltzailea").equals("admin")) {
+				return "Admin";
+			}
 			if (emaitza.getString("Erabiltzailea").equals(user) && emaitza.getString("Pasahitza").equals(passwd)) {
-				return true;
+				return "Bezeroa";
 			}
 		}
-		return false;
+		return "Txarto";
+	}
+	
+	public static ResultSet hizkuntza() throws SQLException {
+		String SQLquery = "SELECT Deskribapena FROM hizkuntza";
+		ResultSet emaitza = query.executeQuery(SQLquery);
+		
+		return emaitza;
+	}
+	
+	public static void erregistroa(String iz, String ab, String hiz, String erab, String pass, String jai, String errg) throws SQLException, ClassNotFoundException {
+		konexioaIreki();
+		String iderab = erab + "&";
+		try {
+			String SQLquery = "INSERT INTO bezeroa (IdBezeroa, Izena, Abizena, Hizkuntza, Erabiltzailea, Pasahitza, Jaiotza_data, Erregistro_data) VALUES ('"+iderab+"',"+"'"+iz+"',"+"'"+ab+"',"+"'"+hiz+"',"+"'"+erab+"',"+"'"+pass+"',"+"'"+jai+"',"+ "'"+errg+"')";
+			query.executeUpdate(SQLquery);
+			System.out.println("ERREGSITRATUTA");
+		} catch (SQLException e) {	
+			e.printStackTrace();
+			System.out.println("ERROREA");
+		}
+		
+		konexioaItxi();
 	}
 }

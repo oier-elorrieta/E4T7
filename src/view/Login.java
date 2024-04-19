@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import model.JFrameSortu;
+import model.metodoak.JFrameSortu;
 import model.sql.SQLKonexioa;
 
 import javax.swing.JLabel;
@@ -32,8 +32,7 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtFErabiltzaile;
 	private JPasswordField passwordField;
-	private boolean ondoLogin = false;
-	private boolean ondoLoginAdmin = false;
+	private String ondoLogin = "";
 
 	/**
 	 * Launch the application.
@@ -125,26 +124,26 @@ public class Login extends JFrame {
 				if (comboBox.getSelectedIndex() == 0) {
 					SQLKonexioa.konexioaIreki();
 					try {
-						ondoLogin = SQLKonexioa.prueba(txtErabil, passwdErabil);
+						ondoLogin = SQLKonexioa.loginKonexioa(txtErabil, passwdErabil);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
-					
-					if (ondoLogin) {
+					if (ondoLogin.equals("Bezeroa")) {
 						dispose();
-						JFrameSortu.menua();
+						JFrameSortu.menuaBezeroa();
 					} else {
-						try {
-							ondoLoginAdmin = SQLKonexioa.prueba(txtErabil, passwdErabil);
-						} catch (SQLException e1) {
-							e1.printStackTrace();
-						}
+						JOptionPane.showMessageDialog(null, "Erabiltzailea edo pasahitza txarto dago.", "Errorea", JOptionPane.ERROR_MESSAGE);
 					}
-					
+					SQLKonexioa.konexioaItxi();
 				} else {
-					
+					try {
+						dispose();
+						// JFrameSortu.menuaAdmin();
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "Erabiltzailea edo pasahitza txarto dago.", "Errorea", JOptionPane.ERROR_MESSAGE);
+					}
+					SQLKonexioa.konexioaItxi();
 				}
-				SQLKonexioa.konexioaItxi();
 			}
 		});
 		

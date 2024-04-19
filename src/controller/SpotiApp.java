@@ -1,6 +1,6 @@
 package controller;
 
-import model.JFrameSortu;
+import model.metodoak.JFrameSortu;
 
 public class SpotiApp {
 
