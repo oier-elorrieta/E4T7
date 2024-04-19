@@ -5,8 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
+import model.*;
 import model.metodoak.JFrameSortu;
+import model.metodoak.Metodoak;
 import model.sql.SQLKonexioa;
 
 import javax.swing.JLabel;
@@ -39,6 +40,8 @@ public class Erregistroa extends JFrame {
 	private JTextField txtAbizenak;
 	private ResultSet hizkuntza;
 	private DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
+	private String hiz = "";
+	private String hizkuntzaSt = "";
 
 	/**
 	 * Launch the application.
@@ -156,7 +159,7 @@ public class Erregistroa extends JFrame {
 		JButton btnErregistratu = new JButton("Erregistratu (Free)");
 		btnErregistratu.setForeground(Color.RED);
 		btnErregistratu.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnErregistratu.setBounds(620, 485, 185, 46);
+		btnErregistratu.setBounds(620, 485, 194, 46);
 		contentPane.add(btnErregistratu);
 		
 		JButton btnAtzera = new JButton("Atzera");
@@ -188,7 +191,25 @@ public class Erregistroa extends JFrame {
 		btnPremiumErosi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				hizkuntzaSt = Metodoak.hezkuntzaKonprobatu(hiz);
 				
+				LocalDate currentdate = LocalDate.now();
+				String date = currentdate.getYear() + "-" + currentdate.getMonthValue() + "-" + currentdate.getDayOfMonth();
+				if (passwordField.getText().equals(passwordFieldConfirm.getText())) {
+					try {
+						SQLKonexioa.erregistroaPremium(txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, txtErabiltzaile.getText(), passwordField.getText(), txtJaiotzeData.getText(), date);
+						dispose();
+						JFrameSortu.loginMenua();
+					} catch (ClassNotFoundException e1) {
+						JOptionPane.showMessageDialog(null, "Errorea egon da erregistratzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
+						e1.printStackTrace();
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(null, "Errorea egon da datu basearen konexioarekin!", "Errorea", JOptionPane.ERROR_MESSAGE);
+						e1.printStackTrace();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Pasahitzak ez dira berdinak!", "Errorea", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		
@@ -196,43 +217,16 @@ public class Erregistroa extends JFrame {
 		btnErregistratu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String hiz = (String) comboBoxHizkuntza.getSelectedItem();
-				String hizkuntza = "";
-				
-				switch (hiz) {
-					case "Euskera":
-						hizkuntza = "EU";
-						break;
-					case "Español":
-						hizkuntza = "ES";
-						break;
-					case "English":
-						hizkuntza = "EN";
-						break;
-					case "Français":
-						hizkuntza = "FR";
-						break;
-					case "Deutsch":
-						hizkuntza = "DE";
-						break;
-					case "Catalá":
-						hizkuntza = "CA";
-						break;
-					case "Gaeilg":
-						hizkuntza = "GA";
-						break;
-					case "Arabic":
-						hizkuntza = "AR";
-						break;
-				}
+				hiz = (String) comboBoxHizkuntza.getSelectedItem();
+				hizkuntzaSt = Metodoak.hezkuntzaKonprobatu(hiz);
 				
 				LocalDate currentdate = LocalDate.now();
 				String date = currentdate.getYear() + "-" + currentdate.getMonthValue() + "-" + currentdate.getDayOfMonth();
 				if (passwordField.getText().equals(passwordFieldConfirm.getText())) {
 					try {
-						SQLKonexioa.erregistroaFree(txtIzena.getText(), txtAbizenak.getText(), hizkuntza, txtErabiltzaile.getText(), passwordField.getText(), txtJaiotzeData.getText(), date);
+						SQLKonexioa.erregistroaFree(txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, txtErabiltzaile.getText(), passwordField.getText(), txtJaiotzeData.getText(), date);
 						dispose();
-						JFrameSortu.loginMenua();
+						JFrameSortu.menuaBezeroa();
 					} catch (ClassNotFoundException e1) {
 						JOptionPane.showMessageDialog(null, "Errorea egon da erregistratzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
 						e1.printStackTrace();

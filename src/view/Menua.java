@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.sql.SQLKonexioa;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -71,6 +74,18 @@ public class Menua extends JFrame {
 		btnNirePlaylistak.setFont(new Font("Verdana", Font.BOLD, 24));
 		btnNirePlaylistak.setBounds(237, 292, 418, 50);
 		contentPane.add(btnNirePlaylistak);
+		
+		JLabel lblUserizena = new JLabel("");
+		lblUserizena.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUserizena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		lblUserizena.setBounds(693, 11, 187, 34);
+		
+		if (SQLKonexioa.erabiltzaile_erregistro_free.getIzena().isEmpty()) {
+			lblUserizena.setText("Kaixo, " + SQLKonexioa.erabiltzaile_erregistro_premium.getIzena() + "!");
+		}
+		lblUserizena.setText("Kaixo, " + SQLKonexioa.erabiltzaile_erregistro_free.getIzena() + "!");
+		
+		contentPane.add(lblUserizena);
 		
 		btnMusikaDeskubritu.addMouseListener(new MouseAdapter() {
 			@Override

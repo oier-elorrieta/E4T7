@@ -4,17 +4,19 @@ import java.util.Date;
 import java.util.Objects;
 
 public class E_Premium extends Erabiltzailea {
-	protected String iraungintze_data;
-	
-	public E_Premium(String erabiltzailea, String pasahitza, String izena, String abizena, Date jaiotze_data) {
+	protected Date iraungintze_data;
+
+	public E_Premium(String erabiltzailea, String pasahitza, String izena, String abizena, Date jaiotze_data,
+			Date iraungintze_data) {
 		super(erabiltzailea, pasahitza, izena, abizena, jaiotze_data);
+		this.iraungintze_data = iraungintze_data;
 	}
 
-	public String getIraungintze_data() {
+	public Date getIraungintze_data() {
 		return iraungintze_data;
 	}
 
-	public void setIraungintze_data(String iraungintze_data) {
+	public void setIraungintze_data(Date iraungintze_data) {
 		this.iraungintze_data = iraungintze_data;
 	}
 

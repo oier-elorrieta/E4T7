@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.JOptionPane;
@@ -21,6 +23,8 @@ public class SQLKonexioa {
 	private static Connection konexioa;
 	private static Statement query;
 	private static Date jaiodata;
+	public static Erabiltzailea erabiltzaile_erregistro_free;
+	public static Erabiltzailea erabiltzaile_erregistro_premium;
 	
 	public static void konexioaIreki() {
 		try {
@@ -49,7 +53,7 @@ public class SQLKonexioa {
 		ResultSet emaitza = query.executeQuery(SQLquery);
 		
 		while (emaitza.next()) {
-			if (emaitza.getString("Erabiltzailea").equals("admin")) {
+			if (emaitza.getString("Erabiltzailea").equals("admin") && emaitza.getString("Pasahitza").equals("12345")) {
 				return "Admin";
 			}
 			if (emaitza.getString("Erabiltzailea").equals(user) && emaitza.getString("Pasahitza").equals(passwd)) {
@@ -80,7 +84,7 @@ public class SQLKonexioa {
 		try {
 			String SQLquery = "INSERT INTO bezeroa (IdBezeroa, Izena, Abizena, Hizkuntza, Erabiltzailea, Pasahitza, Jaiotza_data, Erregistro_data) VALUES ('"+iderab+"',"+"'"+iz+"',"+"'"+ab+"',"+"'"+hiz+"',"+"'"+erab+"',"+"'"+pass+"',"+"'"+jai+"',"+ "'"+errg+"')";
 			query.executeUpdate(SQLquery);
-			JOptionPane.showMessageDialog(null, "Ondo erregistratu egin zara!", "Erregistroa", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "[Free] Ondo erregistratu egin zara!", "Erregistroa", JOptionPane.INFORMATION_MESSAGE);
 		} catch (SQLException e) {
 			if (iz.isEmpty() && erab.isEmpty() && pass.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu erregistratzeko.", "Errorea", JOptionPane.ERROR_MESSAGE);
@@ -91,7 +95,7 @@ public class SQLKonexioa {
 		}
 		konexioaItxi();
 		
-		Erabiltzailea erabiltzaile_erregistro_free = new E_Free(erab, pass, iz, ab, jaiodata);
+		erabiltzaile_erregistro_free = new E_Free(erab, pass, iz, ab, jaiodata);
 		
 		
 		
@@ -107,11 +111,11 @@ public class SQLKonexioa {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        // INSERT-A EGIN
+        // INSERT-A EGIN BEZEROA
 		try {
 			String SQLquery = "INSERT INTO bezeroa (IdBezeroa, Izena, Abizena, Hizkuntza, Erabiltzailea, Pasahitza, Jaiotza_data, Erregistro_data, Mota) VALUES ('"+iderab+"',"+"'"+iz+"',"+"'"+ab+"',"+"'"+hiz+"',"+"'"+erab+"',"+"'"+pass+"',"+"'"+jai+"',"+ "'"+errg+"','Premium')";
 			query.executeUpdate(SQLquery);
-			JOptionPane.showMessageDialog(null, "Ondo erregistratu egin zara!", "Erregistroa", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "[Premium] Ondo erregistratu egin zara!", "Erregistroa", JOptionPane.INFORMATION_MESSAGE);
 		} catch (SQLException e) {
 			if (iz.isEmpty() && erab.isEmpty() && pass.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu erregistratzeko.", "Errorea", JOptionPane.ERROR_MESSAGE);
@@ -122,9 +126,29 @@ public class SQLKonexioa {
 		}
 		konexioaItxi();
 		
-		Erabiltzailea erabiltzaile_erregistro_premium = new E_Premium(erab, pass, iz, ab, jaiodata);
+		Date current = new Date();
 		
+		Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(current);
+	        
+	        // Sumar tres meses
+	    calendar.add(Calendar.MONTH, 3);
+	        
+	        // Obtener la nueva fecha después de sumar tres meses
+	    Date iraunData = calendar.getTime();
 		
+		erabiltzaile_erregistro_premium = new E_Premium(erab, pass, iz, ab, jaiodata, iraunData);
 		
+	}
+	
+	public static void konprobatuUserMota() {
+		if (!erabiltzaile_erregistro_premium.getIzena().isEmpty() && !erabiltzaile_erregistro_free.getIzena().isEmpty()) {
+			konexioaIreki();
+			
+			String SQLquery = "SELECT Mota FROM bezeroa WHERE Erabiltzailea LIKE '"+ user + "'";
+			ResultSet emaitza = query.executeQuery(SQLquery);
+			
+			konexioaItxi();
+		}
 	}
 }
