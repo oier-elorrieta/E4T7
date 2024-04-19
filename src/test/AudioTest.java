@@ -67,7 +67,7 @@ public class AudioTest {
         }
         @Test
         public void testToEqualsDiff() {
-            Erabiltzailea erabiltzailea1 = new Erabiltzailea("erabiltzailea", "izena", "abizena", null);
+            Erabiltzailea erabiltzailea1 = new Erabiltzailea("erabiltzailea","password", "izena", "abizena", null);
             Audio aud  = new Audio(null, 0);
             assertFalse(aud.equals(erabiltzailea1));
         }

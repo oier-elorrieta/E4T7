@@ -50,11 +50,11 @@ public class Erabiltzailea {
 		this.pasahitza = pasahitza;
 	}
 
-	Date getJaiotze_data() {
+	public Date getJaiotze_data() {
 		return jaiotze_data;
 	}
 
-	void setJaiotze_data(Date jaiotze_data) {
+	public void setJaiotze_data(Date jaiotze_data) {
 		this.jaiotze_data = jaiotze_data;
 	}
 

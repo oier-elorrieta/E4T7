@@ -69,7 +69,7 @@ public class SQLKonexioa {
 		
 		return emaitza;
 	}
-	
+											// HACER PASANDO OBJETO
 	public static void erregistroaFree(String iz, String ab, String hiz, String erab, String pass, String jai, String errg) throws SQLException, ClassNotFoundException {
 		konexioaIreki();
 		String iderab = erab + "&";
