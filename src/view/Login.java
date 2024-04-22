@@ -103,12 +103,14 @@ public class Login extends JFrame {
 		JButton btnLogin = new JButton("Login egin");
 		btnLogin.setFont(new Font("Tw Cen MT", Font.BOLD, 18));
 		btnLogin.setBounds(572, 471, 132, 38);
+		btnLogin.setFocusPainted(false);
 		contentPane.add(btnLogin);
 		
 		JButton btnErregistroa = new JButton("Erregistratu");
 		btnErregistroa.setForeground(Color.RED);
 		btnErregistroa.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.PLAIN, 19));
 		btnErregistroa.setBounds(148, 470, 132, 38);
+		btnErregistroa.setFocusPainted(false);
 		contentPane.add(btnErregistroa);
 		
 		JLabel lblErabiltzaileMota = new JLabel("Erabiltzaile mota:");

@@ -55,25 +55,29 @@ public class Menua extends JFrame {
 		lblMenua.setBounds(0, 33, 890, 27);
 		contentPane.add(lblMenua);
 		
-		JButton btnMusikaDeskubritu = new JButton("Musika deskubritu");
-		btnMusikaDeskubritu.setFont(new Font("Verdana", Font.BOLD, 24));
-		btnMusikaDeskubritu.setBounds(237, 138, 418, 50);
-		contentPane.add(btnMusikaDeskubritu);
-		
 		JLabel lblKaixoMezua = new JLabel("Kaixo, entzule! Zer egin nahi duzu?");
 		lblKaixoMezua.setHorizontalAlignment(SwingConstants.CENTER);
 		lblKaixoMezua.setFont(new Font("Trebuchet MS", Font.BOLD, 17));
 		lblKaixoMezua.setBounds(0, 71, 890, 34);
 		contentPane.add(lblKaixoMezua);
 		
+		JButton btnMusikaDeskubritu = new JButton("Musika deskubritu");
+		btnMusikaDeskubritu.setFont(new Font("Verdana", Font.BOLD, 24));
+		btnMusikaDeskubritu.setBounds(237, 138, 418, 50);
+		btnMusikaDeskubritu.setFocusPainted(false);
+		contentPane.add(btnMusikaDeskubritu);
+	
+		
 		JButton btnPodcastakDeskubritu = new JButton("Podcast-ak deskubritu");
 		btnPodcastakDeskubritu.setFont(new Font("Verdana", Font.BOLD, 24));
 		btnPodcastakDeskubritu.setBounds(237, 214, 418, 50);
+		btnPodcastakDeskubritu.setFocusPainted(false);
 		contentPane.add(btnPodcastakDeskubritu);
 		
 		JButton btnNirePlaylistak = new JButton("Nire PlayList-ak");
 		btnNirePlaylistak.setFont(new Font("Verdana", Font.BOLD, 24));
 		btnNirePlaylistak.setBounds(237, 292, 418, 50);
+		btnNirePlaylistak.setFocusPainted(false);
 		contentPane.add(btnNirePlaylistak);
 		
 		JLabel lblUserizena = new JLabel("");

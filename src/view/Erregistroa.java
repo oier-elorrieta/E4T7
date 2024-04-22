@@ -166,11 +166,13 @@ public class Erregistroa extends JFrame {
 		btnErregistratu.setForeground(Color.RED);
 		btnErregistratu.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnErregistratu.setBounds(620, 485, 194, 46);
+		btnErregistratu.setFocusPainted(false);
 		contentPane.add(btnErregistratu);
 		
 		JButton btnAtzera = new JButton("Atzera");
 		btnAtzera.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnAtzera.setBounds(123, 485, 147, 46);
+		btnAtzera.setFocusPainted(false);
 		contentPane.add(btnAtzera);
 		
 		JLabel lblDataformatuaYyyymmdd = new JLabel("* Data-formatua -> YYYY-MM-DD");
@@ -182,6 +184,7 @@ public class Erregistroa extends JFrame {
 		btnPremiumErosi.setForeground(Color.BLUE);
 		btnPremiumErosi.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btnPremiumErosi.setBounds(374, 485, 185, 46);
+		btnPremiumErosi.setFocusPainted(false);
 		contentPane.add(btnPremiumErosi);
 		
 		hiz = (String) comboBoxHizkuntza.getSelectedItem();

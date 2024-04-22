@@ -24,9 +24,6 @@ public class SQLKonexioa {
 	private static final String PASS = "";
 	private static Connection konexioa;
 	private static Statement query;
-	private static Date jaiodata;
-	public static Erabiltzailea erabiltzaile_erregistro_free;
-	public static Erabiltzailea erabiltzaile_erregistro_premium;
 	
 	public static void konexioaIreki() {
 		try {
@@ -72,8 +69,8 @@ public class SQLKonexioa {
 					if (mota.equals("Free")) {
 						E_Free f1 = new E_Free(erabiltzailea, pasahitza, izena, abizena, hizkuntza, jaioData);
 						e1 = f1;
-					}else {
-						E_Premium p1 = new E_Premium(erabiltzailea, pasahitza, izena, abizena, hizkuntza, jaioData, IraungitzeDataLortu(erabiltzailea));
+					} else {
+						E_Premium p1 = new E_Premium(erabiltzailea, pasahitza, izena, abizena, hizkuntza, jaioData, iraungitzeDataLortu(erabiltzailea));
 						e1 = p1;
 					}
 
@@ -88,7 +85,7 @@ public class SQLKonexioa {
 		return e1;
 	}
 	
-	public static Date IraungitzeDataLortu (String erabiltzailea) {
+	public static Date iraungitzeDataLortu (String erabiltzailea) {
 		
 		Date IraungitzeData = null;
 		
