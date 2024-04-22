@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import model.E_Free;
+import model.E_Premium;
 import model.Erabiltzailea;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
@@ -20,10 +22,15 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -118,37 +125,33 @@ public class Login extends JFrame {
 		contentPane.add(comboBox);
 		
 		// LOGIN EGITEKO BOTOIA
-		btnLogin.addMouseListener(new MouseAdapter() {
-			@SuppressWarnings("deprecation")
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				String txtErabil = txtFErabiltzaile.getText();
-				String passwdErabil = passwordField.getText();
-				if (comboBox.getSelectedIndex() == 0) {
-					SQLKonexioa.konexioaIreki();
-					try {
-						System.out.println(txtErabil + passwdErabil);
-						BezeroOndo = SQLKonexioa.loginKonexioa(txtErabil, passwdErabil);
-						SesioAldagaiak.bezero_Ondo = BezeroOndo;
-						System.out.println(BezeroOndo.toString());
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
-					
-					
-					if (BezeroOndo != null) {
-						dispose();
-						JFrameSortu.menuaBezeroa();
-					} else {
-						JOptionPane.showMessageDialog(null, "Erabiltzailea edo pasahitza txarto dago.", "Errorea", JOptionPane.ERROR_MESSAGE);
-					}
-					
-					
-				}
-					
+		btnLogin.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        String txtErabil = txtFErabiltzaile.getText();
+		        char[] charPass = passwordField.getPassword();
+		        String passwdErabil = new String(charPass);
+		        if (comboBox.getSelectedIndex() == 0) {
+		            SQLKonexioa.konexioaIreki();
+		            try {
+		                BezeroOndo = SQLKonexioa.loginKonexioa(txtErabil, passwdErabil);
+		            } catch (SQLException e1) {
+		                e1.printStackTrace();
+		            }
 
-			}
+		            if (BezeroOndo != null) {
+		                dispose();
+		                System.out.println(BezeroOndo.toString());
+		                SesioAldagaiak.bezero_Ondo = BezeroOndo;
+		                JFrameSortu.menuaBezeroa();
+		            } else {
+		                JOptionPane.showMessageDialog(null, "Erabiltzailea edo pasahitza txarto dago.", "Errorea", JOptionPane.ERROR_MESSAGE);
+		                txtFErabiltzaile.setText("");
+		                passwordField.setText("");
+		            }
+		        }
+		    }
 		});
+
 		
 		btnErregistroa.addMouseListener(new MouseAdapter() {
 			@Override

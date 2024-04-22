@@ -92,12 +92,14 @@ public class SQLKonexioa {
 		
 		Date IraungitzeData = null;
 		
-		String SQLquery = "SELECT Iraungitze_data FROM premium WHERE Erabiltzailea LIKE '"+ erabiltzailea + "'";
+		String SQLquery = "SELECT Iraungitze_data FROM premium WHERE IDBezeroa = (SELECT IDBezeroa FROM bezeroa WHERE Erabiltzailea = '" + erabiltzailea + "')";
 		
 		try (PreparedStatement preparedStatement = konexioa.prepareStatement(SQLquery);
 		        ResultSet resultSet = preparedStatement.executeQuery()) {
 		      	
-			   	IraungitzeData = resultSet.getDate("Iraungitze_data");
+            if (resultSet.next()) {
+            	IraungitzeData = resultSet.getDate("Iraungitze_data");
+            }
 			   	
 			   	
 		   } catch (SQLException e) {

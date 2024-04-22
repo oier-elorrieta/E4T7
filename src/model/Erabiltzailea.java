@@ -13,7 +13,6 @@ public class Erabiltzailea {
 
 	public Erabiltzailea(String erabiltzailea, String pasahitza, String izena, String abizena, String hizkuntza,
 			Date jaiotze_data) {
-		super();
 		this.erabiltzailea = erabiltzailea;
 		this.pasahitza = pasahitza;
 		this.izena = izena;
