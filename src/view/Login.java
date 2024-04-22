@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import model.metodoak.JFrameSortu;
+import model.metodoak.SesioAldagaiak;
 import model.sql.SQLKonexioa;
 
 import javax.swing.JLabel;
@@ -129,12 +130,17 @@ public class Login extends JFrame {
 						e1.printStackTrace();
 					}
 					if (ondoLogin.equals("Bezeroa")) {
+						
+						
+						
+						//SesioAldagaiak.erabiltzaile_premium;
 						dispose();
 						JFrameSortu.menuaBezeroa();
 					} else {
 						JOptionPane.showMessageDialog(null, "Erabiltzailea edo pasahitza txarto dago.", "Errorea", JOptionPane.ERROR_MESSAGE);
 					}
 					SQLKonexioa.konexioaItxi();
+					
 				} else {
 					try {
 						dispose();

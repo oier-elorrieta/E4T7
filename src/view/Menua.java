@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import model.metodoak.SesioAldagaiak;
 import model.sql.SQLKonexioa;
 
 import javax.swing.JLabel;
@@ -80,10 +81,10 @@ public class Menua extends JFrame {
 		lblUserizena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
 		lblUserizena.setBounds(693, 11, 187, 34);
 		
-		if (SQLKonexioa.erabiltzaile_erregistro_free.getIzena().isEmpty()) {
-			lblUserizena.setText("Kaixo, " + SQLKonexioa.erabiltzaile_erregistro_premium.getIzena() + "!");
+		if (SesioAldagaiak.erabiltzaile_free.getIzena().isEmpty()) {
+			lblUserizena.setText("Kaixo, " + SesioAldagaiak.erabiltzaile_premium.getIzena() + "!");
 		}
-		lblUserizena.setText("Kaixo, " + SQLKonexioa.erabiltzaile_erregistro_free.getIzena() + "!");
+		lblUserizena.setText("Kaixo, " + SesioAldagaiak.erabiltzaile_free.getIzena() + "!");
 		
 		contentPane.add(lblUserizena);
 		

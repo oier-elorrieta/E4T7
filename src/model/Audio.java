@@ -14,7 +14,7 @@ public class Audio {
 	public String getTitulua() {
 		return titulua;
 	}
-
+	
 	public void setTitulua(String titulua) {
 		this.titulua = titulua;
 	}

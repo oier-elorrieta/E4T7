@@ -6,19 +6,25 @@ import java.util.Objects;
 public class E_Premium extends Erabiltzailea {
 	protected Date iraungintze_data;
 
-	public E_Premium(String erabiltzailea, String pasahitza, String izena, String abizena, Date jaiotze_data,
-			Date iraungintze_data) {
-		super(erabiltzailea, pasahitza, izena, abizena, jaiotze_data);
+	public E_Premium(String erabiltzailea, String pasahitza, String izena, String abizena, String hizkuntza,
+			Date jaiotze_data, Date iraungintze_data) {
+		super(erabiltzailea, pasahitza, izena, abizena, hizkuntza, jaiotze_data);
 		this.iraungintze_data = iraungintze_data;
 	}
+
+
 
 	public Date getIraungintze_data() {
 		return iraungintze_data;
 	}
 
+
+
 	public void setIraungintze_data(Date iraungintze_data) {
 		this.iraungintze_data = iraungintze_data;
 	}
+
+
 
 	@Override
 	public String toString() {

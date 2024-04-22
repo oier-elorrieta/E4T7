@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import model.*;
 import model.metodoak.JFrameSortu;
 import model.metodoak.Metodoak;
+import model.metodoak.SesioAldagaiak;
 import model.sql.SQLKonexioa;
 
 import javax.swing.JLabel;
@@ -25,8 +26,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Formatter;
+import java.util.Locale;
 
 public class Erregistroa extends JFrame {
 
@@ -40,9 +45,10 @@ public class Erregistroa extends JFrame {
 	private JTextField txtAbizenak;
 	private ResultSet hizkuntza;
 	private DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
-	private String hiz = "";
 	private String hizkuntzaSt = "";
-
+	private Date dateJaioData;
+	private String hiz = "";
+	
 	/**
 	 * Launch the application.
 	 */
@@ -178,6 +184,9 @@ public class Erregistroa extends JFrame {
 		btnPremiumErosi.setBounds(374, 485, 185, 46);
 		contentPane.add(btnPremiumErosi);
 		
+		hiz = (String) comboBoxHizkuntza.getSelectedItem();
+		
+		
 		// ATZERA BOTOIA
 		btnAtzera.addMouseListener(new MouseAdapter() {
 			@Override
@@ -191,13 +200,21 @@ public class Erregistroa extends JFrame {
 		btnPremiumErosi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 				hizkuntzaSt = Metodoak.hezkuntzaKonprobatu(hiz);
+				String dateInString = txtJaiotzeData.getText();
+				String DateSplit[] = dateInString.split("-");
+				dateJaioData = new Date(Integer.parseInt(DateSplit[0]),Integer.parseInt(DateSplit[1]),Integer.parseInt(DateSplit[2]));
 				
 				LocalDate currentdate = LocalDate.now();
-				String date = currentdate.getYear() + "-" + currentdate.getMonthValue() + "-" + currentdate.getDayOfMonth();
+				int iraunYear = currentdate.getYear() + 1;
+				Date iraunData = new Date(iraunYear + "-" + currentdate.getMonthValue() + "-" + currentdate.getDayOfMonth());
+				
+				SesioAldagaiak.erabiltzaile_premium = new E_Premium(txtErabiltzaile.getText(),passwordField.getText(), txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData, iraunData);
+				
 				if (passwordField.getText().equals(passwordFieldConfirm.getText())) {
 					try {
-						SQLKonexioa.erregistroaPremium(txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, txtErabiltzaile.getText(), passwordField.getText(), txtJaiotzeData.getText(), date);
+						SQLKonexioa.erregistroaPremium(SesioAldagaiak.erabiltzaile_premium);
 						dispose();
 						JFrameSortu.loginMenua();
 					} catch (ClassNotFoundException e1) {
@@ -210,6 +227,8 @@ public class Erregistroa extends JFrame {
 				} else {
 					JOptionPane.showMessageDialog(null, "Pasahitzak ez dira berdinak!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				}
+				
+				
 			}
 		});
 		
@@ -217,14 +236,17 @@ public class Erregistroa extends JFrame {
 		btnErregistratu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				hiz = (String) comboBoxHizkuntza.getSelectedItem();
 				hizkuntzaSt = Metodoak.hezkuntzaKonprobatu(hiz);
 				
-				LocalDate currentdate = LocalDate.now();
-				String date = currentdate.getYear() + "-" + currentdate.getMonthValue() + "-" + currentdate.getDayOfMonth();
+				String dateInString = txtJaiotzeData.getText();
+				String DateSplit[] = dateInString.split("-");
+				dateJaioData = new Date(Integer.parseInt(DateSplit[0]),Integer.parseInt(DateSplit[1]),Integer.parseInt(DateSplit[2]));
+				
+				SesioAldagaiak.erabiltzaile_free = new E_Free(txtErabiltzaile.getText(),passwordField.getText(), txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData);
+				
 				if (passwordField.getText().equals(passwordFieldConfirm.getText())) {
 					try {
-						SQLKonexioa.erregistroaFree(txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, txtErabiltzaile.getText(), passwordField.getText(), txtJaiotzeData.getText(), date);
+						SQLKonexioa.erregistroaFree(SesioAldagaiak.erabiltzaile_free);
 						dispose();
 						JFrameSortu.menuaBezeroa();
 					} catch (ClassNotFoundException e1) {
