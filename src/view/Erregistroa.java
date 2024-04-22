@@ -203,15 +203,13 @@ public class Erregistroa extends JFrame {
 		btnPremiumErosi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
 				hizkuntzaSt = Metodoak.hezkuntzaKonprobatu(hiz);
 				String dateInString = txtJaiotzeData.getText();
 				String DateSplit[] = dateInString.split("-");
-				dateJaioData = new Date(Integer.parseInt(DateSplit[0]),Integer.parseInt(DateSplit[1]),Integer.parseInt(DateSplit[2]));
-				
-				LocalDate currentdate = LocalDate.now();
-				int iraunYear = currentdate.getYear() + 1;
-				Date iraunData = new Date(iraunYear + "-" + currentdate.getMonthValue() + "-" + currentdate.getDayOfMonth());
+				dateJaioData = new Date((Integer.parseInt(DateSplit[0])-1900),(Integer.parseInt(DateSplit[1])-1),Integer.parseInt(DateSplit[2]));
+
+				LocalDate UrteGehituPremium = LocalDate.now().plusYears(1);
+				Date iraunData = java.sql.Date.valueOf(UrteGehituPremium);
 				
 				SesioAldagaiak.erabiltzaile_premium = new E_Premium(txtErabiltzaile.getText(),passwordField.getText(), txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData, iraunData);
 				
@@ -219,7 +217,7 @@ public class Erregistroa extends JFrame {
 					try {
 						SQLKonexioa.erregistroaPremium(SesioAldagaiak.erabiltzaile_premium);
 						dispose();
-						JFrameSortu.loginMenua();
+						JFrameSortu.menuaBezeroa();
 					} catch (ClassNotFoundException e1) {
 						JOptionPane.showMessageDialog(null, "Errorea egon da erregistratzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
 						e1.printStackTrace();
@@ -240,10 +238,9 @@ public class Erregistroa extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				hizkuntzaSt = Metodoak.hezkuntzaKonprobatu(hiz);
-				
 				String dateInString = txtJaiotzeData.getText();
 				String DateSplit[] = dateInString.split("-");
-				dateJaioData = new Date(Integer.parseInt(DateSplit[0]),Integer.parseInt(DateSplit[1]),Integer.parseInt(DateSplit[2]));
+				dateJaioData = new Date((Integer.parseInt(DateSplit[0])-1900),(Integer.parseInt(DateSplit[1])-1),Integer.parseInt(DateSplit[2]));
 				
 				SesioAldagaiak.erabiltzaile_free = new E_Free(txtErabiltzaile.getText(),passwordField.getText(), txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData);
 				
