@@ -21,7 +21,7 @@ public class Erabiltzailea {
 		this.hizkuntza = hizkuntza;
 		this.jaiotze_data = jaiotze_data;
 	}
-
+	
 	public String getErabiltzailea() {
 		return erabiltzailea;
 	}

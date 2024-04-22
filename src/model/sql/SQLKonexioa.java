@@ -2,6 +2,7 @@ package model.sql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -49,15 +50,64 @@ public class SQLKonexioa {
 		}
 	}
 	
-	public static ResultSet loginKonexioa(String user, String passwd) throws SQLException {
-		konexioaIreki();
-		String SQLquery = "SELECT IDBezeroa, Erabiltzailea, Pasahitza, Mota FROM bezeroa WHERE Erabiltzailea LIKE '"+ user + "'";
-		ResultSet emaitza = query.executeQuery(SQLquery);
-		konexioaItxi();
+	public static Erabiltzailea loginKonexioa(String user, String passwd) throws SQLException {
 		
-		return emaitza;
+		Erabiltzailea e1 = null;
+		String SQLquery = "SELECT Erabiltzailea, Pasahitza, Mota, Izena, Abizena, Hizkuntza, Jaiotza_data FROM bezeroa WHERE Erabiltzailea LIKE '"+ user + "' AND Pasahitza = '" + passwd + "'";
+
+		try (PreparedStatement preparedStatement = konexioa.prepareStatement(SQLquery);
+		        ResultSet resultSet = preparedStatement.executeQuery()) {
+		
+		       while (resultSet.next()) {
+			   		String erabiltzailea = resultSet.getString("Erabiltzailea");
+			        String pasahitza = resultSet.getString("Pasahitza");
+			        String mota = resultSet.getString("Mota");
+			        
+			        String izena = resultSet.getString("Izena");
+			        String abizena = resultSet.getString("Abizena");
+			        String hizkuntza = resultSet.getString("Hizkuntza");
+			        Date jaioData = resultSet.getDate("Jaiotza_data");
+
+			        					
+					if (mota.equals("Free")) {
+						E_Free f1 = new E_Free(erabiltzailea, pasahitza, izena, abizena, hizkuntza, jaioData);
+						e1 = f1;
+					}else {
+						E_Premium p1 = new E_Premium(erabiltzailea, pasahitza, izena, abizena, hizkuntza, jaioData, IraungitzeDataLortu(erabiltzailea));
+						e1 = p1;
+					}
+
+		       }
+		
+		   } catch (SQLException e) {
+		       e.printStackTrace();
+		   } finally {
+			   konexioaItxi();
+		   }		
+		
+		return e1;
 	}
 	
+	public static Date IraungitzeDataLortu (String erabiltzailea) {
+		
+		Date IraungitzeData = null;
+		
+		String SQLquery = "SELECT Iraungitze_data FROM premium WHERE Erabiltzailea LIKE '"+ erabiltzailea + "'";
+		
+		try (PreparedStatement preparedStatement = konexioa.prepareStatement(SQLquery);
+		        ResultSet resultSet = preparedStatement.executeQuery()) {
+		      	
+			   	IraungitzeData = resultSet.getDate("Iraungitze_data");
+			   	
+			   	
+		   } catch (SQLException e) {
+		       e.printStackTrace();
+		   } 	
+		
+		return IraungitzeData;
+
+	}
+ 	
 	public static ResultSet hizkuntza() throws SQLException {
 		String SQLquery = "SELECT Deskribapena FROM hizkuntza";
 		ResultSet emaitza = query.executeQuery(SQLquery);
@@ -113,21 +163,4 @@ public class SQLKonexioa {
 		}
 		konexioaItxi();
 	}
-	
-	/*public static Erabiltzailea konprobatuUserMota(String user) throws SQLException {
-			String IDb = "";
-			konexioaIreki();
-			String SQLquery = "SELECT IDBezeroa, Mota FROM bezeroa WHERE Erabiltzailea LIKE '"+ user + "'";
-			ResultSet emaitza1 = query.executeQuery(SQLquery);
-			
-			while (emaitza1.next()) {
-				if(emaitza1.getString("Mota").equals("Premium")) {
-					IDb = emaitza1.getString("IDBezeroa");
-					String SQLquery2 = "SELECT IDBezeroa FROM premium WHERE IDBezeroa LIKE '"+ IDb + "'";
-					ResultSet emaitza2 = query.executeQuery(SQLquery);
-				}
-			}
-			konexioaItxi();
-			//SesioAldagaiak.erabiltzaile_free();
-	}*/
 }
