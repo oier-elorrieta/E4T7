@@ -9,7 +9,9 @@ import model.*;
 import model.metodoak.JFrameSortu;
 import model.metodoak.View_metodoak;
 import model.metodoak.SesioAldagaiak;
+import model.sql.ErregistroDAO;
 import model.sql.SQLInterakzioa;
+import salbuespenak.DataBalidazioaException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -204,8 +206,13 @@ public class Erregistroa extends JFrame {
 		if (SesioAldagaiak.logeatuta) {
 			contentPane.add(btnEditatu);
 			contentPane.add(lblNireProfila);
+			btnErregistratu.setEnabled(false);
 			lblErregistroa.setText("");
 			lblErregistroa.setBounds(0, 2, 100, 2);
+		}
+		
+		if (SesioAldagaiak.e_premium) {
+			btnPremiumErosi.setEnabled(false);
 		}
 		
 		// HARTU FORMULARIOTIK HIZKUNTZA AUKERA
@@ -230,42 +237,61 @@ public class Erregistroa extends JFrame {
 		btnPremiumErosi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// KONPROBATU FORMULARIOA BETETA DAGOEN
-				if (passwordField.getText().isEmpty() || txtIzena.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu!", "Errorea", JOptionPane.ERROR_MESSAGE);
+				boolean premiumKomp = false;
+				try {
+					ErregistroDAO.konprabatuPremium();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				if (SesioAldagaiak.e_premium) {
+					JOptionPane.showMessageDialog(null, "Premium erabiltzailea zara jada!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {
-					// HIZKUNTZA KONPROBATZEKO METODOA
-					hizkuntzaSt = View_metodoak.hezkuntzaKonprobatu(hiz);
-					// JAIOTZE DATA HARTU ETA PARSEATU
-					String dateInString = txtJaiotzeData.getText();
-					String DateSplit[] = dateInString.split("-");
-					dateJaioData = new Date((Integer.parseInt(DateSplit[0])-1900),(Integer.parseInt(DateSplit[1])-1),Integer.parseInt(DateSplit[2]));
-					
-					// GEHITU URTE BAT GAURKO EGUNARI - PREMIUM
-					LocalDate UrteGehituPremium = LocalDate.now().plusYears(1);
-					Date iraunData = java.sql.Date.valueOf(UrteGehituPremium);
-					// OBJEKTUAN SARTU BEZEROA
-					SesioAldagaiak.bezero_Ondo = new E_Premium(txtErabiltzaile.getText(),passwordField.getText(), txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData, iraunData);
-					
-					// PASAHITZAK KOINTZIDITZEN BADIRA, ERREGISTROA EGIN
-					if (passwordField.getText().equals(passwordFieldConfirm.getText())) {
-						try {
-							SQLInterakzioa.erregistroaPremium(SesioAldagaiak.bezero_Ondo);
-							SesioAldagaiak.e_premium = true;
-			                SesioAldagaiak.logeatuta = true;
-							dispose();
-							JFrameSortu.menuaBezeroa();
-						} catch (ClassNotFoundException e1) {
-							JOptionPane.showMessageDialog(null, "Errorea egon da erregistratzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
-							e1.printStackTrace();
-						} catch (SQLException e1) {
-							JOptionPane.showMessageDialog(null, "Errorea egon da datu basearen konexioarekin!", "Errorea", JOptionPane.ERROR_MESSAGE);
-							e1.printStackTrace();
-						}
+					// KONPROBATU FORMULARIOA BETETA DAGOEN
+					if (passwordField.getText().isEmpty() || txtIzena.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 					} else {
-						JOptionPane.showMessageDialog(null, "Pasahitzak ez dira berdinak!", "Errorea", JOptionPane.ERROR_MESSAGE);
+						// HIZKUNTZA KONPROBATZEKO METODOA
+						hizkuntzaSt = View_metodoak.hezkuntzaKonprobatu(hiz);
+						// JAIOTZE DATA HARTU ETA PARSEATU + BALIDAZIOA
+						
+						
+						try {
+							String dateInString = txtJaiotzeData.getText();
+							View_metodoak.dataBalidatu(dateInString);
+							String DateSplit[] = dateInString.split("-");
+							dateJaioData = new Date((Integer.parseInt(DateSplit[0])-1900),(Integer.parseInt(DateSplit[1])-1),Integer.parseInt(DateSplit[2]));
+						} catch (DataBalidazioaException e2) {
+							
+						}
+						
+						// GEHITU URTE BAT GAURKO EGUNARI - PREMIUM
+						LocalDate UrteGehituPremium = LocalDate.now().plusYears(1);
+						Date iraunData = java.sql.Date.valueOf(UrteGehituPremium);
+						// OBJEKTUAN SARTU BEZEROA
+						SesioAldagaiak.bezero_Ondo = new E_Premium(txtErabiltzaile.getText(),passwordField.getText(), txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData, iraunData);
+						
+						// PASAHITZAK KOINTZIDITZEN BADIRA, ERREGISTROA EGIN
+						if (passwordField.getText().equals(passwordFieldConfirm.getText())) {
+							try {
+								SQLInterakzioa.erregistroaPremium(SesioAldagaiak.bezero_Ondo);
+								SesioAldagaiak.e_premium = true;
+				                SesioAldagaiak.logeatuta = true;
+								dispose();
+								JFrameSortu.menuaBezeroa();
+							} catch (ClassNotFoundException e1) {
+								JOptionPane.showMessageDialog(null, "Errorea egon da erregistratzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
+								e1.printStackTrace();
+							} catch (SQLException e1) {
+								JOptionPane.showMessageDialog(null, "Errorea egon da datu basearen konexioarekin!", "Errorea", JOptionPane.ERROR_MESSAGE);
+								e1.printStackTrace();
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, "Pasahitzak ez dira berdinak!", "Errorea", JOptionPane.ERROR_MESSAGE);
+						}
 					}
 				}
+				
 			}
 		});
 		
@@ -273,34 +299,39 @@ public class Erregistroa extends JFrame {
 		btnErregistratu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (passwordField.getText().isEmpty() || txtIzena.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu!", "Errorea", JOptionPane.ERROR_MESSAGE);
+				if (SesioAldagaiak.logeatuta) {
+					JOptionPane.showMessageDialog(null, "Erregistratuta zaude jada!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {
-					hizkuntzaSt = View_metodoak.hezkuntzaKonprobatu(hiz);
-					String dateInString = txtJaiotzeData.getText();
-					String DateSplit[] = dateInString.split("-");
-					dateJaioData = new Date((Integer.parseInt(DateSplit[0])-1900),(Integer.parseInt(DateSplit[1])-1),Integer.parseInt(DateSplit[2]));
-					
-					SesioAldagaiak.bezero_Ondo = new E_Free(txtErabiltzaile.getText(),passwordField.getText(), txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData);
-
-					if (passwordField.getText().equals(passwordFieldConfirm.getText())) {
-						try {
-							SQLInterakzioa.erregistroaFree(SesioAldagaiak.bezero_Ondo);
-							dispose();
-							SesioAldagaiak.e_premium = false;
-			                SesioAldagaiak.logeatuta = true;
-							JFrameSortu.menuaBezeroa();
-						} catch (ClassNotFoundException e1) {
-							JOptionPane.showMessageDialog(null, "Errorea egon da erregistratzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
-							e1.printStackTrace();
-						} catch (SQLException e1) {
-							JOptionPane.showMessageDialog(null, "Errorea egon da datu basearen konexioarekin!", "Errorea", JOptionPane.ERROR_MESSAGE);
-							e1.printStackTrace();
-						}
+					if (passwordField.getText().isEmpty() || txtIzena.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 					} else {
-						JOptionPane.showMessageDialog(null, "Pasahitzak ez dira berdinak!", "Errorea", JOptionPane.ERROR_MESSAGE);
+						hizkuntzaSt = View_metodoak.hezkuntzaKonprobatu(hiz);
+						String dateInString = txtJaiotzeData.getText();
+						String DateSplit[] = dateInString.split("-");
+						dateJaioData = new Date((Integer.parseInt(DateSplit[0])-1900),(Integer.parseInt(DateSplit[1])-1),Integer.parseInt(DateSplit[2]));
+						
+						SesioAldagaiak.bezero_Ondo = new E_Free(txtErabiltzaile.getText(),passwordField.getText(), txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData);
+
+						if (passwordField.getText().equals(passwordFieldConfirm.getText())) {
+							try {
+								SQLInterakzioa.erregistroaFree(SesioAldagaiak.bezero_Ondo);
+								dispose();
+								SesioAldagaiak.e_premium = false;
+				                SesioAldagaiak.logeatuta = true;
+								JFrameSortu.menuaBezeroa();
+							} catch (ClassNotFoundException e1) {
+								JOptionPane.showMessageDialog(null, "Errorea egon da erregistratzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
+								e1.printStackTrace();
+							} catch (SQLException e1) {
+								JOptionPane.showMessageDialog(null, "Errorea egon da datu basearen konexioarekin!", "Errorea", JOptionPane.ERROR_MESSAGE);
+								e1.printStackTrace();
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, "Pasahitzak ez dira berdinak!", "Errorea", JOptionPane.ERROR_MESSAGE);
+						}
 					}
 				}
+				
 			}
 		});
 	}

@@ -4,6 +4,8 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 
+import salbuespenak.DataBalidazioaException;
+
 public class View_metodoak {
 	
 	// BOTOIAK 
@@ -56,4 +58,10 @@ public class View_metodoak {
 		}
 		return hizkuntza;
 	}
+	
+	public static void dataBalidatu(String date) throws DataBalidazioaException {
+        if (!date.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            throw new DataBalidazioaException();
+        }
+    }
 }

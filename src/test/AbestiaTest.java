@@ -5,15 +5,15 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import model.Abestiak;
+import model.Abestia;
 
-public class AbestiakTest {
+public class AbestiaTest {
 
-	private static Abestiak abestiakProba;
+	private static Abestia abestiakProba;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        abestiakProba = new Abestiak("abesti1", 180);
+        abestiakProba = new Abestia("abesti1", 180);
     }
 
     @Test
@@ -39,13 +39,13 @@ public class AbestiakTest {
 
     @Test
     public void testEquals_EqualObjects() {
-        Abestiak sameAbestiak = new Abestiak("abesti1", 180);
+        Abestia sameAbestiak = new Abestia("abesti1", 180);
         assertTrue(abestiakProba.equals(sameAbestiak));
     }
 
     @Test
     public void testEquals_DifferentObjects() {
-        Abestiak differentAbestiak = new Abestiak("abesti2", 240);
+        Abestia differentAbestiak = new Abestia("abesti2", 240);
         assertFalse(abestiakProba.equals(differentAbestiak));
     }
 

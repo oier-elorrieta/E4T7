@@ -23,7 +23,7 @@ public class SQLInterakzioa {
 	private static final String URL = "jdbc:mysql://localhost:3307/db_jpamt7";
 	private static final String USER = "root";
 	private static final String PASS = "";
-	private static Connection konexioa;
+	static Connection konexioa;
 	private static Statement query;
 
 	/**

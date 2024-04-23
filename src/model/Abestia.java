@@ -4,7 +4,7 @@ package model;
  * Abestiak klasea, Audio klasearen luzapena da. Abestiak klaseak titulua eta
  * iraupena gordetzen ditu.
  */
-public class Abestiak extends Audio {
+public class Abestia extends Audio {
 
 	/**
 	 * Abestiak klasearen eraikitzailea.
@@ -12,7 +12,7 @@ public class Abestiak extends Audio {
 	 * @param titulua  abestiaren titulua
 	 * @param iraupena abestiaren iraupena
 	 */
-	public Abestiak(String titulua, int iraupena) {
+	public Abestia(String titulua, int iraupena) {
 		super(titulua, iraupena);
 	}
 }
