@@ -85,19 +85,18 @@ public class Menua extends JFrame {
 		lblUserizena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
 		lblUserizena.setBounds(693, 11, 187, 34);
 		
-		
 		try {
-			if (SesioAldagaiak.erabiltzaile_free.getIzena().isEmpty()) {
-				lblUserizena.setText("Kaixo, " + SesioAldagaiak.erabiltzaile_premium.getIzena() + "!");
-			}
-			if (SesioAldagaiak.erabiltzaile_premium.getIzena().isEmpty()) {
+			if (!SesioAldagaiak.erabiltzaile_free.getIzena().isEmpty()) {
 				lblUserizena.setText("Kaixo, " + SesioAldagaiak.erabiltzaile_free.getIzena() + "!");
 			}
-			if (SesioAldagaiak.bezero_Ondo.getIzena().isEmpty()) {
+			if (!SesioAldagaiak.erabiltzaile_premium.getIzena().isEmpty()) {
+				lblUserizena.setText("Kaixo, " + SesioAldagaiak.erabiltzaile_premium.getIzena() + "!");
+			}
+			if (!SesioAldagaiak.bezero_Ondo.getIzena().isEmpty()) {
 				lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezero_Ondo.getIzena() + "!");
 			}
 		} catch (Exception e1) {
-			
+			e1.printStackTrace();
 		}
 		
 		

@@ -244,6 +244,7 @@ public class Erregistroa extends JFrame {
 				
 				SesioAldagaiak.erabiltzaile_free = new E_Free(txtErabiltzaile.getText(),passwordField.getText(), txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData);
 				
+				
 				if (passwordField.getText().equals(passwordFieldConfirm.getText())) {
 					try {
 						SQLKonexioa.erregistroaFree(SesioAldagaiak.erabiltzaile_free);
