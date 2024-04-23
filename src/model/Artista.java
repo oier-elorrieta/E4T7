@@ -1,24 +1,45 @@
 package model;
 
+/**
+ * Artista klasea abstraktoa da. Klase honek artista baten izena gordetzen du.
+ */
 public abstract class Artista {
-    private String nombre;
+	private String izena;
 
-    
-    public Artista(String nombre) {
-        this.nombre = nombre;
+	/**
+	 * Artista klasearen eraikitzailea.
+	 * 
+	 * @param nombre artistaaren izena
+	 */
+	public Artista(String nombre) {
+		this.izena = nombre;
+	}
 
-    }
+	/**
+	 * Artista izena itzultzen du.
+	 * 
+	 * @return artistaren izena
+	 */
+	public String getNombre() {
+		return izena;
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	/**
+	 * Artista izena ezartzen du.
+	 * 
+	 * @param artistaren izena
+	 */
+	public void setNombre(String nombre) {
+		this.izena = nombre;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    @Override
-    public String toString() {
-        return "Artista [nombre=" + nombre + "]";
-    }
+	/**
+	 * Artista informazioa itzultzen du.
+	 * 
+	 * @return artistaren informazioa
+	 */
+	@Override
+	public String toString() {
+		return "Artista [Izena=" + izena + "]";
+	}
 }
