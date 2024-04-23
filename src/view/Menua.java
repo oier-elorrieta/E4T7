@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 public class Menua extends JFrame {
 
@@ -119,7 +120,11 @@ public class Menua extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				JFrameSortu.erregistroMenua();
+				try {
+					JFrameSortu.erregistroMenua();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 	}

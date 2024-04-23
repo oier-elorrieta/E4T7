@@ -33,6 +33,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Locale;
@@ -47,11 +48,11 @@ public class Erregistroa extends JFrame {
 	private JPasswordField passwordFieldConfirm;
 	private JTextField txtJaiotzeData;
 	private JTextField txtAbizenak;
-	private ResultSet hizkuntza;
+	private ArrayList<Hizkuntza> hizkuntzakList;
 	private DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
 	private String hizkuntzaSt = "";
 	private Date dateJaioData;
-	private String hiz = "";
+	private int hiz = 0;
 	
 	/**
 	 * Launch the application.
@@ -71,8 +72,9 @@ public class Erregistroa extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
 	 */
-	public Erregistroa() {
+	public Erregistroa() throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		contentPane = new JPanel();
@@ -147,15 +149,16 @@ public class Erregistroa extends JFrame {
 		
 		SQLInterakzioa.konexioaIreki();
 		JComboBox comboBoxHizkuntza = new JComboBox();
-		try {
-		    hizkuntza = SQLInterakzioa.hizkuntza();
-		    while (hizkuntza.next()) {
-		        comboBoxModel.addElement(hizkuntza.getString("Deskribapena"));
-		    }
-		    comboBoxHizkuntza.setModel(comboBoxModel);
-		} catch (SQLException e) {
-		    e.printStackTrace();
+		
+		hizkuntzakList = SQLInterakzioa.hizkuntza();
+		
+		for (int i = 0; i < hizkuntzakList.size(); i++) {
+			comboBoxModel.addElement(hizkuntzakList.get(i).getDeskribapena());
 		}
+		
+		comboBoxHizkuntza.setModel(comboBoxModel);
+		comboBoxHizkuntza.setSelectedIndex(0);
+		
 		SQLInterakzioa.konexioaItxi();
 		comboBoxHizkuntza.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		comboBoxHizkuntza.setBounds(250, 344, 126, 22);
@@ -215,9 +218,6 @@ public class Erregistroa extends JFrame {
 			btnPremiumErosi.setEnabled(false);
 		}
 		
-		// HARTU FORMULARIOTIK HIZKUNTZA AUKERA
-		hiz = (String) comboBoxHizkuntza.getSelectedItem();
-		
 		
 		// ATZERA BOTOIA
 		btnAtzera.addMouseListener(new MouseAdapter() {
@@ -237,6 +237,9 @@ public class Erregistroa extends JFrame {
 		btnPremiumErosi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				// HIZKUNTZA KONPROBATZEKO METODOA
+				hiz = comboBoxHizkuntza.getSelectedIndex();
+				hizkuntzaSt = hizkuntzakList.get(hiz).getId();
 				boolean premiumKomp = false;
 				try {
 					premiumKomp = ErregistroDAO.konprabatuPremium();
@@ -244,21 +247,15 @@ public class Erregistroa extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				
-				
+
 				if (SesioAldagaiak.e_premium) {
 					JOptionPane.showMessageDialog(null, "Premium erabiltzailea zara jada!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {
 					// KONPROBATU FORMULARIOA BETETA DAGOEN
 					if (passwordField.getText().isEmpty() || txtIzena.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu!", "Errorea", JOptionPane.ERROR_MESSAGE);
-					} else {
-						// HIZKUNTZA KONPROBATZEKO METODOA
-						hizkuntzaSt = View_metodoak.hezkuntzaKonprobatu(hiz);
+					} else {	
 						// JAIOTZE DATA HARTU ETA PARSEATU + BALIDAZIOA
-						
-						
 						try {
 							String dateInString = txtJaiotzeData.getText();
 							View_metodoak.dataBalidatu(dateInString);
@@ -302,13 +299,15 @@ public class Erregistroa extends JFrame {
 		btnErregistratu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				// HARTU FORMULARIOTIK HIZKUNTZA AUKERA
+				hiz = comboBoxHizkuntza.getSelectedIndex();
+				hizkuntzaSt = hizkuntzakList.get(hiz).getId();
 				if (SesioAldagaiak.logeatuta) {
 					JOptionPane.showMessageDialog(null, "Erregistratuta zaude jada!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {
 					if (passwordField.getText().isEmpty() || txtIzena.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 					} else {
-						hizkuntzaSt = View_metodoak.hezkuntzaKonprobatu(hiz);
 						String dateInString = txtJaiotzeData.getText();
 						String DateSplit[] = dateInString.split("-");
 						dateJaioData = new Date((Integer.parseInt(DateSplit[0])-1900),(Integer.parseInt(DateSplit[1])-1),Integer.parseInt(DateSplit[2]));

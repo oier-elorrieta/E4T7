@@ -1,6 +1,7 @@
 package model.metodoak;
 
 import java.awt.Font;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.WindowConstants;
@@ -14,7 +15,7 @@ public class JFrameSortu {
 		loginMenu.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		loginMenu.setVisible(true);
     }
-	public static void erregistroMenua() {
+	public static void erregistroMenua() throws SQLException {
 		Erregistroa erregistroMenu = new Erregistroa();
 		erregistroMenu.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		erregistroMenu.setVisible(true);

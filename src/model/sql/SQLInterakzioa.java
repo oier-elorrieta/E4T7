@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JOptionPane;
@@ -149,11 +150,18 @@ public class SQLInterakzioa {
 	 *         emaitza
 	 * @throws SQLException SQL exekuzioan errore bat gertatzen bada
 	 */
-	public static ResultSet hizkuntza() throws SQLException {
-		String SQLquery = "SELECT Deskribapena FROM hizkuntza";
+	public static ArrayList<Hizkuntza> hizkuntza() throws SQLException {
+		ArrayList<Hizkuntza> hizkuntzak = new ArrayList<Hizkuntza>();
+		String SQLquery = "SELECT * FROM hizkuntza";
 		ResultSet emaitza = query.executeQuery(SQLquery);
+		Hizkuntza hAux;
+		
+		while (emaitza.next()) {
+			hAux = new Hizkuntza(emaitza.getString("IdHizkuntza"), emaitza.getString("Deskribapena"));
+			hizkuntzak.add(hAux);
+	    }
 
-		return emaitza;
+		return hizkuntzak;
 	}
 
 	/**

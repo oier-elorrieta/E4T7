@@ -161,7 +161,11 @@ public class Login extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				dispose();
-				JFrameSortu.erregistroMenua();
+				try {
+					JFrameSortu.erregistroMenua();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 	}
