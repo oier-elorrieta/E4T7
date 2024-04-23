@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.sql.SQLKonexioa;
 
@@ -13,6 +14,9 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -55,6 +59,9 @@ public class Menua extends JFrame {
 		lblMenua.setBounds(0, 33, 890, 27);
 		contentPane.add(lblMenua);
 		
+		JButton btnNireProfila = JFrameSortu.btn_NireProfila();
+		contentPane.add(btnNireProfila);
+		
 		JLabel lblKaixoMezua = new JLabel("Kaixo, entzule! Zer egin nahi duzu?");
 		lblKaixoMezua.setHorizontalAlignment(SwingConstants.CENTER);
 		lblKaixoMezua.setFont(new Font("Trebuchet MS", Font.BOLD, 17));
@@ -62,21 +69,20 @@ public class Menua extends JFrame {
 		contentPane.add(lblKaixoMezua);
 		
 		JButton btnMusikaDeskubritu = new JButton("Musika deskubritu");
-		btnMusikaDeskubritu.setFont(new Font("Verdana", Font.BOLD, 24));
-		btnMusikaDeskubritu.setBounds(237, 138, 418, 50);
+		btnMusikaDeskubritu.setFont(new Font("Verdana", Font.BOLD, 28));
+		btnMusikaDeskubritu.setBounds(226, 138, 436, 65);
 		btnMusikaDeskubritu.setFocusPainted(false);
 		contentPane.add(btnMusikaDeskubritu);
 	
-		
 		JButton btnPodcastakDeskubritu = new JButton("Podcast-ak deskubritu");
-		btnPodcastakDeskubritu.setFont(new Font("Verdana", Font.BOLD, 24));
-		btnPodcastakDeskubritu.setBounds(237, 214, 418, 50);
+		btnPodcastakDeskubritu.setFont(new Font("Verdana", Font.BOLD, 28));
+		btnPodcastakDeskubritu.setBounds(226, 214, 436, 67);
 		btnPodcastakDeskubritu.setFocusPainted(false);
 		contentPane.add(btnPodcastakDeskubritu);
 		
 		JButton btnNirePlaylistak = new JButton("Nire PlayList-ak");
-		btnNirePlaylistak.setFont(new Font("Verdana", Font.BOLD, 24));
-		btnNirePlaylistak.setBounds(237, 292, 418, 50);
+		btnNirePlaylistak.setFont(new Font("Verdana", Font.BOLD, 28));
+		btnNirePlaylistak.setBounds(226, 292, 436, 65);
 		btnNirePlaylistak.setFocusPainted(false);
 		contentPane.add(btnNirePlaylistak);
 		
@@ -88,17 +94,14 @@ public class Menua extends JFrame {
 		try {
 			if (!SesioAldagaiak.erabiltzaile_free.getIzena().isEmpty()) {
 				lblUserizena.setText("Kaixo, " + SesioAldagaiak.erabiltzaile_free.getIzena() + "!");
-			}
-			if (!SesioAldagaiak.erabiltzaile_premium.getIzena().isEmpty()) {
+			} else if (!SesioAldagaiak.erabiltzaile_premium.getIzena().isEmpty()) {
 				lblUserizena.setText("Kaixo, " + SesioAldagaiak.erabiltzaile_premium.getIzena() + "!");
-			}
-			if (!SesioAldagaiak.bezero_Ondo.getIzena().isEmpty()) {
+			} else {
 				lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezero_Ondo.getIzena() + "!");
 			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		
 		
 		contentPane.add(lblUserizena);
 		
@@ -119,6 +122,15 @@ public class Menua extends JFrame {
 		btnNirePlaylistak.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+		
+		// NIRE PROFILA BOTOIA
+		btnNireProfila.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 	}

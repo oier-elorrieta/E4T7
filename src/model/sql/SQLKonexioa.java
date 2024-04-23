@@ -168,8 +168,8 @@ public class SQLKonexioa {
 		String iderab = e_free.getErabiltzailea() + "&";
 		LocalDate currentdate = LocalDate.now();
 		String datenow = currentdate.getYear() + "-" + currentdate.getMonthValue() + "-" + currentdate.getDayOfMonth();
-
-		Date sqlJaioDate = new Date(e_free.getJaiotze_data().getTime());
+		
+		java.sql.Date sqlJaioDate = new java.sql.Date(e_free.getJaiotze_data().getTime());
 
 		// INSERT-A EGIN
 		try {
@@ -178,7 +178,7 @@ public class SQLKonexioa {
 					+ e_free.getHizkuntza() + "'," + "'" + e_free.getErabiltzailea() + "'," + "'"
 					+ e_free.getPasahitza() + "'," + "'" + sqlJaioDate + "'," + "'" + datenow + "')";
 			query.executeUpdate(SQLquery);
-			JOptionPane.showMessageDialog(null, "[Free] Ondo erregistratu egin zara!", "Erregistroa",
+			JOptionPane.showMessageDialog(null, "Ondo erregistratu egin zara!", "Erregistroa [Free]",
 					JOptionPane.INFORMATION_MESSAGE);
 		} catch (SQLException e) {
 			if (e_free.getIzena().isEmpty() && e_free.getErabiltzailea().isEmpty() && e_free.getPasahitza().isEmpty()) {
@@ -209,16 +209,15 @@ public class SQLKonexioa {
 		LocalDate currentdate = LocalDate.now();
 		String datenow = currentdate.getYear() + "-" + currentdate.getMonthValue() + "-" + currentdate.getDayOfMonth();
 		// DATE-RA PASATU
-		Date sqlJaioDate = new Date(e_premium.getJaiotze_data().getTime());
-
+		java.sql.Date sqlDate = new java.sql.Date(e_premium.getJaiotze_data().getTime());
 		// INSERT-A EGIN BEZEROA
 		try {
 			String SQLquery = "INSERT INTO bezeroa (IdBezeroa, Izena, Abizena, Hizkuntza, Erabiltzailea, Pasahitza, Jaiotza_data, Erregistro_data, Mota) VALUES ('"
 					+ iderab + "'," + "'" + e_premium.getIzena() + "'," + "'" + e_premium.getAbizena() + "'," + "'"
 					+ e_premium.getHizkuntza() + "'," + "'" + e_premium.getErabiltzailea() + "'," + "'"
-					+ e_premium.getPasahitza() + "'," + "'" + sqlJaioDate + "'," + "'" + datenow + "','Premium')";
+					+ e_premium.getPasahitza() + "'," + "'" + sqlDate + "'," + "'" + datenow + "','Premium')";
 			query.executeUpdate(SQLquery);
-			JOptionPane.showMessageDialog(null, "[Premium] Ondo erregistratu egin zara!", "Erregistroa",
+			JOptionPane.showMessageDialog(null, "Ondo erregistratu egin zara Premium bezeroa bezala.", "Erregistroa [Premium]",
 					JOptionPane.INFORMATION_MESSAGE);
 		} catch (SQLException e) {
 			if (e_premium.getIzena().isEmpty() && e_premium.getErabiltzailea().isEmpty()
