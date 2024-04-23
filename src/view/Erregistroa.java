@@ -239,11 +239,14 @@ public class Erregistroa extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				boolean premiumKomp = false;
 				try {
-					ErregistroDAO.konprabatuPremium();
+					premiumKomp = ErregistroDAO.konprabatuPremium();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
+				
+				
 				if (SesioAldagaiak.e_premium) {
 					JOptionPane.showMessageDialog(null, "Premium erabiltzailea zara jada!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {
