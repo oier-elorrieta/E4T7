@@ -86,7 +86,6 @@ public class Menua extends JFrame {
 		lblUserizena.setBounds(693, 11, 187, 34);
 		
 		
-		// SALTA ERROR !!!!!!
 		try {
 			if (SesioAldagaiak.erabiltzaile_free.getIzena().isEmpty()) {
 				lblUserizena.setText("Kaixo, " + SesioAldagaiak.erabiltzaile_premium.getIzena() + "!");
@@ -101,7 +100,6 @@ public class Menua extends JFrame {
 			
 		}
 		
-		//////////////////////
 		
 		contentPane.add(lblUserizena);
 		
