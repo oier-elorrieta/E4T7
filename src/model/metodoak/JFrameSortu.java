@@ -8,25 +8,6 @@ import view.*;
 
 public class JFrameSortu {
 	
-	// BOTOIAK 
-	public static JButton btn_Atzera() {
-		JButton btnAtzera = new JButton("Atzera");
-		btnAtzera.setFont(new Font("SansSerifs", Font.PLAIN, 16));
-		btnAtzera.setBounds(24, 15, 110, 37);
-		btnAtzera.setFocusPainted(false);
-		
-		return btnAtzera;
-	}
-	
-	public static JButton btn_NireProfila() {
-		JButton btnNireProfila = new JButton("Nire profila");
-		btnNireProfila.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
-		btnNireProfila.setBounds(730, 49, 115, 27);
-		btnNireProfila.setFocusPainted(false);
-		
-		return btnNireProfila;
-	}
-	
 	// JFRAME-AK
 	public static void loginMenua() {
 		Login loginMenu = new Login();

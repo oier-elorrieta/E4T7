@@ -6,10 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import model.metodoak.JFrameSortu;
-import model.metodoak.SesioAldagaiak;
-import model.sql.SQLKonexioa;
-
+import model.metodoak.*;
+import model.*;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -59,7 +57,7 @@ public class Menua extends JFrame {
 		lblMenua.setBounds(0, 33, 890, 27);
 		contentPane.add(lblMenua);
 		
-		JButton btnNireProfila = JFrameSortu.btn_NireProfila();
+		JButton btnNireProfila = View_metodoak.btn_NireProfila();
 		contentPane.add(btnNireProfila);
 		
 		JLabel lblKaixoMezua = new JLabel("Kaixo, entzule! Zer egin nahi duzu?");
@@ -90,35 +88,25 @@ public class Menua extends JFrame {
 		lblUserizena.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUserizena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
 		lblUserizena.setBounds(693, 11, 187, 34);
-		
-		try {
-			if (!SesioAldagaiak.erabiltzaile_free.getIzena().isEmpty()) {
-				lblUserizena.setText("Kaixo, " + SesioAldagaiak.erabiltzaile_free.getIzena() + "!");
-			} else if (!SesioAldagaiak.erabiltzaile_premium.getIzena().isEmpty()) {
-				lblUserizena.setText("Kaixo, " + SesioAldagaiak.erabiltzaile_premium.getIzena() + "!");
-			} else {
-				lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezero_Ondo.getIzena() + "!");
-			}
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-		
+		// ATERA ERABILTZAILEAREN IZENA
+		lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezero_Ondo.getIzena() + "!");
 		contentPane.add(lblUserizena);
 		
+		// MUSIKA DESKUBRITU BOTOIA
 		btnMusikaDeskubritu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
 			}
 		});
-		
+		// POSCASTAK DESKUBRITU BOTOIA
 		btnPodcastakDeskubritu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
 			}
 		});
-		
+		// NIRE PLAYLISTAK BOTOIA
 		btnNirePlaylistak.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -130,7 +118,8 @@ public class Menua extends JFrame {
 		btnNireProfila.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
+				JFrameSortu.erregistroMenua();
 			}
 		});
 	}

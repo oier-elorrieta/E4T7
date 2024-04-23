@@ -11,7 +11,7 @@ import model.E_Premium;
 import model.Erabiltzailea;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
-import model.sql.SQLKonexioa;
+import model.sql.SQLInterakzioa;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -41,7 +41,6 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtFErabiltzaile;
 	private JPasswordField passwordField;
-	private String ondoLogin = "";
 	private Erabiltzailea BezeroOndo = null;
 
 	/**
@@ -129,21 +128,24 @@ public class Login extends JFrame {
 		// LOGIN EGITEKO BOTOIA
 		btnLogin.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
+		    	// HARTU ERABILTZAILEA FORMULARIOTIK
 		        String txtErabil = txtFErabiltzaile.getText();
+		        // HARTU PASAHITZA FORMULARIOTIK
 		        char[] charPass = passwordField.getPassword();
 		        String passwdErabil = new String(charPass);
+		        // KONPROBATU BEZEROA EDO ADMIN AUKERA
 		        if (comboBox.getSelectedIndex() == 0) {
-		            SQLKonexioa.konexioaIreki();
+		            SQLInterakzioa.konexioaIreki();
 		            try {
-		                BezeroOndo = SQLKonexioa.loginKonexioa(txtErabil, passwdErabil);
+		                BezeroOndo = SQLInterakzioa.loginKonexioa(txtErabil, passwdErabil);
 		            } catch (SQLException e1) {
 		                e1.printStackTrace();
 		            }
-
+		            // BEZEROA ONDO BADAGO, OBJEKTUAN SARTU ETA LOGEATU
 		            if (BezeroOndo != null) {
 		                dispose();
-		                System.out.println(BezeroOndo.toString());
 		                SesioAldagaiak.bezero_Ondo = BezeroOndo;
+		                SesioAldagaiak.logeatuta = true;
 		                JFrameSortu.menuaBezeroa();
 		            } else {
 		                JOptionPane.showMessageDialog(null, "Erabiltzailea edo pasahitza txarto dago.", "Errorea", JOptionPane.ERROR_MESSAGE);
@@ -154,7 +156,7 @@ public class Login extends JFrame {
 		    }
 		});
 
-		
+		// ERREGSITROA ZABALTZEKO BOTOIA
 		btnErregistroa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

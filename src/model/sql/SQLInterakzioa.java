@@ -19,7 +19,7 @@ import model.*;
  * kontsultaak exekutatzen ditu, erabiltzaileak sartutako datuak bilatzen ditu
  * eta erregistratzen ditu.
  */
-public class SQLKonexioa {
+public class SQLInterakzioa {
 	private static final String URL = "jdbc:mysql://localhost:3307/db_jpamt7";
 	private static final String USER = "root";
 	private static final String PASS = "";
@@ -163,7 +163,7 @@ public class SQLKonexioa {
 	 * @throws SQLException           SQL errorea gertatzen bada.
 	 * @throws ClassNotFoundException Klasea ezin bada aurkitu.
 	 */
-	public static void erregistroaFree(E_Free e_free) throws SQLException, ClassNotFoundException {
+	public static void erregistroaFree(Erabiltzailea e_free) throws SQLException, ClassNotFoundException {
 		konexioaIreki();
 		String iderab = e_free.getErabiltzailea() + "&";
 		LocalDate currentdate = LocalDate.now();
@@ -202,7 +202,7 @@ public class SQLKonexioa {
 	 * @throws SQLException           SQL errorea gertatzen bada.
 	 * @throws ClassNotFoundException Klasea ez bada aurkitzen.
 	 */
-	public static void erregistroaPremium(E_Premium e_premium) throws SQLException, ClassNotFoundException {
+	public static void erregistroaPremium(Erabiltzailea e_premium) throws SQLException, ClassNotFoundException {
 		konexioaIreki();
 		String iderab = e_premium.getErabiltzailea() + "&";
 
