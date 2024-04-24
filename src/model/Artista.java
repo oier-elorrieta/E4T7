@@ -9,10 +9,10 @@ public abstract class Artista {
 	/**
 	 * Artista klasearen eraikitzailea.
 	 * 
-	 * @param nombre artistaaren izena
+	 * @param izena artistaaren izena
 	 */
-	public Artista(String nombre) {
-		this.izena = nombre;
+	public Artista(String izena) {
+		this.izena = izena;
 	}
 
 	/**
@@ -20,7 +20,7 @@ public abstract class Artista {
 	 * 
 	 * @return artistaren izena
 	 */
-	public String getNombre() {
+	public String getizena() {
 		return izena;
 	}
 
@@ -29,8 +29,8 @@ public abstract class Artista {
 	 * 
 	 * @param artistaren izena
 	 */
-	public void setNombre(String nombre) {
-		this.izena = nombre;
+	public void setizena(String izena) {
+		this.izena = izena;
 	}
 
 	/**

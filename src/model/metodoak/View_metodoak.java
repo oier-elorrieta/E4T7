@@ -27,37 +27,6 @@ public class View_metodoak {
 		return btnNireProfila;
 	}
 		
-	// Hezkuntza Konprobaketa Erregistroan
-	public static String hezkuntzaKonprobatu(String hiz) {
-		String hizkuntza = "";
-		switch (hiz) {
-		case "Euskera":
-			hizkuntza = "EU";
-			break;
-		case "Español":
-			hizkuntza = "ES";
-			break;
-		case "English":
-			hizkuntza = "EN";
-			break;
-		case "Français":
-			hizkuntza = "FR";
-			break;
-		case "Deutsch":
-			hizkuntza = "DE";
-			break;
-		case "Catalá":
-			hizkuntza = "CA";
-			break;
-		case "Gaeilg":
-			hizkuntza = "GA";
-			break;
-		case "Arabic":
-			hizkuntza = "AR";
-			break;
-		}
-		return hizkuntza;
-	}
 	
 	public static void dataBalidatu(String date) throws DataBalidazioaException {
         if (!date.matches("\\d{4}-\\d{2}-\\d{2}")) {

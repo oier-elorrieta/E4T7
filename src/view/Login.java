@@ -1,39 +1,31 @@
 package view;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import model.E_Free;
-import model.E_Premium;
 import model.Erabiltzailea;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
+import model.sql.Konexioa;
 import model.sql.SQLInterakzioa;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
-
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 
 public class Login extends JFrame {
 
@@ -135,7 +127,7 @@ public class Login extends JFrame {
 		        String passwdErabil = new String(charPass);
 		        // KONPROBATU BEZEROA EDO ADMIN AUKERA
 		        if (comboBox.getSelectedIndex() == 0) {
-		            SQLInterakzioa.konexioaIreki();
+		            Konexioa.konexioaIreki();
 		            try {
 		                BezeroOndo = SQLInterakzioa.loginKonexioa(txtErabil, passwdErabil);
 		            } catch (SQLException e1) {

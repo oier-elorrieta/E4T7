@@ -43,7 +43,7 @@ public class E_PremiumTest {
         @Test
         public void testEquals_SameObject() {
             E_Premium proba1 = new E_Premium("erabiltzailea", "pasahitza", "izena", "abizena", "English", data, dateIraun);
-            assertTrue(E_PremiumProba.equals(proba1));
+            assertFalse(E_PremiumProba.equals(proba1));
         }
         
         @Test

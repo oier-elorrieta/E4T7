@@ -57,6 +57,12 @@ public class ErabiltzaileaTest {
             assertEquals("English", erabiltzailea.getHizkuntza());
         }
         @Test
+        public void testSetHizkuntza() {
+            erabiltzailea = new Erabiltzailea("erabiltzailea", "Pasahitza", "izena", "abizena", "English", new Date());
+            erabiltzailea.setHizkuntza("Euskera");
+            assertEquals("Euskera", erabiltzailea.getHizkuntza());
+        }
+        @Test
         public void testSetErabiltzailea() {
             erabiltzailea = new Erabiltzailea("erabiltzailea", "Pasahitza", "izena", "abizena", "English", new Date());
             erabiltzailea.setErabiltzailea("erabiltzailea");

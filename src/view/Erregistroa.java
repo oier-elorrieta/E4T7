@@ -1,42 +1,37 @@
 package view;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import model.*;
-import model.metodoak.JFrameSortu;
-import model.metodoak.View_metodoak;
-import model.metodoak.SesioAldagaiak;
-import model.sql.ErregistroDAO;
-import model.sql.SQLInterakzioa;
-import salbuespenak.DataBalidazioaException;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
 import java.awt.Color;
-import java.awt.Dimension;
-
-import javax.swing.DefaultComboBoxModel;
+import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Formatter;
-import java.util.Locale;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import model.E_Free;
+import model.E_Premium;
+import model.Hizkuntza;
+import model.metodoak.JFrameSortu;
+import model.metodoak.SesioAldagaiak;
+import model.metodoak.View_metodoak;
+import model.sql.ErregistroDAO;
+import model.sql.HizkuntzaDAO;
+import model.sql.Konexioa;
+import salbuespenak.DataBalidazioaException;
 
 public class Erregistroa extends JFrame {
 
@@ -147,10 +142,10 @@ public class Erregistroa extends JFrame {
 		lblHizkuntza.setBounds(141, 341, 91, 26);
 		contentPane.add(lblHizkuntza);
 		
-		SQLInterakzioa.konexioaIreki();
+		Konexioa.konexioaIreki();
 		JComboBox comboBoxHizkuntza = new JComboBox();
 		
-		hizkuntzakList = SQLInterakzioa.hizkuntza();
+		hizkuntzakList = HizkuntzaDAO.hizkuntza();
 		
 		for (int i = 0; i < hizkuntzakList.size(); i++) {
 			comboBoxModel.addElement(hizkuntzakList.get(i).getDeskribapena());
@@ -159,7 +154,7 @@ public class Erregistroa extends JFrame {
 		comboBoxHizkuntza.setModel(comboBoxModel);
 		comboBoxHizkuntza.setSelectedIndex(0);
 		
-		SQLInterakzioa.konexioaItxi();
+		Konexioa.konexioaItxi();
 		comboBoxHizkuntza.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		comboBoxHizkuntza.setBounds(250, 344, 126, 22);
 		contentPane.add(comboBoxHizkuntza);
@@ -274,7 +269,7 @@ public class Erregistroa extends JFrame {
 						// PASAHITZAK KOINTZIDITZEN BADIRA, ERREGISTROA EGIN
 						if (passwordField.getText().equals(passwordFieldConfirm.getText())) {
 							try {
-								SQLInterakzioa.erregistroaPremium(SesioAldagaiak.bezero_Ondo);
+								ErregistroDAO.erregistroaPremium(SesioAldagaiak.bezero_Ondo);
 								SesioAldagaiak.e_premium = true;
 				                SesioAldagaiak.logeatuta = true;
 								dispose();
@@ -316,7 +311,7 @@ public class Erregistroa extends JFrame {
 
 						if (passwordField.getText().equals(passwordFieldConfirm.getText())) {
 							try {
-								SQLInterakzioa.erregistroaFree(SesioAldagaiak.bezero_Ondo);
+								ErregistroDAO.erregistroaFree(SesioAldagaiak.bezero_Ondo);
 								dispose();
 								SesioAldagaiak.e_premium = false;
 				                SesioAldagaiak.logeatuta = true;
