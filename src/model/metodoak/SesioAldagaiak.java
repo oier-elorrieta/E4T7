@@ -1,0 +1,15 @@
+package model.metodoak;
+
+import model.*;
+
+
+/**
+ * Klase honek SesioAldagaiak klasearen definizioa du.
+ * SesioAldagaiak klaseak erabiltzailearen egoera eta erabiltzaile mota gordetzen ditu.
+ */
+public class SesioAldagaiak {
+	
+	public static Erabiltzailea bezero_Ondo;
+	public static boolean e_premium = false;
+	public static boolean logeatuta = false;
+}
