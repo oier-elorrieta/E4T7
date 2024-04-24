@@ -48,22 +48,6 @@ public class Erregistroa extends JFrame {
 	private String hizkuntzaSt = "";
 	private Date dateJaioData;
 	private int hiz = 0;
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Erregistroa frame = new Erregistroa();
-					frame.setVisible(false);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -194,6 +178,12 @@ public class Erregistroa extends JFrame {
 		btnPremiumErosi.setFocusPainted(false);
 		contentPane.add(btnPremiumErosi);
 		
+		JButton btnLogout = new JButton("Logout");
+		btnLogout.setFont(new Font("Segoe UI Semibold", Font.BOLD, 18));
+		btnLogout.setForeground(Color.RED);
+		btnLogout.setFocusPainted(false);
+		btnLogout.setBounds(725, 13, 133, 43);
+		
 		JButton btnEditatu = new JButton("Editatu profila");
 		btnEditatu.setForeground(Color.RED);
 		btnEditatu.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -204,6 +194,7 @@ public class Erregistroa extends JFrame {
 		if (SesioAldagaiak.logeatuta) {
 			contentPane.add(btnEditatu);
 			contentPane.add(lblNireProfila);
+			contentPane.add(btnLogout);
 			btnErregistratu.setEnabled(false);
 			lblErregistroa.setText("");
 			lblErregistroa.setBounds(0, 2, 100, 2);
@@ -213,6 +204,15 @@ public class Erregistroa extends JFrame {
 			btnPremiumErosi.setEnabled(false);
 		}
 		
+		// LOGOUT BOTOIA
+		btnLogout.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				SesioAldagaiak.bezero_Ondo = null;
+				dispose();
+				JFrameSortu.loginMenua();
+			}
+		});
 		
 		// ATZERA BOTOIA
 		btnAtzera.addMouseListener(new MouseAdapter() {
@@ -246,8 +246,11 @@ public class Erregistroa extends JFrame {
 				if (SesioAldagaiak.e_premium) {
 					JOptionPane.showMessageDialog(null, "Premium erabiltzailea zara jada!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {
+					// PASAHITZA HARTU FORMULARIOTIK
+					char[] charPass = passwordField.getPassword();
+			        String passwdErabil = new String(charPass);
 					// KONPROBATU FORMULARIOA BETETA DAGOEN
-					if (passwordField.getText().isEmpty() || txtIzena.getText().isEmpty()) {
+					if (passwdErabil.isEmpty() || txtIzena.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 					} else {	
 						// JAIOTZE DATA HARTU ETA PARSEATU + BALIDAZIOA
@@ -264,7 +267,7 @@ public class Erregistroa extends JFrame {
 						LocalDate UrteGehituPremium = LocalDate.now().plusYears(1);
 						Date iraunData = java.sql.Date.valueOf(UrteGehituPremium);
 						// OBJEKTUAN SARTU BEZEROA
-						SesioAldagaiak.bezero_Ondo = new E_Premium(txtErabiltzaile.getText(),passwordField.getText(), txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData, iraunData);
+						SesioAldagaiak.bezero_Ondo = new E_Premium(txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData, iraunData);
 						
 						// PASAHITZAK KOINTZIDITZEN BADIRA, ERREGISTROA EGIN
 						if (passwordField.getText().equals(passwordFieldConfirm.getText())) {
