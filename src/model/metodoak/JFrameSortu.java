@@ -35,6 +35,12 @@ public class JFrameSortu {
 		musikaDesk.setVisible(true);
     }
 	
+	public static void podcastDeskubrituBezeroa() throws SQLException {
+		PodcasterListV podcasterList = new PodcasterListV();
+		podcasterList.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		podcasterList.setVisible(true);
+    }
+	
 	public static void albumakArtistakBezeroa(Artista artista) throws SQLException {
 		ArtistaV artistaAlbumV = new ArtistaV(artista);
 		artistaAlbumV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

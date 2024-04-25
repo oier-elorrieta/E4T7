@@ -94,7 +94,7 @@ public class MenuaV extends JFrame {
 		btnPodcastakDeskubritu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				dispose();
 			}
 		});
 		// NIRE PLAYLISTAK BOTOIA
