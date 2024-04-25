@@ -24,7 +24,7 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 
-public class Artistak extends JFrame {
+public class ArtistaListV extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -32,7 +32,7 @@ public class Artistak extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Artistak() {
+	public ArtistaListV() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		contentPane = new JPanel();

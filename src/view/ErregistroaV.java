@@ -33,7 +33,7 @@ import model.sql.HizkuntzaDAO;
 import model.sql.Konexioa;
 import salbuespenak.DataBalidazioaException;
 
-public class Erregistroa extends JFrame {
+public class ErregistroaV extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -54,7 +54,7 @@ public class Erregistroa extends JFrame {
 	 * Create the frame.
 	 * @throws SQLException 
 	 */
-	public Erregistroa() throws SQLException {
+	public ErregistroaV() throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		contentPane = new JPanel();

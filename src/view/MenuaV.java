@@ -19,7 +19,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
-public class Menua extends JFrame {
+public class MenuaV extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -27,7 +27,7 @@ public class Menua extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Menua() {
+	public MenuaV() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		contentPane = new JPanel();

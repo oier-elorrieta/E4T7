@@ -8,16 +8,20 @@ import model.Artista;
 import model.Musikaria;
 import model.metodoak.SesioAldagaiak;
 
-public class ArtistakDAO {
-	/*public static ArrayList<Artista> artistakKargatu() throws SQLException {
+public class ArtistaListDAO {
+	public static ArrayList<Artista> artistakKargatu() throws SQLException {
+
 		ArrayList<Artista> artistakList = new ArrayList<Artista>();
 		String SQLquery = "SELECT * FROM musikaria_erreprodukzioak";
 		ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
-		Artista artistAux;
+		Artista artistAux = null;
 		
 		while (emaitza.next()) {
 			artistAux = new Musikaria(emaitza.getString("IzenArtistikoa"), emaitza.getInt("count(*)"));
+			artistakList.add(artistAux);
 		}
-		return artistAux;
-	}*/
+		
+		
+		return artistakList;
+	}
 }

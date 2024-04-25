@@ -11,24 +11,24 @@ public class JFrameSortu {
 	
 	// JFRAME-AK
 	public static void loginMenua() {
-		Login loginMenu = new Login();
+		LoginV loginMenu = new LoginV();
 		loginMenu.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		loginMenu.setVisible(true);
     }
 	public static void erregistroMenua() throws SQLException {
-		Erregistroa erregistroMenu = new Erregistroa();
+		ErregistroaV erregistroMenu = new ErregistroaV();
 		erregistroMenu.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		erregistroMenu.setVisible(true);
     }
 	
 	public static void menuaBezeroa() {
-		Menua menuaAtera = new Menua();
+		MenuaV menuaAtera = new MenuaV();
 		menuaAtera.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		menuaAtera.setVisible(true);
     }
 	
 	public static void musikaDeskubrituBezeroa() {
-		Artistak musikaDesk = new Artistak();
+		ArtistaListV musikaDesk = new ArtistaListV();
 		musikaDesk.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		musikaDesk.setVisible(true);
     }

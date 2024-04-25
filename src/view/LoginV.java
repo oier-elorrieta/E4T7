@@ -27,7 +27,7 @@ import model.metodoak.SesioAldagaiak;
 import model.sql.Konexioa;
 import model.sql.SQLInterakzioa;
 
-public class Login extends JFrame {
+public class LoginV extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -38,7 +38,7 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Login() {
+	public LoginV() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		contentPane = new JPanel();
