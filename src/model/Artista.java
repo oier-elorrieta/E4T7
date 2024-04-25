@@ -1,11 +1,14 @@
 package model;
 
+import java.sql.Blob;
+
 /**
  * Artista klasea abstraktoa da. Klase honek artista baten izena gordetzen du.
  */
 public abstract class Artista {
 	protected String izena;
 	protected int erreprodukzioak;
+	protected Blob irudia;
 	protected String deskribapena;
 
 	/**
@@ -13,9 +16,9 @@ public abstract class Artista {
 	 * 
 	 * @param izena artistaaren izena
 	 */
-	public Artista(String izena, int erreprodukzioak, String deskribapena) {
-		super();
+	public Artista(String izena, int erreprodukzioak, String deskribapena, Blob irudia) {
 		this.izena = izena;
+		this.irudia = irudia;
 		this.erreprodukzioak = erreprodukzioak;
 		this.deskribapena = deskribapena;
 	}
@@ -25,8 +28,10 @@ public abstract class Artista {
 		this.erreprodukzioak = erreprodukzioak;
 	}
 
-
-
+	public Artista(Blob irudia, String deskribapena) {
+		this.irudia = irudia;
+		this.deskribapena = deskribapena;
+	}
 
 	/**
 	 * Artista izena itzultzen du.
@@ -48,7 +53,14 @@ public abstract class Artista {
 		this.izena = izena;
 	}
 	
-	
+
+	public Blob getIrudia() {
+		return irudia;
+	}
+
+	public void setIrudia(Blob irudia) {
+		this.irudia = irudia;
+	}
 
 	public int getErreprodukzioak() {
 		return erreprodukzioak;

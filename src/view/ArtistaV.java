@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,12 +23,14 @@ import javax.swing.border.LineBorder;
 
 import model.Album;
 import model.Artista;
+import model.Musikaria;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
 import model.sql.ArtistaDiskaDAO;
 import model.sql.ArtistaListDAO;
 import model.sql.Konexioa;
+import javax.swing.JScrollPane;
 
 public class ArtistaV extends JFrame {
 
@@ -44,6 +47,10 @@ public class ArtistaV extends JFrame {
 		setBounds(400, 250, 906, 594);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(495, 318, 336, 179);
+		contentPane.add(scrollPane);
 		
 		JButton btnAtzera = View_metodoak.btn_Atzera();
 		contentPane.add(btnAtzera);
@@ -80,7 +87,7 @@ public class ArtistaV extends JFrame {
 		AlbumList.setBounds(18, 101, 405, 416);
 		
 		Konexioa.konexioaIreki();
-		ArrayList<Album> AlbumakJList = ArtistaDiskaDAO.artistakKargatu(artista);
+		ArrayList<Album> AlbumakJList = ArtistaDiskaDAO.albumAbestiakKargatu(artista);
 		
 		DefaultListModel<Album> modelAlbum = new DefaultListModel<Album>();
 		
@@ -95,16 +102,31 @@ public class ArtistaV extends JFrame {
 		lblArtistarenInformazioa.setBounds(488, 67, 208, 23);
 		contentPane.add(lblArtistarenInformazioa);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		textPane.setBounds(472, 302, 386, 215);
-		contentPane.add(textPane);
+		Musikaria artistInformazioa = ArtistaDiskaDAO.irudiaDeskribapenaKargatu(artista);
 		
-		JLabel lblArgazkia = new JLabel("ARGAZKIA");
+		JLabel lblArgazkia = new JLabel("");
 		lblArgazkia.setHorizontalAlignment(SwingConstants.CENTER);
 		lblArgazkia.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblArgazkia.setBounds(554, 101, 229, 188);
+		lblArgazkia.setBounds(517, 99, 292, 214);
+		ImageIcon icon = new ImageIcon(artistInformazioa.getIrudia().getBytes(1, (int) artistInformazioa.getIrudia().length()));
+		lblArgazkia.setIcon(icon);
 		contentPane.add(lblArgazkia);
+		
+		JButton btnJarraitu = new JButton("Jarraitu");
+		btnJarraitu.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 19));
+		btnJarraitu.setBounds(678, 501, 143, 40);
+		contentPane.add(btnJarraitu);
+		
+		JTextPane txtInformazioa = new JTextPane();
+		txtInformazioa.setEditable(false);
+		txtInformazioa.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		txtInformazioa.setBounds(466, 282, 392, 215);
+		txtInformazioa.setText("Deskribapena: \n" + artistInformazioa.getDeskribapena());
+		scrollPane.setViewportView(txtInformazioa);
+		
+		
+		
+		
 	
 	// ATZERA BOTOIA
 	btnAtzera.addActionListener(new ActionListener() {

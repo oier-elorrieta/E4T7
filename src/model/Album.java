@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Album {
-    
     private String izenburua;
     private String urtea;
     private String generoa;
