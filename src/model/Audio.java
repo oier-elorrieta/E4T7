@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.Blob;
 import java.util.Objects;
 
 /**
@@ -9,7 +10,8 @@ import java.util.Objects;
  */
 public class Audio {
 	protected String titulua;
-	protected int iraupena;
+	protected Blob irudia;
+	protected String iraupena;
 
 	/**
 	 * Audio klasearen eraikitzailea.
@@ -17,8 +19,9 @@ public class Audio {
 	 * @param titulua  audioaren titulua
 	 * @param iraupena audioaren iraupena
 	 */
-	public Audio(String titulua, int iraupena) {
+	public Audio(String titulua, Blob irudia, String iraupena) {
 		this.titulua = titulua;
+		this.irudia = irudia;
 		this.iraupena = iraupena;
 	}
 
@@ -31,6 +34,7 @@ public class Audio {
 		return titulua;
 	}
 
+
 	/**
 	 * Audioaren titulua aldatzen du.
 	 * 
@@ -40,22 +44,20 @@ public class Audio {
 		this.titulua = titulua;
 	}
 
-	/**
-	 * Audioaren iraupena itzultzen du.
-	 * 
-	 * @return audioaren iraupena
-	 */
-	public int getIraupena() {
+	public Blob getIrudia() {
+		return irudia;
+	}
+
+	public String getIraupena() {
 		return iraupena;
 	}
 
-	/**
-	 * Audioaren iraupena aldatzen du.
-	 * 
-	 * @param iraupena audioaren berriro ezarriko den iraupena
-	 */
-	public void setIraupena(int iraupena) {
+	public void setIraupena(String iraupena) {
 		this.iraupena = iraupena;
+	}
+
+	public void setIrudia(Blob irudia) {
+		this.irudia = irudia;
 	}
 
 	/**
@@ -64,6 +66,15 @@ public class Audio {
 	 * @param obj beste objektu bat
 	 * @return objektuak berdinak diren ala ez adierazten duen boolean balioa
 	 */
+	
+
+	/**
+	 * Objektuaren informazioa testu moduan itzultzen du.
+	 * 
+	 * @return objektuaren informazioa testu moduan
+	 */
+	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -73,17 +84,13 @@ public class Audio {
 		if (getClass() != obj.getClass())
 			return false;
 		Audio other = (Audio) obj;
-		return iraupena == other.iraupena && Objects.equals(titulua, other.titulua);
+		return Objects.equals(iraupena, other.iraupena) && Objects.equals(irudia, other.irudia)
+				&& Objects.equals(titulua, other.titulua);
 	}
 
-	/**
-	 * Objektuaren informazioa testu moduan itzultzen du.
-	 * 
-	 * @return objektuaren informazioa testu moduan
-	 */
 	@Override
 	public String toString() {
-		return "Audio [titulua=" + titulua + ", iraupena=" + iraupena + "]";
+		return titulua + " - " + iraupena;
 	}
 
 }
