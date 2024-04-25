@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.WindowConstants;
 
+import model.Album;
 import model.Artista;
 import view.*;
 
@@ -45,6 +46,12 @@ public class JFrameSortu {
 		ArtistaV artistaAlbumV = new ArtistaV(artista);
 		artistaAlbumV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		artistaAlbumV.setVisible(true);
+    }
+	
+	public static void albumKantakBezeroa(Album album) throws SQLException {
+		KantaListV kantaArtistaV = new KantaListV(album);
+		kantaArtistaV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		kantaArtistaV.setVisible(true);
     }
 }
 

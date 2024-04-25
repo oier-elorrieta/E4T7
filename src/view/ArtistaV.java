@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
@@ -31,6 +32,8 @@ import model.sql.ArtistaDiskaDAO;
 import model.sql.ArtistaListDAO;
 import model.sql.Konexioa;
 import javax.swing.JScrollPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ArtistaV extends JFrame {
 
@@ -61,11 +64,6 @@ public class ArtistaV extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblArtista = new JLabel("ARTISTA");
-		lblArtista.setHorizontalAlignment(SwingConstants.CENTER);
-		lblArtista.setFont(new Font("Tahoma", Font.BOLD, 22));
-		lblArtista.setBounds(-1, 25, 890, 27);
-		contentPane.add(lblArtista);
 		
 		JLabel lblUserizena = new JLabel("");
 		lblUserizena.setHorizontalAlignment(SwingConstants.CENTER);
@@ -97,19 +95,26 @@ public class ArtistaV extends JFrame {
 		AlbumList.setModel(modelAlbum);
 		contentPane.add(AlbumList);
 		
+		Musikaria artistInformazioa = ArtistaDiskaDAO.irudiaDeskribapenaKargatu(artista);
+		
+		JLabel lblArtista = new JLabel("ARTISTA - " + artista.getIzena());
+		lblArtista.setHorizontalAlignment(SwingConstants.CENTER);
+		lblArtista.setFont(new Font("Tahoma", Font.BOLD, 22));
+		lblArtista.setBounds(-1, 25, 890, 27);
+		contentPane.add(lblArtista);
+		
 		JLabel lblArtistarenInformazioa = new JLabel("Artistaren informazioa:");
 		lblArtistarenInformazioa.setFont(new Font("Trebuchet MS", Font.BOLD, 17));
 		lblArtistarenInformazioa.setBounds(488, 67, 208, 23);
 		contentPane.add(lblArtistarenInformazioa);
 		
-		Musikaria artistInformazioa = ArtistaDiskaDAO.irudiaDeskribapenaKargatu(artista);
 		
 		JLabel lblArgazkia = new JLabel("");
 		lblArgazkia.setHorizontalAlignment(SwingConstants.CENTER);
 		lblArgazkia.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblArgazkia.setBounds(517, 99, 292, 214);
-		ImageIcon icon = new ImageIcon(artistInformazioa.getIrudia().getBytes(1, (int) artistInformazioa.getIrudia().length()));
-		lblArgazkia.setIcon(icon);
+		lblArgazkia.setBounds(517, 99, 298, 214);
+		ImageIcon argazkiaArtist = new ImageIcon(artistInformazioa.getIrudia().getBytes(1, (int) artistInformazioa.getIrudia().length()));
+		lblArgazkia.setIcon(argazkiaArtist);
 		contentPane.add(lblArgazkia);
 		
 		JButton btnJarraitu = new JButton("Jarraitu");
@@ -124,32 +129,49 @@ public class ArtistaV extends JFrame {
 		txtInformazioa.setText("Deskribapena: \n" + artistInformazioa.getDeskribapena());
 		scrollPane.setViewportView(txtInformazioa);
 		
-		
-		
+		// JARRAITU BOTOIA
+		btnJarraitu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Album albumSelected = AlbumList.getSelectedValue();
+				
+				if (albumSelected == null) {
+					JOptionPane.showMessageDialog(null, "Ez duzu album bat aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
+				} else {
+					Album albumAuxSelected = new Album(albumSelected.getIzenburua(), albumSelected.getUrtea(), albumSelected.getKantaTotala());
+					dispose();
+					try {
+						JFrameSortu.albumKantakBezeroa(albumAuxSelected);;
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		
 	
-	// ATZERA BOTOIA
-	btnAtzera.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			dispose();
-			try {
-				JFrameSortu.musikaDeskubrituBezeroa();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
+		// ATZERA BOTOIA
+		btnAtzera.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				try {
+					JFrameSortu.musikaDeskubrituBezeroa();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
-		}
-	});
-	
-	// NIRE PROFILA BOTOIA
-	btnNireProfila.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			dispose();
-			try {
-				JFrameSortu.erregistroMenua();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
+		});
+		
+		// NIRE PROFILA BOTOIA
+		btnNireProfila.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				try {
+					JFrameSortu.erregistroMenua();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
-		}
-	});
-}
+		});
+	}
 }

@@ -1,0 +1,141 @@
+package view;
+
+import java.awt.EventQueue;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
+
+import model.Abestia;
+import model.Album;
+import model.metodoak.JFrameSortu;
+import model.metodoak.SesioAldagaiak;
+import model.metodoak.View_metodoak;
+import model.sql.ArtistaDiskaDAO;
+import model.sql.DiskaAbestiakDAO;
+import model.sql.Konexioa;
+
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.swing.SwingConstants;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.ListSelectionModel;
+
+public class KantaListV extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+
+	/**
+	 * Create the frame.
+	 * @throws SQLException 
+	 */
+	public KantaListV(Album album) throws SQLException {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(400, 250, 906, 594);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(495, 318, 336, 179);
+		contentPane.add(scrollPane);
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JButton btnAtzera = View_metodoak.btn_Atzera();
+		contentPane.add(btnAtzera);
+		
+		JButton btnNireProfila = View_metodoak.btn_NireProfila();
+		contentPane.add(btnNireProfila);
+		
+		JLabel lblAlbuma = new JLabel("ALBUMA - " + album.getIzenburua());
+		lblAlbuma.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAlbuma.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblAlbuma.setBounds(0, 26, 890, 27);
+		contentPane.add(lblAlbuma);
+		
+		JLabel lblUserizena = new JLabel("");
+		lblUserizena.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUserizena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		lblUserizena.setBounds(693, 11, 187, 34);
+		lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezero_Ondo.getIzena() + "!");
+		contentPane.add(lblUserizena);
+		
+		JLabel lblAukeratuAbestiBat = new JLabel("Aukeratu abesti bat:");
+		lblAukeratuAbestiBat.setFont(new Font("Trebuchet MS", Font.BOLD, 17));
+		lblAukeratuAbestiBat.setBounds(110, 64, 187, 23);
+		contentPane.add(lblAukeratuAbestiBat);
+		
+		JList<Abestia> AbestiList = new JList();
+		Konexioa.konexioaIreki();
+		ArrayList<Abestia> AbestiJList = DiskaAbestiakDAO.albumAbestiakKargatu(album);
+		
+		DefaultListModel<Abestia> modelAbestia = new DefaultListModel<Abestia>();
+		
+		for (int i = 0; i < AbestiJList.size(); i++) {
+			modelAbestia.addElement(AbestiJList.get(i));
+		}
+		AbestiList.setModel(modelAbestia);
+		AbestiList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		AbestiList.setFont(new Font("Verdana", Font.BOLD, 16));
+		AbestiList.setBorder(new LineBorder(new Color(0, 0, 0)));
+		AbestiList.setBounds(20, 98, 405, 416);
+		contentPane.add(AbestiList);
+		
+		JLabel lblAlbumarenInformazioa = new JLabel("Albumaren informazioa:");
+		lblAlbumarenInformazioa.setFont(new Font("Trebuchet MS", Font.BOLD, 17));
+		lblAlbumarenInformazioa.setBounds(492, 64, 208, 23);
+		contentPane.add(lblAlbumarenInformazioa);
+		
+		JTextPane txtInformazioa = new JTextPane();
+		txtInformazioa.setEditable(false);
+		txtInformazioa.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		txtInformazioa.setBounds(466, 282, 392, 215);
+		txtInformazioa.setText("Argitaratze-data: \n");
+		scrollPane.setViewportView(txtInformazioa);
+		
+		JLabel lblArgazkia = new JLabel("");
+		lblArgazkia.setHorizontalAlignment(SwingConstants.CENTER);
+		lblArgazkia.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblArgazkia.setBounds(515, 98, 298, 214);
+		contentPane.add(lblArgazkia);
+		
+		JButton btnJarraitu = new JButton("Jarraitu");
+		btnJarraitu.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 19));
+		btnJarraitu.setBounds(677, 504, 143, 40);
+		contentPane.add(btnJarraitu);
+		
+		// JARRAITU BOTOIA
+		btnJarraitu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Abestia abestiSelected = AbestiList.getSelectedValue();
+				
+				if (abestiSelected == null) {
+					JOptionPane.showMessageDialog(null, "Ez duzu album bat aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
+				} else {
+					//Abestia albumAuxSelected = new Abestia(abestiSelected.getIzenburua(), abestiSelected.getUrtea(), abestiSelected.getKantaTotala());
+					dispose();
+					try {
+						// JFrameSortu.
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+	}
+}
