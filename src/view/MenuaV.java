@@ -82,7 +82,12 @@ public class MenuaV extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				dispose();
-				JFrameSortu.musikaDeskubrituBezeroa();
+				try {
+					JFrameSortu.musikaDeskubrituBezeroa();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		// POSCASTAK DESKUBRITU BOTOIA

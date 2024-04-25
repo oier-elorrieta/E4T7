@@ -17,10 +17,9 @@ public class ArtistaListDAO {
 		Artista artistAux = null;
 		
 		while (emaitza.next()) {
-			artistAux = new Musikaria(emaitza.getString("IzenArtistikoa"), emaitza.getInt("count(*)"));
+			artistAux = new Musikaria(emaitza.getString("IzenArtistikoa"), emaitza.getInt("Totala"));
 			artistakList.add(artistAux);
 		}
-		
 		
 		return artistakList;
 	}

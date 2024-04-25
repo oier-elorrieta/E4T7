@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.WindowConstants;
+
+import model.Artista;
 import view.*;
 
 public class JFrameSortu {
@@ -27,10 +29,16 @@ public class JFrameSortu {
 		menuaAtera.setVisible(true);
     }
 	
-	public static void musikaDeskubrituBezeroa() {
+	public static void musikaDeskubrituBezeroa() throws SQLException {
 		ArtistaListV musikaDesk = new ArtistaListV();
 		musikaDesk.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		musikaDesk.setVisible(true);
+    }
+	
+	public static void albumakArtistakBezeroa(Artista artista) throws SQLException {
+		ArtistaV artistaAlbumV = new ArtistaV(artista);
+		artistaAlbumV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		artistaAlbumV.setVisible(true);
     }
 }
 

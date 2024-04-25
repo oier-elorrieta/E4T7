@@ -10,19 +10,28 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.border.EtchedBorder;
 
+import model.Artista;
+import model.Musikaria;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
+import model.sql.ArtistaListDAO;
+import model.sql.Konexioa;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ArtistaListV extends JFrame {
 
@@ -31,8 +40,9 @@ public class ArtistaListV extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
 	 */
-	public ArtistaListV() {
+	public ArtistaListV() throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		contentPane = new JPanel();
@@ -59,18 +69,21 @@ public class ArtistaListV extends JFrame {
 		lblAukeratu.setBounds(244, 69, 187, 23);
 		contentPane.add(lblAukeratu);
 		
-		JList ArtistaList = new JList();
+		JList<Artista> ArtistaList = new JList();
 		ArtistaList.setBorder(new LineBorder(new Color(0, 0, 0)));
 		ArtistaList.setFont(new Font("Verdana", Font.BOLD, 16));
-		ArtistaList.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Hola", "Beunas", "Tardes", "que tal", "a tdos"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
+		
+		Konexioa.konexioaIreki();
+		ArrayList<Artista> ArtistakJList = ArtistaListDAO.artistakKargatu();
+		
+		DefaultListModel<Artista> modelMusikari = new DefaultListModel<Artista>();
+		
+		for (int i = 0; i < ArtistakJList.size(); i++) {
+			modelMusikari.addElement(ArtistakJList.get(i));
+		}
+		
+		Konexioa.konexioaItxi();
+		ArtistaList.setModel(modelMusikari);
 		ArtistaList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		ArtistaList.setBounds(244, 103, 430, 357);
 		contentPane.add(ArtistaList);
@@ -81,11 +94,36 @@ public class ArtistaListV extends JFrame {
 		lblMusikaDeskubritu.setBounds(0, 23, 890, 27);
 		contentPane.add(lblMusikaDeskubritu);
 		
+		JButton btnJarraitu = new JButton("Jarraitu");
+		btnJarraitu.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 19));
+		btnJarraitu.setBounds(685, 491, 143, 40);
+		contentPane.add(btnJarraitu);
+		
 		// ATZERA BOTOIA
 		btnAtzera.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				JFrameSortu.menuaBezeroa();
+			}
+		});
+
+		// JARRAITU BOTOIA
+		btnJarraitu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Artista artistaSelected = ArtistaList.getSelectedValue();
+				
+				if (artistaSelected == null) {
+					JOptionPane.showMessageDialog(null, "Ez duzu artistarik aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
+				} else {
+					Artista artistaAuxSelected = new Musikaria(artistaSelected.getIzena(), artistaSelected.getErreprodukzioak());
+					dispose();
+					try {
+						JFrameSortu.albumakArtistakBezeroa(artistaAuxSelected);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
 			}
 		});
 		

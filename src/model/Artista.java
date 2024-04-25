@@ -20,8 +20,14 @@ public abstract class Artista {
 		this.deskribapena = deskribapena;
 	}
 
+	public Artista(String izena, int erreprodukzioak) {
+		this.izena = izena;
+		this.erreprodukzioak = erreprodukzioak;
+	}
 
-	
+
+
+
 	/**
 	 * Artista izena itzultzen du.
 	 * 
@@ -52,9 +58,6 @@ public abstract class Artista {
 		this.erreprodukzioak = erreprodukzioak;
 	}
 
-	
-
-	
 
 	public String getDeskribapena() {
 		return deskribapena;
@@ -66,8 +69,7 @@ public abstract class Artista {
 
 	@Override
 	public String toString() {
-		return "Artista [izena=" + izena + ", erreprodukzioak=" + erreprodukzioak + ", deskribapena=" + deskribapena
-				+ "]";
+		return izena + " - " + erreprodukzioak + " erreprodukzio";
 	}
 
 
