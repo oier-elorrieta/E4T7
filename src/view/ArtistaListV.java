@@ -97,6 +97,7 @@ public class ArtistaListV extends JFrame {
 		JButton btnJarraitu = new JButton("Jarraitu");
 		btnJarraitu.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 19));
 		btnJarraitu.setBounds(685, 491, 143, 40);
+		btnJarraitu.setFocusPainted(false);
 		contentPane.add(btnJarraitu);
 		
 		// ATZERA BOTOIA
@@ -119,7 +120,7 @@ public class ArtistaListV extends JFrame {
 					Artista artistaAuxSelected = new Musikaria(artistaSelected.getIzena(), artistaSelected.getErreprodukzioak());
 					dispose();
 					try {
-						JFrameSortu.albumakArtistakBezeroa(artistaAuxSelected);
+						JFrameSortu.albumakArtistakBezeroa(null, artistaAuxSelected);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}

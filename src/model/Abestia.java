@@ -12,6 +12,14 @@ public class Abestia extends Audio {
 		super(titulua, irudia, iraupena);
 	}
 
+	public Abestia(String titulua, String iraupena, int erreprodukzioak) {
+		super(titulua, iraupena, erreprodukzioak);
+	}
+
+	public Abestia(Blob irudia) {
+		super(irudia);
+	}
+
 	/**
 	 * Abestiak klasearen eraikitzailea.
 	 * 

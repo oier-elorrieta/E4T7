@@ -16,7 +16,7 @@ public class ArtistaDiskaDAO {
         Album albuma = null;
         
         while (emaitza.next()) {
-           albuma = new Album(emaitza.getString("izenburua"), emaitza.getString("year(urtea)"), emaitza.getInt("count(IDAudio)"));
+           albuma = new Album(emaitza.getString("izenburua"), emaitza.getString("year(urtea)"), emaitza.getInt("count(IdAudio)"));
            
            albumList.add(albuma);
         }

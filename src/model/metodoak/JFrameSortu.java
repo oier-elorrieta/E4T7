@@ -42,13 +42,20 @@ public class JFrameSortu {
 		podcasterList.setVisible(true);
     }
 	
-	public static void albumakArtistakBezeroa(Artista artista) throws SQLException {
+	public static void albumakArtistakBezeroa(Album album, Artista artista) throws SQLException {
 		ArtistaV artistaAlbumV = new ArtistaV(artista);
 		artistaAlbumV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		artistaAlbumV.setVisible(true);
     }
 	
 	public static void podcastPodcasterBezeroa(Artista artista) throws SQLException {
+        PodcasterV podcasterPodcastV = new PodcasterV(artista);
+        podcasterPodcastV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        podcasterPodcastV.setVisible(true);
+    }
+	
+	public static void albumKantakBezeroa(Album album, Artista artista) throws SQLException {
+		KantaListV kantaArtistaV = new KantaListV(album, artista);
 		PodcasterV podcasterPodcastV = new PodcasterV(artista);
 		podcasterPodcastV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		podcasterPodcastV.setVisible(true);
