@@ -7,9 +7,14 @@ import java.sql.Statement;
 
 public class Konexioa {
 
-	private static final String URL = "jdbc:mysql://10.5.6.223:3306/db_JPamt7";
+	/*private static final String URL = "jdbc:mysql://10.5.6.223:3306/db_JPamt7";
 	private static final String USER = "administrador";
-	private static final String PASS = "admin123";
+	private static final String PASS = "admin123";*/
+	
+	private static final String URL = "jdbc:mysql://localhost:3307/db_JPamt7";
+	private static final String USER = "root";
+	private static final String PASS = "";
+	
 	protected static Connection konexioa;
 	protected static Statement query;
 

@@ -42,6 +42,10 @@ public class ErreprodukzioaV extends JFrame {
 	private JPanel contentPane;
 	private Clip clipLehena;
 	private Clip clipHurrengoa;
+	private Clip clipAurrekoa;
+	private boolean listaAmaiera = false;
+	private ArrayList<Abestia> abestiList;
+	
 	/**
 	 * Create the frame.
 	 * @throws SQLException 
@@ -96,7 +100,7 @@ public class ErreprodukzioaV extends JFrame {
 		
 		JLabel lblArtistaIzena = new JLabel("");
 		lblArtistaIzena.setHorizontalAlignment(SwingConstants.CENTER);
-		lblArtistaIzena.setFont(new Font("Segoe UI Light", Font.PLAIN, 16));
+		lblArtistaIzena.setFont(new Font("Segoe UI Semilight", Font.ITALIC, 16));
 		lblArtistaIzena.setBounds(0, 386, 890, 23);
 		lblArtistaIzena.setText(artista.getIzena());
 		contentPane.add(lblArtistaIzena);
@@ -144,7 +148,14 @@ public class ErreprodukzioaV extends JFrame {
 		btnMenua.setFocusPainted(false);
 		contentPane.add(btnMenua);
 		
-		String fileAudio = "C:\\Users\\in1dm3-d\\eclipse-workspace\\E4T7\\src\\audio\\" + abesti.getTitulua() + ".wav";
+		JLabel lblInfoLista = new JLabel("");
+		lblInfoLista.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInfoLista.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 15));
+		lblInfoLista.setBounds(0, 503, 890, 23);
+		contentPane.add(lblInfoLista);
+		
+		String fileAudio = "C:\\Users\\romag\\Downloads\\Eclipse-Workspace\\E4T7\\src\\audio\\" + abesti.getTitulua() + ".wav";
+		//String fileAudio = "C:\\Users\\in1dm3-d\\eclipse-workspace\\E4T7\\src\\audio\\" + abesti.getTitulua() + ".wav";
 		File f = new File(fileAudio);
 		AudioInputStream aui;
 		
@@ -157,6 +168,7 @@ public class ErreprodukzioaV extends JFrame {
 		} catch (LineUnavailableException e1) {
 			e1.printStackTrace();
 		}
+		
 		
 		// PLAY-PAUSE BOTOIA
 		btnPlayPause.addMouseListener(new MouseAdapter() {
@@ -176,7 +188,51 @@ public class ErreprodukzioaV extends JFrame {
 		btnAurrekoa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				try {
+					abestiList = DiskaAbestiakDAO.albumAbestiakKargatu(album);
+					for (int i = 0; i < abestiList.size(); i++) {
+						// ERRORRRRR---------------------------------------------------------------------
+						if (i == -1) {
+							lblInfoLista.setText("Ezin zara atzerago joan!");
+							break;
+						} else {
+							if (abesti.getTitulua().equals(abestiList.get(i).getTitulua())) {
+								String fileAudio = "C:\\Users\\romag\\Downloads\\Eclipse-Workspace\\E4T7\\src\\audio\\" + abestiList.get(i-1).getTitulua() + ".wav";
+								//String fileAudio = "C:\\Users\\in1dm3-d\\eclipse-workspace\\E4T7\\src\\audio\\" + abestiList.get(i+1).getTitulua() + ".wav";
+								File f = new File(fileAudio);
+								AudioInputStream aui;
+									
+								try {
+									aui = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
+									clipAurrekoa = AudioSystem.getClip();
+									clipAurrekoa.open(aui);
+								} catch (UnsupportedAudioFileException | IOException ew) {
+									ew.printStackTrace();
+								} catch (LineUnavailableException e1) {
+									e1.printStackTrace();
+								}
+								
+								Abestia abestiaAurrekoa = new Abestia(abestiList.get(i-1).getTitulua(), abestiList.get(i-1).getIrudia(), abestiList.get(i-1).getIraupena());
+								
+								if (clipLehena.isRunning()) {
+									clipLehena.stop();
+								}
+								/*if (clipHurrengoa.isRunning()) {
+									clipHurrengoa.stop();
+								}*/
+								if (clipAurrekoa.isRunning()) {
+									clipAurrekoa.stop();
+								}
+								
+								dispose();
+								JFrameSortu.erreprodukzioLehioa(album, artista, abestiaAurrekoa);
+							}
+						}
+						
+					}
+				} catch (SQLException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -184,20 +240,24 @@ public class ErreprodukzioaV extends JFrame {
 		btnHurrengoa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				int i = 0;
 				try {
-					ArrayList<Abestia> abestiList = DiskaAbestiakDAO.albumAbestiakKargatu(album);
-					for (int i = 0; i < abestiList.size(); i++) {
-						System.out.println(abestiList.get(i).getTitulua());
-						if (i == abestiList.size()-1) {						
-							JOptionPane.showMessageDialog(null, "Iritsi zara albumeko azken abestira.", "Errorea", JOptionPane.ERROR_MESSAGE);
-							i = -1;
+					abestiList = DiskaAbestiakDAO.albumAbestiakKargatu(album);
+					if (listaAmaiera) {
+						lblInfoLista.setText("Listaren amaierara iritsi zara!");
+						return;
+					}
+					for (; i < abestiList.size(); i++) {
+						if (i == abestiList.size()-1) {	
+							listaAmaiera = true;
 		                    break;
 						} else {
 							if (abesti.getTitulua().equals(abestiList.get(i).getTitulua())) {
-								String fileAudio = "C:\\Users\\in1dm3-d\\eclipse-workspace\\E4T7\\src\\audio\\" + abestiList.get(i+1).getTitulua() + ".wav";
+								String fileAudio = "C:\\Users\\romag\\Downloads\\Eclipse-Workspace\\E4T7\\src\\audio\\" + abestiList.get(i+1).getTitulua() + ".wav";
+								//String fileAudio = "C:\\Users\\in1dm3-d\\eclipse-workspace\\E4T7\\src\\audio\\" + abestiList.get(i+1).getTitulua() + ".wav";
 								File f = new File(fileAudio);
 								AudioInputStream aui;
-								
+									
 								try {
 									aui = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
 									clipHurrengoa = AudioSystem.getClip();
@@ -210,15 +270,15 @@ public class ErreprodukzioaV extends JFrame {
 								
 								Abestia abestiaHurrengoa = new Abestia(abestiList.get(i+1).getTitulua(), abestiList.get(i+1).getIrudia(), abestiList.get(i+1).getIraupena());
 								
+								if (clipLehena.isRunning()) {
+									clipLehena.stop();
+								}
+								if (clipHurrengoa.isRunning()) {
+									clipHurrengoa.stop();
+								}
 								
-									if (clipLehena.isRunning()) {
-										clipLehena.stop();
-									}
-									if (clipHurrengoa.isRunning()) {
-										clipHurrengoa.stop();
-									}
-									dispose();
-									JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
+								dispose();
+								JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
 							}	
 						}
 						
