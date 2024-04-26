@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -33,6 +35,8 @@ public class LoginV extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtFErabiltzaile;
 	private JPasswordField passwordField;
+	private JComboBox comboBox = null;
+	private JComboBox waBox;
 	private Erabiltzailea BezeroOndo = null;
 
 	/**
@@ -101,34 +105,20 @@ public class LoginV extends JFrame {
 		comboBox.setBounds(394, 295, 132, 22);
 		contentPane.add(comboBox);
 		
+		// LOGIN EGITEN DU, ENTER BOTOIA PULTSATZEAN
+		passwordField.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) {
+		        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+		            LoginEgin(comboBox);
+		        }
+		    }
+		});
+
 		// LOGIN EGITEKO BOTOIA
 		btnLogin.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	// HARTU ERABILTZAILEA FORMULARIOTIK
-		        String txtErabil = txtFErabiltzaile.getText();
-		        // HARTU PASAHITZA FORMULARIOTIK
-		        char[] charPass = passwordField.getPassword();
-		        String passwdErabil = new String(charPass);
-		        // KONPROBATU BEZEROA EDO ADMIN AUKERA
-		        if (comboBox.getSelectedIndex() == 0) {
-		            Konexioa.konexioaIreki();
-		            try {
-		                BezeroOndo = SQLInterakzioa.loginKonexioa(txtErabil, passwdErabil);
-		            } catch (SQLException e1) {
-		                e1.printStackTrace();
-		            }
-		            // BEZEROA ONDO BADAGO, OBJEKTUAN SARTU ETA LOGEATU
-		            if (BezeroOndo != null) {
-		                dispose();
-		                SesioAldagaiak.bezero_Ondo = BezeroOndo;
-		                SesioAldagaiak.logeatuta = true;
-		                JFrameSortu.menuaBezeroa();
-		            } else {
-		                JOptionPane.showMessageDialog(null, "Erabiltzailea edo pasahitza txarto dago.", "Errorea", JOptionPane.ERROR_MESSAGE);
-		                txtFErabiltzaile.setText("");
-		                passwordField.setText("");
-		            }
-		        }
+		        LoginEgin(comboBox);
 		    }
 		});
 
@@ -145,4 +135,38 @@ public class LoginV extends JFrame {
 			}
 		});
 	}
+	
+	/**
+	 * Metodo honek erabiltzailea sartzen du sistema honetan.
+	 * 
+	 * @param comboBox Erabiltzaile mota aukeratzeko JComboBox objektua.
+	 */
+	private void LoginEgin(JComboBox comboBox) {
+			
+	    	// HARTU ERABILTZAILEA FORMULARIOTIK
+	        String txtErabil = txtFErabiltzaile.getText();
+	        // HARTU PASAHITZA FORMULARIOTIK
+	        char[] charPass = passwordField.getPassword();
+	        String passwdErabil = new String(charPass);
+	        // KONPROBATU BEZEROA EDO ADMIN AUKERA
+	        if (comboBox.getSelectedIndex() == 0) {
+	            Konexioa.konexioaIreki();
+	            try {
+	                BezeroOndo = SQLInterakzioa.loginKonexioa(txtErabil, passwdErabil);
+	            } catch (SQLException e1) {
+	                e1.printStackTrace();
+	            }
+	            // BEZEROA ONDO BADAGO, OBJEKTUAN SARTU ETA LOGEATU
+	            if (BezeroOndo != null) {
+	                dispose();
+	                SesioAldagaiak.bezero_Ondo = BezeroOndo;
+	                SesioAldagaiak.logeatuta = true;
+	                JFrameSortu.menuaBezeroa();
+	            } else {
+	                JOptionPane.showMessageDialog(null, "Erabiltzailea edo pasahitza txarto dago.", "Errorea", JOptionPane.ERROR_MESSAGE);
+	                txtFErabiltzaile.setText("");
+	                passwordField.setText("");
+	            }
+	        }
+		}
 }
