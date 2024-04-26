@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import model.Album;
 import model.Artista;
 import model.Musikaria;
+import model.Podcast;
 import model.Podcaster;
 import model.metodoak.SesioAldagaiak;
 
 public class PodcasterListDAO {
-    public static Podcaster irudiaDeskribapenaKargatu(Podcaster podcaster) throws SQLException {
-        String SQLquery = "SELECT Irudia, Deskribapena, IzenArtistikoa FROM musikaria WHERE IzenArtistikoa = '" + podcaster.getIzena() + "';";
+    public static Podcaster podcasterInfoKargatu(Artista podcaster) throws SQLException {
+        String SQLquery = "SELECT Deskribapena, Irudia FROM podcaster WHERE IzenArtistikoa = '" + podcaster.getIzena() + "';";
         ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
         Podcaster pdcasterInfo = null;
         
@@ -40,19 +41,21 @@ public class PodcasterListDAO {
 		return podcasterlist;
 	}
 	
-    public static ArrayList<Album> albumPodcasterKargatu(Artista artista) throws SQLException {
-        ArrayList<Album> albumList = new ArrayList<Album>();
-        String SQLquery = 	"SELECT Izena, Kolaboratzaileak from podcast join audio using(IdAudio) join podcaster using (IDPodcaster) where IzenArtistikoa = '" + artista.getIzena() + "' group by 1, 2;";
+    public static ArrayList<Podcast> podcastKargatu(Artista artista) throws SQLException {
+        ArrayList<Podcast> PodcastList = new ArrayList<Podcast>();
+        String SQLquery = 	"SELECT Izena, Kolaboratzaileak, Iraupena, a.Irudia from podcast join audio a using(IdAudio) join podcaster p "
+        					+ "using (IDPodcaster) where IzenArtistikoa = '" + artista.getIzena() + "' group by 1, 2, 3, 4;";
+        		 
         ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
-        Album albuma = null;
+        Podcast podcast = null;
         
         while (emaitza.next()) {
-           albuma = new Album(emaitza.getString("izenburua"), emaitza.getString("year(urtea)"), emaitza.getInt("count(IDAudio)"));
+           podcast = new Podcast (emaitza.getString("Izena"), emaitza.getBlob("a.Irudia"), emaitza.getString("Iraupena"), emaitza.getString("Kolaboratzaileak"));
            
-           albumList.add(albuma);
+           PodcastList.add(podcast);
         }
         
-        return albumList;
+        return PodcastList;
     }
 	
 	

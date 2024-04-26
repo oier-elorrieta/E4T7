@@ -18,6 +18,7 @@ import javax.swing.border.EtchedBorder;
 
 import model.Artista;
 import model.Musikaria;
+import model.Podcaster;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
@@ -117,10 +118,10 @@ public class PodcasterListV extends JFrame {
 				if (artistaSelected == null) {
 					JOptionPane.showMessageDialog(null, "Ez duzu artistarik aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {
-					Artista artistaAuxSelected = new Musikaria(artistaSelected.getIzena(), artistaSelected.getErreprodukzioak());
+					Artista artistaAuxSelected = new Podcaster(artistaSelected.getIzena(), artistaSelected.getErreprodukzioak());
 					dispose();
 					try {
-						JFrameSortu.albumakArtistakBezeroa(artistaAuxSelected);
+						JFrameSortu.podcastPodcasterBezeroa(artistaAuxSelected);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}

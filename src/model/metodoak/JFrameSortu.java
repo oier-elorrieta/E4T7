@@ -56,6 +56,13 @@ public class JFrameSortu {
 	
 	public static void albumKantakBezeroa(Album album, Artista artista) throws SQLException {
 		KantaListV kantaArtistaV = new KantaListV(album, artista);
+		PodcasterV podcasterPodcastV = new PodcasterV(artista);
+		podcasterPodcastV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		podcasterPodcastV.setVisible(true);
+    }
+	
+	public static void albumKantakBezeroa(Album album) throws SQLException {
+		KantaListV kantaArtistaV = new KantaListV(album);
 		kantaArtistaV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		kantaArtistaV.setVisible(true);
     }

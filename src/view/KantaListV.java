@@ -140,6 +140,7 @@ public class KantaListV extends JFrame {
 				} else {
 					//Abestia albumAuxSelected = new Abestia(abestiSelected.getIzenburua(), abestiSelected.getUrtea(), abestiSelected.getKantaTotala());
 					dispose();
+<<<<<<< HEAD
 					/*try {
 						JFrameSortu.
 					} catch (SQLException e1) {
@@ -158,6 +159,8 @@ public class KantaListV extends JFrame {
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
+=======
+>>>>>>> 9c81040e54774986f51326bbc990643fe524cd3b
 				}
 			});
 			
