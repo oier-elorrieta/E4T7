@@ -120,6 +120,7 @@ public class ArtistaV extends JFrame {
 		JButton btnJarraitu = new JButton("Jarraitu");
 		btnJarraitu.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 19));
 		btnJarraitu.setBounds(678, 501, 143, 40);
+		btnJarraitu.setFocusPainted(false);
 		contentPane.add(btnJarraitu);
 		
 		JTextPane txtInformazioa = new JTextPane();
@@ -141,7 +142,7 @@ public class ArtistaV extends JFrame {
 					Album albumAuxSelected = new Album(albumSelected.getIzenburua(), albumSelected.getUrtea(), albumSelected.getKantaTotala());
 					dispose();
 					try {
-						JFrameSortu.albumKantakBezeroa(albumAuxSelected);;
+						JFrameSortu.albumKantakBezeroa(albumAuxSelected, artista);;
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}

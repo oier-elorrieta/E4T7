@@ -12,6 +12,7 @@ public class Audio {
 	protected String titulua;
 	protected Blob irudia;
 	protected String iraupena;
+	protected int erreprodukzioak;
 
 	/**
 	 * Audio klasearen eraikitzailea.
@@ -19,11 +20,29 @@ public class Audio {
 	 * @param titulua  audioaren titulua
 	 * @param iraupena audioaren iraupena
 	 */
+	public Audio(String titulua, Blob irudia, String iraupena, int erreprodukzioak) {
+		this.titulua = titulua;
+		this.irudia = irudia;
+		this.iraupena = iraupena;
+		this.erreprodukzioak = erreprodukzioak;
+	}
+	
+	public Audio(String titulua, String iraupena, int erreprodukzioak) {
+		this.titulua = titulua;
+		this.iraupena = iraupena;
+		this.erreprodukzioak = erreprodukzioak;
+	}
+
+	public Audio(Blob irudia) {
+		this.irudia = irudia;
+	}
+
 	public Audio(String titulua, Blob irudia, String iraupena) {
 		this.titulua = titulua;
 		this.irudia = irudia;
 		this.iraupena = iraupena;
 	}
+
 
 	/**
 	 * Audioaren titulua itzultzen du.
@@ -33,7 +52,6 @@ public class Audio {
 	public String getTitulua() {
 		return titulua;
 	}
-
 
 	/**
 	 * Audioaren titulua aldatzen du.
@@ -60,6 +78,14 @@ public class Audio {
 		this.irudia = irudia;
 	}
 
+	public int getErreprodukzioak() {
+		return erreprodukzioak;
+	}
+
+	public void setErreprodukzioak(int erreprodukzioak) {
+		this.erreprodukzioak = erreprodukzioak;
+	}
+	
 	/**
 	 * Objektu hau eta beste objektu bat berdinak diren ala ez adierazten du.
 	 * 
@@ -67,6 +93,7 @@ public class Audio {
 	 * @return objektuak berdinak diren ala ez adierazten duen boolean balioa
 	 */
 	
+
 
 	/**
 	 * Objektuaren informazioa testu moduan itzultzen du.
@@ -90,7 +117,7 @@ public class Audio {
 
 	@Override
 	public String toString() {
-		return titulua + " - " + iraupena;
+		return titulua + " - " + iraupena + " - " + erreprodukzioak + " erreprodukzio";
 	}
 
 }

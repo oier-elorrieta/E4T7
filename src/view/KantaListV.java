@@ -3,6 +3,7 @@ package view;
 import java.awt.EventQueue;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,6 +13,8 @@ import javax.swing.border.EmptyBorder;
 
 import model.Abestia;
 import model.Album;
+import model.Artista;
+import model.Musikaria;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
@@ -21,6 +24,8 @@ import model.sql.Konexioa;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -42,7 +47,7 @@ public class KantaListV extends JFrame {
 	 * Create the frame.
 	 * @throws SQLException 
 	 */
-	public KantaListV(Album album) throws SQLException {
+	public KantaListV(Album album, Artista artista) throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		contentPane = new JPanel();
@@ -88,6 +93,7 @@ public class KantaListV extends JFrame {
 		for (int i = 0; i < AbestiJList.size(); i++) {
 			modelAbestia.addElement(AbestiJList.get(i));
 		}
+		
 		AbestiList.setModel(modelAbestia);
 		AbestiList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		AbestiList.setFont(new Font("Verdana", Font.BOLD, 16));
@@ -104,7 +110,7 @@ public class KantaListV extends JFrame {
 		txtInformazioa.setEditable(false);
 		txtInformazioa.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		txtInformazioa.setBounds(466, 282, 392, 215);
-		txtInformazioa.setText("Argitaratze-data: \n");
+		txtInformazioa.setText("Argitaratze-data: " + album.getUrtea() + " \n" + "Kanta kopurua: " + album.getKantaTotala());
 		scrollPane.setViewportView(txtInformazioa);
 		
 		JLabel lblArgazkia = new JLabel("");
@@ -113,29 +119,58 @@ public class KantaListV extends JFrame {
 		lblArgazkia.setBounds(515, 98, 298, 214);
 		contentPane.add(lblArgazkia);
 		
-		JButton btnJarraitu = new JButton("Jarraitu");
-		btnJarraitu.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 19));
-		btnJarraitu.setBounds(677, 504, 143, 40);
-		contentPane.add(btnJarraitu);
+		Abestia abestiIrudia = DiskaAbestiakDAO.irudiaKargatu(album);
+		ImageIcon argazkiaAlbum = new ImageIcon(abestiIrudia.getIrudia().getBytes(1, (int) abestiIrudia.getIrudia().length()));
+		lblArgazkia.setIcon(argazkiaAlbum);
+		
+		JButton btnErreproduzitu = new JButton("Erreproduzitu");
+		btnErreproduzitu.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 19));
+		btnErreproduzitu.setBounds(666, 504, 165, 40);
+		btnErreproduzitu.setFocusPainted(false);
+		contentPane.add(btnErreproduzitu);
 		
 		// JARRAITU BOTOIA
-		btnJarraitu.addMouseListener(new MouseAdapter() {
+		btnErreproduzitu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Abestia abestiSelected = AbestiList.getSelectedValue();
 				
 				if (abestiSelected == null) {
-					JOptionPane.showMessageDialog(null, "Ez duzu album bat aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Ez duzu abesti bat aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {
 					//Abestia albumAuxSelected = new Abestia(abestiSelected.getIzenburua(), abestiSelected.getUrtea(), abestiSelected.getKantaTotala());
 					dispose();
+					/*try {
+						JFrameSortu.
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}*/
+				}
+			}
+		});
+		
+		// ATZERA BOTOIA
+			btnAtzera.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
 					try {
-						// JFrameSortu.
+						JFrameSortu.albumakArtistakBezeroa(album, artista);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
 				}
-			}
-		});
+			});
+			
+			// NIRE PROFILA BOTOIA
+			btnNireProfila.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+					try {
+						JFrameSortu.erregistroMenua();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+			});
 	}
 }
