@@ -129,11 +129,6 @@ public class KantaListV extends JFrame {
 				} else {
 					//Abestia albumAuxSelected = new Abestia(abestiSelected.getIzenburua(), abestiSelected.getUrtea(), abestiSelected.getKantaTotala());
 					dispose();
-					try {
-						// JFrameSortu.
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
 				}
 			}
 		});
