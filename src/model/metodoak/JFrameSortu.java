@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.WindowConstants;
 
+import model.Abestia;
 import model.Album;
 import model.Artista;
 import view.*;
@@ -54,17 +55,22 @@ public class JFrameSortu {
         podcasterPodcastV.setVisible(true);
     }
 	
-	public static void albumKantakBezeroa(Album album, Artista artista) throws SQLException {
-		KantaListV kantaArtistaV = new KantaListV(album, artista);
+	public static void podcastKantakBezeroa(Album album, Artista artista) throws SQLException {
 		PodcasterV podcasterPodcastV = new PodcasterV(artista);
 		podcasterPodcastV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		podcasterPodcastV.setVisible(true);
     }
 	
-	public static void albumKantakBezeroa(Album album) throws SQLException {
-		KantaListV kantaArtistaV = new KantaListV(album);
+	public static void albumKantakBezeroa(Album album, Artista artista) throws SQLException {
+		KantaListV kantaArtistaV = new KantaListV(album, artista);
 		kantaArtistaV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		kantaArtistaV.setVisible(true);
+    }
+	
+	public static void erreprodukzioLehioa(Album album, Artista artista, Abestia abesti) throws SQLException {
+		ErreprodukzioaV ErreprodukzioaV = new ErreprodukzioaV(album, artista, abesti);
+		ErreprodukzioaV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		ErreprodukzioaV.setVisible(true);
     }
 }
 

@@ -142,7 +142,7 @@ public class ArtistaV extends JFrame {
 					Album albumAuxSelected = new Album(albumSelected.getIzenburua(), albumSelected.getUrtea(), albumSelected.getKantaTotala());
 					dispose();
 					try {
-						JFrameSortu.albumKantakBezeroa(albumAuxSelected, artista);;
+						JFrameSortu.albumKantakBezeroa(albumAuxSelected, artista);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}

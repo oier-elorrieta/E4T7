@@ -145,7 +145,7 @@ public class PodcasterV extends JFrame {
 					Album albumAuxSelected = new Album(PodcastSelected.getTitulua(), PodcastSelected.getIraupena(), PodcastSelected.getIraupena());
 					dispose();
 					try {
-						JFrameSortu.albumKantakBezeroa(albumAuxSelected);;
+						JFrameSortu.podcastKantakBezeroa(albumAuxSelected, artista);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
