@@ -57,6 +57,7 @@ public class ErregistroaV extends JFrame {
 	public ErregistroaV() throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
+		setTitle("Erregistroa - JPAM Music");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

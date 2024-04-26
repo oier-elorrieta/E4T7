@@ -2,6 +2,7 @@ package view;
 
 import java.awt.EventQueue;
 
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -142,7 +143,7 @@ public class KantaListV extends JFrame {
 					dispose();
 					try {
 						JFrameSortu.erreprodukzioLehioa(album, artista, abestiAuxSelected);
-					} catch (SQLException e1) {
+					} catch (SQLException | LineUnavailableException e1) {
 						e1.printStackTrace();
 					}
 				}

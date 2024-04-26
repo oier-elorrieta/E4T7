@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -28,6 +29,7 @@ import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.sql.Konexioa;
 import model.sql.SQLInterakzioa;
+import javax.swing.ImageIcon;
 
 public class LoginV extends JFrame {
 
@@ -43,40 +45,43 @@ public class LoginV extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginV() {
+		setFont(new Font("Dialog", Font.PLAIN, 18));
+		setTitle("Login - JPAM Music");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("LOGIN");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 23));
-		lblNewLabel.setBounds(0, 33, 890, 27);
-		contentPane.add(lblNewLabel);
+		JLabel lblLogin = new JLabel("LOGIN");
+		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogin.setFont(new Font("Tahoma", Font.BOLD, 23));
+		lblLogin.setBounds(0, 33, 890, 27);
+		contentPane.add(lblLogin);
 		
 		txtFErabiltzaile = new JTextField();
 		txtFErabiltzaile.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtFErabiltzaile.setToolTipText("Sartu erabiltzailea...");
-		txtFErabiltzaile.setBounds(329, 162, 275, 27);
+		txtFErabiltzaile.setBounds(357, 168, 275, 27);
 		contentPane.add(txtFErabiltzaile);
 		txtFErabiltzaile.setColumns(10);
 		
 		passwordField = new JPasswordField();
 		passwordField.setToolTipText("Sartu pasahitza...");
-		passwordField.setBounds(329, 228, 275, 27);
+		passwordField.setBounds(357, 234, 275, 27);
 		contentPane.add(passwordField);
 		
 		JLabel lblErabiltzaile = new JLabel("Erabiltzailea:");
 		lblErabiltzaile.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		lblErabiltzaile.setBounds(195, 162, 142, 27);
+		lblErabiltzaile.setBounds(223, 168, 142, 27);
 		contentPane.add(lblErabiltzaile);
 		
 		JLabel lblPasahitza = new JLabel("Pasahitza:");
 		lblPasahitza.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		lblPasahitza.setBounds(195, 235, 124, 17);
+		lblPasahitza.setBounds(223, 241, 124, 17);
 		contentPane.add(lblPasahitza);
 		
 		JButton btnLogin = new JButton("Login egin");
@@ -94,7 +99,7 @@ public class LoginV extends JFrame {
 		
 		JLabel lblErabiltzaileMota = new JLabel("Erabiltzaile mota:");
 		lblErabiltzaileMota.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		lblErabiltzaileMota.setBounds(195, 297, 142, 17);
+		lblErabiltzaileMota.setBounds(223, 303, 142, 17);
 		contentPane.add(lblErabiltzaileMota);
 		
 		@SuppressWarnings("rawtypes")
@@ -102,7 +107,7 @@ public class LoginV extends JFrame {
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Bezeroa", "Admin"}));
 		comboBox.setSelectedIndex(0);
-		comboBox.setBounds(394, 295, 132, 22);
+		comboBox.setBounds(422, 301, 132, 22);
 		contentPane.add(comboBox);
 		
 		// LOGIN EGITEN DU, ENTER BOTOIA PULTSATZEAN

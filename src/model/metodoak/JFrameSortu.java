@@ -3,6 +3,7 @@ package model.metodoak;
 import java.awt.Font;
 import java.sql.SQLException;
 
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.JButton;
 import javax.swing.WindowConstants;
 
@@ -67,7 +68,7 @@ public class JFrameSortu {
 		kantaArtistaV.setVisible(true);
     }
 	
-	public static void erreprodukzioLehioa(Album album, Artista artista, Abestia abesti) throws SQLException {
+	public static void erreprodukzioLehioa(Album album, Artista artista, Abestia abesti) throws SQLException, LineUnavailableException {
 		ErreprodukzioaV ErreprodukzioaV = new ErreprodukzioaV(album, artista, abesti);
 		ErreprodukzioaV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		ErreprodukzioaV.setVisible(true);
