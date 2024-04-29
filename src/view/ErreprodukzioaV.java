@@ -49,13 +49,15 @@ public class ErreprodukzioaV extends JFrame {
 	private boolean listaAmaiera = false;
 	private ArrayList<Abestia> abestiList;
 	private boolean aurrekoListaamaitu = false;
-	
+
 	/**
 	 * Create the frame.
 	 * @throws SQLException 
 	 * @throws LineUnavailableException 
 	 */
 	public ErreprodukzioaV(Album album, Artista artista, Abestia abesti) throws SQLException, LineUnavailableException {
+		final String fileAudio = "\\\\10.5.6.223\\audios\\" + abesti.getTitulua() + ".wav";
+		// ------------------------------
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle(abesti.getTitulua() + " - " + artista.getIzena() + " | Erreprodukzioa · JPAM Music");
 		setBounds(400, 250, 906, 594);
@@ -158,8 +160,7 @@ public class ErreprodukzioaV extends JFrame {
 		lblInfoLista.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 15));
 		lblInfoLista.setBounds(0, 503, 890, 23);
 		contentPane.add(lblInfoLista);
-		
-		String fileAudio = "\\\\10.5.6.223\\audios\\" + abesti.getTitulua() + ".wav";
+
 		File f = new File(fileAudio);
 		AudioInputStream aui;
 		
@@ -229,7 +230,6 @@ public class ErreprodukzioaV extends JFrame {
 							aurrekoListaamaitu = true;
 						} else {
 							if (abesti.getTitulua().equals(abestiList.get(i).getTitulua())) {
-								String fileAudio = "\\\\10.5.6.223\\audios\\" + abesti.getTitulua() + ".wav";
 								File f = new File(fileAudio);
 								AudioInputStream aui;
 									
@@ -284,7 +284,6 @@ public class ErreprodukzioaV extends JFrame {
 		                    break;
 						} else {
 							if (abesti.getTitulua().equals(abestiList.get(i).getTitulua())) {
-								String fileAudio = "\\\\10.5.6.223\\audios\\" + abesti.getTitulua() + ".wav";
 								File f = new File(fileAudio);
 								AudioInputStream aui;
 									
