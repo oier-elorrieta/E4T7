@@ -70,6 +70,12 @@ public class JFrameSortu {
 		kantaArtistaV.setVisible(true);
     }
 	
+	public static void playlistListaBezeroa() {
+		PlaylistListV PlaylistListV = new PlaylistListV();
+		PlaylistListV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		PlaylistListV.setVisible(true);
+    }
+	
 	public static void erreprodukzioLehioa(Album album, Artista artista, Abestia abesti) throws SQLException, LineUnavailableException {
 		ErreprodukzioaV ErreprodukzioaV = new ErreprodukzioaV(album, artista, abesti);
 		ErreprodukzioaV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

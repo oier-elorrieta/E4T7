@@ -112,7 +112,8 @@ public class MenuaV extends JFrame {
 		btnNirePlaylistak.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				dispose();
+				JFrameSortu.playlistListaBezeroa();
 			}
 		});
 		
