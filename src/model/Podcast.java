@@ -18,11 +18,25 @@ public class Podcast extends Audio {
 	 */
 	
 
-	public Podcast(String titulua, Blob irudia, String iraupena, String kolaboratzaile) {
+	public Podcast(String titulua, Blob irudia, String iraupena, int erreprodukzioak, String kolaboratzaile) {
 		super(titulua, irudia, iraupena);
 		this.kolaboratzaile = kolaboratzaile;
 	}
 	
+	
+	public Podcast(String titulua, Blob irudia, String iraupena, String kolaboratzaile) {
+		super(titulua, irudia, iraupena);
+		this.kolaboratzaile = kolaboratzaile;
+	}
+
+
+
+	public Podcast(String titulua, String iraupena, int erreprodukzioak) {
+		super(titulua, iraupena, erreprodukzioak);
+	}
+
+
+
 	public String getKolaboratzaile() {
 		return kolaboratzaile;
 	}

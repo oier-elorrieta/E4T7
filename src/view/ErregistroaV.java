@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -57,7 +58,13 @@ public class ErregistroaV extends JFrame {
 	public ErregistroaV() throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
-		setTitle("Erregistroa - JPAM Music");
+		setResizable(false);
+		if (SesioAldagaiak.logeatuta) {
+			setTitle("Nire profila - JPAM Music");
+		} else {
+			setTitle("Erregistroa - JPAM Music");
+		}
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

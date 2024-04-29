@@ -20,11 +20,10 @@ public class Audio {
 	 * @param titulua  audioaren titulua
 	 * @param iraupena audioaren iraupena
 	 */
-	public Audio(String titulua, Blob irudia, String iraupena, int erreprodukzioak) {
+	public Audio(String titulua, Blob irudia, String iraupena) {
 		this.titulua = titulua;
 		this.irudia = irudia;
 		this.iraupena = iraupena;
-		this.erreprodukzioak = erreprodukzioak;
 	}
 	
 	public Audio(String titulua, String iraupena, int erreprodukzioak) {
@@ -37,12 +36,9 @@ public class Audio {
 		this.irudia = irudia;
 	}
 
-	public Audio(String titulua, Blob irudia, String iraupena) {
-		this.titulua = titulua;
-		this.irudia = irudia;
-		this.iraupena = iraupena;
-	}
 
+	
+	
 
 	/**
 	 * Audioaren titulua itzultzen du.

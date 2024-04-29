@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -47,6 +49,9 @@ public class PodcasterListV extends JFrame {
 	public PodcasterListV() throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
+		setResizable(false);
+		setTitle("Podcastak deskubritu - JPAM Music");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -90,7 +95,7 @@ public class PodcasterListV extends JFrame {
 		ArtistaList.setBounds(244, 103, 430, 357);
 		contentPane.add(ArtistaList);
 	
-		JLabel lblMusikaDeskubritu = new JLabel("MUSIKA DESKUBRITU");
+		JLabel lblMusikaDeskubritu = new JLabel("PODCASTAK DESKUBRITU");
 		lblMusikaDeskubritu.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMusikaDeskubritu.setFont(new Font("Tahoma", Font.BOLD, 22));
 		lblMusikaDeskubritu.setBounds(0, 23, 890, 27);
@@ -98,6 +103,7 @@ public class PodcasterListV extends JFrame {
 		
 		JButton btnJarraitu = new JButton("Jarraitu");
 		btnJarraitu.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 19));
+		btnJarraitu.setFocusPainted(false);
 		btnJarraitu.setBounds(685, 491, 143, 40);
 		contentPane.add(btnJarraitu);
 		
@@ -116,12 +122,12 @@ public class PodcasterListV extends JFrame {
 				Artista artistaSelected = ArtistaList.getSelectedValue();
 				
 				if (artistaSelected == null) {
-					JOptionPane.showMessageDialog(null, "Ez duzu artistarik aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Ez duzu podcaster bat aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {
-					Artista artistaAuxSelected = new Podcaster(artistaSelected.getIzena(), artistaSelected.getErreprodukzioak());
+					Artista podcasterAuxSelected = new Podcaster(artistaSelected.getIzena(), artistaSelected.getErreprodukzioak());
 					dispose();
 					try {
-						JFrameSortu.podcastPodcasterBezeroa(artistaAuxSelected);
+						JFrameSortu.podcastPodcasterBezeroa(podcasterAuxSelected);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}

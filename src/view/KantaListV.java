@@ -25,6 +25,7 @@ import model.sql.Konexioa;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -51,6 +52,9 @@ public class KantaListV extends JFrame {
 	public KantaListV(Album album, Artista artista) throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
+		setResizable(false);
+		setTitle(album.getIzenburua() + " · " + artista.getIzena() + " - JPAM Music");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		

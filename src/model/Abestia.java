@@ -16,6 +16,8 @@ public class Abestia extends Audio {
 		super(titulua, iraupena, erreprodukzioak);
 	}
 
+	
+	
 	public Abestia(Blob irudia) {
 		super(irudia);
 	}

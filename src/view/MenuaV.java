@@ -10,6 +10,8 @@ import model.metodoak.*;
 import model.*;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
@@ -30,6 +32,9 @@ public class MenuaV extends JFrame {
 	public MenuaV() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
+		setTitle("Menua - JPAM Music");
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

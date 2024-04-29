@@ -27,6 +27,7 @@ import javax.swing.border.EmptyBorder;
 import model.Erabiltzailea;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
+import model.sql.ErregistroDAO;
 import model.sql.Konexioa;
 import model.sql.SQLInterakzioa;
 import javax.swing.ImageIcon;
@@ -47,9 +48,10 @@ public class LoginV extends JFrame {
 	public LoginV() {
 		setFont(new Font("Dialog", Font.PLAIN, 18));
 		setTitle("Login - JPAM Music");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(400, 250, 906, 594);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(400, 250, 906, 594);	
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -115,7 +117,12 @@ public class LoginV extends JFrame {
 		    @Override
 		    public void keyPressed(KeyEvent e) {
 		        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-		            LoginEgin(comboBox);
+		            try {
+						LoginEgin(comboBox);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 		        }
 		    }
 		});
@@ -123,7 +130,12 @@ public class LoginV extends JFrame {
 		// LOGIN EGITEKO BOTOIA
 		btnLogin.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        LoginEgin(comboBox);
+		        try {
+					LoginEgin(comboBox);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		    }
 		});
 
@@ -145,8 +157,9 @@ public class LoginV extends JFrame {
 	 * Metodo honek erabiltzailea sartzen du sistema honetan.
 	 * 
 	 * @param comboBox Erabiltzaile mota aukeratzeko JComboBox objektua.
+	 * @throws SQLException 
 	 */
-	private void LoginEgin(JComboBox comboBox) {
+	private void LoginEgin(JComboBox comboBox) throws SQLException {
 			
 	    	// HARTU ERABILTZAILEA FORMULARIOTIK
 	        String txtErabil = txtFErabiltzaile.getText();
@@ -166,6 +179,9 @@ public class LoginV extends JFrame {
 	                dispose();
 	                SesioAldagaiak.bezero_Ondo = BezeroOndo;
 	                SesioAldagaiak.logeatuta = true;
+	                if (ErregistroDAO.konprabatuPremium()) {
+	                	SesioAldagaiak.e_premium = true;
+	                }
 	                JFrameSortu.menuaBezeroa();
 	            } else {
 	                JOptionPane.showMessageDialog(null, "Erabiltzailea edo pasahitza txarto dago.", "Errorea", JOptionPane.ERROR_MESSAGE);

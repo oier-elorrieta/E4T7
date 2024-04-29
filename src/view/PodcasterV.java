@@ -2,11 +2,13 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -52,6 +54,9 @@ public class PodcasterV extends JFrame {
 	public PodcasterV(Artista artista) throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
+		setTitle(artista.getIzena() + " - JPAM Music");
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
@@ -123,6 +128,7 @@ public class PodcasterV extends JFrame {
 		
 		JButton btnJarraitu = new JButton("Jarraitu");
 		btnJarraitu.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 19));
+		btnJarraitu.setFocusPainted(false);
 		btnJarraitu.setBounds(678, 501, 143, 40);
 		contentPane.add(btnJarraitu);
 		
@@ -140,13 +146,13 @@ public class PodcasterV extends JFrame {
 				Podcast PodcastSelected = PodcastList.getSelectedValue();
 				
 				if (PodcastSelected == null) {
-					JOptionPane.showMessageDialog(null, "Ez duzu album bat aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Ez duzu podcast bat aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {
-					Album albumAuxSelected = new Album(PodcastSelected.getTitulua(), PodcastSelected.getIraupena(), PodcastSelected.getIraupena());
+					Podcast podcastAuxSelected = new Podcast(PodcastSelected.getTitulua(), PodcastSelected.getIrudia(), PodcastSelected.getIraupena(), PodcastSelected.getKolaboratzaile());
 					dispose();
 					try {
-						JFrameSortu.podcastKantakBezeroa(albumAuxSelected, artista);
-					} catch (SQLException e1) {
+						JFrameSortu.erreprodukzioLehioaPodcast(artista, podcastAuxSelected);
+					} catch (SQLException | LineUnavailableException e1) {
 						e1.printStackTrace();
 					}
 				}

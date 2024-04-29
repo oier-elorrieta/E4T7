@@ -10,6 +10,8 @@ import javax.swing.WindowConstants;
 import model.Abestia;
 import model.Album;
 import model.Artista;
+import model.Podcast;
+import model.Podcaster;
 import view.*;
 
 public class JFrameSortu {
@@ -50,14 +52,14 @@ public class JFrameSortu {
 		artistaAlbumV.setVisible(true);
     }
 	
-	public static void podcastPodcasterBezeroa(Artista artista) throws SQLException {
-        PodcasterV podcasterPodcastV = new PodcasterV(artista);
+	public static void podcastPodcasterBezeroa(Artista podcaster) throws SQLException {
+        PodcasterV podcasterPodcastV = new PodcasterV(podcaster);
         podcasterPodcastV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         podcasterPodcastV.setVisible(true);
     }
 	
-	public static void podcastKantakBezeroa(Album album, Artista artista) throws SQLException {
-		PodcasterV podcasterPodcastV = new PodcasterV(artista);
+	public static void podcastKantakBezeroa(Artista podcaster) throws SQLException {
+		PodcasterV podcasterPodcastV = new PodcasterV(podcaster);
 		podcasterPodcastV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		podcasterPodcastV.setVisible(true);
     }
@@ -72,6 +74,12 @@ public class JFrameSortu {
 		ErreprodukzioaV ErreprodukzioaV = new ErreprodukzioaV(album, artista, abesti);
 		ErreprodukzioaV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		ErreprodukzioaV.setVisible(true);
+    }
+	
+	public static void erreprodukzioLehioaPodcast(Artista podcaster, Podcast podcast) throws SQLException, LineUnavailableException {
+		ErreprodukzioaPodcastV ErreprodukzioaPodcastV = new ErreprodukzioaPodcastV(podcaster, podcast);
+		ErreprodukzioaPodcastV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		ErreprodukzioaPodcastV.setVisible(true);
     }
 }
 
