@@ -323,8 +323,7 @@ public class ErreprodukzioaV extends JFrame {
 		btnMenua.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				dispose();
-				JFrameSortu.menuaBezeroa();
+				JFrameSortu.menuErreprodukzioaAbestiakBezeroa(album, artista, abesti);
 			}
 		});
 		

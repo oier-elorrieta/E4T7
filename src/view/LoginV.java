@@ -27,7 +27,7 @@ import javax.swing.border.EmptyBorder;
 import model.Erabiltzailea;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
-import model.sql.ErregistroDAO;
+import model.sql.ErregistroNireProfilaDAO;
 import model.sql.Konexioa;
 import model.sql.SQLInterakzioa;
 import javax.swing.ImageIcon;
@@ -179,7 +179,7 @@ public class LoginV extends JFrame {
 	                dispose();
 	                SesioAldagaiak.bezero_Ondo = BezeroOndo;
 	                SesioAldagaiak.logeatuta = true;
-	                if (ErregistroDAO.konprabatuPremium()) {
+	                if (ErregistroNireProfilaDAO.konprabatuPremium()) {
 	                	SesioAldagaiak.e_premium = true;
 	                }
 	                JFrameSortu.menuaBezeroa();

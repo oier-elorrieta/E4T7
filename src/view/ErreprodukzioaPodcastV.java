@@ -331,8 +331,9 @@ public class ErreprodukzioaPodcastV extends JFrame {
 	btnAbiadura.addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if (clipLehena.isRunning() && abiaduraKontrola != null) {
-				if (speed == 1.0f) {
+			// EZZ DOA
+			if (clipLehena.isRunning()) {
+				if (speed == 1.0f){
 					  speed = 1.5f;
 					  abiaduraKontrola.setValue(speed);
 					  btnAbiadura.setText("1.5x");
@@ -345,7 +346,7 @@ public class ErreprodukzioaPodcastV extends JFrame {
 					  abiaduraKontrola.setValue(speed);
 					  btnAbiadura.setText("1x");
 				}
-		      }
+		    }
 		}
 	});
 		

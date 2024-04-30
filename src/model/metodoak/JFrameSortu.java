@@ -23,7 +23,7 @@ public class JFrameSortu {
 			loginMenu.setVisible(true);
 	    }
 		public static void erregistroMenua() throws SQLException {
-			ErregistroaV erregistroMenu = new ErregistroaV();
+			ErregistroaNireProfilaV erregistroMenu = new ErregistroaNireProfilaV();
 			erregistroMenu.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			erregistroMenu.setVisible(true);
 	    }
@@ -76,14 +76,14 @@ public class JFrameSortu {
 			PlaylistListV.setVisible(true);
 	    }
 		
-		public static void menuErreprodukzioaBezeroa() {
-			MenuAukeraErreprodukzioV ErreprodukzioaMenuaV = new MenuAukeraErreprodukzioV();
+		public static void menuErreprodukzioaAbestiakBezeroa(Album album, Artista artista, Abestia abesti) {
+			MenuAukeraErreprodukzioV ErreprodukzioaMenuaV = new MenuAukeraErreprodukzioV(album, artista, abesti);
 			ErreprodukzioaMenuaV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			ErreprodukzioaMenuaV.setVisible(true);
 	    }
 		
-		public static void PlaylisteanSartuBezeroa() {
-			MenuaPlaylistSartuV PlaylistSartuMenuaV = new MenuaPlaylistSartuV();
+		public static void PlaylisteanSartuBezeroa(Album album, Artista artista, Abestia abesti) throws SQLException {
+			MenuaPlaylistSartuAbestiakV PlaylistSartuMenuaV = new MenuaPlaylistSartuAbestiakV(album, artista, abesti);
 			PlaylistSartuMenuaV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			PlaylistSartuMenuaV.setVisible(true);
 	    }

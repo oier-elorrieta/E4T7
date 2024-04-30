@@ -1,6 +1,10 @@
 package model.metodoak;
 
 import java.awt.Font;
+import java.util.Calendar;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
 
@@ -33,4 +37,23 @@ public class View_metodoak {
             throw new DataBalidazioaException();
         }
     }
+	
+	@SuppressWarnings("deprecation")
+	public static String dateToString (Date dataAldatzeko) {
+		
+		if (dataAldatzeko.getMonth() >= 0 && dataAldatzeko.getMonth() <= 9) {
+			int intdataMonth = dataAldatzeko.getMonth();
+			String StrdataMonth = "0" + intdataMonth;
+			int dataMonthondo = Integer.parseInt(StrdataMonth);
+			Date data = new Date(dataAldatzeko.getYear(), dataMonthondo, dataAldatzeko.getDay());
+			DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");  
+	        String strDate = dateFormat.format(data); 
+	        return strDate;
+		} else {
+			Date data = new Date(dataAldatzeko.getYear(), dataAldatzeko.getMonth(), dataAldatzeko.getDay());
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
+	        String strDate = dateFormat.format(data);
+	        return strDate;
+		}
+	}
 }
