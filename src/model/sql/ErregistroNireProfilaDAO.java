@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import model.Erabiltzailea;
 import model.metodoak.SesioAldagaiak;
+import model.metodoak.View_metodoak;
 
 public class ErregistroNireProfilaDAO {
 	public static boolean konprabatuPremium() throws SQLException {
@@ -35,30 +36,21 @@ public class ErregistroNireProfilaDAO {
 		return true;	
 	}
 	
-	public static String premiumIraungintzeData() throws SQLException {
+
+	public static void updatePremiumBezeroFree(Erabiltzailea erab) throws SQLException {
 		Konexioa.konexioaIreki();
-		String SQLquery = "SELECT Mota FROM bezeroa WHERE Erabiltzailea LIKE '"
-				+ SesioAldagaiak.bezero_Ondo.getErabiltzailea() + "'";
-
-		try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery);
-				ResultSet resultSet = preparedStatement.executeQuery()) {
-			
-			while (resultSet.next()) {
-				String mota = resultSet.getString("Mota");
-				if (mota.equals("Free")) {
-					return false;
-				} 
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			Konexioa.konexioaItxi();
+		String SQLquery = "UPDATE bezeroa SET mota = 'Premium' WHERE Erabiltzailea = '" + erab.getErabiltzailea() + "';";
+		Konexioa.query.executeUpdate(SQLquery);
+		if (Konexioa.query.executeUpdate(SQLquery) == 1) {
+			JOptionPane.showMessageDialog(null, "Orain Premium bezeroa zara! Ongi etorri!", "Premium erosketa",
+					JOptionPane.INFORMATION_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(null, "Ezin izan da zure profila aldatu!", "Errorea",
+					JOptionPane.ERROR_MESSAGE);
 		}
-
-		return true;	
+		Konexioa.konexioaItxi();
 	}
-
+	
 	/**
 	 * Erregistroa egiten du erabiltzailea Free motako erabiltzailea izanik.
 	 * 
@@ -136,10 +128,18 @@ public class ErregistroNireProfilaDAO {
 		Konexioa.konexioaItxi();
 	}
 	
-	public static void updateNireProfilaDatuak () {
+	public static void updateNireProfilaDatuak (Erabiltzailea erab) throws SQLException {
 		Konexioa.konexioaIreki();
-		
-		
+		String SQLquery = "UPDATE bezeroa SET Izena = '" + erab.getIzena() + "', Abizena = '" + erab.getAbizena() + "', Hizkuntza = '" + erab.getHizkuntza() + "', Erabiltzailea = '" + erab.getErabiltzailea() + "', Pasahitza = '" + erab.getPasahitza() + "', Jaiotza_data = '" + View_metodoak.dateToString(erab.getJaiotze_data())
+		+ "' WHERE Erabiltzailea = '" + erab.getErabiltzailea() + "';";
+		Konexioa.query.executeUpdate(SQLquery);
+		if (Konexioa.query.executeUpdate(SQLquery) == 1) {
+			JOptionPane.showMessageDialog(null, "Profilaren edizioak gorde dira!", "Profilaren edizioa",
+					JOptionPane.INFORMATION_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(null, "Ezin izan da zure profila aldatu!", "Errorea",
+					JOptionPane.ERROR_MESSAGE);
+		}
 		
 		Konexioa.konexioaItxi();
 	}

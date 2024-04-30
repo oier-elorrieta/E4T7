@@ -3,7 +3,9 @@ package model.metodoak;
 import java.awt.Font;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
@@ -55,5 +57,12 @@ public class View_metodoak {
 	        String strDate = dateFormat.format(data);
 	        return strDate;
 		}
+	}
+	
+	public static Date stringToDate (String data) throws ParseException {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+
+		Date date = formatter.parse(data);
+		return date;
 	}
 }

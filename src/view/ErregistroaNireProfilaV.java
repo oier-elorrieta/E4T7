@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +26,7 @@ import javax.swing.border.EmptyBorder;
 
 import model.E_Free;
 import model.E_Premium;
+import model.Erabiltzailea;
 import model.Hizkuntza;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
@@ -32,6 +34,7 @@ import model.metodoak.View_metodoak;
 import model.sql.ErregistroNireProfilaDAO;
 import model.sql.HizkuntzaDAO;
 import model.sql.Konexioa;
+import model.sql.SQLInterakzioa;
 import salbuespenak.DataBalidazioaException;
 
 public class ErregistroaNireProfilaV extends JFrame {
@@ -195,6 +198,7 @@ public class ErregistroaNireProfilaV extends JFrame {
 		
 		txtIraunDataPremium = new JTextField();
 		txtIraunDataPremium.setColumns(10);
+		txtIraunDataPremium.setEditable(false);
 		txtIraunDataPremium.setBounds(660, 341, 197, 25);
 		
 		JButton btnLogout = new JButton("Logout");
@@ -232,28 +236,34 @@ public class ErregistroaNireProfilaV extends JFrame {
 				}
 			}
 			
-			if (premiumKonprobatu && SesioAldagaiak.bezero_Ondo.)) {
+			
+			if (SesioAldagaiak.e_premium) {
 				btnPremiumErosi.setEnabled(false);
 				contentPane.add(txtIraunDataPremium);
 				contentPane.add(lblIraungitzeData);
-				//txtIraunDataPremium.setText(SesioAldagaiak.bezero_Ondo.);
+				Konexioa.konexioaIreki();
+				txtIraunDataPremium.setText(View_metodoak.dateToString(SQLInterakzioa.iraungitzeDataLortu(SesioAldagaiak.bezero_Ondo.getErabiltzailea())));
+				Konexioa.konexioaItxi();
 			}
 		}
-		
-		
+			
 		
 		// EDITATU BOTOIA
 		btnEditatu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				/*Bezeroa
-				
-				if (txtIzena.getText() != SesioAldagaiak.bezero_Ondo.getIzena()) {
-					
-				} else if () {
-					
-				}*/
+				hiz = comboBoxHizkuntza.getSelectedIndex();
+				hizkuntzaSt = hizkuntzakList.get(hiz).getId();
+				char[] charPass = passwordField.getPassword();
+		        String passwdErabil = new String(charPass);
+				try {
+					SesioAldagaiak.bezero_Ondo = new Erabiltzailea(txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, View_metodoak.stringToDate(txtJaiotzeData.getText()));
+					ErregistroNireProfilaDAO.updateNireProfilaDatuak(SesioAldagaiak.bezero_Ondo);
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -294,54 +304,69 @@ public class ErregistroaNireProfilaV extends JFrame {
 				if (SesioAldagaiak.e_premium) {
 					JOptionPane.showMessageDialog(null, "Premium erabiltzailea zara jada!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {
-					// PASAHITZA HARTU FORMULARIOTIK
-					char[] charPass = passwordField.getPassword();
-			        String passwdErabil = new String(charPass);
-					// KONPROBATU FORMULARIOA BETETA DAGOEN
-					if (passwdErabil.isEmpty() || txtIzena.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu!", "Errorea", JOptionPane.ERROR_MESSAGE);
-					} else {
-						// PREMIUM DEN KONPROBATU
+					if (SesioAldagaiak.logeatuta) {
 						try {
-							premiumKonprobatu = ErregistroNireProfilaDAO.konprabatuPremium();
+							Object[] aukerakMenu = { "Bai", "Ez" };
+			                int menuAukera = JOptionPane.showOptionDialog(null, "Premium erosi nahi duzu?", "Premium erosketa",
+			                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerakMenu, aukerakMenu[0]);
+			                if (menuAukera == JOptionPane.YES_OPTION) {
+			                	ErregistroNireProfilaDAO.updatePremiumBezeroFree(SesioAldagaiak.bezero_Ondo);
+								SesioAldagaiak.e_premium = true;
+			                }
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
-						// JAIOTZE DATA HARTU ETA PARSEATU + BALIDAZIOA
-						try {
-							String dateInString = txtJaiotzeData.getText();
-							View_metodoak.dataBalidatu(dateInString);
-							String DateSplit[] = dateInString.split("-");
-							dateJaioData = new Date((Integer.parseInt(DateSplit[0])-1900),(Integer.parseInt(DateSplit[1])-1),Integer.parseInt(DateSplit[2]));
-						} catch (DataBalidazioaException e2) {
-							new DataBalidazioaException();
-						}
-						
-						// GEHITU URTE BAT GAURKO EGUNARI - PREMIUM
-						LocalDate UrteGehituPremium = LocalDate.now().plusYears(1);
-						Date iraunData = java.sql.Date.valueOf(UrteGehituPremium);
-						// OBJEKTUAN SARTU BEZEROA
-						SesioAldagaiak.bezero_Ondo = new E_Premium(txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData, iraunData);
-						
-						// PASAHITZAK KOINTZIDITZEN BADIRA, ERREGISTROA EGIN
-						if (passwdErabil.equals(passwordFieldConfirm.getText())) {
-							try {
-								ErregistroNireProfilaDAO.erregistroaPremium(SesioAldagaiak.bezero_Ondo);
-								SesioAldagaiak.e_premium = true;
-				                SesioAldagaiak.logeatuta = true;
-								dispose();
-								JFrameSortu.menuaBezeroa();
-							} catch (ClassNotFoundException e1) {
-								JOptionPane.showMessageDialog(null, "Errorea egon da erregistratzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
-								e1.printStackTrace();
-							} catch (SQLException e1) {
-								JOptionPane.showMessageDialog(null, "Errorea egon da datu basearen konexioarekin!", "Errorea", JOptionPane.ERROR_MESSAGE);
-								e1.printStackTrace();
-							}
+					} else {
+						// PASAHITZA HARTU FORMULARIOTIK
+						char[] charPass = passwordField.getPassword();
+				        String passwdErabil = new String(charPass);
+						// KONPROBATU FORMULARIOA BETETA DAGOEN
+						if (passwdErabil.isEmpty() || txtIzena.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 						} else {
-							JOptionPane.showMessageDialog(null, "Pasahitzak ez dira berdinak!", "Errorea", JOptionPane.ERROR_MESSAGE);
+							/*// PREMIUM DEN KONPROBATU
+							try {
+								premiumKonprobatu = ErregistroNireProfilaDAO.konprabatuPremium();
+							} catch (SQLException e1) {
+								e1.printStackTrace();
+							}*/
+							// JAIOTZE DATA HARTU ETA PARSEATU + BALIDAZIOA
+							try {
+								String dateInString = txtJaiotzeData.getText();
+								View_metodoak.dataBalidatu(dateInString);
+								String DateSplit[] = dateInString.split("-");
+								dateJaioData = new Date((Integer.parseInt(DateSplit[0])-1900),(Integer.parseInt(DateSplit[1])-1),Integer.parseInt(DateSplit[2]));
+							} catch (DataBalidazioaException e2) {
+								new DataBalidazioaException();
+							}
+							
+							// GEHITU URTE BAT GAURKO EGUNARI - PREMIUM
+							LocalDate UrteGehituPremium = LocalDate.now().plusYears(1);
+							Date iraunData = java.sql.Date.valueOf(UrteGehituPremium);
+							// OBJEKTUAN SARTU BEZEROA
+							SesioAldagaiak.bezero_Ondo = new E_Premium(txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData, iraunData);
+							
+							// PASAHITZAK KOINTZIDITZEN BADIRA, ERREGISTROA EGIN
+							if (passwdErabil.equals(passwordFieldConfirm.getText())) {
+								try {
+									ErregistroNireProfilaDAO.erregistroaPremium(SesioAldagaiak.bezero_Ondo);
+									SesioAldagaiak.e_premium = true;
+					                SesioAldagaiak.logeatuta = true;
+									dispose();
+									JFrameSortu.menuaBezeroa();
+								} catch (ClassNotFoundException e1) {
+									JOptionPane.showMessageDialog(null, "Errorea egon da erregistratzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
+									e1.printStackTrace();
+								} catch (SQLException e1) {
+									JOptionPane.showMessageDialog(null, "Errorea egon da datu basearen konexioarekin!", "Errorea", JOptionPane.ERROR_MESSAGE);
+									e1.printStackTrace();
+								}
+							} else {
+								JOptionPane.showMessageDialog(null, "Pasahitzak ez dira berdinak!", "Errorea", JOptionPane.ERROR_MESSAGE);
+							}
 						}
 					}
+					
 				}
 				
 			}

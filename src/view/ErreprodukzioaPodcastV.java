@@ -109,11 +109,11 @@ public class ErreprodukzioaPodcastV extends JFrame {
 		lblIraupena.setText(podcast.getIraupena());
 		contentPane.add(lblIraupena);
 		
-		JButton btnMenua = new JButton("Menua");
-		btnMenua.setFont(new Font("Verdana", Font.PLAIN, 17));
-		btnMenua.setFocusPainted(false);
-		btnMenua.setBounds(144, 458, 121, 34);
-		contentPane.add(btnMenua);
+		JButton btnKonpartitu = new JButton("Konpartitu");
+		btnKonpartitu.setFont(new Font("Verdana", Font.PLAIN, 17));
+		btnKonpartitu.setFocusPainted(false);
+		btnKonpartitu.setBounds(31, 459, 136, 34);
+		contentPane.add(btnKonpartitu);
 		
 		JButton btnAurrekoa = new JButton("<--");
 		btnAurrekoa.setFont(new Font("Trebuchet MS", Font.PLAIN, 22));
@@ -132,12 +132,6 @@ public class ErreprodukzioaPodcastV extends JFrame {
 		btnHurrengoa.setFocusPainted(false);
 		btnHurrengoa.setBounds(509, 458, 89, 34);
 		contentPane.add(btnHurrengoa);
-		
-		JButton btnGustukoa = new JButton("Gustukoa");
-		btnGustukoa.setFont(new Font("Verdana", Font.PLAIN, 17));
-		btnGustukoa.setFocusPainted(false);
-		btnGustukoa.setBounds(620, 458, 121, 34);
-		contentPane.add(btnGustukoa);
 		
 		JLabel lblArgazkiaPodcast = new JLabel("");
 		lblArgazkiaPodcast.setHorizontalAlignment(SwingConstants.CENTER);
@@ -350,20 +344,16 @@ public class ErreprodukzioaPodcastV extends JFrame {
 		}
 	});
 		
-		// MENURA JOATEKO BOTOIA
-		btnMenua.addMouseListener(new MouseAdapter() {
+		// KONPARTITZEKO BOTOIA
+		btnKonpartitu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				dispose();
-				JFrameSortu.menuaBezeroa();
-			}
-		});
-		
-		// GUSTUKORA GEHITZEKO BOTOIA
-		btnGustukoa.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "DE MOMENTO NO FUNTZIONA!", "Errorea", JOptionPane.ERROR_MESSAGE);
+				Object[] aukerakMenu = { "Bai", "Ez" };
+                int menuAukera = JOptionPane.showOptionDialog(null, "Konpartitu nahi duzu?", "Konpartitu",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerakMenu, aukerakMenu[0]);
+                if (menuAukera == JOptionPane.YES_OPTION) {
+                	
+                }
 			}
 		});
 	}

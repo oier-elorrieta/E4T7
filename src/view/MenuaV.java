@@ -81,6 +81,7 @@ public class MenuaV extends JFrame {
 		// ATERA ERABILTZAILEAREN IZENA
 		lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezero_Ondo.getIzena() + "!");
 		contentPane.add(lblUserizena);
+
 		
 		// MUSIKA DESKUBRITU BOTOIA
 		btnMusikaDeskubritu.addMouseListener(new MouseAdapter() {
