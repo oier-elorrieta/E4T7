@@ -2,13 +2,18 @@ package model;
 
 import java.util.Objects;
 
+import model.metodoak.SesioAldagaiak;
+
 /**
  * Playlist klasea errepresentatzen duen klasea.
  */
 public class Playlist {
 
-	private int kapazitatea;
+	private String idPlaylist;
 	private String titulua;
+	private int kapazitatea;
+	private String idBezeroa;
+	private String idAudio;
 
 	/**
 	 * Playlist klasearen eraikitzailea.
@@ -16,46 +21,75 @@ public class Playlist {
 	 * @param kapazitatea Playlistaren kapazitatea
 	 * @param titulua     Playlistaren titulua
 	 */
-	public Playlist(int kapazitatea, String titulua) {
-		super();
-		this.kapazitatea = kapazitatea;
+	
+	// BESTE PLAYLIST-EN KONSTRUKTOREA
+	public Playlist(String idPlaylist, String titulua, int kapazitatea, String idBezeroa) {
+		this.idPlaylist = idPlaylist;
 		this.titulua = titulua;
+		if (!SesioAldagaiak.e_premium) {
+			this.kapazitatea = 2;
+		}
+		this.idBezeroa = idBezeroa;
+	}
+	
+	// GUSTOKOEN ZERRENDA KONSTRUKTOREA
+	public Playlist(String titulua, String idBezeroa, String idAudio) {
+		this.titulua = "Gustokoen zerrenda";
+		this.idBezeroa = idBezeroa;
+		this.idAudio = idAudio;
+	}
+	
+
+	public String getIdPlaylist() {
+		return idPlaylist;
 	}
 
-	/**
-	 * Playlistaren kapazitatea itzultzen du.
-	 * 
-	 * @return Playlistaren kapazitatea
-	 */
+
+	public void setIdPlaylist(String idPlaylist) {
+		this.idPlaylist = idPlaylist;
+	}
+
+
+
 	public int getKapazitatea() {
 		return kapazitatea;
 	}
 
-	/**
-	 * Playlistaren kapazitatea ezartzen du.
-	 * 
-	 * @param kapazitatea Playlistaren kapazitatea
-	 */
+
+
 	public void setKapazitatea(int kapazitatea) {
 		this.kapazitatea = kapazitatea;
 	}
 
-	/**
-	 * Playlistaren titulua itzultzen du.
-	 * 
-	 * @return Playlistaren titulua
-	 */
+
+
 	public String getTitulua() {
 		return titulua;
 	}
 
-	/**
-	 * Playlistaren titulua ezartzen du.
-	 * 
-	 * @param titulua Playlistaren titulua
-	 */
+
+
 	public void setTitulua(String titulua) {
 		this.titulua = titulua;
+	}
+
+
+
+	public String getIdBezeroa() {
+		return idBezeroa;
+	}
+
+
+	public void setIdBezeroa(String idBezeroa) {
+		this.idBezeroa = idBezeroa;
+	}
+	
+	public String getIdAudio() {
+		return idAudio;
+	}
+
+	public void setIdAudio(String idAudio) {
+		this.idAudio = idAudio;
 	}
 
 	/**
@@ -65,8 +99,10 @@ public class Playlist {
 	 */
 	@Override
 	public String toString() {
-		return "Playlist [kapazitatea=" + kapazitatea + ", titulua=" + titulua + "]";
+		return "Playlist [idPlaylist=" + idPlaylist + ", titulua=" + titulua + ", kapazitatea=" + kapazitatea
+				+ ", idBezeroa=" + idBezeroa + ", idAudio=" + idAudio + "]";
 	}
+
 
 	/**
 	 * Bi Playlist objektuak berdinak diren ala ez adierazten du.
@@ -74,6 +110,7 @@ public class Playlist {
 	 * @param obj Beste objektu bat
 	 * @return Bi objektuak berdinak diren ala ez
 	 */
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -83,7 +120,13 @@ public class Playlist {
 		if (getClass() != obj.getClass())
 			return false;
 		Playlist other = (Playlist) obj;
-		return kapazitatea == other.kapazitatea && Objects.equals(titulua, other.titulua);
+		return Objects.equals(idAudio, other.idAudio) && Objects.equals(idBezeroa, other.idBezeroa)
+				&& Objects.equals(idPlaylist, other.idPlaylist) && kapazitatea == other.kapazitatea
+				&& Objects.equals(titulua, other.titulua);
 	}
+
+	
+
+	
 
 }

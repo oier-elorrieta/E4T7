@@ -12,7 +12,7 @@ public class Konexioa {
 	private static final String PASS = "admin123";
 	
 	protected static Connection konexioa;
-	protected static Statement query;
+	public static Statement query;
 
 	/**
 	 * Metodo honek konexioa irekitzen du datu-basearekin. Konexioa irekitzean,

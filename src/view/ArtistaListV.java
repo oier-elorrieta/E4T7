@@ -80,7 +80,6 @@ public class ArtistaListV extends JFrame {
 		
 		Konexioa.konexioaIreki();
 		ArrayList<Artista> ArtistakJList = ArtistaListDAO.artistakKargatu();
-		
 		DefaultListModel<Artista> modelMusikari = new DefaultListModel<Artista>();
 		
 		for (int i = 0; i < ArtistakJList.size(); i++) {
