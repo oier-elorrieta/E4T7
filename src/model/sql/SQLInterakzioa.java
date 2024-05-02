@@ -36,13 +36,14 @@ public class SQLInterakzioa {
 	public static Erabiltzailea loginKonexioa(String user, String passwd) throws SQLException {
 		Konexioa.konexioaIreki();
 		Erabiltzailea e1 = null;
-		String SQLquery = "SELECT Erabiltzailea, Pasahitza, Mota, Izena, Abizena, Hizkuntza, Jaiotza_data FROM bezeroa WHERE Erabiltzailea LIKE '"
+		String SQLquery = "SELECT IDBezeroa, Erabiltzailea, Pasahitza, Mota, Izena, Abizena, Hizkuntza, Jaiotza_data FROM bezeroa WHERE Erabiltzailea LIKE '"
 				+ user + "' AND Pasahitza = '" + passwd + "'";
 
 		try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery);
 				ResultSet resultSet = preparedStatement.executeQuery()) {
 
 			while (resultSet.next()) {
+				String idBezeroa = resultSet.getString("IDBezeroa");
 				String erabiltzailea = resultSet.getString("Erabiltzailea");
 				String pasahitza = resultSet.getString("Pasahitza");
 				String mota = resultSet.getString("Mota");
@@ -53,10 +54,10 @@ public class SQLInterakzioa {
 				Date jaioData = resultSet.getDate("Jaiotza_data");
 
 				if (mota.equals("Free")) {
-					E_Free f1 = new E_Free(erabiltzailea, pasahitza, izena, abizena, hizkuntza, jaioData);
+					E_Free f1 = new E_Free(idBezeroa, erabiltzailea, pasahitza, izena, abizena, hizkuntza, jaioData);
 					e1 = f1;
 				} else {
-					E_Premium p1 = new E_Premium(erabiltzailea, pasahitza, izena, abizena, hizkuntza, jaioData,
+					E_Premium p1 = new E_Premium(idBezeroa, erabiltzailea, pasahitza, izena, abizena, hizkuntza, jaioData,
 							iraungitzeDataLortu(erabiltzailea));
 					e1 = p1;
 				}

@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Date;
 import java.util.Objects;
 
 import model.metodoak.SesioAldagaiak;
@@ -9,9 +10,10 @@ import model.metodoak.SesioAldagaiak;
  */
 public class Playlist {
 
-	private String idPlaylist;
+	private int idPlaylist;
 	private String titulua;
 	private int kapazitatea;
+	private Date Sorrera_data;
 	private String idBezeroa;
 	private String idAudio;
 
@@ -23,12 +25,13 @@ public class Playlist {
 	 */
 	
 	// BESTE PLAYLIST-EN KONSTRUKTOREA
-	public Playlist(String idPlaylist, String titulua, int kapazitatea, String idBezeroa) {
+	public Playlist(int idPlaylist, String titulua, int kapazitatea, String idBezeroa, Date Sorrera_data) {
 		this.idPlaylist = idPlaylist;
 		this.titulua = titulua;
 		if (!SesioAldagaiak.e_premium) {
 			this.kapazitatea = 2;
 		}
+		this.Sorrera_data = Sorrera_data;
 		this.idBezeroa = idBezeroa;
 	}
 	
@@ -39,23 +42,35 @@ public class Playlist {
 		this.idAudio = idAudio;
 	}
 	
+	public Playlist(String titulua, String idBezeroa) {
+		this.titulua = "Gustokoen zerrenda";
+		this.idAudio = idBezeroa;
+	}
+	
+	public Playlist(String titulua) {
+		this.titulua = "Gustokoen zerrenda";
+	}
 
-	public String getIdPlaylist() {
+	public Date getSorrera_data() {
+		return Sorrera_data;
+	}
+
+	public void setSorrera_data(Date sorrera_data) {
+		Sorrera_data = sorrera_data;
+	}
+
+
+	public int getIdPlaylist() {
 		return idPlaylist;
 	}
 
-
-	public void setIdPlaylist(String idPlaylist) {
+	public void setIdPlaylist(int idPlaylist) {
 		this.idPlaylist = idPlaylist;
 	}
-
-
 
 	public int getKapazitatea() {
 		return kapazitatea;
 	}
-
-
 
 	public void setKapazitatea(int kapazitatea) {
 		this.kapazitatea = kapazitatea;
@@ -97,10 +112,10 @@ public class Playlist {
 	 * 
 	 * @return Playlistaren String errepresentazioa
 	 */
+	
 	@Override
 	public String toString() {
-		return "Playlist [idPlaylist=" + idPlaylist + ", titulua=" + titulua + ", kapazitatea=" + kapazitatea
-				+ ", idBezeroa=" + idBezeroa + ", idAudio=" + idAudio + "]";
+		return titulua;
 	}
 
 
@@ -120,10 +135,13 @@ public class Playlist {
 		if (getClass() != obj.getClass())
 			return false;
 		Playlist other = (Playlist) obj;
-		return Objects.equals(idAudio, other.idAudio) && Objects.equals(idBezeroa, other.idBezeroa)
-				&& Objects.equals(idPlaylist, other.idPlaylist) && kapazitatea == other.kapazitatea
-				&& Objects.equals(titulua, other.titulua);
+		return Objects.equals(Sorrera_data, other.Sorrera_data) && Objects.equals(idAudio, other.idAudio)
+				&& Objects.equals(idBezeroa, other.idBezeroa) && Objects.equals(idPlaylist, other.idPlaylist)
+				&& kapazitatea == other.kapazitatea && Objects.equals(titulua, other.titulua);
 	}
+
+
+	
 
 	
 

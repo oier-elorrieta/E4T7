@@ -8,6 +8,7 @@ import java.util.Objects;
  * erabiliko da.
  */
 public class Erabiltzailea {
+	private String idBezeroa;
 	private String erabiltzailea;
 	private String pasahitza;
 	private String izena;
@@ -25,6 +26,18 @@ public class Erabiltzailea {
 	 * @param hizkuntza     erabiltzailearen hizkuntza
 	 * @param jaiotze_data  erabiltzailearen jaiotze data
 	 */
+	public Erabiltzailea(String idBezeroa, String erabiltzailea, String pasahitza, String izena, String abizena, String hizkuntza,
+			Date jaiotze_data) {
+		this.idBezeroa = idBezeroa;
+		this.erabiltzailea = erabiltzailea;
+		this.pasahitza = pasahitza;
+		this.izena = izena;
+		this.abizena = abizena;
+		this.hizkuntza = hizkuntza;
+		this.jaiotze_data = jaiotze_data;
+	}
+	
+	
 	public Erabiltzailea(String erabiltzailea, String pasahitza, String izena, String abizena, String hizkuntza,
 			Date jaiotze_data) {
 		this.erabiltzailea = erabiltzailea;
@@ -33,6 +46,16 @@ public class Erabiltzailea {
 		this.abizena = abizena;
 		this.hizkuntza = hizkuntza;
 		this.jaiotze_data = jaiotze_data;
+	}
+
+
+
+	public String getIdBezeroa() {
+		return idBezeroa;
+	}
+
+	public void setIdBezeroa(String idBezeroa) {
+		this.idBezeroa = idBezeroa;
 	}
 
 	/**
@@ -159,10 +182,11 @@ public class Erabiltzailea {
 			return false;
 		Erabiltzailea other = (Erabiltzailea) obj;
 		return Objects.equals(abizena, other.abizena) && Objects.equals(erabiltzailea, other.erabiltzailea)
-				&& Objects.equals(hizkuntza, other.hizkuntza) && Objects.equals(izena, other.izena)
-				&& Objects.equals(jaiotze_data, other.jaiotze_data) && Objects.equals(pasahitza, other.pasahitza);
+				&& Objects.equals(hizkuntza, other.hizkuntza) && Objects.equals(idBezeroa, other.idBezeroa)
+				&& Objects.equals(izena, other.izena) && Objects.equals(jaiotze_data, other.jaiotze_data)
+				&& Objects.equals(pasahitza, other.pasahitza);
 	}
-
+	
 	/**
 	 * Objektuaren String irudikapen bat itzultzen du.
 	 *
@@ -170,8 +194,12 @@ public class Erabiltzailea {
 	 */
 	@Override
 	public String toString() {
-		return "Erabiltzailea [erabiltzailea=" + erabiltzailea + ", pasahitza=" + pasahitza + ", izena=" + izena
-				+ ", abizena=" + abizena + ", hizkuntza=" + hizkuntza + ", jaiotze_data=" + jaiotze_data + "]";
+		return "Erabiltzailea [idBezeroa=" + idBezeroa + ", erabiltzailea=" + erabiltzailea + ", pasahitza=" + pasahitza
+				+ ", izena=" + izena + ", abizena=" + abizena + ", hizkuntza=" + hizkuntza + ", jaiotze_data="
+				+ jaiotze_data + "]";
 	}
+
+
+	
 
 }

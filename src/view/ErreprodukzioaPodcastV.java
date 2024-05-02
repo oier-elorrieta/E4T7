@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -137,10 +138,12 @@ public class ErreprodukzioaPodcastV extends JFrame {
 		lblArgazkiaPodcast.setHorizontalAlignment(SwingConstants.CENTER);
 		lblArgazkiaPodcast.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblArgazkiaPodcast.setBounds(252, 57, 388, 305);
-		
-		
+	
 		ImageIcon argazkiaPodcast = new ImageIcon(podcast.getIrudia().getBytes(1, (int) podcast.getIrudia().length()));
-		lblArgazkiaPodcast.setIcon(argazkiaPodcast);
+		Image img = argazkiaPodcast.getImage();
+        Image imgScale = img.getScaledInstance(lblArgazkiaPodcast.getWidth(), lblArgazkiaPodcast.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon argazkia = new ImageIcon(imgScale);
+        lblArgazkiaPodcast.setIcon(argazkia);
 		contentPane.add(lblArgazkiaPodcast);
 		
 		JButton btnAbiadura = new JButton("1x");

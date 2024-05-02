@@ -50,7 +50,6 @@ public class ErregistroaNireProfilaV extends JFrame {
 	private ArrayList<Hizkuntza> hizkuntzakList;
 	private DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
 	private String hizkuntzaSt = "";
-	private String hizkuntzaStSelected = "";
 	private Date dateJaioData;
 	private int hiz = 0;
 	boolean premiumKonprobatu = false;
@@ -242,7 +241,12 @@ public class ErregistroaNireProfilaV extends JFrame {
 				contentPane.add(txtIraunDataPremium);
 				contentPane.add(lblIraungitzeData);
 				Konexioa.konexioaIreki();
-				txtIraunDataPremium.setText(View_metodoak.dateToString(SQLInterakzioa.iraungitzeDataLortu(SesioAldagaiak.bezero_Ondo.getErabiltzailea())));
+				
+				if (SQLInterakzioa.iraungitzeDataLortu(SesioAldagaiak.bezero_Ondo.getErabiltzailea()) == null) {
+					JOptionPane.showMessageDialog(null, "Errorea egon da datu basetik iraungintze-data hartzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
+				} else {
+					txtIraunDataPremium.setText(View_metodoak.dateToString(SQLInterakzioa.iraungitzeDataLortu(SesioAldagaiak.bezero_Ondo.getErabiltzailea())));
+				}
 				Konexioa.konexioaItxi();
 			}
 		}
@@ -257,7 +261,7 @@ public class ErregistroaNireProfilaV extends JFrame {
 				char[] charPass = passwordField.getPassword();
 		        String passwdErabil = new String(charPass);
 				try {
-					SesioAldagaiak.bezero_Ondo = new Erabiltzailea(txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, View_metodoak.stringToDate(txtJaiotzeData.getText()));
+					SesioAldagaiak.bezero_Ondo = new Erabiltzailea(txtErabiltzaile.getText()+"&", txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, View_metodoak.stringToDate(txtJaiotzeData.getText()));
 					ErregistroNireProfilaDAO.updateNireProfilaDatuak(SesioAldagaiak.bezero_Ondo);
 				} catch (ParseException e1) {
 					e1.printStackTrace();
@@ -344,7 +348,7 @@ public class ErregistroaNireProfilaV extends JFrame {
 							LocalDate UrteGehituPremium = LocalDate.now().plusYears(1);
 							Date iraunData = java.sql.Date.valueOf(UrteGehituPremium);
 							// OBJEKTUAN SARTU BEZEROA
-							SesioAldagaiak.bezero_Ondo = new E_Premium(txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData, iraunData);
+							SesioAldagaiak.bezero_Ondo = new E_Premium(txtErabiltzaile.getText()+"&", txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData, iraunData);
 							
 							// PASAHITZAK KOINTZIDITZEN BADIRA, ERREGISTROA EGIN
 							if (passwdErabil.equals(passwordFieldConfirm.getText())) {

@@ -25,6 +25,7 @@ import model.sql.Konexioa;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -126,7 +127,10 @@ public class KantaListV extends JFrame {
 		
 		Abestia abestiIrudia = DiskaAbestiakDAO.irudiaKargatu(album);
 		ImageIcon argazkiaAlbum = new ImageIcon(abestiIrudia.getIrudia().getBytes(1, (int) abestiIrudia.getIrudia().length()));
-		lblArgazkia.setIcon(argazkiaAlbum);
+		Image img = argazkiaAlbum.getImage();
+        Image imgScale = img.getScaledInstance(lblArgazkia.getWidth(), lblArgazkia.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon argazkia = new ImageIcon(imgScale);
+        lblArgazkia.setIcon(argazkia);
 		
 		JButton btnErreproduzitu = new JButton("Erreproduzitu");
 		btnErreproduzitu.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 19));
@@ -143,7 +147,7 @@ public class KantaListV extends JFrame {
 				if (abestiSelected == null) {
 					JOptionPane.showMessageDialog(null, "Ez duzu abesti bat aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {
-					Abestia abestiAuxSelected = new Abestia(abestiSelected.getTitulua(), abestiSelected.getIraupena(), abestiSelected.getErreprodukzioak());
+					Abestia abestiAuxSelected = new Abestia(abestiSelected.getIdAudio(), abestiSelected.getTitulua(), abestiSelected.getIraupena(), abestiSelected.getErreprodukzioak());
 					dispose();
 					try {
 						JFrameSortu.erreprodukzioLehioa(album, artista, abestiAuxSelected);

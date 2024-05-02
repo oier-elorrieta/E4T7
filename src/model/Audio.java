@@ -9,6 +9,7 @@ import java.util.Objects;
  * metodoak ere ditu.
  */
 public class Audio {
+	protected String idAudio;
 	protected String titulua;
 	protected Blob irudia;
 	protected String iraupena;
@@ -26,7 +27,8 @@ public class Audio {
 		this.iraupena = iraupena;
 	}
 	
-	public Audio(String titulua, String iraupena, int erreprodukzioak) {
+	public Audio(String idAudio, String titulua, String iraupena, int erreprodukzioak) {
+		this.idAudio = idAudio;
 		this.titulua = titulua;
 		this.iraupena = iraupena;
 		this.erreprodukzioak = erreprodukzioak;
@@ -56,6 +58,14 @@ public class Audio {
 	 */
 	public void setTitulua(String titulua) {
 		this.titulua = titulua;
+	}
+
+	public String getIdAudio() {
+		return idAudio;
+	}
+
+	public void setIdAudio(String idAudio) {
+		this.idAudio = idAudio;
 	}
 
 	public Blob getIrudia() {

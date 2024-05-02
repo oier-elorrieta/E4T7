@@ -13,12 +13,12 @@ import model.Musikaria;
 public class DiskaAbestiakDAO {
 	public static ArrayList<Abestia> albumAbestiakKargatu(Album album) throws SQLException {
         ArrayList<Abestia> abestiList = new ArrayList<Abestia>();
-        String SQLquery = "SELECT Izena, Iraupena, count(IdAudio) FROM audio a JOIN abestia USING (IdAudio) JOIN album USING (IdAlbum) JOIN erreprodukzioak USING (IdAudio) WHERE album.Izenburua = '" + album.getIzenburua() + "' group by Izena, Irudia, Iraupena;";
+        String SQLquery = "SELECT IdAudio, Izena, Iraupena, count(IdAudio) FROM audio a JOIN abestia USING (IdAudio) JOIN album USING (IdAlbum) JOIN erreprodukzioak USING (IdAudio) WHERE album.Izenburua = '" + album.getIzenburua() + "' group by IdAudio, Izena, Irudia, Iraupena;";
         ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
         Abestia abestiak = null;
         
         while (emaitza.next()) {
-        	abestiak = new Abestia(emaitza.getString("Izena"), emaitza.getString("Iraupena"), emaitza.getInt("count(IdAudio)"));
+        	abestiak = new Abestia(emaitza.getString("IdAudio"), emaitza.getString("Izena"), emaitza.getString("Iraupena"), emaitza.getInt("count(IdAudio)"));
            
         	abestiList.add(abestiak);
         }

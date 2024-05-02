@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -123,7 +124,10 @@ public class PodcasterV extends JFrame {
 		lblArgazkia.setBounds(517, 99, 298, 214);
 		contentPane.add(lblArgazkia);
 		ImageIcon argazkiaPodcaster = new ImageIcon(podcasterInformazioa.getIrudia().getBytes(1, (int) podcasterInformazioa.getIrudia().length()));
-		lblArgazkia.setIcon(argazkiaPodcaster);
+		Image img = argazkiaPodcaster.getImage();
+        Image imgScale = img.getScaledInstance(lblArgazkia.getWidth(), lblArgazkia.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon argazkia = new ImageIcon(imgScale);
+		lblArgazkia.setIcon(argazkia);
 		
 		
 		JButton btnJarraitu = new JButton("Jarraitu");

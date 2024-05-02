@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -118,7 +119,10 @@ public class ArtistaV extends JFrame {
 		lblArgazkia.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblArgazkia.setBounds(517, 99, 298, 214);
 		ImageIcon argazkiaArtist = new ImageIcon(artistInformazioa.getIrudia().getBytes(1, (int) artistInformazioa.getIrudia().length()));
-		lblArgazkia.setIcon(argazkiaArtist);
+        Image img = argazkiaArtist.getImage();
+        Image imgScale = img.getScaledInstance(lblArgazkia.getWidth(), lblArgazkia.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon argazkia = new ImageIcon(imgScale);
+        lblArgazkia.setIcon(argazkia);
 		contentPane.add(lblArgazkia);
 		
 		JButton btnJarraitu = new JButton("Jarraitu");

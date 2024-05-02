@@ -23,4 +23,10 @@ public class E_Free extends Erabiltzailea {
 		super(erabiltzailea, pasahitza, izena, abizena, hizkuntza, jaiotze_data);
 	}
 
+	public E_Free(String idBezeroa, String erabiltzailea, String pasahitza, String izena, String abizena,
+			String hizkuntza, Date jaiotze_data) {
+		super(idBezeroa, erabiltzailea, pasahitza, izena, abizena, hizkuntza, jaiotze_data);
+	}
+	
+
 }

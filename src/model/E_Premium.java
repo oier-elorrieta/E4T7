@@ -22,11 +22,19 @@ public class E_Premium extends Erabiltzailea {
 	 * @param jaiotze_data     erabiltzailearen jaiotze data
 	 * @param iraungintze_data erabiltzailearen iraungintze data
 	 */
+	public E_Premium(String idBezeroa, String erabiltzailea, String pasahitza, String izena, String abizena,
+			String hizkuntza, Date jaiotze_data, Date iraungintze_data) {
+		super(idBezeroa, erabiltzailea, pasahitza, izena, abizena, hizkuntza, jaiotze_data);
+		this.iraungintze_data = iraungintze_data;
+	}
+
 	public E_Premium(String erabiltzailea, String pasahitza, String izena, String abizena, String hizkuntza,
 			Date jaiotze_data, Date iraungintze_data) {
 		super(erabiltzailea, pasahitza, izena, abizena, hizkuntza, jaiotze_data);
 		this.iraungintze_data = iraungintze_data;
 	}
+
+
 
 	/**
 	 * Iraungintze data atributuaren getter-a.
@@ -36,6 +44,8 @@ public class E_Premium extends Erabiltzailea {
 	public Date getIraungintze_data() {
 		return iraungintze_data;
 	}
+
+	
 
 	/**
 	 * Iraungintze data atributuaren setter-a.

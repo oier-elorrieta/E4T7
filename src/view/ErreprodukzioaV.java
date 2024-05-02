@@ -21,11 +21,13 @@ import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
 import model.sql.ArtistaDiskaDAO;
 import model.sql.DiskaAbestiakDAO;
+import model.sql.MenuaPlaylistSartuAbestiakDAO;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.SwingConstants;
@@ -95,7 +97,10 @@ public class ErreprodukzioaV extends JFrame {
 		
 		Abestia abestiIrudia = DiskaAbestiakDAO.irudiaKargatu(album);
 		ImageIcon argazkiaAlbum = new ImageIcon(abestiIrudia.getIrudia().getBytes(1, (int) abestiIrudia.getIrudia().length()));
-		lblArgazkiaAlbum.setIcon(argazkiaAlbum);
+		Image img = argazkiaAlbum.getImage();
+        Image imgScale = img.getScaledInstance(lblArgazkiaAlbum.getWidth(), lblArgazkiaAlbum.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon argazkia = new ImageIcon(imgScale);
+        lblArgazkiaAlbum.setIcon(argazkia);
 		contentPane.add(lblArgazkiaAlbum);
 		
 		JLabel lblAbestiIzena = new JLabel("");
@@ -331,7 +336,11 @@ public class ErreprodukzioaV extends JFrame {
 		btnGustukoa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "DE MOMENTO NO FUNTZIONA!", "Errorea", JOptionPane.ERROR_MESSAGE);
+				try {
+					MenuaPlaylistSartuAbestiakDAO.gustokoanGorde(abesti);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 	}
