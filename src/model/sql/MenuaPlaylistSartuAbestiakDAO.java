@@ -29,16 +29,18 @@ public class MenuaPlaylistSartuAbestiakDAO {
 		return playlistGustoko;
 	}*/
 	
-	public static Playlist gustokoaKargatu() throws SQLException {
+	public static void gustokoaKargatu(Abestia abesti) throws SQLException {
 		Konexioa.konexioaIreki();
-		String SQLquery = "SELECT IdAudio FROM gustukoak WHERE IdBezeroa = (SELECT IdBezeroa FROM bezeroa WHERE Erabiltzailea = '" + SesioAldagaiak.bezero_Ondo.getErabiltzailea() + "');";
+		String SQLquery = "SELECT IdAudio FROM gustukoak WHERE IdAudio = '" + abesti.getIdAudio() + "' AND IDBezeroa = '" + SesioAldagaiak.bezero_Ondo.getIdBezeroa() + "';";
 		ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
-		Playlist playlistGustokoa = null;
-		while (emaitza.next()) {
-			playlistGustokoa = new Playlist("Gustokoen zerrenda", emaitza.getString("IdAudio"));
+		
+		if (!emaitza.next()) {
+			gustokoanGorde(abesti);
+		} else {
+			gustokoaEzabatu(abesti);
 		}
+		
 		Konexioa.konexioaItxi();
-		return playlistGustokoa;
 	}
 	
 	public static ArrayList<Playlist> playlistakKargatu() throws SQLException {
@@ -57,7 +59,7 @@ public class MenuaPlaylistSartuAbestiakDAO {
             playlistPremium.add(playlistGuztiak);
             kont++;
         }
-		Konexioa.konexioaItxi();
+		
         if (!SesioAldagaiak.e_premium) {
              if (playlistFree.size() > 2) {
             	 playlistFree.clear();
@@ -69,18 +71,34 @@ public class MenuaPlaylistSartuAbestiakDAO {
         
 	}
 	
-	public static void gustokoanGorde(Abestia abesti) throws SQLException {
+	public static void gustokoaEzabatu(Abestia abesti) throws SQLException {
 		Konexioa.konexioaIreki();
 		try {
-			String SQLquery = "INSERT INTO gustukoak VALUES ('" + SesioAldagaiak.bezero_Ondo.getIdBezeroa() + "', '" + abesti.getIdAudio() + "')";
+			String SQLquery = "DELETE FROM gustukoak WHERE IdAudio = '" + abesti.getIdAudio() + "' AND IDBezeroa = '"+ SesioAldagaiak.bezero_Ondo.getIdBezeroa() + "';";
 			Konexioa.query.executeUpdate(SQLquery);
-			JOptionPane.showMessageDialog(null, "Gustokoan gorde da Playlist-a!", "Gustokoa",
+			JOptionPane.showMessageDialog(null, "Gustokotik ezabatu da abestia!", "Gustokoa",
 					JOptionPane.INFORMATION_MESSAGE);
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Errorea egon da datu basearekin.", "Errorea",
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
+		Konexioa.konexioaItxi();
+	}
+	
+	public static void gustokoanGorde(Abestia abesti) throws SQLException {
+			try {
+				Konexioa.konexioaIreki();
+				String SQLquery = "INSERT INTO gustukoak VALUES ('" + SesioAldagaiak.bezero_Ondo.getIdBezeroa() + "', '" + abesti.getIdAudio() + "')";
+				Konexioa.query.executeUpdate(SQLquery);
+				JOptionPane.showMessageDialog(null, "Gustokoan gorde da Playlist-a!", "Gustokoa",
+						JOptionPane.INFORMATION_MESSAGE);
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(null, "Errorea egon da datu basearekin.", "Errorea",
+						JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			}
+		
 		Konexioa.konexioaItxi();
 	}
 		

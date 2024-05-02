@@ -118,7 +118,7 @@ public class MenuaPlaylistSartuAbestiakV extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (Playlista.getSelectedIndex() == 0) {
 					try {
-						MenuaPlaylistSartuAbestiakDAO.gustokoanGorde(abesti);
+						MenuaPlaylistSartuAbestiakDAO.gustokoaKargatu(abesti);
 						dispose();
 					} catch (SQLException e1) {
 						e1.printStackTrace();

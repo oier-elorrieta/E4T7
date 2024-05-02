@@ -48,9 +48,11 @@ public class ErreprodukzioaV extends JFrame {
 	private Clip clipLehena;
 	private Clip clipHurrengoa;
 	private Clip clipAurrekoa;
+	private Clip clipIragarkia;
 	private boolean listaAmaiera = false;
 	private ArrayList<Abestia> abestiList;
 	private boolean aurrekoListaamaitu = false;
+	private boolean iragarkiaIpini = false;
 
 	/**
 	 * Create the frame.
@@ -150,8 +152,10 @@ public class ErreprodukzioaV extends JFrame {
 		contentPane.add(btnHurrengoa);
 		
 		JButton btnGustukoa = new JButton("Gustukoa");
+		btnGustukoa.setSelectedIcon(null);
 		btnGustukoa.setFont(new Font("Verdana", Font.PLAIN, 17));
 		btnGustukoa.setBounds(620, 458, 121, 34);
+		btnGustukoa.setFocusPainted(false);
 		contentPane.add(btnGustukoa);
 		
 		JButton btnMenua = new JButton("Menua");
@@ -276,7 +280,24 @@ public class ErreprodukzioaV extends JFrame {
 		btnHurrengoa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int i = 0;
+				int i = (int) ((Math.random() * 4) + 1);
+				int contAbestiak = 0;
+				if (!SesioAldagaiak.e_premium) {
+					String fileAnuncio = "\\\\10.5.6.223\\anuncios\\Anuncio" + i + ".wav";
+					if (iragarkiaIpini) {
+						try {
+							AudioInputStream aui;
+							aui = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
+							clipIragarkia = AudioSystem.getClip();
+							clipIragarkia.open(aui);
+						} catch (UnsupportedAudioFileException | IOException ew) {
+							ew.printStackTrace();
+						} catch (LineUnavailableException e1) {
+							e1.printStackTrace();
+						}
+						iragarkiaIpini = false;
+					}
+				}
 				try {
 					abestiList = DiskaAbestiakDAO.albumAbestiakKargatu(album);
 					if (listaAmaiera) {
@@ -311,6 +332,8 @@ public class ErreprodukzioaV extends JFrame {
 									clipHurrengoa.stop();
 								}
 								
+								iragarkiaIpini = true;
+								
 								dispose();
 								JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
 							}	
@@ -337,7 +360,7 @@ public class ErreprodukzioaV extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-					MenuaPlaylistSartuAbestiakDAO.gustokoanGorde(abesti);
+					MenuaPlaylistSartuAbestiakDAO.gustokoaKargatu(abesti);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

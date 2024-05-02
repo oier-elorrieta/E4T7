@@ -29,12 +29,10 @@ public class Podcast extends Audio {
 		this.kolaboratzaile = kolaboratzaile;
 	}
 
-
-
-	public Podcast(String titulua, String iraupena, int erreprodukzioak) {
+	/*public Podcast(String titulua, String iraupena, int erreprodukzioak) {
 		super(titulua, iraupena, erreprodukzioak);
 	}
-
+*/
 
 
 	public String getKolaboratzaile() {
