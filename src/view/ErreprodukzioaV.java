@@ -16,11 +16,13 @@ import javax.swing.border.EmptyBorder;
 import model.Abestia;
 import model.Album;
 import model.Artista;
+import model.Musikaria;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
 import model.sql.ArtistaDiskaDAO;
 import model.sql.DiskaAbestiakDAO;
+import model.sql.IragarkiLehioaDAO;
 import model.sql.MenuaPlaylistSartuAbestiakDAO;
 
 import javax.swing.JLabel;
@@ -38,6 +40,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -48,12 +51,10 @@ public class ErreprodukzioaV extends JFrame {
 	private Clip clipLehena;
 	private Clip clipHurrengoa;
 	private Clip clipAurrekoa;
-	private Clip clipIragarkia;
 	private boolean listaAmaiera = false;
 	private ArrayList<Abestia> abestiList;
 	private boolean aurrekoListaamaitu = false;
-	private boolean iragarkiaIpini = false;
-
+	
 	/**
 	 * Create the frame.
 	 * @throws SQLException 
@@ -104,6 +105,8 @@ public class ErreprodukzioaV extends JFrame {
         ImageIcon argazkia = new ImageIcon(imgScale);
         lblArgazkiaAlbum.setIcon(argazkia);
 		contentPane.add(lblArgazkiaAlbum);
+		
+		
 		
 		JLabel lblAbestiIzena = new JLabel("");
 		lblAbestiIzena.setHorizontalAlignment(SwingConstants.CENTER);
@@ -170,10 +173,11 @@ public class ErreprodukzioaV extends JFrame {
 		lblInfoLista.setBounds(0, 503, 890, 23);
 		contentPane.add(lblInfoLista);
 
-		File f = new File(fileAudio);
+		
 		AudioInputStream aui;
 		
 		try {
+			File f = new File(fileAudio);
 			aui = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
 			clipLehena = AudioSystem.getClip();
 			clipLehena.open(aui);
@@ -280,70 +284,74 @@ public class ErreprodukzioaV extends JFrame {
 		btnHurrengoa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int i = (int) ((Math.random() * 4) + 1);
-				int contAbestiak = 0;
-				if (!SesioAldagaiak.e_premium) {
-					String fileAnuncio = "\\\\10.5.6.223\\anuncios\\Anuncio" + i + ".wav";
-					if (iragarkiaIpini) {
-						try {
-							AudioInputStream aui;
-							aui = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
-							clipIragarkia = AudioSystem.getClip();
-							clipIragarkia.open(aui);
-						} catch (UnsupportedAudioFileException | IOException ew) {
-							ew.printStackTrace();
-						} catch (LineUnavailableException e1) {
-							e1.printStackTrace();
-						}
-						iragarkiaIpini = false;
-					}
-				}
+				int i = 0;
+				if (!SesioAldagaiak.e_premium && SesioAldagaiak.skip_abestia && !listaAmaiera) {
+					SesioAldagaiak.skip_abestia = false;
+					View_metodoak.skipBaimendu();
 				try {
 					abestiList = DiskaAbestiakDAO.albumAbestiakKargatu(album);
 					if (listaAmaiera) {
 						lblInfoLista.setText("Listaren amaierara iritsi zara!");
 						return;
 					}
+					System.out.println(SesioAldagaiak.iragarkiaIpini);
+					if (!SesioAldagaiak.e_premium && SesioAldagaiak.iragarkiaIpini) {
+						System.out.println("AAAA");
+						dispose();
+						JFrameSortu.iragarkiLehioa(album, artista, abesti);
+						if (clipLehena.isRunning()) {
+							clipLehena.stop();
+						}
+						SesioAldagaiak.iragarkiaIpini = false;
+					} else {
 					for (; i < abestiList.size(); i++) {
-						if (i == abestiList.size()-1) {	
-							listaAmaiera = true;
-		                    break;
-						} else {
-							if (abesti.getTitulua().equals(abestiList.get(i).getTitulua())) {
-								File f = new File(fileAudio);
-								AudioInputStream aui;
-									
-								try {
-									aui = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
-									clipHurrengoa = AudioSystem.getClip();
-									clipHurrengoa.open(aui);
-								} catch (UnsupportedAudioFileException | IOException ew) {
-									ew.printStackTrace();
-								} catch (LineUnavailableException e1) {
-									e1.printStackTrace();
+								if (i == abestiList.size()-1) {	
+									listaAmaiera = true;
+				                    break;
+								} else {
+									if (abesti.getTitulua().equals(abestiList.get(i).getTitulua())) {
+										File f = new File(fileAudio);
+										AudioInputStream aui2;
+										
+										try {
+											aui2 = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
+											clipHurrengoa = AudioSystem.getClip();
+											clipHurrengoa.open(aui2);
+										} catch (UnsupportedAudioFileException | IOException ew) {
+											ew.printStackTrace();
+										} catch (LineUnavailableException e1) {
+											e1.printStackTrace();
+										}
+										
+										Abestia abestiaHurrengoa = new Abestia(abestiList.get(i+1).getTitulua(), abestiList.get(i+1).getIrudia(), abestiList.get(i+1).getIraupena());
+										
+										if (clipLehena.isRunning()) {
+											clipLehena.stop();
+										}
+										if (clipHurrengoa.isRunning()) {
+											clipHurrengoa.stop();
+										}
+										
+										SesioAldagaiak.iragarkiaIpini = true;
+										
+										dispose();
+										JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
+										
+									}
 								}
-								
-								Abestia abestiaHurrengoa = new Abestia(abestiList.get(i+1).getTitulua(), abestiList.get(i+1).getIrudia(), abestiList.get(i+1).getIraupena());
-								
-								if (clipLehena.isRunning()) {
-									clipLehena.stop();
-								}
-								if (clipHurrengoa.isRunning()) {
-									clipHurrengoa.stop();
-								}
-								
-								iragarkiaIpini = true;
-								
-								dispose();
-								JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
-							}	
+							}
 						}
 						
-					}
+					
+					
 				} catch (SQLException | LineUnavailableException e1) {
 					e1.printStackTrace();
 				}
 				
+				} else {
+					JOptionPane.showMessageDialog(null, "Ezin duzu hurrengora pasatu!", "Free Erabiltzailea",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		

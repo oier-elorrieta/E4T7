@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import model.Abestia;
 import model.Album;
 import model.Artista;
+import model.Audio;
 import model.Playlist;
 import model.metodoak.SesioAldagaiak;
 
@@ -28,6 +29,27 @@ public class MenuaPlaylistSartuAbestiakDAO {
 		
 		return playlistGustoko;
 	}*/
+	
+	public static boolean playlistakKonprobatuAbestia(Audio audio) throws SQLException {
+		Konexioa.konexioaIreki();
+		String SQLquery = "SELECT count(*) FROM playlist_abestiak WHERE IdAudio = " + audio.getIdAudio() + ";";
+		ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
+		
+		emaitza.next();
+		
+		if (emaitza.getInt("count(*)") == 0) {
+			return true;
+		}
+		Konexioa.konexioaIreki();
+		return false;
+	}
+	
+	public static void playlistGorde(int idList, Audio audio) throws SQLException {
+		Konexioa.konexioaIreki();
+		String SQLquery = "INSERT INTO playlist_abestiak VALUES ('" + idList + "', '" + audio.getIdAudio() + "');";
+		Konexioa.query.executeUpdate(SQLquery);
+		Konexioa.konexioaItxi();
+	}
 	
 	public static void gustokoaKargatu(Abestia abesti) throws SQLException {
 		Konexioa.konexioaIreki();

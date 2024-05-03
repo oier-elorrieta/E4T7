@@ -20,6 +20,10 @@ public class Album {
 		this.urtea = urtea;
 		this.kantaTotala = kantaTotala;
 	}
+	
+	public Album(String izenburua) {
+		this.izenburua = izenburua;
+	}
 
 	public String getIzenburua() {
         return izenburua;

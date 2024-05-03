@@ -12,4 +12,7 @@ public class Musikaria extends Artista {
 		super(irudia, deskribapena);
 	}
 
+	public Musikaria(String izena) {
+		super(izena);
+	}
 }

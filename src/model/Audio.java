@@ -33,14 +33,21 @@ public class Audio {
 		this.iraupena = iraupena;
 		this.erreprodukzioak = erreprodukzioak;
 	}
+	
+	public Audio(String idAudio, String titulua, String iraupena) {
+		this.idAudio = idAudio;
+		this.titulua = titulua;
+		this.iraupena = iraupena;
+	}
 
 	public Audio(Blob irudia) {
 		this.irudia = irudia;
 	}
 
-
-	
-	
+	public Audio(String titulua, Blob irudia) {
+		this.titulua = titulua;
+		this.irudia = irudia;
+	}
 
 	/**
 	 * Audioaren titulua itzultzen du.

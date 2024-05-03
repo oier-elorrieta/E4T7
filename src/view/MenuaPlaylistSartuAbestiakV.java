@@ -20,6 +20,7 @@ import model.sql.MenuaPlaylistSartuAbestiakDAO;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 
@@ -124,7 +125,22 @@ public class MenuaPlaylistSartuAbestiakV extends JFrame {
 						e1.printStackTrace();
 					}
 				} else {
-					
+					try {
+						System.out.println(MenuaPlaylistSartuAbestiakDAO.playlistakKonprobatuAbestia(abesti));
+						if (MenuaPlaylistSartuAbestiakDAO.playlistakKonprobatuAbestia(abesti)) {
+							MenuaPlaylistSartuAbestiakDAO.playlistGorde(Playlista.getSelectedValue().getIdPlaylist(), abesti);
+							JOptionPane.showMessageDialog(null, "PlayList-ean gehitu da abestia!", "Playlistean sartu",
+									JOptionPane.INFORMATION_MESSAGE);
+							//dispose();
+						} else {
+							JOptionPane.showMessageDialog(null, "Abestia hau Playlistean dago jada!", "Errorea",
+							JOptionPane.ERROR_MESSAGE);
+						}
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(null, "Errorea egon da datu basearekin!", "Errorea",
+								JOptionPane.ERROR_MESSAGE);
+						e1.printStackTrace();
+					}
 				}
 			}
 		});

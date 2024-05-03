@@ -94,6 +94,12 @@ public class JFrameSortu {
 			ErreprodukzioaV.setVisible(true);
 	    }
 		
+		public static void iragarkiLehioa(Album album, Artista artista, Abestia abesti) throws SQLException {
+			IragarkiLehioaV IragarkiLehioaV = new IragarkiLehioaV(album, artista, abesti);
+			IragarkiLehioaV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			IragarkiLehioaV.setVisible(true);
+		}
+		
 		public static void erreprodukzioLehioaPodcast(Artista podcaster, Podcast podcast) throws SQLException, LineUnavailableException {
 			ErreprodukzioaPodcastV ErreprodukzioaPodcastV = new ErreprodukzioaPodcastV(podcaster, podcast);
 			ErreprodukzioaPodcastV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,6 +40,20 @@ public class View_metodoak {
         if (!date.matches("\\d{4}-\\d{2}-\\d{2}")) {
             throw new DataBalidazioaException();
         }
+    }
+	
+	public static void skipBaimendu() {
+        
+        Timer timer = new Timer();
+        
+        TimerTask task = new TimerTask() {
+            public void run() {
+                SesioAldagaiak.skip_abestia = true;
+                System.out.println("skip");
+            }
+        };
+        
+        timer.schedule(task, 10000);
     }
 	
 	@SuppressWarnings("deprecation")

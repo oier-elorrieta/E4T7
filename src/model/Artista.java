@@ -33,6 +33,10 @@ public abstract class Artista {
 		this.deskribapena = deskribapena;
 	}
 
+	public Artista(String izena) {
+		this.izena = izena;
+	}
+
 	/**
 	 * Artista izena itzultzen du.
 	 * 
