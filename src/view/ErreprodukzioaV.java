@@ -310,42 +310,41 @@ public class ErreprodukzioaV extends JFrame {
 							listaAmaiera = true;
 							break;
 						}
-									if (abesti.getTitulua().equals(abestiList.get(i).getTitulua())) {
-										File f = new File(fileAudio);
-										AudioInputStream aui2;
-										
-										try {
-											aui2 = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
-											clipHurrengoa = AudioSystem.getClip();
-											clipHurrengoa.open(aui2);
-										} catch (UnsupportedAudioFileException | IOException ew) {
-											ew.printStackTrace();
-										} catch (LineUnavailableException e1) {
-											e1.printStackTrace();
-										}
-										
-										Abestia abestiaHurrengoa = new Abestia(abestiList.get(i+1).getTitulua(), abestiList.get(i+1).getIrudia(), abestiList.get(i+1).getIraupena());
-										
-										if (clipLehena.isRunning()) {
-											clipLehena.stop();
-										}
-										if (clipHurrengoa.isRunning()) {
-											clipHurrengoa.stop();
-										}
-										
-										if (!SesioAldagaiak.e_premium) {
-											SesioAldagaiak.iragarkiaIpini = true;
-										} else {
-											SesioAldagaiak.iragarkiaIpini = false;
-										}
-										
-										dispose();
-										JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
-										
+								if (abesti.getTitulua().equals(abestiList.get(i).getTitulua())) {
+									File f = new File(fileAudio);
+									AudioInputStream aui2;
+									
+									try {
+										aui2 = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
+										clipHurrengoa = AudioSystem.getClip();
+										clipHurrengoa.open(aui2);
+									} catch (UnsupportedAudioFileException | IOException ew) {
+										ew.printStackTrace();
+									} catch (LineUnavailableException e1) {
+										e1.printStackTrace();
 									}
 									
-							}
+									Abestia abestiaHurrengoa = new Abestia(abestiList.get(i+1).getTitulua(), abestiList.get(i+1).getIrudia(), abestiList.get(i+1).getIraupena());
+									
+									if (clipLehena.isRunning()) {
+										clipLehena.stop();
+									}
+									if (clipHurrengoa.isRunning()) {
+										clipHurrengoa.stop();
+									}
+									
+									if (!SesioAldagaiak.e_premium) {
+										SesioAldagaiak.iragarkiaIpini = true;
+									} else {
+										SesioAldagaiak.iragarkiaIpini = false;
+									}
+									
+									dispose();
+									JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
+								}
+									
 						}
+					}
 						
 					
 					
@@ -357,7 +356,59 @@ public class ErreprodukzioaV extends JFrame {
 					JOptionPane.showMessageDialog(null, "Ezin duzu hurrengora pasatu!", "Free Erabiltzailea",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					System.out.println("ELSE");
+					try {
+						abestiList = DiskaAbestiakDAO.albumAbestiakKargatu(album);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+					if (listaAmaiera) {
+						lblInfoLista.setText("Listaren amaierara iritsi zara!");
+						System.out.println("Amaiera");
+						return;
+					}
+					for (; i < abestiList.size(); i++) {
+						if (i == abestiList.size()-1) {	
+							listaAmaiera = true;
+							break;
+						}
+								if (abesti.getTitulua().equals(abestiList.get(i).getTitulua())) {
+									File f = new File(fileAudio);
+									AudioInputStream aui2;
+									
+									try {
+										aui2 = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
+										clipHurrengoa = AudioSystem.getClip();
+										clipHurrengoa.open(aui2);
+									} catch (UnsupportedAudioFileException | IOException ew) {
+										ew.printStackTrace();
+									} catch (LineUnavailableException e1) {
+										e1.printStackTrace();
+									}
+									
+									Abestia abestiaHurrengoa = new Abestia(abestiList.get(i+1).getTitulua(), abestiList.get(i+1).getIrudia(), abestiList.get(i+1).getIraupena());
+									
+									if (clipLehena.isRunning()) {
+										clipLehena.stop();
+									}
+									if (clipHurrengoa.isRunning()) {
+										clipHurrengoa.stop();
+									}
+									
+									if (!SesioAldagaiak.e_premium) {
+										SesioAldagaiak.iragarkiaIpini = true;
+									} else {
+										SesioAldagaiak.iragarkiaIpini = false;
+									}
+									
+									dispose();
+									try {
+										JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
+									} catch (SQLException | LineUnavailableException e1) {
+										e1.printStackTrace();
+									}
+								}
+									
+						}
 				}
 			}
 		});
