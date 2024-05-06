@@ -402,6 +402,7 @@ public class ErreprodukzioaV extends JFrame {
 									
 									dispose();
 									try {
+										System.out.println(abestiaHurrengoa.getIdAudio());
 										JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
 									} catch (SQLException | LineUnavailableException e1) {
 										e1.printStackTrace();

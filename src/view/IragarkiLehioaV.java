@@ -169,10 +169,12 @@ public class IragarkiLehioaV extends JFrame {
                 	
                 	
                 	if (!listaAmaiera) {
+                		System.out.println(abestiaHurrengoa.getTitulua());
                 		dispose();
     					JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
-    					System.out.println(abestiaHurrengoa.getTitulua());
+    					
                 	} else {
+                		System.out.println(abesti.getIdAudio());
                 		dispose();
                 		JFrameSortu.erreprodukzioLehioa(album, artista, abesti);
                 	}
