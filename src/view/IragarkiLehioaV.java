@@ -88,20 +88,19 @@ public class IragarkiLehioaV extends JFrame {
 		lblArtistaIzena.setBounds(0, 459, 890, 23);
 		contentPane.add(lblArtistaIzena);
 		
-		JLabel lblArgazkiaIragarkia = new JLabel("");
-		lblArgazkiaIragarkia.setHorizontalAlignment(SwingConstants.CENTER);
-		lblArgazkiaIragarkia.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblArgazkiaIragarkia.setBounds(269, 82, 354, 276);
+		JLabel lblArgazkia = new JLabel("");
 		
+		lblArgazkia.setHorizontalAlignment(SwingConstants.CENTER);
+		lblArgazkia.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblArgazkia.setBounds(241, 66, 408, 348);
 		
-		/*Abestia abestiIrudia = IragarkiLehioaDAO.getIragarkiakIrudia(iragarkiak.get(0).get);
-		ImageIcon argazkiaAlbum = new ImageIcon(abestiIrudia.getIrudia().getBytes(1, (int) abestiIrudia.getIrudia().length()));
-		Image img = argazkiaAlbum.getImage();
-        Image imgScale = img.getScaledInstance(lblArgazkiaIragarkia.getWidth(), lblArgazkiaIragarkia.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon argazkia = new ImageIcon(imgScale);
-        lblArgazkiaIragarkia.setIcon(argazkia);
-		contentPane.add(lblArgazkiaIragarkia);
-		*/
+		ImageIcon imgIcon = new ImageIcon(IragarkiLehioaV.class.getResource("/images/IRAGARKIAK.jpg"));
+		Image img = imgIcon.getImage();
+		Image newImg = img.getScaledInstance(lblArgazkia.getWidth(), lblArgazkia.getHeight(), java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newImgIcon = new ImageIcon(newImg);
+		lblArgazkia.setIcon(newImgIcon);
+		contentPane.add(lblArgazkia);
+		
 		
 		int iIragarki = (int) ((Math.random() * 4) + 1);
 		
@@ -129,45 +128,58 @@ public class IragarkiLehioaV extends JFrame {
             public void run() {
                 try {
                 	if (listaAmaiera) {
-						dispose();
-						JFrameSortu.menuaBezeroa();
-						return;
+						System.out.println("lista amaiera menua");
+					} else {
+						for (int i = 0; i < abestiList.size(); i++) {
+	                		if (i == abestiList.size()-1) {	
+	                			System.out.println("AMAIERA IRAGARKI LEHIOA");
+	    						listaAmaiera = true;
+	    						break;
+	                    	}
+	                		if (abesti.getTitulua().equals(abestiList.get(i).getTitulua())) {
+	                			File f = new File(fileAudio);
+								AudioInputStream aui2;
+								
+								try {
+									aui2 = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
+									clipHurrengoa = AudioSystem.getClip();
+									clipHurrengoa.open(aui2);
+								} catch (UnsupportedAudioFileException | IOException ew) {
+									ew.printStackTrace();
+								} catch (LineUnavailableException e1) {
+									e1.printStackTrace();
+								}
+							
+								if (i+1 != abestiList.size()) {
+									System.out.println("CASCA");
+								} else {
+									abestiaHurrengoa = new Abestia(abestiList.get(i+1).getTitulua(), abestiList.get(i+1).getIrudia(), abestiList.get(i+1).getIraupena());
+									
+									if (clipLehena.isRunning()) {
+										clipLehena.stop();
+									}
+									if (clipHurrengoa.isRunning()) {
+										clipHurrengoa.stop();
+									}
+								}
+								
+	                    	}	
+	                	}
 					}
-                	for (int i = 0; i < abestiList.size(); i++) {
-                		if (i == abestiList.size()-1) {	
-                			System.out.println("AMAIERA");
-							listaAmaiera = true;
-		                    break;
-						} else {
-                		if (abesti.getTitulua().equals(abestiList.get(i).getTitulua())) {
-                			File f = new File(fileAudio);
-							AudioInputStream aui2;
-							
-							try {
-								aui2 = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
-								clipHurrengoa = AudioSystem.getClip();
-								clipHurrengoa.open(aui2);
-							} catch (UnsupportedAudioFileException | IOException ew) {
-								ew.printStackTrace();
-							} catch (LineUnavailableException e1) {
-								e1.printStackTrace();
-							}
-							
-							abestiaHurrengoa = new Abestia(abestiList.get(i+1).getTitulua(), abestiList.get(i+1).getIrudia(), abestiList.get(i+1).getIraupena());
-							
-							if (clipLehena.isRunning()) {
-								clipLehena.stop();
-							}
-							if (clipHurrengoa.isRunning()) {
-								clipHurrengoa.stop();
-							}
-                    	}
-						
-                
-					}
-                }
-                	dispose();
-					JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
+                	
+                	
+                	if (!listaAmaiera) {
+                		dispose();
+    					JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
+    					System.out.println(abestiaHurrengoa.getTitulua());
+                	} else {
+                		dispose();
+                		JFrameSortu.erreprodukzioLehioa(album, artista, abesti);
+                	}
+                		
+                	
+                	
+                	
 				} catch (SQLException | LineUnavailableException e) {
 					e.printStackTrace();
 				}

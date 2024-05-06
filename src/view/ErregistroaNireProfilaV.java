@@ -173,7 +173,7 @@ public class ErregistroaNireProfilaV extends JFrame {
 		btnErregistratu.setFocusPainted(false);
 		contentPane.add(btnErregistratu);
 		
-		JButton btnAtzera = new JButton("Atzera");
+		JButton btnAtzera = new JButton("Menua");
 		btnAtzera.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnAtzera.setBounds(123, 485, 147, 46);
 		btnAtzera.setFocusPainted(false);
@@ -187,7 +187,7 @@ public class ErregistroaNireProfilaV extends JFrame {
 		JButton btnPremiumErosi = new JButton("Premium erosi");
 		btnPremiumErosi.setForeground(Color.BLUE);
 		btnPremiumErosi.setFont(new Font("Tahoma", Font.BOLD, 18));
-		btnPremiumErosi.setBounds(368, 484, 185, 46);
+		btnPremiumErosi.setBounds(363, 484, 185, 46);
 		btnPremiumErosi.setFocusPainted(false);
 		contentPane.add(btnPremiumErosi);
 		

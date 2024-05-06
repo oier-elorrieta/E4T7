@@ -1,6 +1,9 @@
 package model.metodoak;
 
 import java.awt.Font;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -10,8 +13,14 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
 
+import model.Abestia;
 import salbuespenak.DataBalidazioaException;
 
 public class View_metodoak {
@@ -33,6 +42,29 @@ public class View_metodoak {
 		btnNireProfila.setFocusPainted(false);
 		
 		return btnNireProfila;
+	}
+	
+	public static void playHurrengoaAbestia(Clip clipHurrengoa, Clip clipLehena, String fileAudio) {
+		File f = new File(fileAudio);
+		AudioInputStream aui2;
+		
+		try {
+			aui2 = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
+			clipHurrengoa = AudioSystem.getClip();
+			clipHurrengoa.open(aui2);
+		} catch (UnsupportedAudioFileException | IOException ew) {
+			ew.printStackTrace();
+		} catch (LineUnavailableException e1) {
+			e1.printStackTrace();
+		}
+		
+		
+		if (clipLehena.isRunning()) {
+			clipLehena.stop();
+		}
+		if (clipHurrengoa.isRunning()) {
+			clipHurrengoa.stop();
+		}
 	}
 		
 	

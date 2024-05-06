@@ -285,18 +285,19 @@ public class ErreprodukzioaV extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int i = 0;
-				if (!SesioAldagaiak.e_premium && SesioAldagaiak.skip_abestia && !listaAmaiera) {
+				if (SesioAldagaiak.skip_abestia && !listaAmaiera) {
 					SesioAldagaiak.skip_abestia = false;
 					View_metodoak.skipBaimendu();
 				try {
 					abestiList = DiskaAbestiakDAO.albumAbestiakKargatu(album);
 					if (listaAmaiera) {
 						lblInfoLista.setText("Listaren amaierara iritsi zara!");
+						System.out.println("Amaiera");
 						return;
 					}
-					System.out.println(SesioAldagaiak.iragarkiaIpini);
+					System.out.println("IRAGARKI IPINI: " + SesioAldagaiak.iragarkiaIpini);
 					if (!SesioAldagaiak.e_premium && SesioAldagaiak.iragarkiaIpini) {
-						System.out.println("AAAA");
+						System.out.println("IRAGARKIA");
 						dispose();
 						JFrameSortu.iragarkiLehioa(album, artista, abesti);
 						if (clipLehena.isRunning()) {
@@ -305,10 +306,10 @@ public class ErreprodukzioaV extends JFrame {
 						SesioAldagaiak.iragarkiaIpini = false;
 					} else {
 					for (; i < abestiList.size(); i++) {
-								if (i == abestiList.size()-1) {	
-									listaAmaiera = true;
-				                    break;
-								} else {
+						if (i == abestiList.size()-1) {	
+							listaAmaiera = true;
+							break;
+						}
 									if (abesti.getTitulua().equals(abestiList.get(i).getTitulua())) {
 										File f = new File(fileAudio);
 										AudioInputStream aui2;
@@ -332,13 +333,17 @@ public class ErreprodukzioaV extends JFrame {
 											clipHurrengoa.stop();
 										}
 										
-										SesioAldagaiak.iragarkiaIpini = true;
+										if (!SesioAldagaiak.e_premium) {
+											SesioAldagaiak.iragarkiaIpini = true;
+										} else {
+											SesioAldagaiak.iragarkiaIpini = false;
+										}
 										
 										dispose();
 										JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
 										
 									}
-								}
+									
 							}
 						}
 						
@@ -348,9 +353,11 @@ public class ErreprodukzioaV extends JFrame {
 					e1.printStackTrace();
 				}
 				
-				} else {
+				} else if (!SesioAldagaiak.e_premium) {
 					JOptionPane.showMessageDialog(null, "Ezin duzu hurrengora pasatu!", "Free Erabiltzailea",
 							JOptionPane.ERROR_MESSAGE);
+				} else {
+					System.out.println("ELSE");
 				}
 			}
 		});

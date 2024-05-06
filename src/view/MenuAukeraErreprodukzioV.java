@@ -13,6 +13,7 @@ import model.metodoak.JFrameSortu;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -85,6 +86,19 @@ public class MenuAukeraErreprodukzioV extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+			}
+		});
+		
+		// KONPARTITU BOTOIA
+		btnKonpartitu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Object[] aukerakMenu = { "Bai", "Ez" };
+                int menuAukera = JOptionPane.showOptionDialog(null, "Konpartitu nahi duzu?", "Konpartitu",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerakMenu, aukerakMenu[0]);
+                if (menuAukera == JOptionPane.YES_OPTION) {
+                	
+                }
 			}
 		});
 	}
