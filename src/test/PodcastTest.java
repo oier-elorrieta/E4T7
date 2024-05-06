@@ -13,7 +13,6 @@ public class PodcastTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        podcastProba = new Podcast("podcast1", 180);
     }
 
     @Test
@@ -39,13 +38,13 @@ public class PodcastTest {
 
     @Test
     public void testEquals_EqualObjects() {
-    	Podcast samePodcast = new Podcast("podcast1", 180);
+    	Podcast samePodcast = new Podcast("podcast1", null, null, 180, null);
         assertTrue(podcastProba.equals(samePodcast));
     }
 
     @Test
     public void testEquals_DifferentObjects() {
-    	Podcast differentPodcast = new Podcast("podcast2", 240);
+    	Podcast differentPodcast = new Podcast("podcast2", null, null, 240, null);
         assertFalse(podcastProba.equals(differentPodcast));
     }
 

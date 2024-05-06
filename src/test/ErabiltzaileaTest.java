@@ -120,7 +120,7 @@ public class ErabiltzaileaTest {
         @Test
         public void testToEqualsDiff() {
             Erabiltzailea erabiltzailea1 = new Erabiltzailea("erabiltzailea","Pasahitza", "izena", "abizena","English", null);
-            Audio aud  = new Audio(null, 0);
+            Audio aud  = new Audio(null, null, null, 0);
             assertFalse(erabiltzailea1.equals(aud));
         }
     @Test

@@ -13,7 +13,7 @@ public class AbestiaTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        abestiakProba = new Abestia("abesti1", 180);
+        abestiakProba = new Abestia("1", null, null, 180);
     }
 
     @Test
@@ -39,13 +39,13 @@ public class AbestiaTest {
 
     @Test
     public void testEquals_EqualObjects() {
-        Abestia sameAbestiak = new Abestia("abesti1", 180);
+        Abestia sameAbestiak = new Abestia("abesti1", null, null, 180);
         assertTrue(abestiakProba.equals(sameAbestiak));
     }
 
     @Test
     public void testEquals_DifferentObjects() {
-        Abestia differentAbestiak = new Abestia("abesti2", 240);
+        Abestia differentAbestiak = new Abestia("abesti2", null, null, 240);
         assertFalse(abestiakProba.equals(differentAbestiak));
     }
 

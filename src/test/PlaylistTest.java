@@ -16,7 +16,7 @@ public class PlaylistTest {
 
     @Before
     public void setUp() {
-        playlist = new Playlist(10, "Mi Playlist");
+        playlist = new Playlist(10, "Mi Playlist", 0, null, null);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class PlaylistTest {
 
     @Test
     public void testEqualsDifferentObject() {
-        Playlist other = new Playlist(10, "Mi Playlist");
+        Playlist other = new Playlist(10, "Mi Playlist", 0, null, null);
         assertTrue(playlist.equals(other));
     }
     @Test
@@ -59,12 +59,12 @@ public class PlaylistTest {
     }
     @Test
     public void testToEqualsDiff() {
-        Audio aud  = new Audio(null, 0);
+        Audio aud  = new Audio(null, null, null, 0);
         assertFalse(playlist.equals(aud));
     }
     @Test
     public void testNotEquals() {
-        Playlist other = new Playlist(20, "aña Playlist");
+        Playlist other = new Playlist(20, "aña Playlist", 0, null, null);
         assertFalse(playlist.equals(other));
     }
 

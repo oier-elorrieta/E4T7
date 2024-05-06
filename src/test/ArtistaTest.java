@@ -17,21 +17,21 @@ public class ArtistaTest {
 	    public void testGetNombre() {
 	        Artista artista = new Musikaria("izena", 0);
        
-	        assertEquals("izena", artista.getizena());
+	        assertEquals("izena", artista.getIzena());
 	    }
 
 	    @Test
 	    public void testSetNombre() {
 	        Artista artista = new Podcaster("izena", 0);
-	        artista.setizena("name");
+	        artista.setIzena("name");
 
-	        assertEquals("name", artista.getizena());
+	        assertEquals("name", artista.getIzena());
 	    }
 
 	    @Test
 	    public void testToString() {
 	        Artista artista = new Musikaria("izena", 0);
-	        assertEquals("Artista [Izena=" + artista.getizena() + "]", artista.toString());
+	        assertEquals("Artista [Izena=" + artista.getIzena() + "]", artista.toString());
 	    }
 
 }
