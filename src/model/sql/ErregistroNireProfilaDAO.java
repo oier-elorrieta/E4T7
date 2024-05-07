@@ -11,7 +11,19 @@ import model.Erabiltzailea;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
 
+/**
+ * ErregistroNireProfilaDAO klaseak datu basearekin eragiketak egiten ditu
+ * erabiltzailearen profila erregistratzeko.
+ * 
+ */
 public class ErregistroNireProfilaDAO {
+	
+	/**
+	 * Konprobatu erabiltzailea Free motako erabiltzailea den ala ez.
+	 * 
+	 * @return True, Free motako erabiltzailea bada.
+	 * @throws SQLException SQL errorea gertatzen bada.
+	 */
 	public static boolean konprabatuPremium() throws SQLException {
 		Konexioa.konexioaIreki();
 		String SQLquery = "SELECT Mota FROM bezeroa WHERE Erabiltzailea LIKE '"
@@ -36,7 +48,12 @@ public class ErregistroNireProfilaDAO {
 		return true;	
 	}
 	
-
+	/**
+	 * Konprobatu erabiltzailea Free motako erabiltzailea den ala ez.
+	 * 
+	 * @return True, Free motako erabiltzailea bada.
+	 * @throws SQLException SQL errorea gertatzen bada.
+	 */
 	public static void updatePremiumBezeroFree(Erabiltzailea erab) throws SQLException {
 		Konexioa.konexioaIreki();
 		String SQLquery = "UPDATE bezeroa SET mota = 'Premium' WHERE Erabiltzailea = '" + erab.getErabiltzailea() + "';";
@@ -128,6 +145,12 @@ public class ErregistroNireProfilaDAO {
 		Konexioa.konexioaItxi();
 	}
 	
+	/**
+	 * Erabiltzailearen datuak eguneratzeko metodoa.
+	 * 
+	 * @param erab Erabiltzailearen datuak gordetzeko Erabiltzailea objektua.
+	 * @throws SQLException SQL errorea gertatzen bada.
+	 */
 	public static void updateNireProfilaDatuak (Erabiltzailea erab) throws SQLException {
 		Konexioa.konexioaIreki();
 		String SQLquery = "UPDATE bezeroa SET Izena = '" + erab.getIzena() + "', Abizena = '" + erab.getAbizena() + "', Hizkuntza = '" + erab.getHizkuntza() + "', Erabiltzailea = '" + erab.getErabiltzailea() + "', Pasahitza = '" + erab.getPasahitza() + "', Jaiotza_data = '" + View_metodoak.dateToString(erab.getJaiotze_data())

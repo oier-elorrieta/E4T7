@@ -13,23 +13,21 @@ import model.Audio;
 import model.Playlist;
 import model.metodoak.SesioAldagaiak;
 
+/**
+ * MenuaPlaylistSartuAbestiakDAO klaseak datu basearekin konexioa izango duen
+ * klasea da. Klase honek datu basearekin eragiketak egingo ditu, hau da,
+ * playlistak kudeatuko ditu.
+ * 
+ */
 public class MenuaPlaylistSartuAbestiakDAO {
 	
-	/*public static Playlist gustokoaKargatu() throws SQLException {
-		Konexioa.konexioaIreki();
-		String SQLquery = "SELECT IdAudio, IdBezeroa FROM gustukoak WHERE IdBezeroa = (SELECT IdBezeroa FROM bezeroa WHERE Erabiltzailea = '" + SesioAldagaiak.bezero_Ondo.getErabiltzailea() + "');";
-		ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
-		Playlist playlistGustoko = null;
-		
-		while (emaitza.next()) {
-			Playlist playlist = new Playlist("Gustokoen zerrenda", emaitza.getString("IdBezeroa"), emaitza.getString("IdAudio"));
-			playlistGustoko = playlist;
-		}
-		Konexioa.konexioaItxi();
-		
-		return playlistGustoko;
-	}*/
-	
+	/**
+	 * Audio bat jasotzen du eta datu basean begiratzen du ea audio hori dagoeneko playlist batean sartuta dagoen.
+	 *
+	 * @param audio Audio objektua, non audioaren identifikadorea erabiliko den SQL kontsulta egiteko.
+	 * @return boolean Balioa itzultzen du, true balioa itzuliko du audioa ez badago playlist batean sartuta, false bestela.
+	 * @throws SQLException Salbuespena jaurtitzen du datu basearekin arazo bat egon ezkero.
+	 */
 	public static boolean playlistakKonprobatuAbestia(Audio audio) throws SQLException {
 		Konexioa.konexioaIreki();
 		String SQLquery = "SELECT count(*) FROM playlist_abestiak WHERE IdAudio = " + audio.getIdAudio() + ";";
@@ -44,6 +42,13 @@ public class MenuaPlaylistSartuAbestiakDAO {
 		return false;
 	}
 	
+	/**
+	 * Playlist batean audio bat sartzen du datu basean.
+	 *
+	 * @param idList Playlistaren identifikadorea, non audioa sartuko den.
+	 * @param audio Audio objektua, non audioaren identifikadorea erabiliko den SQL kontsulta egiteko.
+	 * @throws SQLException Salbuespena jaurtitzen du datu basearekin arazo bat egon ezkero.
+	 */
 	public static void playlistGorde(int idList, Audio audio) throws SQLException {
 		Konexioa.konexioaIreki();
 		String SQLquery = "INSERT INTO playlist_abestiak VALUES ('" + idList + "', '" + audio.getIdAudio() + "');";
@@ -51,6 +56,15 @@ public class MenuaPlaylistSartuAbestiakDAO {
 		Konexioa.konexioaItxi();
 	}
 	
+	/**
+	 * Playlist batean audio bat ezabatzen du datu basean.
+	 *
+	 * @param idList Playlistaren identifikadorea, non audioa ezabatuko den.
+	 * @param audio  Audio objektua, non audioaren identifikadorea erabiliko den SQL
+	 *               kontsulta egiteko.
+	 * @throws SQLException Salbuespena jaurtitzen du datu basearekin arazo bat egon
+	 *                      ezkero.
+	 */
 	public static void gustokoaKargatu(Abestia abesti) throws SQLException {
 		Konexioa.konexioaIreki();
 		String SQLquery = "SELECT IdAudio FROM gustukoak WHERE IdAudio = '" + abesti.getIdAudio() + "' AND IDBezeroa = '" + SesioAldagaiak.bezeroa_logeatuta.getIdBezeroa() + "';";
@@ -65,6 +79,15 @@ public class MenuaPlaylistSartuAbestiakDAO {
 		Konexioa.konexioaItxi();
 	}
 	
+	/**
+	 * Playlist batean audio bat sartzen du datu basean.
+	 *
+	 * @param idList Playlistaren identifikadorea, non audioa sartuko den.
+	 * @param audio  Audio objektua, non audioaren identifikadorea erabiliko den SQL
+	 *               kontsulta egiteko.
+	 * @throws SQLException Salbuespena jaurtitzen du datu basearekin arazo bat egon
+	 *                      ezkero.
+	 */
 	public static ArrayList<Playlist> playlistakKargatu() throws SQLException {
 		Konexioa.konexioaIreki();
 		String SQLquery = "SELECT IDList, Izenburua, Sorrera_data, IDBezeroa FROM playlist WHERE IDBezeroa = (SELECT IDBezeroa FROM bezeroa WHERE Erabiltzailea = '" + SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea() + "');";
@@ -95,6 +118,15 @@ public class MenuaPlaylistSartuAbestiakDAO {
         
 	}
 	
+	/**
+	 * Playlist batean audio bat sartzen du datu basean.
+	 *
+	 * @param idList Playlistaren identifikadorea, non audioa sartuko den.
+	 * @param audio  Audio objektua, non audioaren identifikadorea erabiliko den SQL
+	 *               kontsulta egiteko.
+	 * @throws SQLException Salbuespena jaurtitzen du datu basearekin arazo bat egon
+	 *                      ezkero.
+	 */
 	public static void gustokoaEzabatu(Abestia abesti) throws SQLException {
 		Konexioa.konexioaIreki();
 		try {
@@ -110,6 +142,15 @@ public class MenuaPlaylistSartuAbestiakDAO {
 		Konexioa.konexioaItxi();
 	}
 	
+	/**
+	 * Playlist batean audio bat sartzen du datu basean.
+	 *
+	 * @param idList Playlistaren identifikadorea, non audioa sartuko den.
+	 * @param audio  Audio objektua, non audioaren identifikadorea erabiliko den SQL
+	 *               kontsulta egiteko.
+	 * @throws SQLException Salbuespena jaurtitzen du datu basearekin arazo bat egon
+	 *                      ezkero.
+	 */
 	public static void gustokoanGorde(Abestia abesti) throws SQLException {
 			try {
 				Konexioa.konexioaIreki();
