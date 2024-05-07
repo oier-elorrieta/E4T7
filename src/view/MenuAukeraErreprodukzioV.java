@@ -10,6 +10,7 @@ import model.Abestia;
 import model.Album;
 import model.Artista;
 import model.metodoak.JFrameSortu;
+import model.metodoak.View_metodoak;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -22,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class MenuAukeraErreprodukzioV extends JFrame {
 
@@ -34,7 +36,6 @@ public class MenuAukeraErreprodukzioV extends JFrame {
 	public MenuAukeraErreprodukzioV(Album album, Artista artista, Abestia abesti) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(408, 643, 288, 189);
-		setTitle("Erreprodukzio menua");
 		setResizable(false);
 		setUndecorated(true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
@@ -97,7 +98,14 @@ public class MenuAukeraErreprodukzioV extends JFrame {
                 int menuAukera = JOptionPane.showOptionDialog(null, "Konpartitu nahi duzu?", "Konpartitu",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerakMenu, aukerakMenu[0]);
                 if (menuAukera == JOptionPane.YES_OPTION) {
-                	
+                	try {
+						View_metodoak.konpartituFilesAbestiak(abesti, album, artista);
+						JOptionPane.showMessageDialog(null, "Zure abestia konpartitu da Files batera!", "Konpartitu",
+								JOptionPane.INFORMATION_MESSAGE);
+						dispose();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
                 }
 			}
 		});

@@ -29,7 +29,7 @@ import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.sql.ErregistroNireProfilaDAO;
 import model.sql.Konexioa;
-import model.sql.SQLInterakzioa;
+import model.sql.LoginDAO;
 import javax.swing.ImageIcon;
 
 public class LoginV extends JFrame {
@@ -170,14 +170,14 @@ public class LoginV extends JFrame {
 	        if (comboBox.getSelectedIndex() == 0) {
 	            Konexioa.konexioaIreki();
 	            try {
-	                BezeroOndo = SQLInterakzioa.loginKonexioa(txtErabil, passwdErabil);
+	                BezeroOndo = LoginDAO.loginKonexioa(txtErabil, passwdErabil);
 	            } catch (SQLException e1) {
 	                e1.printStackTrace();
 	            }
 	            // BEZEROA ONDO BADAGO, OBJEKTUAN SARTU ETA LOGEATU
 	            if (BezeroOndo != null) {
 	                dispose();
-	                SesioAldagaiak.bezero_Ondo = BezeroOndo;
+	                SesioAldagaiak.bezeroa_logeatuta = BezeroOndo;
 	                SesioAldagaiak.logeatuta = true;
 	                if (ErregistroNireProfilaDAO.konprabatuPremium()) {
 	                	SesioAldagaiak.e_premium = true;

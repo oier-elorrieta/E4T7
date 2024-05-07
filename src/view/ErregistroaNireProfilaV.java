@@ -34,7 +34,7 @@ import model.metodoak.View_metodoak;
 import model.sql.ErregistroNireProfilaDAO;
 import model.sql.HizkuntzaDAO;
 import model.sql.Konexioa;
-import model.sql.SQLInterakzioa;
+import model.sql.LoginDAO;
 import salbuespenak.DataBalidazioaException;
 
 public class ErregistroaNireProfilaV extends JFrame {
@@ -64,7 +64,11 @@ public class ErregistroaNireProfilaV extends JFrame {
 		setBounds(400, 250, 906, 594);
 		setResizable(false);
 		if (SesioAldagaiak.logeatuta) {
-			setTitle("Nire profila - JPAM Music");
+			if (SesioAldagaiak.e_premium) {
+				setTitle("Nire profila - JPAM Music PREMIUM");
+			} else {
+				setTitle("Nire profila - JPAM Music FREE");
+			}
 		} else {
 			setTitle("Erregistroa - JPAM Music");
 		}
@@ -139,7 +143,6 @@ public class ErregistroaNireProfilaV extends JFrame {
 		lblHizkuntza.setBounds(141, 341, 91, 26);
 		contentPane.add(lblHizkuntza);
 		
-		Konexioa.konexioaIreki();
 		JComboBox comboBoxHizkuntza = new JComboBox();
 		
 		hizkuntzakList = HizkuntzaDAO.hizkuntza();
@@ -150,8 +153,6 @@ public class ErregistroaNireProfilaV extends JFrame {
 		
 		comboBoxHizkuntza.setModel(comboBoxModel);
 		comboBoxHizkuntza.setSelectedIndex(0);
-		
-		Konexioa.konexioaItxi();
 		comboBoxHizkuntza.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		comboBoxHizkuntza.setBounds(250, 344, 126, 22);
 		contentPane.add(comboBoxHizkuntza);
@@ -173,7 +174,7 @@ public class ErregistroaNireProfilaV extends JFrame {
 		btnErregistratu.setFocusPainted(false);
 		contentPane.add(btnErregistratu);
 		
-		JButton btnAtzera = new JButton("Menua");
+		JButton btnAtzera = new JButton("Atzera");
 		btnAtzera.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnAtzera.setBounds(123, 485, 147, 46);
 		btnAtzera.setFocusPainted(false);
@@ -222,15 +223,16 @@ public class ErregistroaNireProfilaV extends JFrame {
 			contentPane.remove(lblKonfirmatuPasahitza);
 			btnErregistratu.setEnabled(false);
 			lblErregistroa.setText("");
+			btnAtzera.setText("Menua");
 			lblErregistroa.setBounds(0, 2, 100, 2);
 			// TEXT FIELD GUZTIETAN SARTU DATUAK
-			txtIzena.setText(SesioAldagaiak.bezero_Ondo.getIzena());
-			txtAbizenak.setText(SesioAldagaiak.bezero_Ondo.getAbizena());
-			txtErabiltzaile.setText(SesioAldagaiak.bezero_Ondo.getErabiltzailea());
-			passwordField.setText(SesioAldagaiak.bezero_Ondo.getPasahitza());
-			txtJaiotzeData.setText(View_metodoak.dateToString(SesioAldagaiak.bezero_Ondo.getJaiotze_data()));
+			txtIzena.setText(SesioAldagaiak.bezeroa_logeatuta.getIzena());
+			txtAbizenak.setText(SesioAldagaiak.bezeroa_logeatuta.getAbizena());
+			txtErabiltzaile.setText(SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea());
+			passwordField.setText(SesioAldagaiak.bezeroa_logeatuta.getPasahitza());
+			txtJaiotzeData.setText(View_metodoak.dateToString(SesioAldagaiak.bezeroa_logeatuta.getJaiotze_data()));
 			for (int i = 0; i < hizkuntzakList.size(); i++) {
-				if (hizkuntzakList.get(i).getId().equals(SesioAldagaiak.bezero_Ondo.getHizkuntza())) {
+				if (hizkuntzakList.get(i).getId().equals(SesioAldagaiak.bezeroa_logeatuta.getHizkuntza())) {
 					comboBoxHizkuntza.setSelectedItem(hizkuntzakList.get(i).getDeskribapena());
 				}
 			}
@@ -240,14 +242,12 @@ public class ErregistroaNireProfilaV extends JFrame {
 				btnPremiumErosi.setEnabled(false);
 				contentPane.add(txtIraunDataPremium);
 				contentPane.add(lblIraungitzeData);
-				Konexioa.konexioaIreki();
 				
-				if (SQLInterakzioa.iraungitzeDataLortu(SesioAldagaiak.bezero_Ondo.getErabiltzailea()) == null) {
+				if (LoginDAO.iraungitzeDataLortu(SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea()) == null) {
 					JOptionPane.showMessageDialog(null, "Errorea egon da datu basetik iraungintze-data hartzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {
-					txtIraunDataPremium.setText(View_metodoak.dateToString(SQLInterakzioa.iraungitzeDataLortu(SesioAldagaiak.bezero_Ondo.getErabiltzailea())));
+					txtIraunDataPremium.setText(View_metodoak.dateToString(LoginDAO.iraungitzeDataLortu(SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea())));
 				}
-				Konexioa.konexioaItxi();
 			}
 		}
 			
@@ -261,8 +261,8 @@ public class ErregistroaNireProfilaV extends JFrame {
 				char[] charPass = passwordField.getPassword();
 		        String passwdErabil = new String(charPass);
 				try {
-					SesioAldagaiak.bezero_Ondo = new Erabiltzailea(txtErabiltzaile.getText()+"&", txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, View_metodoak.stringToDate(txtJaiotzeData.getText()));
-					ErregistroNireProfilaDAO.updateNireProfilaDatuak(SesioAldagaiak.bezero_Ondo);
+					SesioAldagaiak.bezeroa_logeatuta = new Erabiltzailea(txtErabiltzaile.getText()+"&", txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, View_metodoak.stringToDate(txtJaiotzeData.getText()));
+					ErregistroNireProfilaDAO.updateNireProfilaDatuak(SesioAldagaiak.bezeroa_logeatuta);
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				} catch (SQLException e1) {
@@ -275,7 +275,7 @@ public class ErregistroaNireProfilaV extends JFrame {
 		btnLogout.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				SesioAldagaiak.bezero_Ondo = null;
+				SesioAldagaiak.bezeroa_logeatuta = null;
 				SesioAldagaiak.logeatuta = false;
 				SesioAldagaiak.e_premium = false;
 				dispose();
@@ -314,7 +314,7 @@ public class ErregistroaNireProfilaV extends JFrame {
 			                int menuAukera = JOptionPane.showOptionDialog(null, "Premium erosi nahi duzu?", "Premium erosketa",
 			                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerakMenu, aukerakMenu[0]);
 			                if (menuAukera == JOptionPane.YES_OPTION) {
-			                	ErregistroNireProfilaDAO.updatePremiumBezeroFree(SesioAldagaiak.bezero_Ondo);
+			                	ErregistroNireProfilaDAO.updatePremiumBezeroFree(SesioAldagaiak.bezeroa_logeatuta);
 								SesioAldagaiak.e_premium = true;
 			                }
 						} catch (SQLException e1) {
@@ -328,12 +328,6 @@ public class ErregistroaNireProfilaV extends JFrame {
 						if (passwdErabil.isEmpty() || txtIzena.getText().isEmpty()) {
 							JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 						} else {
-							/*// PREMIUM DEN KONPROBATU
-							try {
-								premiumKonprobatu = ErregistroNireProfilaDAO.konprabatuPremium();
-							} catch (SQLException e1) {
-								e1.printStackTrace();
-							}*/
 							// JAIOTZE DATA HARTU ETA PARSEATU + BALIDAZIOA
 							try {
 								String dateInString = txtJaiotzeData.getText();
@@ -348,12 +342,12 @@ public class ErregistroaNireProfilaV extends JFrame {
 							LocalDate UrteGehituPremium = LocalDate.now().plusYears(1);
 							Date iraunData = java.sql.Date.valueOf(UrteGehituPremium);
 							// OBJEKTUAN SARTU BEZEROA
-							SesioAldagaiak.bezero_Ondo = new E_Premium(txtErabiltzaile.getText()+"&", txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData, iraunData);
+							SesioAldagaiak.bezeroa_logeatuta = new E_Premium(txtErabiltzaile.getText()+"&", txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData, iraunData);
 							
 							// PASAHITZAK KOINTZIDITZEN BADIRA, ERREGISTROA EGIN
 							if (passwdErabil.equals(passwordFieldConfirm.getText())) {
 								try {
-									ErregistroNireProfilaDAO.erregistroaPremium(SesioAldagaiak.bezero_Ondo);
+									ErregistroNireProfilaDAO.erregistroaPremium(SesioAldagaiak.bezeroa_logeatuta);
 									SesioAldagaiak.e_premium = true;
 					                SesioAldagaiak.logeatuta = true;
 									dispose();
@@ -402,11 +396,11 @@ public class ErregistroaNireProfilaV extends JFrame {
 							new DataBalidazioaException();
 						}
 						
-						SesioAldagaiak.bezero_Ondo = new E_Free(txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData);
+						SesioAldagaiak.bezeroa_logeatuta = new E_Free(txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateJaioData);
 
 						if (passwdErabil.equals(passwordFieldConfirm.getText())) {
 							try {
-								ErregistroNireProfilaDAO.erregistroaFree(SesioAldagaiak.bezero_Ondo);
+								ErregistroNireProfilaDAO.erregistroaFree(SesioAldagaiak.bezeroa_logeatuta);
 								dispose();
 								SesioAldagaiak.e_premium = false;
 				                SesioAldagaiak.logeatuta = true;

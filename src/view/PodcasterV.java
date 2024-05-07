@@ -55,7 +55,12 @@ public class PodcasterV extends JFrame {
 	public PodcasterV(Artista artista) throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
-		setTitle(artista.getIzena() + " - JPAM Music");
+		if (SesioAldagaiak.e_premium) {
+			setTitle(artista.getIzena() + " - JPAM Music PREMIUM");
+		} else {
+			setTitle(artista.getIzena() + " - JPAM Music FREE");
+		}
+		
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane = new JPanel();
@@ -79,7 +84,7 @@ public class PodcasterV extends JFrame {
 		lblUserizena.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUserizena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
 		lblUserizena.setBounds(693, 11, 187, 34);
-		lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezero_Ondo.getIzena() + "!");
+		lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezeroa_logeatuta.getIzena() + "!");
 		contentPane.add(lblUserizena);
 		
 		JLabel lblAukeratuAlbumBat = new JLabel("Aukeratu episodio bat:");

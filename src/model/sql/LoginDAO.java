@@ -15,7 +15,7 @@ import model.Erabiltzailea;
  * kontsultaak exekutatzen ditu, erabiltzaileak sartutako datuak bilatzen ditu
  * eta erregistratzen ditu.
  */
-public class SQLInterakzioa {
+public class LoginDAO {
 	
 
 	/**
@@ -80,7 +80,7 @@ public class SQLInterakzioa {
 	 * @return Iraungitze data
 	 */
 	public static Date iraungitzeDataLortu(String erabiltzailea) {
-
+		Konexioa.konexioaIreki();
 		Date IraungitzeData = null;
 
 		String SQLquery = "SELECT Iraungitze_data FROM premium WHERE IDBezeroa = (SELECT IDBezeroa FROM bezeroa WHERE Erabiltzailea = '"
@@ -96,6 +96,7 @@ public class SQLInterakzioa {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		Konexioa.konexioaItxi();
 
 		return IraungitzeData;
 

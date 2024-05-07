@@ -8,6 +8,7 @@ import model.Abestia;
 
 public class IragarkiLehioaDAO {
 	public static ArrayList<Abestia> getIragarkiak() throws SQLException {
+		Konexioa.konexioaIreki();
 		ArrayList<Abestia> iragarkiList = new ArrayList<Abestia>();
         String SQLquery = "SELECT IDAudio, Izena, Iraupena FROM audio WHERE Izena LIKE 'iragarkia%'";
         ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
@@ -18,7 +19,7 @@ public class IragarkiLehioaDAO {
         	
         	iragarkiList.add(iragarkiak);
         }
-        
+        Konexioa.konexioaItxi();
         return iragarkiList;
 	}
 	

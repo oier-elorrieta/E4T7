@@ -50,7 +50,12 @@ public class PodcasterListV extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		setResizable(false);
-		setTitle("Podcastak deskubritu - JPAM Music");
+		if (SesioAldagaiak.e_premium) {
+			setTitle("Podcastak deskubritu - JPAM Music PREMIUM");
+		} else {
+			setTitle("Podcastak deskubritu - JPAM Music FREE");
+		}
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -68,7 +73,7 @@ public class PodcasterListV extends JFrame {
 		lblUserizena.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUserizena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
 		lblUserizena.setBounds(687, 11, 193, 34);
-		lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezero_Ondo.getIzena() + "!");
+		lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezeroa_logeatuta.getIzena() + "!");
 		contentPane.add(lblUserizena);
 		
 		JLabel lblAukeratu = new JLabel("Aukeratu artista bat:");

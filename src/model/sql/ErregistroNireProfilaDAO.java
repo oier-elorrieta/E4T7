@@ -15,7 +15,7 @@ public class ErregistroNireProfilaDAO {
 	public static boolean konprabatuPremium() throws SQLException {
 		Konexioa.konexioaIreki();
 		String SQLquery = "SELECT Mota FROM bezeroa WHERE Erabiltzailea LIKE '"
-				+ SesioAldagaiak.bezero_Ondo.getErabiltzailea() + "'";
+				+ SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea() + "'";
 
 		try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery);
 				ResultSet resultSet = preparedStatement.executeQuery()) {

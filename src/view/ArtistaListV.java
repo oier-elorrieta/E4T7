@@ -47,7 +47,12 @@ public class ArtistaListV extends JFrame {
 	public ArtistaListV() throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
-		setTitle("Musika deskubritu - JPAM Music");
+		if (SesioAldagaiak.e_premium) {
+			setTitle("Musika deskubritu - JPAM Music PREMIUM");
+		} else {
+			setTitle("Musika deskubritu - JPAM Music FREE");
+		}
+		
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane = new JPanel();
@@ -66,7 +71,7 @@ public class ArtistaListV extends JFrame {
 		lblUserizena.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUserizena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
 		lblUserizena.setBounds(687, 11, 193, 34);
-		lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezero_Ondo.getIzena() + "!");
+		lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezeroa_logeatuta.getIzena() + "!");
 		contentPane.add(lblUserizena);
 		
 		JLabel lblAukeratu = new JLabel("Aukeratu artista bat:");

@@ -64,7 +64,11 @@ public class ErreprodukzioaV extends JFrame {
 		final String fileAudio = "\\\\10.5.6.223\\audios\\" + abesti.getTitulua() + ".wav";
 		// ------------------------------
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle(abesti.getTitulua() + " - " + artista.getIzena() + " | Erreprodukzioa · JPAM Music");
+		if (SesioAldagaiak.e_premium) {
+			setTitle(abesti.getTitulua() + " - " + artista.getIzena() + " | Erreprodukzioa · JPAM Music PREMIUM");
+		} else {
+			setTitle(abesti.getTitulua() + " - " + artista.getIzena() + " | Erreprodukzioa · JPAM Music FREE");
+		}
 		setBounds(400, 250, 906, 594);
 		setResizable(false);
 		contentPane = new JPanel();
@@ -84,7 +88,7 @@ public class ErreprodukzioaV extends JFrame {
 		lblKaixo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblKaixo.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
 		lblKaixo.setBounds(693, 11, 187, 34);
-		lblKaixo.setText("Kaixo, " + SesioAldagaiak.bezero_Ondo.getIzena() + "!");
+		lblKaixo.setText("Kaixo, " + SesioAldagaiak.bezeroa_logeatuta.getIzena() + "!");
 		contentPane.add(lblKaixo);
 		
 		JLabel lblErreproduzitzen = new JLabel("ERREPRODUZITZEN ORAIN...");
@@ -105,8 +109,6 @@ public class ErreprodukzioaV extends JFrame {
         ImageIcon argazkia = new ImageIcon(imgScale);
         lblArgazkiaAlbum.setIcon(argazkia);
 		contentPane.add(lblArgazkiaAlbum);
-		
-		
 		
 		JLabel lblAbestiIzena = new JLabel("");
 		lblAbestiIzena.setHorizontalAlignment(SwingConstants.CENTER);
@@ -208,6 +210,9 @@ public class ErreprodukzioaV extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				try {
+					if (clipLehena.isRunning()) {
+						clipLehena.stop();
+					}
 					JFrameSortu.erregistroMenua();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
@@ -402,6 +407,7 @@ public class ErreprodukzioaV extends JFrame {
 									
 									dispose();
 									try {
+										System.out.println(abestiaHurrengoa.getIdAudio());
 										JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
 									} catch (SQLException | LineUnavailableException e1) {
 										e1.printStackTrace();

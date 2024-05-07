@@ -15,6 +15,7 @@ public class HizkuntzaDAO {
 	 * @throws SQLException SQL exekuzioan errore bat gertatzen bada
 	 */
 	public static ArrayList<Hizkuntza> hizkuntza() throws SQLException {
+		Konexioa.konexioaIreki();
 		ArrayList<Hizkuntza> hizkuntzak = new ArrayList<Hizkuntza>();
 		String SQLquery = "SELECT * FROM hizkuntza";
 		ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
@@ -24,7 +25,7 @@ public class HizkuntzaDAO {
 			hAux = new Hizkuntza(emaitza.getString("IdHizkuntza"), emaitza.getString("Deskribapena"));
 			hizkuntzak.add(hAux);
 	    }
-
+		Konexioa.konexioaItxi();
 		return hizkuntzak;
 	}
 
