@@ -31,6 +31,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
 public class MenuaPlaylistSartuAbestiakV extends JFrame {
 
@@ -44,24 +45,33 @@ public class MenuaPlaylistSartuAbestiakV extends JFrame {
 	public MenuaPlaylistSartuAbestiakV(Album album, Artista artista, Abestia abesti) throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(540, 300, 666, 442);
-		setTitle("Playlist-ean sartu - JPAM Music");
+		if (SesioAldagaiak.e_premium) {
+			setTitle("Playlist-ean sartu - JPAM Music PREMIUM");
+		} else {
+			setTitle("Playlist-ean sartu - JPAM Music FREE");
+		}
+		
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(318, 48, 300, 298);
+		contentPane.add(scrollPane);
+		
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblAukera = new JLabel("Aukeratutako pista:");
 		lblAukera.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
-		lblAukera.setBounds(87, 46, 158, 22);
+		lblAukera.setBounds(84, 86, 158, 22);
 		contentPane.add(lblAukera);
 		
 		JLabel lblAbestiIzena = new JLabel("");
 		lblAbestiIzena.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAbestiIzena.setFont(new Font("Segoe UI Historic", Font.PLAIN, 16));
-		lblAbestiIzena.setBounds(10, 107, 298, 30);
+		lblAbestiIzena.setBounds(10, 126, 298, 30);
 		lblAbestiIzena.setText("Titulua: "+ abesti.getTitulua());
 		contentPane.add(lblAbestiIzena);
 		
@@ -71,8 +81,6 @@ public class MenuaPlaylistSartuAbestiakV extends JFrame {
 		lblArtista.setBounds(10, 167, 298, 30);
 		lblArtista.setText("Artista: " + artista.getIzena());
 		contentPane.add(lblArtista);
-		
-		JList<Playlist> Playlista = new JList();
 		ArrayList<Playlist> PlaylistJList = MenuaPlaylistSartuAbestiakDAO.playlistakKargatu();
 		DefaultListModel<Playlist> modelPlaylist = new DefaultListModel<Playlist>();
 		Playlist playlistGustokoa = new Playlist("");
@@ -81,12 +89,6 @@ public class MenuaPlaylistSartuAbestiakV extends JFrame {
 		for (int i = 0; i < PlaylistJList.size(); i++) {
 			modelPlaylist.addElement(PlaylistJList.get(i));
 		}
-		
-		Playlista.setModel(modelPlaylist);
-		Playlista.setBorder(new LineBorder(new Color(0, 0, 0)));
-		Playlista.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		Playlista.setBounds(318, 48, 300, 298);
-		contentPane.add(Playlista);
 		
 		JLabel lblAukeratuPlaylist = new JLabel("Aukeratu Playlist bat abestia sartzeko:");
 		lblAukeratuPlaylist.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
@@ -104,6 +106,14 @@ public class MenuaPlaylistSartuAbestiakV extends JFrame {
 		btnUtzi.setBounds(22, 356, 113, 33);
 		btnUtzi.setFocusPainted(false);
 		contentPane.add(btnUtzi);
+		
+		JList<Playlist> Playlista = new JList();
+		
+		Playlista.setModel(modelPlaylist);
+		Playlista.setBorder(new LineBorder(new Color(0, 0, 0)));
+		Playlista.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
+		Playlista.setBounds(318, 48, 300, 298);
+		scrollPane.setViewportView(Playlista);
 		
 		
 		// UTZI BOTOIA

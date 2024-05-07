@@ -36,7 +36,6 @@ public class MenuAukeraErreprodukzioV extends JFrame {
 	public MenuAukeraErreprodukzioV(Album album, Artista artista, Abestia abesti) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(408, 643, 288, 189);
-		setTitle("Erreprodukzio menua");
 		setResizable(false);
 		setUndecorated(true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));

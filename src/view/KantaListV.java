@@ -54,7 +54,12 @@ public class KantaListV extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		setResizable(false);
-		setTitle(album.getIzenburua() + " · " + artista.getIzena() + " - JPAM Music");
+		if (SesioAldagaiak.e_premium) {
+			setTitle(album.getIzenburua() + " · " + artista.getIzena() + " - JPAM Music PREMIUM");
+		} else {
+			setTitle(album.getIzenburua() + " · " + artista.getIzena() + " - JPAM Music FREE");
+		}
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -82,7 +87,7 @@ public class KantaListV extends JFrame {
 		lblUserizena.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUserizena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
 		lblUserizena.setBounds(693, 11, 187, 34);
-		lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezero_Ondo.getIzena() + "!");
+		lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezeroa_logeatuta.getIzena() + "!");
 		contentPane.add(lblUserizena);
 		
 		JLabel lblAukeratuAbestiBat = new JLabel("Aukeratu abesti bat:");

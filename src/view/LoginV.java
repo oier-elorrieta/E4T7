@@ -177,7 +177,7 @@ public class LoginV extends JFrame {
 	            // BEZEROA ONDO BADAGO, OBJEKTUAN SARTU ETA LOGEATU
 	            if (BezeroOndo != null) {
 	                dispose();
-	                SesioAldagaiak.bezero_Ondo = BezeroOndo;
+	                SesioAldagaiak.bezeroa_logeatuta = BezeroOndo;
 	                SesioAldagaiak.logeatuta = true;
 	                if (ErregistroNireProfilaDAO.konprabatuPremium()) {
 	                	SesioAldagaiak.e_premium = true;

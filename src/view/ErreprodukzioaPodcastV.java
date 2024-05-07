@@ -62,7 +62,12 @@ public class ErreprodukzioaPodcastV extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		setResizable(false);
-		setTitle(podcast.getTitulua() + " - " + podcaster.getIzena() + " | Podcast erreprodukzioa · JPAM Music");
+		if (SesioAldagaiak.e_premium) {
+			setTitle(podcast.getTitulua() + " - " + podcaster.getIzena() + " | Podcast erreprodukzioa · JPAM Music PREMIUM");
+		} else {
+			setTitle(podcast.getTitulua() + " - " + podcaster.getIzena() + " | Podcast erreprodukzioa · JPAM Music FREE");
+		}
+		
 		contentPane = new JPanel();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -86,7 +91,7 @@ public class ErreprodukzioaPodcastV extends JFrame {
 		lblKaixo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblKaixo.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
 		lblKaixo.setBounds(693, 11, 187, 34);
-		lblKaixo.setText("Kaixo, " + SesioAldagaiak.bezero_Ondo.getIzena() + "!");
+		lblKaixo.setText("Kaixo, " + SesioAldagaiak.bezeroa_logeatuta.getIzena() + "!");
 		contentPane.add(lblKaixo);
 		
 		JLabel lblAbestiIzena = new JLabel((String) null);
@@ -113,7 +118,7 @@ public class ErreprodukzioaPodcastV extends JFrame {
 		JButton btnKonpartitu = new JButton("Konpartitu");
 		btnKonpartitu.setFont(new Font("Verdana", Font.PLAIN, 17));
 		btnKonpartitu.setFocusPainted(false);
-		btnKonpartitu.setBounds(31, 459, 136, 34);
+		btnKonpartitu.setBounds(702, 459, 136, 34);
 		contentPane.add(btnKonpartitu);
 		
 		JButton btnAurrekoa = new JButton("<--");
@@ -145,18 +150,6 @@ public class ErreprodukzioaPodcastV extends JFrame {
         ImageIcon argazkia = new ImageIcon(imgScale);
         lblArgazkiaPodcast.setIcon(argazkia);
 		contentPane.add(lblArgazkiaPodcast);
-		
-		JButton btnAbiadura = new JButton("1x");
-		btnAbiadura.setFont(new Font("Verdana", Font.PLAIN, 17));
-		btnAbiadura.setBounds(731, 237, 121, 34);
-		btnAbiadura.setFocusPainted(false);
-		contentPane.add(btnAbiadura);
-		
-		JLabel lblAbiadura = new JLabel("Abiadura");
-		lblAbiadura.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAbiadura.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-		lblAbiadura.setBounds(742, 208, 101, 23);
-		contentPane.add(lblAbiadura);
 		
 		JLabel lblInfoLista = new JLabel("");
 		lblInfoLista.setHorizontalAlignment(SwingConstants.CENTER);
@@ -199,6 +192,9 @@ public class ErreprodukzioaPodcastV extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				try {
+					if (clipLehena.isRunning()) {
+						clipLehena.stop();
+					}
 					JFrameSortu.erregistroMenua();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
@@ -323,29 +319,6 @@ public class ErreprodukzioaPodcastV extends JFrame {
 				
 			}
 		});
-	
-	// ABIADURA ALDATZEKO BOTOIA
-	btnAbiadura.addMouseListener(new MouseAdapter() {
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// EZZ DOA
-			if (clipLehena.isRunning()) {
-				if (speed == 1.0f){
-					  speed = 1.5f;
-					  abiaduraKontrola.setValue(speed);
-					  btnAbiadura.setText("1.5x");
-				} else if (speed == 1.5f) {
-					  speed = 0.5f;
-					  abiaduraKontrola.setValue(speed);
-					  btnAbiadura.setText("0.5x");
-				} else {
-					  speed = 1.0f;
-					  abiaduraKontrola.setValue(speed);
-					  btnAbiadura.setText("1x");
-				}
-		    }
-		}
-	});
 		
 		// KONPARTITZEKO BOTOIA
 		btnKonpartitu.addMouseListener(new MouseAdapter() {

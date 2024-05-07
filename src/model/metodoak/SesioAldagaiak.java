@@ -11,7 +11,7 @@ import model.*;
  */
 public class SesioAldagaiak {
 	
-	public static Erabiltzailea bezero_Ondo;
+	public static Erabiltzailea bezeroa_logeatuta;
 	public static Playlist playlist_gustokoak;
 	public static boolean e_premium = false;
 	public static boolean logeatuta = false;

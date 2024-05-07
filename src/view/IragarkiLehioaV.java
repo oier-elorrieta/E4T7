@@ -51,7 +51,7 @@ public class IragarkiLehioaV extends JFrame {
 	 */
 	public IragarkiLehioaV(Album album, Artista artista, Abestia abesti) throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Iragarkiak | Erreprodukzioa · JPAM Music");
+		setTitle("Iragarkiak | Erreprodukzioa · JPAM Music FREE");
 		setBounds(400, 250, 906, 594);
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
@@ -63,7 +63,7 @@ public class IragarkiLehioaV extends JFrame {
 		
 		iragarkiList = IragarkiLehioaDAO.getIragarkiak();
 		
-		JLabel lblErreproduzitzen = new JLabel("ERREPRODUZITZEN ORAIN...");
+		JLabel lblErreproduzitzen = new JLabel("IRAGARKIAK ERREPRODUZITZEN");
 		lblErreproduzitzen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblErreproduzitzen.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblErreproduzitzen.setBounds(0, 28, 890, 27);
@@ -72,19 +72,19 @@ public class IragarkiLehioaV extends JFrame {
 		JLabel lblKaixo = new JLabel("");
 		lblKaixo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblKaixo.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		lblKaixo.setText("Kaixo, " + SesioAldagaiak.bezero_Ondo.getIzena() + "!");
+		lblKaixo.setText("Kaixo, " + SesioAldagaiak.bezeroa_logeatuta.getIzena() + "!");
 		lblKaixo.setBounds(693, 11, 187, 34);
 		contentPane.add(lblKaixo);
 		
 		JLabel lblIragarkia = new JLabel("Iragarkia");
 		lblIragarkia.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIragarkia.setFont(new Font("Segoe UI Historic", Font.BOLD, 18));
+		lblIragarkia.setFont(new Font("Segoe UI Historic", Font.BOLD, 19));
 		lblIragarkia.setBounds(0, 425, 890, 23);
 		contentPane.add(lblIragarkia);
 		
 		JLabel lblArtistaIzena = new JLabel("Free bezeroa zarenez, iragarkiak dituzu. Erosi Premium \"Nire profila\" atalean hau ekiditzeko!");
 		lblArtistaIzena.setHorizontalAlignment(SwingConstants.CENTER);
-		lblArtistaIzena.setFont(new Font("Segoe UI Semilight", Font.ITALIC, 16));
+		lblArtistaIzena.setFont(new Font("Segoe UI Semilight", Font.ITALIC, 17));
 		lblArtistaIzena.setBounds(0, 459, 890, 23);
 		contentPane.add(lblArtistaIzena);
 		
@@ -92,7 +92,7 @@ public class IragarkiLehioaV extends JFrame {
 		
 		lblArgazkia.setHorizontalAlignment(SwingConstants.CENTER);
 		lblArgazkia.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblArgazkia.setBounds(241, 66, 408, 348);
+		lblArgazkia.setBounds(243, 66, 408, 348);
 		
 		ImageIcon imgIcon = new ImageIcon(IragarkiLehioaV.class.getResource("/images/IRAGARKIAK.jpg"));
 		Image img = imgIcon.getImage();
