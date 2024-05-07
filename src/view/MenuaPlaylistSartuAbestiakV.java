@@ -127,6 +127,11 @@ public class MenuaPlaylistSartuAbestiakV extends JFrame {
 		// SARTU PLAYLISTEAN BOTOIA
 		btnSartuPlaylist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (Playlista.isSelectionEmpty()) {
+					JOptionPane.showMessageDialog(null, "Ez duzu Playlist bat aukeratu!", "Errorea",
+							JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 				if (Playlista.getSelectedIndex() == 0) {
 					try {
 						MenuaPlaylistSartuAbestiakDAO.gustokoaKargatu(abesti);
