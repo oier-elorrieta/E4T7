@@ -139,7 +139,7 @@ public class View_metodoak {
 		BufferedWriter bufferedWriter = new BufferedWriter(write);
 		
 		bufferedWriter.write("ABESTIAREN INFORMAZIOA");
-			
+		 bufferedWriter.newLine();
 		 bufferedWriter.write("----------------------------------");
 		 bufferedWriter.newLine();
 		bufferedWriter.write("Abestia: " + abesti.getTitulua());
@@ -147,9 +147,7 @@ public class View_metodoak {
 		 bufferedWriter.write("Artista: " + artista.getIzena());
 		 bufferedWriter.newLine();
 		 bufferedWriter.write("Albuma: " + album.getIzenburua());
-		 bufferedWriter.newLine();	
-		 bufferedWriter.write("Generoa: " + album.getGeneroa());
-		 bufferedWriter.newLine();	
+		 bufferedWriter.newLine();
 		 bufferedWriter.write("Iraupena: " + abesti.getIraupena());
 		 bufferedWriter.newLine();
 		 bufferedWriter.write("Album urtea: " + album.getUrtea());
