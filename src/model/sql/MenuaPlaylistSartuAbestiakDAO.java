@@ -33,9 +33,9 @@ public class MenuaPlaylistSartuAbestiakDAO {
 		String SQLquery = "SELECT count(*) FROM playlist_abestiak WHERE IdAudio = " + audio.getIdAudio() + ";";
 		ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
 		
-		emaitza.next();
+		emaitza.next(); 
 		
-		if (emaitza.getInt("count(*)") == 0) {
+		if (emaitza.getInt("count(*)") == 0) { 
 			return true;
 		}
 		Konexioa.konexioaIreki();

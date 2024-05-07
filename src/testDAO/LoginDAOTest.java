@@ -13,8 +13,8 @@ package testDAO;
 
 	    @Test
 	    public void testLoginKonexioaFreeUser() throws SQLException {
-	        String username = "testUser";
-	        String password = "testPassword";
+	        String username = "admin";
+	        String password = "12345";
 	        Erabiltzailea user = LoginDAO.loginKonexioa(username, password);
 
 	        assertNotNull(user);
@@ -24,8 +24,8 @@ package testDAO;
 
 	    @Test
 	    public void testLoginKonexioaPremiumUser() throws SQLException {
-	        String username = "premiumUser";
-	        String password = "premiumPassword";
+	        String username = "analopez";
+	        String password = "123456";
 
 	        Erabiltzailea user = LoginDAO.loginKonexioa(username, password);
 
@@ -36,7 +36,7 @@ package testDAO;
 
 	    @Test
 	    public void testIraungitzeDataLortu() throws SQLException {
-	        String username = "premiumUser";
+	        String username = "analopez";
 	        Date expirationDate = LoginDAO.iraungitzeDataLortu(username);
 
 	        assertNotNull(expirationDate);

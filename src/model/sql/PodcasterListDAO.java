@@ -34,7 +34,7 @@ public class PodcasterListDAO {
         return pdcasterInfo;
     }
 
-	/**
+	/** 
 	 * Podcaster guztien zerrenda kargatzen du datu-basean dagoen informazioarekin.
 	 *
 	 * @return Artista motako objektuen ArrayList bat, non podcaster bakoitzaren informazioa gordetzen den.

@@ -24,7 +24,7 @@ public class Audio {
 	 * @param irudia   Audioaren irudia
 	 * @param iraupena Audioaren iraupena
 	 */
-	public Audio(String titulua, Blob irudia, String iraupena) {
+	public Audio(String titulua, Blob irudia, String iraupena) { 
 		this.titulua = titulua;
 		this.irudia = irudia;
 		this.iraupena = iraupena;
