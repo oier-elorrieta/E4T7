@@ -16,12 +16,12 @@ public abstract class Artista {
 	 * 
 	 * @param izena artistaaren izena
 	 */
-	public Artista(String izena, int erreprodukzioak, String deskribapena, Blob irudia) {
-		this.izena = izena;
-		this.irudia = irudia;
-		this.erreprodukzioak = erreprodukzioak;
-		this.deskribapena = deskribapena;
-	}
+//	public Artista(String izena, int erreprodukzioak, String deskribapena, Blob irudia) {
+//		this.izena = izena;
+//		this.irudia = irudia;
+//		this.erreprodukzioak = erreprodukzioak;
+//		this.deskribapena = deskribapena;
+//	}
 
 	public Artista(String izena, int erreprodukzioak) {
 		this.izena = izena;

@@ -26,8 +26,7 @@ public class Erabiltzailea {
 	 * @param hizkuntza     erabiltzailearen hizkuntza
 	 * @param jaiotze_data  erabiltzailearen jaiotze data
 	 */
-	public Erabiltzailea(String idBezeroa, String erabiltzailea, String pasahitza, String izena, String abizena, String hizkuntza,
-			Date jaiotze_data) {
+	public Erabiltzailea(String idBezeroa, String erabiltzailea, String pasahitza, String izena, String abizena, String hizkuntza, Date jaiotze_data) {
 		this.idBezeroa = idBezeroa;
 		this.erabiltzailea = erabiltzailea;
 		this.pasahitza = pasahitza;
