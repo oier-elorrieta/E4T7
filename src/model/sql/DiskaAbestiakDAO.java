@@ -9,7 +9,6 @@ import model.Album;
 import model.Artista;
 import model.Musikaria;
 
-
 public class DiskaAbestiakDAO {
 	public static ArrayList<Abestia> albumAbestiakKargatu(Album album) throws SQLException {
 		Konexioa.konexioaIreki();

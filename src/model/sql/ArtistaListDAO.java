@@ -9,18 +9,18 @@ import model.Musikaria;
 import model.metodoak.SesioAldagaiak;
 
 public class ArtistaListDAO {
-	public static ArrayList<Artista> artistakKargatu() throws SQLException {
-		Konexioa.konexioaIreki();
-		ArrayList<Artista> artistakList = new ArrayList<Artista>();
-		String SQLquery = "SELECT * FROM musikaria_erreprodukzioak";
-		ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
-		Artista artistAux = null;
-		
-		while (emaitza.next()) {
-			artistAux = new Musikaria(emaitza.getString("IzenArtistikoa"), emaitza.getInt("Totala"));
-			artistakList.add(artistAux);
-		}
-		Konexioa.konexioaItxi();
-		return artistakList;
-	}
+    public static ArrayList<Artista> artistakKargatu() throws SQLException {
+        Konexioa.konexioaIreki();
+        ArrayList<Artista> artistakList = new ArrayList<Artista>();
+        String SQLquery = "SELECT * FROM musikaria_erreprodukzioak";
+        ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
+        Artista artistAux = null;
+        
+        while (emaitza.next()) {
+            artistAux = new Musikaria(emaitza.getString("IzenArtistikoa"), emaitza.getInt("Totala"));
+            artistakList.add(artistAux);
+        }
+        Konexioa.konexioaItxi();
+        return artistakList;
+    }
 }
