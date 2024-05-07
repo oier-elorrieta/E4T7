@@ -34,7 +34,7 @@ import model.metodoak.View_metodoak;
 import model.sql.ErregistroNireProfilaDAO;
 import model.sql.HizkuntzaDAO;
 import model.sql.Konexioa;
-import model.sql.SQLInterakzioa;
+import model.sql.LoginDAO;
 import salbuespenak.DataBalidazioaException;
 
 public class ErregistroaNireProfilaV extends JFrame {
@@ -242,10 +242,10 @@ public class ErregistroaNireProfilaV extends JFrame {
 				contentPane.add(lblIraungitzeData);
 				Konexioa.konexioaIreki();
 				
-				if (SQLInterakzioa.iraungitzeDataLortu(SesioAldagaiak.bezero_Ondo.getErabiltzailea()) == null) {
+				if (LoginDAO.iraungitzeDataLortu(SesioAldagaiak.bezero_Ondo.getErabiltzailea()) == null) {
 					JOptionPane.showMessageDialog(null, "Errorea egon da datu basetik iraungintze-data hartzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {
-					txtIraunDataPremium.setText(View_metodoak.dateToString(SQLInterakzioa.iraungitzeDataLortu(SesioAldagaiak.bezero_Ondo.getErabiltzailea())));
+					txtIraunDataPremium.setText(View_metodoak.dateToString(LoginDAO.iraungitzeDataLortu(SesioAldagaiak.bezero_Ondo.getErabiltzailea())));
 				}
 				Konexioa.konexioaItxi();
 			}

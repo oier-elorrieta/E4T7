@@ -82,6 +82,8 @@ public class MenuaPlaylistSartuAbestiakDAO {
             kont++;
         }
 		
+		Konexioa.konexioaItxi();
+		
         if (!SesioAldagaiak.e_premium) {
              if (playlistFree.size() > 2) {
             	 playlistFree.clear();

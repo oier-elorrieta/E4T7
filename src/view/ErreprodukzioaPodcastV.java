@@ -355,7 +355,14 @@ public class ErreprodukzioaPodcastV extends JFrame {
                 int menuAukera = JOptionPane.showOptionDialog(null, "Konpartitu nahi duzu?", "Konpartitu",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerakMenu, aukerakMenu[0]);
                 if (menuAukera == JOptionPane.YES_OPTION) {
-                	
+                	try {
+						View_metodoak.konpartituFilesPodcast(podcast, podcaster);
+						JOptionPane.showMessageDialog(null, "Zure podcast-a konpartitu da Files batera!", "Konpartitu",
+								JOptionPane.INFORMATION_MESSAGE);
+						dispose();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
                 }
 			}
 		});
