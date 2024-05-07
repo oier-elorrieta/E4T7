@@ -11,7 +11,7 @@ public class Konexioa {
 	private static final String USER = "administrador";
 	private static final String PASS = "admin123";
 	
-	protected static Connection konexioa;
+	public static Connection konexioa;
 	public static Statement query;
 
 	/**
