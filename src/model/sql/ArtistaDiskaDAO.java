@@ -8,7 +8,17 @@ import java.util.ArrayList;
 import model.*;
 import model.metodoak.SesioAldagaiak;
 
+/**
+ * ArtistaDiskaDAO klasea, artista baten diskoak eta informazioa kargatzeko.
+ */
 public class ArtistaDiskaDAO {
+	 /**
+     * Artista baten albumak eta abesti kopurua kargatzen dituen metodoa.
+     *
+     * @param artista Kargatu nahi den artista.
+     * @return Albumen zerrenda, album bakoitzeko izenburua, urtea eta abesti kopurua dituena.
+     * @throws SQLException SQL exekuzioan errorea gertatzen bada.
+     */
     public static ArrayList<Album> albumAbestiakKargatu(Artista artista) throws SQLException {
     	Konexioa.konexioaIreki();
         ArrayList<Album> albumList = new ArrayList<Album>();
@@ -24,7 +34,13 @@ public class ArtistaDiskaDAO {
         Konexioa.konexioaItxi();
         return albumList;
     }
-    
+    /**
+     * Artista baten irudia eta deskribapena kargatzen dituen metodoa.
+     *
+     * @param artista Kargatu nahi den artista.
+     * @return Musikaria objektua, artista baten irudia eta deskribapena dituena.
+     * @throws SQLException SQL exekuzioan errorea gertatzen bada.
+     */
     public static Musikaria irudiaDeskribapenaKargatu(Artista artista) throws SQLException {
     	Konexioa.konexioaIreki();
         String SQLquery = "SELECT Irudia, Deskribapena FROM musikaria WHERE IzenArtistikoa = '" + artista.getIzena() + "';";

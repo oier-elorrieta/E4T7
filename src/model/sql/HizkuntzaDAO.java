@@ -6,6 +6,11 @@ import java.util.ArrayList;
 
 import model.Hizkuntza;
 
+/**
+ * Hizkuntza taularen datu basearekin konexioa izango duen klasea. Hizkuntza
+ * taularen datuak atzitzeko metodoak ditu.
+ * 
+ */
 public class HizkuntzaDAO {
 	/**
 	 * Metodo honek hizkuntza taulatik Deskribapena eremua itzultzen du.

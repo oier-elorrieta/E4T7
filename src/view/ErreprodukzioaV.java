@@ -225,6 +225,24 @@ public class ErreprodukzioaV extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (clipLehena.isRunning()) {
+					if (clipLehena.isActive()) {
+						Long clipPos = clipLehena.getMicrosecondPosition();
+						int iMin = 0;
+						int secondsInt = (int) (clipPos / 1000000);
+						boolean b = false;
+						do {
+							b = false;
+                            if (secondsInt >= 60) {
+                                iMin++;
+                                secondsInt -= 60;
+                                b = true;
+                            }
+						}
+						while (b);
+						
+						lblIraupena.setText("0" + iMin + ":" + secondsInt + " / " + abesti.getIraupena());
+								
+					}
 					clipLehena.stop();
 					btnPlayPause.setText("Play");
 				} else {
@@ -272,6 +290,7 @@ public class ErreprodukzioaV extends JFrame {
 								if (clipAurrekoa.isRunning()) {
 									clipAurrekoa.stop();
 								}
+								
 								
 								dispose();
 								JFrameSortu.erreprodukzioLehioa(album, artista, abestiaAurrekoa);
@@ -342,6 +361,15 @@ public class ErreprodukzioaV extends JFrame {
 										SesioAldagaiak.iragarkiaIpini = true;
 									} else {
 										SesioAldagaiak.iragarkiaIpini = false;
+									}
+									
+									Long clipPos = clipLehena.getMicrosecondPosition();
+									int secondsInt = (int) (clipPos / 1000000);
+									String seconds = Integer.toString(secondsInt % 60);
+									System.out.println(abesti.getIraupena().split(":")[2] + " = " + seconds);
+									if (abesti.getIraupena().split(":")[2].equals(seconds)) {
+										dispose();
+										JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
 									}
 									
 									dispose();

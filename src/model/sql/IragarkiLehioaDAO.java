@@ -6,7 +6,15 @@ import java.util.ArrayList;
 
 import model.Abestia;
 
+
 public class IragarkiLehioaDAO {
+	
+	/**
+	 * Iragarkiak lortzeko metodoa.
+	 * 
+	 * @return Iragarkiak zerrenda moduan itzultzen du, Abestia objektu moduan.
+	 * @throws SQLException SQL exekuzioan errorea gertatzen bada.
+	 **/
 	public static ArrayList<Abestia> getIragarkiak() throws SQLException {
 		Konexioa.konexioaIreki();
 		ArrayList<Abestia> iragarkiList = new ArrayList<Abestia>();
@@ -22,17 +30,5 @@ public class IragarkiLehioaDAO {
         Konexioa.konexioaItxi();
         return iragarkiList;
 	}
-	
-	/*public static Abestia getIragarkiakIrudia(Abestia abesti) throws SQLException {
-        String SQLquery = "SELECT Irudia FROM audio WHERE Izena LIKE 'iragarkia%'";
-        ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
-        Abestia iragarkiakIrudiak = null;
-        
-        while (emaitza.next()) {
-        	iragarkiakIrudiak = new Abestia(emaitza.getBlob("Irudia"));
-        }
-        
-        return iragarkiakIrudiak;
-	}*/
 	
 }

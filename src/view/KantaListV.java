@@ -156,6 +156,7 @@ public class KantaListV extends JFrame {
 					dispose();
 					try {
 						JFrameSortu.erreprodukzioLehioa(album, artista, abestiAuxSelected);
+						DiskaAbestiakDAO.abestiaErreprodukzioaGehitu(abestiAuxSelected);
 					} catch (SQLException | LineUnavailableException e1) {
 						e1.printStackTrace();
 					}
