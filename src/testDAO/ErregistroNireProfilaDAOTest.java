@@ -28,7 +28,7 @@ public class ErregistroNireProfilaDAOTest {
 				fail("Prueba zeharkatzean SQL salbuespena sortu da");
 	        }
 	    }
-
+ 
 	    @Test
 	    public void testKonprabatuPremium_PremiumUser() {
 	        SesioAldagaiak.bezeroa_logeatuta = new Erabiltzailea("analopez", "analopez","EU", "EU", "EU", new Date());
