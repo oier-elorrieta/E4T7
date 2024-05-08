@@ -24,7 +24,7 @@ public class DiskaAbestiakDAO {
     public static ArrayList<Abestia> albumAbestiakKargatu(Album album) throws SQLException {
         Konexioa.konexioaIreki();
         ArrayList<Abestia> abestiList = new ArrayList<Abestia>();
-        String SQLquery = "SELECT * FROM musikari_abestiak WHERE album.Izenburua = '" + album.getIzenburua() + "';";
+        String SQLquery = "SELECT * FROM musikari_abestiak WHERE Izena = '" + album.getIzenburua() + "';";
         ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
         Abestia abestiak = null;
         
