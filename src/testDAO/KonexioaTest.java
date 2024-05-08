@@ -13,13 +13,11 @@ public class KonexioaTest {
 
 	@Before
 	public void setUp() {
-		// Inicializa la conexión antes de cada test
 		Konexioa.konexioaIreki();
 	}
 
 	@After
 	public void tearDown() {
-		// Cierra la conexión después de cada test
 		Konexioa.konexioaItxi();
 	}
 

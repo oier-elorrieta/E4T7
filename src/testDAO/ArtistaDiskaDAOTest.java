@@ -12,19 +12,12 @@ public class ArtistaDiskaDAOTest {
 
     @Test
     public void testAlbumAbestiakKargatu() throws SQLException {
-        // Creamos un objeto Artista para usarlo en la prueba
         Artista artista = new Musikaria("rosalia");
 
-        // Ejecutamos el método que queremos probar
         ArrayList<Album> albumList = ArtistaDiskaDAO.albumAbestiakKargatu(artista);
 
-        // Verificamos que la lista no sea nula
         assertNotNull(albumList);
-
-        // Verificamos que la lista no esté vacía
         assertFalse(albumList.isEmpty());
-
-        // Podemos hacer más aserciones sobre el contenido de la lista si es necesario
     }
 
     @Test
