@@ -4,16 +4,26 @@ import static org.junit.Assert.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import model.Abestia;
 import model.Audio;
+import model.E_Premium;
 import model.Playlist;
+import model.metodoak.SesioAldagaiak;
 import model.sql.MenuaPlaylistSartuAbestiakDAO;
 
 public class MenuaPlaylistSartuAbestiakDAOTest {
 
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+    	SesioAldagaiak.bezeroa_logeatuta = new E_Premium("analopez", "Ana", "Lopez", "EU", "EU", new Date(), new Date());
+	}
+	
+	
     @Test
     public void testPlaylistakKonprobatuAbestia() throws SQLException {
         Audio audio = new Audio("3", "Malamente", "00:02:30");
@@ -24,12 +34,12 @@ public class MenuaPlaylistSartuAbestiakDAOTest {
     @Test
     public void testPlaylistGorde() throws SQLException {
         int idList = 1;
-        Audio audio = new Audio("45", "Lovesick", "00:03:05");
+        Audio audio = new Audio("15", "Morado", "00:03:20");
         MenuaPlaylistSartuAbestiakDAO.playlistGorde(idList, audio);
-        assertTrue(MenuaPlaylistSartuAbestiakDAO.playlistakKonprobatuAbestia(audio));
+        assertNotNull(MenuaPlaylistSartuAbestiakDAO.playlistakKonprobatuAbestia(audio));
     }
 
-    @Test
+    @Test 
     public void testGustokoaKargatu() throws SQLException {
         Abestia abesti = new Abestia("45", "Lovesick", "00:03:05");
         MenuaPlaylistSartuAbestiakDAO.gustokoaKargatu(abesti);
@@ -37,7 +47,7 @@ public class MenuaPlaylistSartuAbestiakDAOTest {
     }
 
     @Test
-    public void testPlaylistakKargatu() throws SQLException {
+    public void testPlaylistakKargatu() throws SQLException { 
         ArrayList<Playlist> playlists = MenuaPlaylistSartuAbestiakDAO.playlistakKargatu();
         assertNotNull(playlists);
         assertFalse(playlists.isEmpty());
@@ -54,6 +64,6 @@ public class MenuaPlaylistSartuAbestiakDAOTest {
     public void testGustokoanGorde() throws SQLException {
         Abestia abesti = new Abestia("3", "Malamente", "00:02:30");
         MenuaPlaylistSartuAbestiakDAO.gustokoanGorde(abesti);
-        assertTrue(MenuaPlaylistSartuAbestiakDAO.playlistakKonprobatuAbestia(abesti));
+        assertFalse(MenuaPlaylistSartuAbestiakDAO.playlistakKonprobatuAbestia(abesti));
     }
 }

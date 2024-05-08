@@ -49,7 +49,7 @@ public class ErregistroNireProfilaDAO {
 	}
 	
 	/**
-	 * Konprobatu erabiltzailea Free motako erabiltzailea den ala ez.
+	 * Bezero bat Free motakoa bada, Premium motakoa bihurtu.
 	 * 
 	 * @return True, Free motako erabiltzailea bada.
 	 * @throws SQLException SQL errorea gertatzen bada.
@@ -65,7 +65,7 @@ public class ErregistroNireProfilaDAO {
 			JOptionPane.showMessageDialog(null, "Ezin izan da zure profila aldatu!", "Errorea",
 					JOptionPane.ERROR_MESSAGE);
 		}
-		Konexioa.konexioaItxi();
+		Konexioa.konexioaItxi(); 
 	}
 	
 	/**
@@ -143,7 +143,7 @@ public class ErregistroNireProfilaDAO {
 			}
 		}
 		Konexioa.konexioaItxi();
-	}
+	} 
 	
 	/**
 	 * Erabiltzailearen datuak eguneratzeko metodoa.

@@ -92,7 +92,7 @@ public class MenuaPlaylistSartuAbestiakDAO {
 		Konexioa.konexioaIreki();
 		String SQLquery = "SELECT IDList, Izenburua, Sorrera_data, IDBezeroa FROM playlist WHERE IDBezeroa = (SELECT IDBezeroa FROM bezeroa WHERE Erabiltzailea = '" + SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea() + "');";
 		ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
-		ArrayList<Playlist> playlistFree = new ArrayList<Playlist>();
+		ArrayList<Playlist> playlistFree = new ArrayList<Playlist>();  
 		ArrayList<Playlist> playlistPremium = new ArrayList<Playlist>();
 		int kont = 0;
 		while (emaitza.next()) {

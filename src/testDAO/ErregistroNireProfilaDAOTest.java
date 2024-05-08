@@ -22,10 +22,10 @@ public class ErregistroNireProfilaDAOTest {
 
 	        try {
 	            boolean erabil = ErregistroNireProfilaDAO.konprabatuPremium();	          
-	            assertFalse("El usuario debería ser Free, pero se consideró Premium", erabil);
+				assertFalse("Erabiltzailea Free izan behar da, baina Premium gisa kontsideratu da", erabil);
 	        } catch (SQLException e) {
 	            e.printStackTrace();
-	            fail("Excepción SQL lanzada durante la prueba");
+				fail("Prueba zeharkatzean SQL salbuespena sortu da");
 	        }
 	    }
 
@@ -36,53 +36,48 @@ public class ErregistroNireProfilaDAOTest {
 	        try {
 	            boolean erabil = ErregistroNireProfilaDAO.konprabatuPremium();
 	            System.out.println(erabil);
-	            assertTrue("El usuario debería ser Premium, pero se consideró Free", erabil);
+	            assertTrue("Erabiltzailea Free izan behar da, baina Premium gisa kontsideratu da", erabil);
 	        } catch (SQLException e) {
 	            e.printStackTrace();
-	            fail("Excepción SQL lanzada durante la prueba");
+	            fail("Prueba zeharkatzean SQL salbuespena sortu da");
 	        }
 	    }
 	    
-	    
+	     
 	    
 	    @Test
 	    public void testUpdatePremiumBezeroFree_Success() {
 	        Erabiltzailea erabi = new Erabiltzailea("davidmartinez", "davidmartinez", "EU", "EU", "EU", new Date()); 
 	    	try {
 	            ErregistroNireProfilaDAO.updatePremiumBezeroFree(erabi);
-	            // Comprobamos que se ha actualizado a premium
 	            assertEquals("premium", "premium");
 	        } catch (SQLException e) {
 	          
-	            fail("Se lanzó una excepción SQL: " + e.getMessage());
+				fail("SQL salbuespena gertatu da: " + e.getMessage());
 	        }
 	    }
 
 	    @Test
 	    public void testUpdatePremiumBezeroFree_Failure() {
-	        Erabiltzailea erabi = new Erabiltzailea("usuario_inexistente", "usuario_inexistente", "EU", "EU", "EU", new Date()); 
-	        erabi.setErabiltzailea("usuario_inexistente");
+	        Erabiltzailea erabi = new Erabiltzailea("erabiltzaile_berria", "erabiltzaile_berria", "EU", "EU", "EU", new Date()); 
+	        erabi.setErabiltzailea("erabiltzaile_berria");
 	        try {
 	            ErregistroNireProfilaDAO.updatePremiumBezeroFree(erabi);
-	            throw new SQLException("Se esperaba una excepción SQL pero no se lanzó");
+				throw new SQLException("SQL salbuespena espero zen, baina ez da jaurtia");
 	        } catch (SQLException e) {
 	            String expectedErrorMessage = "Ezin izan da zure profila aldatu!";
-	            assertEquals("Se esperaba una excepción SQL pero no se lanzó", e.getMessage());
+	            assertEquals("SQL salbuespena espero zen, baina ez da jaurtia", e.getMessage());
 	        }
 	    }
-
-	    @Test
+ 
+	    @Test 
 	    public void testErregistroaFree_Success() {
-	        // Creamos un objeto Erabiltzailea para simular una entrada válida
-	        Erabiltzailea e_free = new Erabiltzailea("nombre&","nombre", "apellido", "EU", "EU", "EU", new Date());
+	        Erabiltzailea e_free = new Erabiltzailea("izena&","izena", "abizena", "EU", "EU", "EU", new Date());
 	        
 	        try {
 	            ErregistroNireProfilaDAO.erregistroaFree(e_free);
-	            // Comprobamos si se muestra el mensaje de éxito
-	            // Aquí podrías incluir una lógica para verificar que el mensaje se muestra en un cuadro de diálogo
 	        } catch (SQLException | ClassNotFoundException e) {
-	            // Si se lanza una excepción, marcamos el test como fallido
-	            fail("Se lanzó una excepción inesperada: " + e.getMessage());
+				fail("Espero gabeko salbuespena gertatu da: " + e.getMessage());
 	        }
 	    }
 
@@ -90,24 +85,24 @@ public class ErregistroNireProfilaDAOTest {
 	    
 	    @Test
 	    public void testErregistroaPremium_Success() {
-	        Erabiltzailea e_premium = new Erabiltzailea("nombre&","nombre", "apellido", "EU", "EU", "EU", new Date());
+	        Erabiltzailea e_premium = new Erabiltzailea("izena&","izena", "abizena", "EU", "EU", "EU", new Date());
 	        
 	        try {
 	        	ErregistroNireProfilaDAO.erregistroaPremium(e_premium);
 	        } catch (SQLException | ClassNotFoundException e) {
-	            fail("Se lanzó una excepción inesperada: " + e.getMessage());
+	            fail("Espero gabeko salbuespena gertatu da: " + e.getMessage());
 	        }
 	    }
 	    
 	    @Test
 	    public void testUpdateNireProfilaDatuak_Success() {
-	        Erabiltzailea erab = new Erabiltzailea("", "", "", "", "", new Date());
+	        Erabiltzailea erab = new Erabiltzailea("", "", "", "EU", "EU", new Date());
 	        
 	        try {
 	            ErregistroNireProfilaDAO.updateNireProfilaDatuak(erab);
-	            throw new SQLException("La actualización falló");
+				throw new SQLException("Eguneraketa huts egin da");
 	        } catch (SQLException e) {
-	            assertEquals("La actualización falló", e.getMessage());
+				assertEquals("Eguneraketa huts egin da", e.getMessage());
 	        }
 	    }
 
