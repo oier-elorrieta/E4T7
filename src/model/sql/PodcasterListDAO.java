@@ -48,7 +48,7 @@ public class PodcasterListDAO {
 		Artista artistAux = null;
 		
 		while (emaitza.next()) {
-			artistAux = new Podcaster(emaitza.getString("IzenArtistikoa"), emaitza.getInt("Totala"));
+			artistAux = new Podcaster(emaitza.getString("Podcaster"), emaitza.getInt("Totala"));
 			podcasterlist.add(artistAux);
 		}
 		Konexioa.konexioaItxi();
