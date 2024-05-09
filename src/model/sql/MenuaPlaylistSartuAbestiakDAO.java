@@ -65,18 +65,18 @@ public class MenuaPlaylistSartuAbestiakDAO {
 	 * @throws SQLException Salbuespena jaurtitzen du datu basearekin arazo bat egon
 	 *                      ezkero.
 	 */
-	public static void gustokoaKargatu(Abestia abesti) throws SQLException {
+	public static boolean gustokoaKargatu(Abestia abesti) throws SQLException {
 		Konexioa.konexioaIreki();
 		String SQLquery = "SELECT IdAudio FROM gustukoak WHERE IdAudio = '" + abesti.getIdAudio() + "' AND IDBezeroa = '" + SesioAldagaiak.bezeroa_logeatuta.getIdBezeroa() + "';";
 		ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
 		
 		if (!emaitza.next()) {
 			gustokoanGorde(abesti);
+			return true;
 		} else {
 			gustokoaEzabatu(abesti);
+			return false;
 		}
-		
-		Konexioa.konexioaItxi();
 	}
 	
 	/**

@@ -159,7 +159,7 @@ public class ErreprodukzioaV extends JFrame {
 		btnHurrengoa.setFocusPainted(false);
 		contentPane.add(btnHurrengoa);
 		
-		JButton btnGustukoa = new JButton("❤");
+		JButton btnGustukoa = new JButton("🖤");
 		btnGustukoa.setSelectedIcon(null);
 		btnGustukoa.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 18));
 		btnGustukoa.setBounds(620, 458, 121, 34);
@@ -464,8 +464,18 @@ public class ErreprodukzioaV extends JFrame {
 		btnGustukoa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				boolean like = false;
 				try {
-					MenuaPlaylistSartuAbestiakDAO.gustokoaKargatu(abesti);
+					like = MenuaPlaylistSartuAbestiakDAO.gustokoaKargatu(abesti);
+					if (like) {
+						btnGustukoa.setText("🖤");
+					} else {
+						btnGustukoa.setText("💔");
+						
+					}
+					    
+                 
+                    
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
