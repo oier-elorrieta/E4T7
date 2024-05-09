@@ -23,6 +23,7 @@ import javax.swing.JList;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.ListSelectionModel;
+import javax.swing.JScrollPane;
 
 public class PlaylistAbestiakV extends JFrame {
 
@@ -46,6 +47,10 @@ public class PlaylistAbestiakV extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(183, 95, 528, 393);
+		contentPane.add(scrollPane);
+		
 		JButton btnAtzera = View_metodoak.btn_Atzera();
 		contentPane.add(btnAtzera);
 		
@@ -68,20 +73,22 @@ public class PlaylistAbestiakV extends JFrame {
 		lblPlaylist.setBounds(0, 23, 890, 27);
 		contentPane.add(lblPlaylist);
 		
-		
-		
-		JList PlaylistAbestiakList = new JList();
-		PlaylistAbestiakList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		PlaylistAbestiakList.setFont(new Font("Verdana", Font.BOLD, 16));
-		PlaylistAbestiakList.setBorder(new LineBorder(new Color(0, 0, 0)));
-		PlaylistAbestiakList.setBounds(213, 90, 456, 395);
-		contentPane.add(PlaylistAbestiakList);
-		
 		JLabel lblAbestiZerrenda = new JLabel("Abesti zerrenda");
 		lblAbestiZerrenda.setHorizontalAlignment(SwingConstants.LEFT);
 		lblAbestiZerrenda.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 18));
-		lblAbestiZerrenda.setBounds(213, 58, 200, 23);
+		lblAbestiZerrenda.setBounds(183, 61, 200, 23);
 		contentPane.add(lblAbestiZerrenda);
+		
+		JList PlaylistAbestiakList = new JList();
+		
+		
+		
+		PlaylistAbestiakList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		PlaylistAbestiakList.setFont(new Font("Verdana", Font.BOLD, 16));
+		PlaylistAbestiakList.setBorder(new LineBorder(new Color(0, 0, 0)));
+		PlaylistAbestiakList.setBounds(183, 93, 528, 395);
+		scrollPane.setViewportView(PlaylistAbestiakList);
+		
 		
 		// ATZERA BOTOIA
 		btnAtzera.addActionListener(new ActionListener() {
