@@ -94,6 +94,8 @@ public class ErregistroNireProfilaDAO {
 	public static void erregistroaFree(Erabiltzailea e_free) throws SQLException, ClassNotFoundException {
 		Konexioa.konexioaIreki();
 		String iderab = e_free.getErabiltzailea() + "&";
+		System.out.println(iderab);
+		e_free.setIdBezeroa(iderab);
 		LocalDate currentdate = LocalDate.now();
 		String datenow = currentdate.getYear() + "-" + currentdate.getMonthValue() + "-" + currentdate.getDayOfMonth();
 		
@@ -101,13 +103,14 @@ public class ErregistroNireProfilaDAO {
 
 		// INSERT-A EGIN
 		try {
-			String SQLquery = "INSERT INTO bezeroa (IdBezeroa, Izena, Abizena, Hizkuntza, Erabiltzailea, Pasahitza, Jaiotza_data, Erregistro_data) VALUES ('"
+			String SQLquery = "INSERT INTO bezeroa (IDBezeroa, Izena, Abizena, Hizkuntza, Erabiltzailea, Pasahitza, Jaiotza_data, Erregistro_data, Mota) VALUES ('"
 					+ iderab + "'," + "'" + e_free.getIzena() + "'," + "'" + e_free.getAbizena() + "'," + "'"
 					+ e_free.getHizkuntza() + "'," + "'" + e_free.getErabiltzailea() + "'," + "'"
-					+ e_free.getPasahitza() + "'," + "'" + sqlJaioDate + "'," + "'" + datenow + "')";
+					+ e_free.getPasahitza() + "'," + "'" + sqlJaioDate + "'," + "'" + datenow + "','Free')";
 			Konexioa.query.executeUpdate(SQLquery);
 			JOptionPane.showMessageDialog(null, "Ondo erregistratu egin zara!", "Erregistroa [Free]",
 					JOptionPane.INFORMATION_MESSAGE);
+			
 		} catch (SQLException e) {
 			if (e_free.getIzena().isEmpty() && e_free.getErabiltzailea().isEmpty() && e_free.getPasahitza().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu erregistratzeko.", "Errorea",
@@ -140,7 +143,7 @@ public class ErregistroNireProfilaDAO {
 		java.sql.Date sqlDate = new java.sql.Date(e_premium.getJaiotze_data().getTime());
 		// INSERT-A EGIN BEZEROA
 		try {
-			String SQLquery = "INSERT INTO bezeroa (IdBezeroa, Izena, Abizena, Hizkuntza, Erabiltzailea, Pasahitza, Jaiotza_data, Erregistro_data, Mota) VALUES ('"
+			String SQLquery = "INSERT INTO bezeroa (IDBezeroa, Izena, Abizena, Hizkuntza, Erabiltzailea, Pasahitza, Jaiotza_data, Erregistro_data, Mota) VALUES ('"
 					+ iderab + "'," + "'" + e_premium.getIzena() + "'," + "'" + e_premium.getAbizena() + "'," + "'"
 					+ e_premium.getHizkuntza() + "'," + "'" + e_premium.getErabiltzailea() + "'," + "'"
 					+ e_premium.getPasahitza() + "'," + "'" + sqlDate + "'," + "'" + datenow + "','Premium')";

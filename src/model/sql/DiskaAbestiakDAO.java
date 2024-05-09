@@ -24,12 +24,12 @@ public class DiskaAbestiakDAO {
     public static ArrayList<Abestia> albumAbestiakKargatu(Album album) throws SQLException {
         Konexioa.konexioaIreki();
         ArrayList<Abestia> abestiList = new ArrayList<Abestia>();
-        String SQLquery = "SELECT * FROM musikari_abestiak WHERE Izena = '" + album.getIzenburua() + "';";
+        String SQLquery = "SELECT * FROM musikari_abestiak WHERE Izenburua = '" + album.getIzenburua() + "';";
         ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
         Abestia abestiak = null;
         
         while (emaitza.next()) {
-            abestiak = new Abestia(emaitza.getString("IdAudio"), emaitza.getString("Izena"), emaitza.getString("Iraupena"), emaitza.getInt("count(IdAudio)"));
+            abestiak = new Abestia(emaitza.getString("IdAudio"), emaitza.getString("Izena"), emaitza.getString("Iraupena"), emaitza.getInt("count(e.IdAudio)"));
            
             abestiList.add(abestiak);
         }
