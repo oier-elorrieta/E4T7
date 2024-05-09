@@ -1,0 +1,110 @@
+package view;
+
+import java.awt.EventQueue;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import model.Playlist;
+import model.metodoak.JFrameSortu;
+import model.metodoak.SesioAldagaiak;
+import model.metodoak.View_metodoak;
+
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.JList;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.ListSelectionModel;
+
+public class PlaylistAbestiakV extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+
+	/**
+	 * Create the frame.
+	 */
+	public PlaylistAbestiakV(Playlist playlist) {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(400, 250, 906, 594);
+		setResizable(false);
+		if (SesioAldagaiak.e_premium) {
+			setTitle(playlist.getTitulua() + " · PlayList-ak - JPAM Music PREMIUM");
+		} else {
+			setTitle(playlist.getTitulua() + " · PlayList-ak - JPAM Music FREE");
+		}
+		
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
+		JButton btnAtzera = View_metodoak.btn_Atzera();
+		contentPane.add(btnAtzera);
+		
+		JButton btnNireProfila = View_metodoak.btn_NireProfila();
+		contentPane.add(btnNireProfila);
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblUserizena = new JLabel("");
+		lblUserizena.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUserizena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezeroa_logeatuta.getIzena() + "!");
+		lblUserizena.setBounds(687, 11, 193, 34);
+		contentPane.add(lblUserizena);
+		
+		JLabel lblPlaylist = new JLabel("PLAYLIST-A: " + playlist.getTitulua());
+		lblPlaylist.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPlaylist.setFont(new Font("Tahoma", Font.BOLD, 21));
+		lblPlaylist.setBounds(0, 23, 890, 27);
+		contentPane.add(lblPlaylist);
+		
+		
+		
+		JList PlaylistAbestiakList = new JList();
+		PlaylistAbestiakList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		PlaylistAbestiakList.setFont(new Font("Verdana", Font.BOLD, 16));
+		PlaylistAbestiakList.setBorder(new LineBorder(new Color(0, 0, 0)));
+		PlaylistAbestiakList.setBounds(213, 90, 456, 395);
+		contentPane.add(PlaylistAbestiakList);
+		
+		JLabel lblAbestiZerrenda = new JLabel("Abesti zerrenda");
+		lblAbestiZerrenda.setHorizontalAlignment(SwingConstants.LEFT);
+		lblAbestiZerrenda.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 18));
+		lblAbestiZerrenda.setBounds(213, 58, 200, 23);
+		contentPane.add(lblAbestiZerrenda);
+		
+		// ATZERA BOTOIA
+		btnAtzera.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				try {
+					JFrameSortu.playlistListaBezeroa();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		// NIRE PROFILA BOTOIA
+		btnNireProfila.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				try {
+					JFrameSortu.erregistroMenua();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+	}
+}
