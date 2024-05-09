@@ -13,6 +13,7 @@ import org.junit.Test;
 import model.Erabiltzailea;
 import model.metodoak.SesioAldagaiak;
 import model.sql.ErregistroNireProfilaDAO;
+import salbuespenak.ErabiltzaileBalidazioaException;
 
 public class ErregistroNireProfilaDAOTest {
 
@@ -65,13 +66,12 @@ public class ErregistroNireProfilaDAOTest {
 	            ErregistroNireProfilaDAO.updatePremiumBezeroFree(erabi);
 				throw new SQLException("SQL salbuespena espero zen, baina ez da jaurtia");
 	        } catch (SQLException e) {
-	            String expectedErrorMessage = "Ezin izan da zure profila aldatu!";
 	            assertEquals("SQL salbuespena espero zen, baina ez da jaurtia", e.getMessage());
 	        }
 	    }
  
 	    @Test 
-	    public void testErregistroaFree_Success() {
+	    public void testErregistroaFree_Success() throws ErabiltzaileBalidazioaException {
 	        Erabiltzailea e_free = new Erabiltzailea("izena&","izena", "abizena", "EU", "EU", "EU", new Date());
 	        
 	        try {
@@ -84,7 +84,7 @@ public class ErregistroNireProfilaDAOTest {
 
 	    
 	    @Test
-	    public void testErregistroaPremium_Success() {
+	    public void testErregistroaPremium_Success() throws ErabiltzaileBalidazioaException {
 	        Erabiltzailea e_premium = new Erabiltzailea("izena&","izena", "abizena", "EU", "EU", "EU", new Date());
 	        
 	        try {

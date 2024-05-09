@@ -36,6 +36,7 @@ import model.sql.HizkuntzaDAO;
 import model.sql.Konexioa;
 import model.sql.LoginDAO;
 import salbuespenak.DataBalidazioaException;
+import salbuespenak.ErabiltzaileBalidazioaException;
 
 public class ErregistroaNireProfilaV extends JFrame {
 
@@ -384,12 +385,16 @@ public class ErregistroaNireProfilaV extends JFrame {
 									ErregistroNireProfilaDAO.erregistroaPremium(SesioAldagaiak.bezeroa_logeatuta);
 									SesioAldagaiak.e_premium = true;
 					                SesioAldagaiak.logeatuta = true;
+									dispose();
 								} catch (ClassNotFoundException e1) {
 									JOptionPane.showMessageDialog(null, "Errorea egon da erregistratzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
 									e1.printStackTrace();
 								} catch (SQLException e1) {
 									JOptionPane.showMessageDialog(null, "Errorea egon da datu basearen konexioarekin!", "Errorea", JOptionPane.ERROR_MESSAGE);
 									e1.printStackTrace();
+								} catch (ErabiltzaileBalidazioaException e1) {
+									e1.printStackTrace();
+									txtErabiltzaile.setText("");
 								}
 							} else {
 								JOptionPane.showMessageDialog(null, "Pasahitzak ez dira berdinak!", "Errorea", JOptionPane.ERROR_MESSAGE);
@@ -452,12 +457,16 @@ public class ErregistroaNireProfilaV extends JFrame {
 								SesioAldagaiak.e_premium = false;
 				                SesioAldagaiak.logeatuta = true;
 								JFrameSortu.menuaBezeroa();
+								dispose();
 							} catch (ClassNotFoundException e1) {
 								JOptionPane.showMessageDialog(null, "Errorea egon da erregistratzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
 								e1.printStackTrace();
 							} catch (SQLException e1) {
 								JOptionPane.showMessageDialog(null, "Errorea egon da datu basearen konexioarekin!", "Errorea", JOptionPane.ERROR_MESSAGE);
 								e1.printStackTrace();
+							} catch (ErabiltzaileBalidazioaException e1) {
+								e1.printStackTrace();
+								txtErabiltzaile.setText("");
 							}
 						} else {
 							JOptionPane.showMessageDialog(null, "Pasahitzak ez dira berdinak!", "Errorea", JOptionPane.ERROR_MESSAGE);

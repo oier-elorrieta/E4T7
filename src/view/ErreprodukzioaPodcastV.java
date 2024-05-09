@@ -213,10 +213,10 @@ public class ErreprodukzioaPodcastV extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if (clipLehena.isRunning()) {
 					clipLehena.stop();
-					btnPlayPause.setText("Play");
+					btnPlayPause.setText("▶");
 				} else {
 					clipLehena.start();
-					btnPlayPause.setText("Pause");
+					btnPlayPause.setText("⏸");
 				}
 			}
 		});
