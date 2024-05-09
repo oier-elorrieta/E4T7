@@ -10,6 +10,7 @@ import javax.swing.WindowConstants;
 import model.Abestia;
 import model.Album;
 import model.Artista;
+import model.Playlist;
 import model.Podcast;
 import model.Podcaster;
 import view.*;
@@ -206,5 +207,11 @@ public class JFrameSortu {
 		PlayListBerriaSortuV playListBerriaSortuV = new PlayListBerriaSortuV();
         playListBerriaSortuV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         playListBerriaSortuV.setVisible(true);
+	}
+	
+	public static void playListAbestiak(Playlist playlist) {
+		PlaylistAbestiakV PlaylistAbestiakV = new PlaylistAbestiakV(playlist);
+		PlaylistAbestiakV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		PlaylistAbestiakV.setVisible(true);
 	}
 }

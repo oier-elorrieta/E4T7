@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,6 +27,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.ListSelectionModel;
@@ -91,7 +93,9 @@ public class PlaylistListV extends JFrame {
 		JList<Playlist> PlaylistList = new JList();
 		ArrayList<Playlist> PlaylistJList = PlayListDAO.playListakKargatuBezeroa();
 		DefaultListModel<Playlist> modelPlaylist = new DefaultListModel<Playlist>();
+		Playlist playlistGustokoa = new Playlist("");
 		
+		modelPlaylist.addElement(playlistGustokoa);
 		for (int i = 0; i < PlaylistJList.size(); i++) {
 			modelPlaylist.addElement(PlaylistJList.get(i));
 		}
@@ -139,6 +143,12 @@ public class PlaylistListV extends JFrame {
 		lblPlaylistzerrenda.setBounds(35, 75, 200, 23);
 		contentPane.add(lblPlaylistzerrenda);
 		
+		JButton btnZabalduPlaylista = new JButton("Zabaldu PlayList-a");
+		btnZabalduPlaylista.setFont(new Font("Segoe UI Historic", Font.PLAIN, 18));
+		btnZabalduPlaylista.setFocusPainted(false);
+		btnZabalduPlaylista.setBounds(620, 496, 205, 42);
+		contentPane.add(btnZabalduPlaylista);
+		
 		
 		// ATZERA BOTOIA
 		btnAtzera.addActionListener(new ActionListener() {
@@ -157,6 +167,21 @@ public class PlaylistListV extends JFrame {
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
+			}
+		});
+		
+		// ZABALDU PLAYLIST BOTOIA
+		btnZabalduPlaylista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Playlist playlistSelected = PlaylistList.getSelectedValue();
+				if (playlistSelected == null) {
+					JOptionPane.showMessageDialog(null, "Ez duzu PlayList bat aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
+				} else {
+					Playlist playlistAuxSelected = new Playlist(playlistSelected.getIdPlaylist(), playlistSelected.getTitulua(), playlistSelected.getKapazitatea(), playlistSelected.getSorrera_data());
+					dispose();
+					JFrameSortu.playListAbestiak(playlistAuxSelected);
+				}
+				
 			}
 		});
 		
