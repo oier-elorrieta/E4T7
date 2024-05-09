@@ -96,7 +96,6 @@ public class KantaListV extends JFrame {
 		contentPane.add(lblAukeratuAbestiBat);
 		
 		JList<Abestia> AbestiList = new JList();
-		Konexioa.konexioaIreki();
 		ArrayList<Abestia> AbestiJList = DiskaAbestiakDAO.albumAbestiakKargatu(album);
 		
 		DefaultListModel<Abestia> modelAbestia = new DefaultListModel<Abestia>();

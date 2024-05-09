@@ -122,8 +122,9 @@ public class JFrameSortu {
 
 	/**
 	 * Bezeroaren playlist-ak ikusteko metodoa.
+	 * @throws SQLException 
 	 */
-	public static void playlistListaBezeroa() {
+	public static void playlistListaBezeroa() throws SQLException {
 		PlaylistListV PlaylistListV = new PlaylistListV();
 		PlaylistListV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		PlaylistListV.setVisible(true);
@@ -199,5 +200,11 @@ public class JFrameSortu {
 		ErreprodukzioaPodcastV ErreprodukzioaPodcastV = new ErreprodukzioaPodcastV(podcaster, podcast);
 		ErreprodukzioaPodcastV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		ErreprodukzioaPodcastV.setVisible(true);
+	}
+
+	public static void playListBerriaSortu() {
+		PlayListBerriaSortuV playListBerriaSortuV = new PlayListBerriaSortuV();
+        playListBerriaSortuV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        playListBerriaSortuV.setVisible(true);
 	}
 }

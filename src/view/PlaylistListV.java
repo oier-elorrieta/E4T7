@@ -5,15 +5,22 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import model.Abestia;
+import model.Playlist;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
+import model.sql.DiskaAbestiakDAO;
+import model.sql.Konexioa;
+import model.sql.PlayListDAO;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -23,6 +30,8 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.ListSelectionModel;
 import javax.swing.JScrollPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PlaylistListV extends JFrame {
 
@@ -31,8 +40,9 @@ public class PlaylistListV extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
 	 */
-	public PlaylistListV() {
+	public PlaylistListV() throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		setResizable(false);
@@ -78,7 +88,15 @@ public class PlaylistListV extends JFrame {
 		lblHemenZurePlaylistak.setBounds(0, 54, 890, 23);
 		contentPane.add(lblHemenZurePlaylistak);
 		
-		JList PlaylistList = new JList();
+		JList<Playlist> PlaylistList = new JList();
+		ArrayList<Playlist> PlaylistJList = PlayListDAO.playListakKargatuBezeroa();
+		DefaultListModel<Playlist> modelPlaylist = new DefaultListModel<Playlist>();
+		
+		for (int i = 0; i < PlaylistJList.size(); i++) {
+			modelPlaylist.addElement(PlaylistJList.get(i));
+		}
+		
+		PlaylistList.setModel(modelPlaylist);
 		PlaylistList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		PlaylistList.setFont(new Font("Verdana", Font.BOLD, 16));
 		PlaylistList.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -139,6 +157,39 @@ public class PlaylistListV extends JFrame {
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
+			}
+		});
+		
+		// PLAYLIST BERRIA SORTU BOTOIA
+		btnBerriaSortu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				JFrameSortu.playListBerriaSortu();
+			}
+		});
+		
+		// EZABATU BOTOIA
+		btnEzabatu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+		
+		// INPORTATU BOTOIA
+		btnInportatu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+		
+		// EXPORTATU BOTOIA
+		btnExportatu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
 			}
 		});
 	}

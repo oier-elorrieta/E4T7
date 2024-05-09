@@ -118,7 +118,11 @@ public class MenuaV extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				dispose();
-				JFrameSortu.playlistListaBezeroa();
+				try {
+					JFrameSortu.playlistListaBezeroa();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		
