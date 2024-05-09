@@ -10,6 +10,7 @@ import model.Abestia;
 import model.Artista;
 import model.Podcast;
 import model.Podcaster;
+import model.metodoak.FilesMetodoak;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
@@ -329,7 +330,7 @@ public class ErreprodukzioaPodcastV extends JFrame {
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerakMenu, aukerakMenu[0]);
                 if (menuAukera == JOptionPane.YES_OPTION) {
                 	try {
-						View_metodoak.konpartituFilesPodcast(podcast, podcaster);
+						FilesMetodoak.konpartituFilesPodcast(podcast, podcaster);
 						JOptionPane.showMessageDialog(null, "Zure podcast-a konpartitu da Files batera!", "Konpartitu",
 								JOptionPane.INFORMATION_MESSAGE);
 						dispose();

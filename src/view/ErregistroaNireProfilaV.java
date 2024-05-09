@@ -304,6 +304,23 @@ public class ErregistroaNireProfilaV extends JFrame {
 				// HIZKUNTZA KONPROBATZEKO METODOA
 				hiz = comboBoxHizkuntza.getSelectedIndex();
 				hizkuntzaSt = hizkuntzakList.get(hiz).getId();
+				
+				String erabiltzaileText = txtErabiltzaile.getText() + "&";
+				try {
+					if (ErregistroNireProfilaDAO.konprobatuErabiltzailea(txtErabiltzaile.getText()+"&")) {
+						JOptionPane.showMessageDialog(null, "Erabiltzaile hori existitzen da jada!", "Errorea", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					if (erabiltzaileText.length() > 30) {
+						JOptionPane.showMessageDialog(null, "Erabiltzailea 30 karaktere baino gutxiago izan behar du!",
+								"Errorea", JOptionPane.ERROR_MESSAGE);
+						return;
+						
+					}
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				
 				// PREMIUM BADA, EZ UTZI EROSTEN BERRIZ
 				if (SesioAldagaiak.e_premium) {
 					JOptionPane.showMessageDialog(null, "Premium erabiltzailea zara jada!", "Errorea", JOptionPane.ERROR_MESSAGE);
@@ -377,6 +394,23 @@ public class ErregistroaNireProfilaV extends JFrame {
 				// HARTU FORMULARIOTIK HIZKUNTZA AUKERA
 				hiz = comboBoxHizkuntza.getSelectedIndex();
 				hizkuntzaSt = hizkuntzakList.get(hiz).getId();
+				String erabiltzaileText = txtErabiltzaile.getText() + "&";
+				try {
+					if (ErregistroNireProfilaDAO.konprobatuErabiltzailea(txtErabiltzaile.getText()+"&")) {
+						JOptionPane.showMessageDialog(null, "Erabiltzaile hori existitzen da jada!", "Errorea", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					if (erabiltzaileText.length() > 30) {
+						JOptionPane.showMessageDialog(null, "Erabiltzailea 30 karaktere baino gutxiago izan behar du!",
+								"Errorea", JOptionPane.ERROR_MESSAGE);
+						return;
+						
+					}
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				
+				
 				if (SesioAldagaiak.logeatuta) {
 					JOptionPane.showMessageDialog(null, "Erregistratuta zaude jada!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {

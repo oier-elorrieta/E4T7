@@ -18,6 +18,22 @@ import model.metodoak.View_metodoak;
  */
 public class ErregistroNireProfilaDAO {
 	
+	public static boolean konprobatuErabiltzailea(String erab) throws SQLException {
+		Konexioa.konexioaIreki();
+		String SQLquery = "SELECT Erabiltzailea FROM bezeroa WHERE Erabiltzailea LIKE '" + erab + "'";
+		try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery);
+				ResultSet resultSet = preparedStatement.executeQuery()) {
+			if (resultSet.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Konexioa.konexioaItxi();
+		}
+		return false;
+	}
+	
 	/**
 	 * Konprobatu erabiltzailea Free motako erabiltzailea den ala ez.
 	 * 

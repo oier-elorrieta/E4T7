@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import model.Abestia;
 import model.Album;
 import model.Artista;
+import model.metodoak.FilesMetodoak;
 import model.metodoak.JFrameSortu;
 import model.metodoak.View_metodoak;
 
@@ -99,7 +100,7 @@ public class MenuAukeraErreprodukzioV extends JFrame {
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerakMenu, aukerakMenu[0]);
                 if (menuAukera == JOptionPane.YES_OPTION) {
                 	try {
-						View_metodoak.konpartituFilesAbestiak(abesti, album, artista);
+                		FilesMetodoak.konpartituFilesAbestiak(abesti, album, artista);
 						JOptionPane.showMessageDialog(null, "Zure abestia konpartitu da Files batera!", "Konpartitu",
 								JOptionPane.INFORMATION_MESSAGE);
 						dispose();
