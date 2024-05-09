@@ -138,34 +138,39 @@ public class ErreprodukzioaV extends JFrame {
 		lblIraupena.setBounds(0, 410, 890, 23);
 		contentPane.add(lblIraupena);
 		
-		JButton btnPlayPause = new JButton("Play");
-		btnPlayPause.setFont(new Font("Trebuchet MS", Font.PLAIN, 18));
+		JButton btnPlayPause = new JButton("▶");
+		btnPlayPause.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnPlayPause.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 18));
 		btnPlayPause.setFocusPainted(false);
 		btnPlayPause.setBounds(401, 458, 89, 34);
 		contentPane.add(btnPlayPause);
 		
-		JButton btnAurrekoa = new JButton("<--");
-		btnAurrekoa.setFont(new Font("Trebuchet MS", Font.PLAIN, 22));
+		JButton btnAurrekoa = new JButton("⏮");
+		btnAurrekoa.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnAurrekoa.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 20));
 		btnAurrekoa.setBounds(291, 458, 89, 34);
 		btnAurrekoa.setFocusPainted(false);
 		contentPane.add(btnAurrekoa);
 		
-		JButton btnHurrengoa = new JButton("-->");
-		btnHurrengoa.setFont(new Font("Trebuchet MS", Font.PLAIN, 22));
+		JButton btnHurrengoa = new JButton("⏭");
+		btnHurrengoa.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnHurrengoa.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 20));
 		btnHurrengoa.setBounds(509, 458, 89, 34);
 		btnHurrengoa.setFocusPainted(false);
 		contentPane.add(btnHurrengoa);
 		
-		JButton btnGustukoa = new JButton("Gustukoa");
+		JButton btnGustukoa = new JButton("❤");
 		btnGustukoa.setSelectedIcon(null);
-		btnGustukoa.setFont(new Font("Verdana", Font.PLAIN, 17));
+		btnGustukoa.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 18));
 		btnGustukoa.setBounds(620, 458, 121, 34);
 		btnGustukoa.setFocusPainted(false);
 		contentPane.add(btnGustukoa);
 		
-		JButton btnMenua = new JButton("Menua");
-		btnMenua.setFont(new Font("Verdana", Font.PLAIN, 17));
-		btnMenua.setBounds(144, 458, 121, 34);
+		JButton btnMenua = new JButton("⚙️ Menua");
+		btnMenua.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnMenua.setHorizontalAlignment(SwingConstants.RIGHT);
+		btnMenua.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 17));
+		btnMenua.setBounds(126, 458, 143, 34);
 		btnMenua.setFocusPainted(false);
 		contentPane.add(btnMenua);
 		
@@ -244,10 +249,10 @@ public class ErreprodukzioaV extends JFrame {
 								
 					}
 					clipLehena.stop();
-					btnPlayPause.setText("Play");
+					btnPlayPause.setText("▶");
 				} else {
 					clipLehena.start();
-					btnPlayPause.setText("Pause");
+					btnPlayPause.setText("⏸");
 				}
 			}
 		});

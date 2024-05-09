@@ -116,26 +116,30 @@ public class ErreprodukzioaPodcastV extends JFrame {
 		lblIraupena.setText(podcast.getIraupena());
 		contentPane.add(lblIraupena);
 		
-		JButton btnKonpartitu = new JButton("Konpartitu");
-		btnKonpartitu.setFont(new Font("Verdana", Font.PLAIN, 17));
+		JButton btnKonpartitu = new JButton("↪️ Konpartitu");
+		btnKonpartitu.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnKonpartitu.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 17));
 		btnKonpartitu.setFocusPainted(false);
-		btnKonpartitu.setBounds(702, 459, 136, 34);
+		btnKonpartitu.setBounds(686, 459, 172, 34);
 		contentPane.add(btnKonpartitu);
 		
-		JButton btnAurrekoa = new JButton("<--");
-		btnAurrekoa.setFont(new Font("Trebuchet MS", Font.PLAIN, 22));
+		JButton btnAurrekoa = new JButton("⏮");
+		btnAurrekoa.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnAurrekoa.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 20));
 		btnAurrekoa.setFocusPainted(false);
 		btnAurrekoa.setBounds(291, 458, 89, 34);
 		contentPane.add(btnAurrekoa);
 		
-		JButton btnPlayPause = new JButton("Play");
-		btnPlayPause.setFont(new Font("Trebuchet MS", Font.PLAIN, 18));
+		JButton btnPlayPause = new JButton("▶");
+		btnPlayPause.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnPlayPause.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 18));
 		btnPlayPause.setFocusPainted(false);
 		btnPlayPause.setBounds(401, 458, 89, 34);
 		contentPane.add(btnPlayPause);
 		
-		JButton btnHurrengoa = new JButton("-->");
-		btnHurrengoa.setFont(new Font("Trebuchet MS", Font.PLAIN, 22));
+		JButton btnHurrengoa = new JButton("⏭");
+		btnHurrengoa.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnHurrengoa.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 20));
 		btnHurrengoa.setFocusPainted(false);
 		btnHurrengoa.setBounds(509, 458, 89, 34);
 		contentPane.add(btnHurrengoa);

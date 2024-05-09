@@ -46,15 +46,17 @@ public class MenuAukeraErreprodukzioV extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnPlaylistSartu = new JButton("PlayListean sartu");
-		btnPlaylistSartu.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-		btnPlaylistSartu.setBounds(71, 75, 146, 31);
+		JButton btnPlaylistSartu = new JButton("⬆️ PlayListean sartu");
+		btnPlaylistSartu.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnPlaylistSartu.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 14));
+		btnPlaylistSartu.setBounds(44, 75, 194, 31);
 		btnPlaylistSartu.setFocusPainted(false);
 		contentPane.add(btnPlaylistSartu);
 		
-		JButton btnKonpartitu = new JButton("Konpartitu");
-		btnKonpartitu.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-		btnKonpartitu.setBounds(87, 118, 114, 31);
+		JButton btnKonpartitu = new JButton("↪️ Konpartitu");
+		btnKonpartitu.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnKonpartitu.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 14));
+		btnKonpartitu.setBounds(65, 118, 161, 31);
 		btnKonpartitu.setFocusPainted(false);
 		contentPane.add(btnKonpartitu);
 		
