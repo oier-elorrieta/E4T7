@@ -39,15 +39,6 @@ public class Album {
 	}
 
 	/**
-	 * Album klasearen eraikitzailea izenburua erabiliz.
-	 * 
-	 * @param izenburua albumaren izenburua
-	 */
-	public Album(String izenburua) {
-		this.izenburua = izenburua;
-	}
-
-	/**
 	 * Albumaren izenburua itzultzen du.
 	 * 
 	 * @return albumaren izenburua

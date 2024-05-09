@@ -42,15 +42,6 @@ public class Abestia extends Audio {
 		super(idAudio, titulua, iraupena);
 	}
 
-	/**
-	 * Abestia klasearen eraikitzailea.
-	 * 
-	 * @param titulua abestiaren titulua
-	 * @param irudia  abestiaren irudia
-	 */
-	public Abestia(String titulua, Blob irudia) {
-		super(titulua, irudia);
-	}
 
 	/**
 	 * Abestia klasearen eraikitzailea.

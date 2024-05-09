@@ -12,7 +12,7 @@ public class DiskaAbestiakDAOTest {
 
     @Test
     public void testAlbumAbestiakKargatu() throws SQLException {
-        Album album = new Album("motomami");
+        Album album = new Album("motomami", "2021", "trap");
         ArrayList<Abestia> abestiList = DiskaAbestiakDAO.albumAbestiakKargatu(album);
 
         assertNotNull(abestiList);
@@ -23,7 +23,7 @@ public class DiskaAbestiakDAOTest {
 
     @Test
     public void testIrudiaKargatu() throws SQLException {
-        Album album = new Album("motomami");
+        Album album = new Album("motomami", "2021", "trap");
 
         Abestia albumInfo = DiskaAbestiakDAO.irudiaKargatu(album);
 

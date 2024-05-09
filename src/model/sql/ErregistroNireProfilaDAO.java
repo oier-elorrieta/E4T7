@@ -18,6 +18,13 @@ import model.metodoak.View_metodoak;
  */
 public class ErregistroNireProfilaDAO {
 	
+	/**
+	 * Erabiltzailea datu basean dagoen ala ez konprobatzeko metodoa.
+	 * 
+	 * @param erab Erabiltzailea objektua.
+	 * @return True, erabiltzailea datu basean badago.
+	 * @throws SQLException SQL errorea gertatzen bada.
+	 */
 	public static boolean konprobatuErabiltzailea(String erab) throws SQLException {
 		Konexioa.konexioaIreki();
 		String SQLquery = "SELECT Erabiltzailea FROM bezeroa WHERE Erabiltzailea LIKE '" + erab + "'";

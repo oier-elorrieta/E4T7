@@ -21,18 +21,6 @@ public class AlbumTest {
     }
 
     @Test
-    public void testConstructorWithOnlyTitle() {
-        Album album = new Album("Izenburua");
-        assertNotNull(album);
-    }
-
-    @Test
-    public void testGetIzenburua() {
-        Album album = new Album("Izenburua");
-        assertEquals("Izenburua", album.getIzenburua());
-    }
-
-    @Test
     public void testGetUrtea() {
         Album album = new Album("Izenburua", "Urtea", "Generoa");
         assertEquals("Urtea", album.getUrtea());
@@ -48,13 +36,6 @@ public class AlbumTest {
     public void testGetKantaTotala() {
         Album album = new Album("Izenburua", "Urtea", 10);
         assertEquals(10, album.getKantaTotala());
-    }
-
-    @Test
-    public void testSetIzenburua() {
-        Album album = new Album("Izenburua");
-        album.setIzenburua("NewIzenburua");
-        assertEquals("NewIzenburua", album.getIzenburua());
     }
 
     @Test

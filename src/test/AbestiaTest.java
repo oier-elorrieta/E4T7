@@ -42,12 +42,7 @@ public class AbestiaTest {
 	  Abestia abestia = new Abestia("idaudio","tituloa","iraupena");
       assertNotNull(abestia);
   }
-  @Test
-  public void testConstructor4() {
-	  Blob blob = new Blob(null, null);
-	  Abestia abestia = new Abestia("tituloa",blob);
-      assertNotNull(abestia);
-  }
+ 
   @Test
   public void testConstructor5() {
 	  Blob blob = new Blob(null, null);

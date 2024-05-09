@@ -78,6 +78,8 @@ public class Audio {
 		this.irudia = irudia;
 	}
 
+	/************************************************/
+	
 	/**
 	 * Audioaren titulua itzultzen du.
 	 * 
