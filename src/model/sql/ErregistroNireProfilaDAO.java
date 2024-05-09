@@ -8,8 +8,10 @@ import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
 import model.Erabiltzailea;
+import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
+import salbuespenak.ErabiltzaileBalidazioaException;
 
 /**
  * ErregistroNireProfilaDAO klaseak datu basearekin eragiketak egiten ditu
@@ -97,40 +99,42 @@ public class ErregistroNireProfilaDAO {
 	 * @param e_free Erabiltzailearen datuak gordetzeko E_Free objektua.
 	 * @throws SQLException           SQL errorea gertatzen bada.
 	 * @throws ClassNotFoundException Klasea ezin bada aurkitu.
+	 * @throws ErabiltzaileBalidazioaException 
 	 */
 	public static void erregistroaFree(Erabiltzailea e_free) throws SQLException, ClassNotFoundException {
-		Konexioa.konexioaIreki();
-		String iderab = e_free.getErabiltzailea() + "&";
-		System.out.println(iderab);
-		e_free.setIdBezeroa(iderab);
-		LocalDate currentdate = LocalDate.now();
-		String datenow = currentdate.getYear() + "-" + currentdate.getMonthValue() + "-" + currentdate.getDayOfMonth();
-		
-		java.sql.Date sqlJaioDate = new java.sql.Date(e_free.getJaiotze_data().getTime());
+	    Konexioa.konexioaIreki();
+	    String iderab = e_free.getErabiltzailea() + "&";
+	    System.out.println(iderab);
+	    e_free.setIdBezeroa(iderab);
+	    LocalDate currentdate = LocalDate.now();
+	    String datenow = currentdate.getYear() + "-" + currentdate.getMonthValue() + "-" + currentdate.getDayOfMonth();
+	    
+	    java.sql.Date sqlJaioDate = new java.sql.Date(e_free.getJaiotze_data().getTime());
 
-		// INSERT-A EGIN
-		try {
-			String SQLquery = "INSERT INTO bezeroa (IDBezeroa, Izena, Abizena, Hizkuntza, Erabiltzailea, Pasahitza, Jaiotza_data, Erregistro_data, Mota) VALUES ('"
-					+ iderab + "'," + "'" + e_free.getIzena() + "'," + "'" + e_free.getAbizena() + "'," + "'"
-					+ e_free.getHizkuntza() + "'," + "'" + e_free.getErabiltzailea() + "'," + "'"
-					+ e_free.getPasahitza() + "'," + "'" + sqlJaioDate + "'," + "'" + datenow + "','Free')";
-			Konexioa.query.executeUpdate(SQLquery);
-			JOptionPane.showMessageDialog(null, "Ondo erregistratu egin zara!", "Erregistroa [Free]",
-					JOptionPane.INFORMATION_MESSAGE);
-			
-		} catch (SQLException e) {
-			if (e_free.getIzena().isEmpty() && e_free.getErabiltzailea().isEmpty() && e_free.getPasahitza().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu erregistratzeko.", "Errorea",
-						JOptionPane.ERROR_MESSAGE);
-			} else {
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errorea egon da datu basean erregistratzean.", "Errorea",
-						JOptionPane.ERROR_MESSAGE);
-			}
-		}
-		Konexioa.konexioaItxi();
+	    // INSERT-A EGIN
+	    try {
+	        String SQLquery = "INSERT INTO bezeroa (IDBezeroa, Izena, Abizena, Hizkuntza, Erabiltzailea, Pasahitza, Jaiotza_data, Erregistro_data, Mota) VALUES ('"
+	                + iderab + "'," + "'" + e_free.getIzena() + "'," + "'" + e_free.getAbizena() + "'," + "'"
+	                + e_free.getHizkuntza() + "'," + "'" + e_free.getErabiltzailea() + "'," + "'"
+	                + e_free.getPasahitza() + "'," + "'" + sqlJaioDate + "'," + "'" + datenow + "','Free')";
+	        Konexioa.query.executeUpdate(SQLquery);
+	        JOptionPane.showMessageDialog(null, "Ondo erregistratu egin zara!", "Erregistroa [Free]",
+	                JOptionPane.INFORMATION_MESSAGE);
+	    } catch (SQLException e) {
+	        if (e.getSQLState().equals("23000") && e.getErrorCode() == 1062) {
+	            JOptionPane.showMessageDialog(null, "Erabiltzailea dagoeneko hautatuta dago.", "Errorea",
+	                    JOptionPane.ERROR_MESSAGE);
+	        } else if (e_free.getIzena().isEmpty() && e_free.getErabiltzailea().isEmpty() && e_free.getPasahitza().isEmpty()) {
+	            JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu erregistratzeko.", "Errorea",
+	                    JOptionPane.ERROR_MESSAGE);
+	        } else {
+	            e.printStackTrace();
+	            JOptionPane.showMessageDialog(null, "Errorea egon da datu basean erregistratzean.", "Errorea",
+	                    JOptionPane.ERROR_MESSAGE);
+	        }
+	    }
+	    Konexioa.konexioaItxi();
 	}
-
 	/**
 	 * ErregistroaPremium metodoa erabiltzailea Premium motako bezeroa
 	 * erregistratzeko erabiltzen da.
@@ -139,8 +143,9 @@ public class ErregistroNireProfilaDAO {
 	 *                  erabiltzen da.
 	 * @throws SQLException           SQL errorea gertatzen bada.
 	 * @throws ClassNotFoundException Klasea ez bada aurkitzen.
+	 * @throws ErabiltzaileBalidazioaException 
 	 */
-	public static void erregistroaPremium(Erabiltzailea e_premium) throws SQLException, ClassNotFoundException {
+	public static void erregistroaPremium(Erabiltzailea e_premium) throws SQLException, ClassNotFoundException, ErabiltzaileBalidazioaException {
 		Konexioa.konexioaIreki();
 		String iderab = e_premium.getErabiltzailea() + "&";
 
@@ -158,15 +163,18 @@ public class ErregistroNireProfilaDAO {
 			JOptionPane.showMessageDialog(null, "Ondo erregistratu egin zara Premium bezeroa bezala.", "Erregistroa [Premium]",
 					JOptionPane.INFORMATION_MESSAGE);
 		} catch (SQLException e) {
-			if (e_premium.getIzena().isEmpty() && e_premium.getErabiltzailea().isEmpty()
-					&& e_premium.getPasahitza().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu erregistratzeko.", "Errorea",
-						JOptionPane.ERROR_MESSAGE);
-			} else {
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errorea egon da datu basean erregistratzean.", "Errorea",
-						JOptionPane.ERROR_MESSAGE);
-			}
+	        if (e.getSQLState().equals("23000") && e.getErrorCode() == 1062) {
+	            JOptionPane.showMessageDialog(null, "Erabiltzailea dagoeneko hautatuta dago.", "Errorea",
+	                    JOptionPane.ERROR_MESSAGE);
+	        } else if (e_premium.getIzena().isEmpty() && e_premium.getErabiltzailea().isEmpty()
+	                && e_premium.getPasahitza().isEmpty()) {
+	            JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu erregistratzeko.", "Errorea",
+	                    JOptionPane.ERROR_MESSAGE);
+	        } else {
+	            e.printStackTrace();
+	            JOptionPane.showMessageDialog(null, "Errorea egon da datu basean erregistratzean.", "Errorea",
+	                    JOptionPane.ERROR_MESSAGE);
+	        }
 		}
 		Konexioa.konexioaItxi();
 	} 

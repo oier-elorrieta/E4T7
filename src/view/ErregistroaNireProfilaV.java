@@ -219,6 +219,7 @@ public class ErregistroaNireProfilaV extends JFrame {
 			contentPane.add(btnEditatu);
 			contentPane.add(lblNireProfila);
 			contentPane.add(btnLogout);
+			txtErabiltzaile.setEditable(false);
 			contentPane.remove(passwordFieldConfirm);
 			contentPane.remove(lblKonfirmatuPasahitza);
 			btnErregistratu.setEnabled(false);
@@ -249,6 +250,8 @@ public class ErregistroaNireProfilaV extends JFrame {
 					txtIraunDataPremium.setText(View_metodoak.dateToString(LoginDAO.iraungitzeDataLortu(SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea())));
 				}
 			}
+		}else {
+			txtErabiltzaile.setEditable(true);
 		}
 			
 		
@@ -263,6 +266,8 @@ public class ErregistroaNireProfilaV extends JFrame {
 				try {
 					SesioAldagaiak.bezeroa_logeatuta = new Erabiltzailea(txtErabiltzaile.getText()+"&", txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, View_metodoak.stringToDate(txtJaiotzeData.getText()));
 					ErregistroNireProfilaDAO.updateNireProfilaDatuak(SesioAldagaiak.bezeroa_logeatuta);
+					dispose();
+					JFrameSortu.menuaBezeroa();
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				} catch (SQLException e1) {
@@ -304,7 +309,6 @@ public class ErregistroaNireProfilaV extends JFrame {
 				// HIZKUNTZA KONPROBATZEKO METODOA
 				hiz = comboBoxHizkuntza.getSelectedIndex();
 				hizkuntzaSt = hizkuntzakList.get(hiz).getId();
-				
 				String erabiltzaileText = txtErabiltzaile.getText() + "&";
 				try {
 					if (ErregistroNireProfilaDAO.konprobatuErabiltzailea(txtErabiltzaile.getText()+"&")) {
@@ -333,6 +337,19 @@ public class ErregistroaNireProfilaV extends JFrame {
 			                if (menuAukera == JOptionPane.YES_OPTION) {
 			                	ErregistroNireProfilaDAO.updatePremiumBezeroFree(SesioAldagaiak.bezeroa_logeatuta);
 								SesioAldagaiak.e_premium = true;
+								
+								if (SesioAldagaiak.e_premium) {
+									btnPremiumErosi.setEnabled(false);
+									contentPane.add(txtIraunDataPremium);
+									contentPane.add(lblIraungitzeData);
+									
+									if (LoginDAO.iraungitzeDataLortu(SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea()) == null) {
+										JOptionPane.showMessageDialog(null, "Errorea egon da datu basetik iraungintze-data hartzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
+									} else {
+										txtIraunDataPremium.setText(View_metodoak.dateToString(LoginDAO.iraungitzeDataLortu(SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea())));
+										lblIraungitzeData.setText("Premium iraungintze-data: ");
+									}
+								}
 			                }
 						} catch (SQLException e1) {
 							e1.printStackTrace();
@@ -367,8 +384,6 @@ public class ErregistroaNireProfilaV extends JFrame {
 									ErregistroNireProfilaDAO.erregistroaPremium(SesioAldagaiak.bezeroa_logeatuta);
 									SesioAldagaiak.e_premium = true;
 					                SesioAldagaiak.logeatuta = true;
-									dispose();
-									JFrameSortu.menuaBezeroa();
 								} catch (ClassNotFoundException e1) {
 									JOptionPane.showMessageDialog(null, "Errorea egon da erregistratzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
 									e1.printStackTrace();
@@ -383,7 +398,6 @@ public class ErregistroaNireProfilaV extends JFrame {
 					}
 					
 				}
-				
 			}
 		});
 		
@@ -435,7 +449,6 @@ public class ErregistroaNireProfilaV extends JFrame {
 						if (passwdErabil.equals(passwordFieldConfirm.getText())) {
 							try {
 								ErregistroNireProfilaDAO.erregistroaFree(SesioAldagaiak.bezeroa_logeatuta);
-								dispose();
 								SesioAldagaiak.e_premium = false;
 				                SesioAldagaiak.logeatuta = true;
 								JFrameSortu.menuaBezeroa();

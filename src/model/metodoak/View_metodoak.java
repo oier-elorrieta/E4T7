@@ -28,6 +28,8 @@ import model.Artista;
 import model.Podcast;
 import model.Podcaster;
 import salbuespenak.DataBalidazioaException;
+import salbuespenak.ErabiltzaileBalidazioaException;
+
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -113,6 +115,12 @@ public class View_metodoak {
 		}
 	}
 
+	public static void ErabiltzaileBalidatu(String erab) throws ErabiltzaileBalidazioaException {
+		if (!erab.matches("\\d{4}-\\d{2}-\\d{2}")) {
+			throw new DataBalidazioaException();
+		}
+	}
+	
 	/**
 	 * Metodo honek baimendu bat salto egiteko erabiltzen da. Timer erabiliz, 10
 	 * segundo pasatuta, skip_abestia aldagaia true-ra aldatzen du eta "skip" mezua
