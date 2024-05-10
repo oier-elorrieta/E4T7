@@ -5,16 +5,20 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import model.Abestia;
 import model.Playlist;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
+import model.sql.PlaylistAbestiakDAO;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -32,8 +36,9 @@ public class PlaylistAbestiakV extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
 	 */
-	public PlaylistAbestiakV(Playlist playlist) {
+	public PlaylistAbestiakV(Playlist playlist) throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		setResizable(false);
@@ -73,16 +78,21 @@ public class PlaylistAbestiakV extends JFrame {
 		lblPlaylist.setBounds(0, 23, 890, 27);
 		contentPane.add(lblPlaylist);
 		
-		JLabel lblAbestiZerrenda = new JLabel("Abesti zerrenda");
+		JLabel lblAbestiZerrenda = new JLabel("Abesti zerrenda. Abesti kantitatea: " + playlist.getKapazitatea());
 		lblAbestiZerrenda.setHorizontalAlignment(SwingConstants.LEFT);
 		lblAbestiZerrenda.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 18));
-		lblAbestiZerrenda.setBounds(183, 61, 200, 23);
+		lblAbestiZerrenda.setBounds(183, 61, 528, 23);
 		contentPane.add(lblAbestiZerrenda);
 		
-		JList PlaylistAbestiakList = new JList();
+		JList<Abestia> PlaylistAbestiakList = new JList<Abestia>();
+		ArrayList<Abestia> AbestiPlaylistJList = PlaylistAbestiakDAO.abestiakPlaylistKargatu(playlist);
+		DefaultListModel<Abestia> modelPlaylistAbestia = new DefaultListModel<Abestia>();
 		
+		for (int i = 0; i < AbestiPlaylistJList.size(); i++) {
+			modelPlaylistAbestia.addElement(AbestiPlaylistJList.get(i));
+		}
 		
-		
+		PlaylistAbestiakList.setModel(modelPlaylistAbestia);
 		PlaylistAbestiakList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		PlaylistAbestiakList.setFont(new Font("Verdana", Font.BOLD, 16));
 		PlaylistAbestiakList.setBorder(new LineBorder(new Color(0, 0, 0)));

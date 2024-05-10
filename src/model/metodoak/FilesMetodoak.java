@@ -9,6 +9,7 @@ import java.util.Date;
 import model.Abestia;
 import model.Album;
 import model.Artista;
+import model.Playlist;
 import model.Podcast;
 
 public class FilesMetodoak {
@@ -87,6 +88,38 @@ public class FilesMetodoak {
 		bufferedWriter.write("Artista(k): " + podcaster.getIzena() + " / " + podcast.getKolaboratzaile());
 		bufferedWriter.newLine();
 		bufferedWriter.write("Iraupena: " + podcast.getIraupena());
+		bufferedWriter.newLine();
+		bufferedWriter.write("------------------------------------------------------------------------------");
+		bufferedWriter.newLine();
+		bufferedWriter.write("BEZEROAREN INFORMAZIOA");
+		bufferedWriter.newLine();
+		bufferedWriter.write("----------------------------------");
+		bufferedWriter.newLine();
+		bufferedWriter.write("Bezeroa izen-abizenak: " + SesioAldagaiak.bezeroa_logeatuta.getIzena() + " "
+				+ SesioAldagaiak.bezeroa_logeatuta.getAbizena());
+		bufferedWriter.newLine();
+		bufferedWriter.write("Erabiltzailea: " + SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea());
+		bufferedWriter.newLine();
+		bufferedWriter.write("----------------------------------");
+		bufferedWriter.close();
+	}
+	
+	public static void exportatuPlaylistFiles(Playlist playlist) throws IOException {
+		Date dataOrain = new Date();
+		String rutaArchivo = "SharedPlaylist_" + playlist.getTitulua() + "_" + dataOrain.getTime() + ".txt";
+		File archivo = new File(rutaArchivo);
+		FileWriter write = new FileWriter(archivo);
+		BufferedWriter bufferedWriter = new BufferedWriter(write);
+
+		bufferedWriter.write("PLAYLIST-AREN INFORMAZIOA");
+		bufferedWriter.newLine();
+		bufferedWriter.write("----------------------------------");
+		bufferedWriter.newLine();
+		bufferedWriter.write("Playlist izena: " + playlist.getTitulua());
+		bufferedWriter.newLine();
+		bufferedWriter.write("Playlist sorrera data: " + playlist.getSorrera_data());
+		bufferedWriter.newLine();
+		bufferedWriter.write("Kapazitatea: " + playlist.getKapazitatea() + " abesti.");
 		bufferedWriter.newLine();
 		bufferedWriter.write("------------------------------------------------------------------------------");
 		bufferedWriter.newLine();

@@ -15,7 +15,6 @@ import model.metodoak.SesioAldagaiak;
  * playlist-ak kargatzeko.
  */
 public class PlayListDAO {
-	private static Playlist playList;
 	
 	/**
 	 * Bezeroaren playlist-ak kargatzeko metodoa.
@@ -26,17 +25,18 @@ public class PlayListDAO {
 	public static ArrayList<Playlist> playListakKargatuBezeroa() throws SQLException {
 		ArrayList<Playlist> playListList = new ArrayList<Playlist>();
         Konexioa.konexioaIreki();
-        String SQLquery = "SELECT * FROM playlist WHERE IDBezeroa LIKE '"
-                + SesioAldagaiak.bezeroa_logeatuta.getIdBezeroa() + "';";
+        String SQLquery = "SELECT * FROM playlistInfoKop WHERE IDBezeroa = '" + SesioAldagaiak.bezeroa_logeatuta.getIdBezeroa() + "';";
         try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery);
                 ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 int idList = resultSet.getInt("IDList");
                 String titulua = resultSet.getString("Izenburua");
+                int kantitatea = resultSet.getInt("Kapazitatea");
                 Date sorrera = resultSet.getDate("Sorrera_data");
                 Date sorrera_data = new Date(sorrera.getTime());
+                System.out.println(kantitatea);
                 try {
-					playList = new Playlist(idList, titulua, 0, sorrera_data);
+					Playlist playList = new Playlist(idList, titulua, kantitatea, sorrera_data);
 					playListList.add(playList);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,7 +57,7 @@ public class PlayListDAO {
 	 * @return PlayListean dauden abesti kopurua.
 	 * @throws SQLException SQL errorea gertatzen bada.
 	 */
-	public static void playListAbestiKantitatea() throws SQLException {
+	public static int playListAbestiKantitatea(Playlist playList) throws SQLException {
 		Konexioa.konexioaIreki();
         String SQLquery = "SELECT count(IDAudio) FROM playlist_abestiak WHERE IDList LIKE '"
                 + playList.getIdPlaylist() + "';";
@@ -65,12 +65,43 @@ public class PlayListDAO {
                 ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 int kantitatea = resultSet.getInt("count(IDAudio)");
-                playList.setKapazitatea(kantitatea);
+                return kantitatea;
             }
         } catch (SQLException e) {
             e.printStackTrace();
 		} finally {
 			Konexioa.konexioaItxi();
 		}
+        return 0;
+	}
+	
+	public static int gustokoAbestiKantitatea() {
+		Konexioa.konexioaIreki();
+		String SQLquery = "SELECT count(IDAudio) FROM gustukoak WHERE IDBezeroa LIKE '"
+				+ SesioAldagaiak.bezeroa_logeatuta.getIdBezeroa() + "';";
+		try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery);
+				ResultSet resultSet = preparedStatement.executeQuery()) {
+			while (resultSet.next()) {
+				int kantitatea = resultSet.getInt("count(IDAudio)");
+				return kantitatea;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Konexioa.konexioaItxi();
+		}
+		return 0;
+	}
+	
+	public static void playlistEzabatu(Playlist playlist) {
+		Konexioa.konexioaIreki();
+        String SQLquery = "DELETE FROM playlist WHERE IDList = " + playlist.getIdPlaylist() + ";";
+        try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery)) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Konexioa.konexioaItxi();
+        }
 	}
 }
