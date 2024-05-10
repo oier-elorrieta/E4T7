@@ -146,7 +146,7 @@ public class View_metodoak {
 	@SuppressWarnings("deprecation")
 	public static String dateToString(Date dataAldatzeko) {
 
-		if (dataAldatzeko.getMonth() >= 0 && dataAldatzeko.getMonth() <= 9) {
+		if (dataAldatzeko.getMonth() >= 0 && dataAldatzeko.getMonth() <= 11) {
 			int intdataMonth = dataAldatzeko.getMonth();
 			String StrdataMonth = "0" + intdataMonth;
 			int dataMonthondo = Integer.parseInt(StrdataMonth);

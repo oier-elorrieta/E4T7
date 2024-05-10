@@ -37,6 +37,11 @@ import model.sql.Konexioa;
 import model.sql.LoginDAO;
 import salbuespenak.DataBalidazioaException;
 import salbuespenak.ErabiltzaileBalidazioaException;
+import com.toedter.calendar.JDayChooser;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.components.JLocaleChooser;
+import com.toedter.components.JSpinField;
+import com.toedter.calendar.JYearChooser;
 
 public class ErregistroaNireProfilaV extends JFrame {
 
@@ -136,21 +141,20 @@ public class ErregistroaNireProfilaV extends JFrame {
 		
 		txtJaiotzeData = new JTextField();
 		txtJaiotzeData.setColumns(10);
-		txtJaiotzeData.setBounds(250, 281, 277, 25);
+		txtJaiotzeData.setBounds(499, 396, 277, 25);
 		contentPane.add(txtJaiotzeData);
 		
 		JLabel lblHizkuntza = new JLabel("Hizkuntza:");
 		lblHizkuntza.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblHizkuntza.setBounds(141, 341, 91, 26);
 		contentPane.add(lblHizkuntza);
-		
 		JComboBox comboBoxHizkuntza = new JComboBox();
 		
-		hizkuntzakList = HizkuntzaDAO.hizkuntza();
-		
-		for (int i = 0; i < hizkuntzakList.size(); i++) {
-			comboBoxModel.addElement(hizkuntzakList.get(i).getDeskribapena());
-		}
+			hizkuntzakList = HizkuntzaDAO.hizkuntza();
+			
+			for (int i = 0; i < hizkuntzakList.size(); i++) {
+				comboBoxModel.addElement(hizkuntzakList.get(i).getDeskribapena());
+			}
 		
 		comboBoxHizkuntza.setModel(comboBoxModel);
 		comboBoxHizkuntza.setSelectedIndex(0);
@@ -193,6 +197,10 @@ public class ErregistroaNireProfilaV extends JFrame {
 		btnPremiumErosi.setFocusPainted(false);
 		contentPane.add(btnPremiumErosi);
 		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(250, 281, 256, 26);
+		contentPane.add(dateChooser);
+		
 		JLabel lblIraungitzeData = new JLabel("Premium iraungintze-data:");
 		lblIraungitzeData.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblIraungitzeData.setBounds(447, 341, 213, 26);
@@ -232,7 +240,9 @@ public class ErregistroaNireProfilaV extends JFrame {
 			txtAbizenak.setText(SesioAldagaiak.bezeroa_logeatuta.getAbizena());
 			txtErabiltzaile.setText(SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea());
 			passwordField.setText(SesioAldagaiak.bezeroa_logeatuta.getPasahitza());
-			txtJaiotzeData.setText(View_metodoak.dateToString(SesioAldagaiak.bezeroa_logeatuta.getJaiotze_data()));
+//			System.out.println(SesioAldagaiak.bezeroa_logeatuta.getJaiotze_data());
+//			txtJaiotzeData.setText(View_metodoak.dateToString(SesioAldagaiak.bezeroa_logeatuta.getJaiotze_data()));
+			dateChooser.setDate(SesioAldagaiak.bezeroa_logeatuta.getJaiotze_data());
 			for (int i = 0; i < hizkuntzakList.size(); i++) {
 				if (hizkuntzakList.get(i).getId().equals(SesioAldagaiak.bezeroa_logeatuta.getHizkuntza())) {
 					comboBoxHizkuntza.setSelectedItem(hizkuntzakList.get(i).getDeskribapena());
