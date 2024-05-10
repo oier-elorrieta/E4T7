@@ -8,9 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import model.Playlist;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
+import model.sql.PlaylistBerriaSortuDAO;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -19,6 +21,7 @@ import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class PlayListBerriaSortuV extends JFrame {
@@ -118,7 +121,16 @@ public class PlayListBerriaSortuV extends JFrame {
 		// SORTU PLAYLISTA BOTOIA
 		btnSortuPlaylista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
+				try {
+					Date sorrera_data = new Date();
+					String playlistIzena = txtPlaylistIzena.getText();
+					Playlist playlistAuxSortu = new Playlist(playlistIzena, 0, sorrera_data);
+					PlaylistBerriaSortuDAO.playlistBerriaSortu(playlistAuxSortu);
+					JFrameSortu.playlistListaBezeroa();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 	}

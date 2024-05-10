@@ -209,7 +209,7 @@ public class JFrameSortu {
         playListBerriaSortuV.setVisible(true);
 	}
 	
-	public static void playListAbestiak(Playlist playlist) {
+	public static void playListAbestiak(Playlist playlist) throws SQLException {
 		PlaylistAbestiakV PlaylistAbestiakV = new PlaylistAbestiakV(playlist);
 		PlaylistAbestiakV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		PlaylistAbestiakV.setVisible(true);

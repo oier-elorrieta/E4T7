@@ -23,8 +23,7 @@ public class Playlist {
 	 * @param kapazitatea Playlistaren kapazitatea
 	 * @param titulua     Playlistaren titulua
 	 */
-	public Playlist(int idPlaylist, String titulua, int kapazitatea, Date Sorrera_data) {
-		this.idPlaylist = idPlaylist;
+	public Playlist(String titulua, int kapazitatea, Date Sorrera_data) {
 		this.titulua = titulua;
 		if (!SesioAldagaiak.e_premium) {
 			this.kapazitatea = 2;
@@ -60,6 +59,14 @@ public class Playlist {
 		this.idBezeroa = idBezeroa;
 		this.idAudio = idAudio;
 	}
+	
+
+	public Playlist(int idPlaylist, String titulua, int kapazitatea, Date sorrera_data) {
+		this.idPlaylist = idPlaylist;
+		this.titulua = titulua;
+		this.kapazitatea = kapazitatea;
+		Sorrera_data = sorrera_data;
+	}
 
 	/**
 	 * Zerrenda bat sortzen du titulu eta erabiltzaile ID-arekin.
@@ -71,18 +78,19 @@ public class Playlist {
 		this.titulua = "Gustokoen zerrenda";
 		this.idAudio = idBezeroa;
 	}
+	
+	public Playlist(String titulua) {
+		this.titulua = "Gustokoen zerrenda";
+	}
 
 	/**
 	 * Playlist klasearen eraikitzailea.
 	 * 
 	 * @param titulua Playlist objektuaren titulua
 	 */
-	public Playlist(String titulua) {
+	public Playlist(String titulua, int kapazitatea) {
 		this.titulua = "Gustokoen zerrenda";
-	}
-
-	public Playlist(int int1, String string, int i, String string2, java.sql.Date date) {
-		// TODO Auto-generated constructor stub
+		this.kapazitatea = kapazitatea;
 	}
 
 	/**
@@ -201,7 +209,7 @@ public class Playlist {
 
 	@Override
 	public String toString() {
-		return titulua;
+		return titulua + " - " + kapazitatea + " abesti";
 	}
 
 	/**

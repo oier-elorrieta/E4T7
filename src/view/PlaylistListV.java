@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import model.Abestia;
 import model.Playlist;
+import model.metodoak.FilesMetodoak;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
@@ -34,11 +35,13 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class PlaylistListV extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private Playlist playlistSelected;
 
 	/**
 	 * Create the frame.
@@ -93,7 +96,7 @@ public class PlaylistListV extends JFrame {
 		JList<Playlist> PlaylistList = new JList();
 		ArrayList<Playlist> PlaylistJList = PlayListDAO.playListakKargatuBezeroa();
 		DefaultListModel<Playlist> modelPlaylist = new DefaultListModel<Playlist>();
-		Playlist playlistGustokoa = new Playlist("");
+		Playlist playlistGustokoa = new Playlist("", PlayListDAO.gustokoAbestiKantitatea());
 		
 		modelPlaylist.addElement(playlistGustokoa);
 		for (int i = 0; i < PlaylistJList.size(); i++) {
@@ -149,7 +152,6 @@ public class PlaylistListV extends JFrame {
 		btnZabalduPlaylista.setBounds(620, 496, 205, 42);
 		contentPane.add(btnZabalduPlaylista);
 		
-		
 		// ATZERA BOTOIA
 		btnAtzera.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -173,13 +175,17 @@ public class PlaylistListV extends JFrame {
 		// ZABALDU PLAYLIST BOTOIA
 		btnZabalduPlaylista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Playlist playlistSelected = PlaylistList.getSelectedValue();
+				playlistSelected = PlaylistList.getSelectedValue();
 				if (playlistSelected == null) {
-					JOptionPane.showMessageDialog(null, "Ez duzu PlayList bat aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Ez duzu PlayList bat aukeratu!", "Catastrophic Error", JOptionPane.ERROR_MESSAGE);
 				} else {
 					Playlist playlistAuxSelected = new Playlist(playlistSelected.getIdPlaylist(), playlistSelected.getTitulua(), playlistSelected.getKapazitatea(), playlistSelected.getSorrera_data());
 					dispose();
-					JFrameSortu.playListAbestiak(playlistAuxSelected);
+					try {
+						JFrameSortu.playListAbestiak(playlistAuxSelected);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
 				}
 				
 			}
@@ -198,7 +204,27 @@ public class PlaylistListV extends JFrame {
 		btnEzabatu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				playlistSelected = PlaylistList.getSelectedValue();
+				if (playlistSelected == null) {
+					JOptionPane.showMessageDialog(null, "Ez duzu PlayList bat aukeratu!", "Catastrophic Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+					if (PlaylistList.getSelectedIndex() == 0) {
+						JOptionPane.showMessageDialog(null, "Gustoko PlayList-a ezin da ezabatu!", "Catastrophic Error",
+								JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					try {
+						PlayListDAO.playlistEzabatu(playlistSelected);
+						JOptionPane.showMessageDialog(null, "PlayList-a ezabatu da!", "PlayList-a [Ezabatu]",
+								JOptionPane.INFORMATION_MESSAGE);
+						dispose();
+						JFrameSortu.playlistListaBezeroa();
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(null, "Errorea egon da datu basearekin.", "Catastrophic Error",
+								JOptionPane.ERROR_MESSAGE);
+						e1.printStackTrace();
+					}
+				}
 			}
 		});
 		
@@ -206,6 +232,7 @@ public class PlaylistListV extends JFrame {
 		btnInportatu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				playlistSelected = PlaylistList.getSelectedValue();
 				
 			}
 		});
@@ -214,7 +241,25 @@ public class PlaylistListV extends JFrame {
 		btnExportatu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				playlistSelected = PlaylistList.getSelectedValue();
+				if (playlistSelected == null) {
+                    JOptionPane.showMessageDialog(null, "Ez duzu PlayList bat aukeratu!", "Catastrophic Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+					Object[] aukerakMenu = { "Bai", "Ez" };
+	                int menuAukera = JOptionPane.showOptionDialog(null, "Exportatu nahi duzu?\nPlaylist-a: " + playlistSelected.getTitulua(), "Exportatu",
+	                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerakMenu, aukerakMenu[0]);
+	                if (menuAukera == JOptionPane.YES_OPTION) {
+	                	try {
+							FilesMetodoak.exportatuPlaylistFiles(playlistSelected);
+							JOptionPane.showMessageDialog(null, "PlayList-a exportatu da!", "PlayList-a [Exportatu]",
+									JOptionPane.INFORMATION_MESSAGE);
+						} catch (IOException e1) {
+							e1.printStackTrace();
+							JOptionPane.showMessageDialog(null, "Errorea egon da.", "Catastrophic Error",
+									JOptionPane.ERROR_MESSAGE);
+						}
+	                }
+                }
 			}
 		});
 	}
