@@ -128,6 +128,7 @@ public class PlayListBerriaSortuV extends JFrame {
 					String playlistIzena = txtPlaylistIzena.getText();
 					Playlist playlistAuxSortu = new Playlist(playlistIzena, 0, sorrera_data);
 					PlaylistBerriaSortuDAO.playlistBerriaSortu(playlistAuxSortu);
+					dispose();
 					JFrameSortu.playlistListaBezeroa();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
