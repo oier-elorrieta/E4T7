@@ -13,29 +13,17 @@ public class Album {
 	private int kantaTotala;
 
 	/**
-	 * Album klasearen eraikitzailea izenburua, urtea eta generoa erabiliz.
-	 * 
-	 * @param izenburua albumaren izenburua
-	 * @param urtea     albumaren urtea
-	 * @param generoa   albumaren generoa
-	 */
-	public Album(String izenburua, String urtea, String generoa) {
-		this.izenburua = izenburua;
-		this.urtea = urtea;
-		this.generoa = generoa;
-	}
-
-	/**
 	 * Album klasearen eraikitzailea izenburua, urtea eta kanta totala erabiliz.
 	 * 
 	 * @param izenburua   albumaren izenburua
 	 * @param urtea       albumaren urtea
 	 * @param kantaTotala albumaren kanta totala
 	 */
-	public Album(String izenburua, String urtea, int kantaTotala) {
+	public Album(String izenburua, String urtea, int kantaTotala, String generoa) {
 		this.izenburua = izenburua;
 		this.urtea = urtea;
 		this.kantaTotala = kantaTotala;
+		this.generoa = generoa;
 	}
 
 	/**

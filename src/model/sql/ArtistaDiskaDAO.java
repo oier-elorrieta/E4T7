@@ -22,12 +22,12 @@ public class ArtistaDiskaDAO {
     public static ArrayList<Album> albumAbestiakKargatu(Artista artista) throws SQLException {
     	Konexioa.konexioaIreki();
         ArrayList<Album> albumList = new ArrayList<Album>();
-        String SQLquery = "SELECT izenburua,  year(urtea), count(IdAudio) from album al join abestia ab using(IdAlbum) join musikaria m using (IDMusikaria) where IzenArtistikoa = '"+ artista.getIzena() +"' group by 1, 2;";
+        String SQLquery = "SELECT izenburua,  year(urtea), count(IdAudio), Generoa from album al join abestia ab using(IdAlbum) join musikaria m using (IDMusikaria) where IzenArtistikoa = '"+ artista.getIzena() +"' group by 1, 2, 4;";
         ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
         Album albuma = null;
         
         while (emaitza.next()) {
-           albuma = new Album(emaitza.getString("izenburua"), emaitza.getString("year(urtea)"), emaitza.getInt("count(IdAudio)"));
+           albuma = new Album(emaitza.getString("izenburua"), emaitza.getString("year(urtea)"), emaitza.getInt("count(IdAudio)"), emaitza.getString("Generoa"));
            
            albumList.add(albuma);
         }

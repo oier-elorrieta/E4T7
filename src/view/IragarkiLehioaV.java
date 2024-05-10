@@ -128,11 +128,9 @@ public class IragarkiLehioaV extends JFrame {
             public void run() {
                 try {
                 	if (listaAmaiera) {
-						System.out.println("lista amaiera menua");
 					} else {
 						for (int i = 0; i < abestiList.size(); i++) {
 	                		if (i == abestiList.size()-1) {	
-	                			System.out.println("AMAIERA IRAGARKI LEHIOA");
 	    						listaAmaiera = true;
 	    						break;
 	                    	}
@@ -151,7 +149,7 @@ public class IragarkiLehioaV extends JFrame {
 								}
 							
 								if (i+1 != abestiList.size()) {
-									System.out.println("CASCA");
+	
 								} else {
 									abestiaHurrengoa = new Abestia(abestiList.get(i+1).getTitulua(), abestiList.get(i+1).getIrudia(), abestiList.get(i+1).getIraupena());
 									

@@ -99,7 +99,7 @@ public class KantaListV extends JFrame {
 		ArrayList<Abestia> AbestiJList = DiskaAbestiakDAO.albumAbestiakKargatu(album);
 		
 		DefaultListModel<Abestia> modelAbestia = new DefaultListModel<Abestia>();
-		
+		 
 		for (int i = 0; i < AbestiJList.size(); i++) {
 			modelAbestia.addElement(AbestiJList.get(i));
 		}
@@ -120,7 +120,7 @@ public class KantaListV extends JFrame {
 		txtInformazioa.setEditable(false);
 		txtInformazioa.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		txtInformazioa.setBounds(466, 282, 392, 215);
-		txtInformazioa.setText("Argitaratze-data: " + album.getUrtea() + " \n" + "Kanta kopurua: " + album.getKantaTotala());
+		txtInformazioa.setText("Generoa: " + album.getGeneroa() + "\nArgitaratze-data: " + album.getUrtea() + " \n" + "Kanta kopurua: " + album.getKantaTotala());
 		scrollPane.setViewportView(txtInformazioa);
 		
 		JLabel lblArgazkia = new JLabel("");

@@ -146,7 +146,7 @@ public class MenuaPlaylistSartuAbestiakV extends JFrame {
 							MenuaPlaylistSartuAbestiakDAO.playlistGorde(Playlista.getSelectedValue().getIdPlaylist(), abesti);
 							JOptionPane.showMessageDialog(null, "PlayList-ean gehitu da abestia!", "Playlistean sartu",
 									JOptionPane.INFORMATION_MESSAGE);
-							//dispose();
+							dispose();
 						} else {
 							JOptionPane.showMessageDialog(null, "Abestia hau Playlistean dago jada!", "Errorea",
 							JOptionPane.ERROR_MESSAGE);

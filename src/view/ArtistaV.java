@@ -152,7 +152,7 @@ public class ArtistaV extends JFrame {
 				if (albumSelected == null) {
 					JOptionPane.showMessageDialog(null, "Ez duzu album bat aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {
-					Album albumAuxSelected = new Album(albumSelected.getIzenburua(), albumSelected.getUrtea(), albumSelected.getKantaTotala());
+					Album albumAuxSelected = new Album(albumSelected.getIzenburua(), albumSelected.getUrtea(), albumSelected.getKantaTotala(), albumSelected.getGeneroa());
 					dispose();
 					try {
 						JFrameSortu.albumKantakBezeroa(albumAuxSelected, artista);

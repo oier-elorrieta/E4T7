@@ -27,7 +27,7 @@ public class DiskaAbestiakDAO {
         String SQLquery = "SELECT * FROM musikari_abestiak WHERE Izenburua = '" + album.getIzenburua() + "';";
         ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
         Abestia abestiak = null;
-        
+         
         while (emaitza.next()) {
             abestiak = new Abestia(emaitza.getString("IdAudio"), emaitza.getString("Izena"), emaitza.getString("Iraupena"), emaitza.getInt("count(e.IdAudio)"));
            
