@@ -143,9 +143,10 @@ public class LoginV extends JFrame {
 		btnErregistroa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				dispose();
+				
 				try {
-					JFrameSortu.erregistroMenua();
+					setVisible(false);
+					JFrameSortu.erregistroMenua(LoginV.this);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -182,7 +183,7 @@ public class LoginV extends JFrame {
 	                if (ErregistroNireProfilaDAO.konprabatuPremium()) {
 	                	SesioAldagaiak.e_premium = true;
 	                }
-	                JFrameSortu.menuaBezeroa();
+	                JFrameSortu.menuaBezeroa(LoginV.this);
 	            } else {
 	                JOptionPane.showMessageDialog(null, "Erabiltzailea edo pasahitza txarto dago.", "Errorea", JOptionPane.ERROR_MESSAGE);
 	                txtFErabiltzaile.setText("");

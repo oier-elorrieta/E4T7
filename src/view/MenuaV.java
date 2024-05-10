@@ -29,7 +29,7 @@ public class MenuaV extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MenuaV() {
+	public MenuaV(JFrame jframe) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		if (SesioAldagaiak.e_premium) {
@@ -130,9 +130,9 @@ public class MenuaV extends JFrame {
 		btnNireProfila.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dispose();
 				try {
-					JFrameSortu.erregistroMenua();
+					setVisible(false);
+					JFrameSortu.erregistroMenua(MenuaV.this);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

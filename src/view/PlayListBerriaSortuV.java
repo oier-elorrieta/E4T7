@@ -108,9 +108,10 @@ public class PlayListBerriaSortuV extends JFrame {
 		// NIRE PROFILA BOTOIA
 		btnNireProfila.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				
 				try {
-					JFrameSortu.erregistroMenua();
+					setVisible(false);
+					JFrameSortu.erregistroMenua(PlayListBerriaSortuV.this);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -121,7 +122,7 @@ public class PlayListBerriaSortuV extends JFrame {
 		// SORTU PLAYLISTA BOTOIA
 		btnSortuPlaylista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+
 				try {
 					Date sorrera_data = new Date();
 					String playlistIzena = txtPlaylistIzena.getText();

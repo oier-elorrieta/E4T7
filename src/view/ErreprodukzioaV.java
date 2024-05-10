@@ -221,12 +221,13 @@ public class ErreprodukzioaV extends JFrame {
 		// NIRE PROFILA BOTOIA
 		btnNireProfila.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				
 				try {
 					if (clipLehena.isRunning()) {
 						clipLehena.stop();
 					}
-					JFrameSortu.erregistroMenua();
+					setVisible(false);
+					JFrameSortu.erregistroMenua(ErreprodukzioaV.this);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

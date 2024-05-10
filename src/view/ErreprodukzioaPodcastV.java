@@ -185,6 +185,7 @@ public class ErreprodukzioaPodcastV extends JFrame {
 					if (clipLehena.isRunning()) {
 						clipLehena.stop();
 					}
+					setVisible(false);
 					JFrameSortu.podcastKantakBezeroa(podcaster);;
 				} catch (SQLException e1) {
 					e1.printStackTrace();
@@ -195,12 +196,12 @@ public class ErreprodukzioaPodcastV extends JFrame {
 		// NIRE PROFILA BOTOIA
 		btnNireProfila.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				
 				try {
 					if (clipLehena.isRunning()) {
 						clipLehena.stop();
 					}
-					JFrameSortu.erregistroMenua();
+					JFrameSortu.erregistroMenua(ErreprodukzioaPodcastV.this);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

@@ -184,9 +184,10 @@ public class PodcasterV extends JFrame {
 		// NIRE PROFILA BOTOIA
 		btnNireProfila.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				
 				try {
-					JFrameSortu.erregistroMenua();
+					setVisible(false);
+					JFrameSortu.erregistroMenua(PodcasterV.this);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

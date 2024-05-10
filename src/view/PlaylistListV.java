@@ -156,16 +156,17 @@ public class PlaylistListV extends JFrame {
 		btnAtzera.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				JFrameSortu.menuaBezeroa();
+				JFrameSortu.menuaBezeroa(PlaylistListV.this);
 			}
 		});
 		
 		// NIRE PROFILA BOTOIA
 		btnNireProfila.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				
 				try {
-					JFrameSortu.erregistroMenua();
+					setVisible(false);
+					JFrameSortu.erregistroMenua(PlaylistListV.this);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

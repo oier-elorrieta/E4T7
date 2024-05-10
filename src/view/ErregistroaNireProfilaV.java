@@ -47,14 +47,13 @@ import com.toedter.components.JSpinField;
 import com.toedter.calendar.JYearChooser;
 
 public class ErregistroaNireProfilaV extends JFrame {
-
+	private JFrame ErregistroaNireProfilaV = null;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtIzena;
 	private JTextField txtErabiltzaile;
 	private JPasswordField passwordField;
 	private JPasswordField passwordFieldConfirm;
-	private JTextField txtJaiotzeData;
 	private JTextField txtAbizenak;
 	private ArrayList<Hizkuntza> hizkuntzakList;
 	private DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
@@ -63,14 +62,12 @@ public class ErregistroaNireProfilaV extends JFrame {
 	private int hiz = 0;
 	boolean premiumKonprobatu = false;
 	private JTextField txtIraunDataPremium;
-	private String dataString;
-
 	/**
 	 * Create the frame.
 	 * @throws SQLException 
 	 */
 	@SuppressWarnings("deprecation")
-	public ErregistroaNireProfilaV() throws SQLException {
+	public ErregistroaNireProfilaV(JFrame jframe) throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		setResizable(false);
@@ -246,7 +243,6 @@ public class ErregistroaNireProfilaV extends JFrame {
 			contentPane.remove(lblKonfirmatuPasahitza);
 			btnErregistratu.setEnabled(false);
 			lblErregistroa.setText("");
-			btnAtzera.setText("Menua");
 			lblErregistroa.setBounds(0, 2, 100, 2);
 			
 			// TEXT FIELD GUZTIETAN SARTU DATUAK
@@ -295,7 +291,7 @@ public class ErregistroaNireProfilaV extends JFrame {
 					SesioAldagaiak.bezeroa_logeatuta = new Erabiltzailea(txtErabiltzaile.getText()+"&", txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateChooser.getDate());
 					ErregistroNireProfilaDAO.updateNireProfilaDatuak(SesioAldagaiak.bezeroa_logeatuta);
 					dispose();
-					JFrameSortu.menuaBezeroa();
+					JFrameSortu.menuaBezeroa(ErregistroaNireProfilaV);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -320,7 +316,7 @@ public class ErregistroaNireProfilaV extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if (SesioAldagaiak.logeatuta) {
 					dispose();
-					JFrameSortu.menuaBezeroa();
+					jframe.setVisible(true);
 				} else {
 					dispose();
 					JFrameSortu.loginMenua();
@@ -485,7 +481,7 @@ public class ErregistroaNireProfilaV extends JFrame {
 								ErregistroNireProfilaDAO.erregistroaFree(SesioAldagaiak.bezeroa_logeatuta);
 								SesioAldagaiak.e_premium = false;
 				                SesioAldagaiak.logeatuta = true;
-								JFrameSortu.menuaBezeroa();
+								JFrameSortu.menuaBezeroa(ErregistroaNireProfilaV);
 								dispose();
 							} catch (ClassNotFoundException e1) {
 								JOptionPane.showMessageDialog(null, "Errorea egon da erregistratzean!", "Errorea", JOptionPane.ERROR_MESSAGE);

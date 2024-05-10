@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import model.Abestia;
@@ -15,11 +16,11 @@ import model.Podcast;
 import model.Podcaster;
 import view.*;
 
+
 /**
  * JFrameSortu klasea, JFrame-ak sortzeko metodoak dituen klasea.
  */
 public class JFrameSortu {
-
 	/**
 	 * Login menua sortzeko metodoa.
 	 */
@@ -34,17 +35,18 @@ public class JFrameSortu {
 	 * 
 	 * @throws SQLException
 	 */
-	public static void erregistroMenua() throws SQLException {
-		ErregistroaNireProfilaV erregistroMenu = new ErregistroaNireProfilaV();
+	public static void erregistroMenua(JFrame jframe) throws SQLException {
+		ErregistroaNireProfilaV erregistroMenu = new ErregistroaNireProfilaV(jframe);
 		erregistroMenu.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		erregistroMenu.setVisible(true);
 	}
 
 	/**
 	 * Bezeroaren menua sortzeko metodoa.
+	 * @param jframe 
 	 */
-	public static void menuaBezeroa() {
-		MenuaV menuaAtera = new MenuaV();
+	public static void menuaBezeroa(JFrame jframe) {
+		MenuaV menuaAtera = new MenuaV(jframe);
 		menuaAtera.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		menuaAtera.setVisible(true);
 	}

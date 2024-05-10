@@ -181,7 +181,8 @@ public class ArtistaV extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				try {
-					JFrameSortu.erregistroMenua();
+					setVisible(false);
+					JFrameSortu.erregistroMenua(ArtistaV.this);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

@@ -116,7 +116,7 @@ public class PodcasterListV extends JFrame {
 		btnAtzera.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				JFrameSortu.menuaBezeroa();
+				JFrameSortu.menuaBezeroa(PodcasterListV.this);
 			}
 		});
 
@@ -143,9 +143,10 @@ public class PodcasterListV extends JFrame {
 		// NIRE PROFILA BOTOIA
 		btnNireProfila.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				
 				try {
-					JFrameSortu.erregistroMenua();
+					setVisible(false);
+					JFrameSortu.erregistroMenua(PodcasterListV.this);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
