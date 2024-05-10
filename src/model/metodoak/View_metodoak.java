@@ -114,8 +114,6 @@ public class View_metodoak {
 			throw new DataBalidazioaException();
 		}
 	}
-
-	
 	
 	
 	/**
@@ -143,23 +141,13 @@ public class View_metodoak {
 	 * @param dataAldatzeko bihurtu nahi den data.
 	 * @return Data String formatuan.
 	 */
-	@SuppressWarnings("deprecation")
 	public static String dateToString(Date dataAldatzeko) {
 
-		if (dataAldatzeko.getMonth() >= 0 && dataAldatzeko.getMonth() <= 11) {
-			int intdataMonth = dataAldatzeko.getMonth();
-			String StrdataMonth = "0" + intdataMonth;
-			int dataMonthondo = Integer.parseInt(StrdataMonth);
-			Date data = new Date(dataAldatzeko.getYear(), dataMonthondo, dataAldatzeko.getDay());
-			DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
-			String strDate = dateFormat.format(data);
-			return strDate;
-		} else {
-			Date data = new Date(dataAldatzeko.getYear(), dataAldatzeko.getMonth(), dataAldatzeko.getDay());
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-			String strDate = dateFormat.format(data);
-			return strDate;
-		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString = sdf.format(dataAldatzeko);
+		
+		 return dateString;
+		    
 	}
 
 	/**

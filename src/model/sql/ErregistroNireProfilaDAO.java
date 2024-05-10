@@ -123,7 +123,7 @@ public class ErregistroNireProfilaDAO {
 			
 		} catch (SQLException e) {
 	        if (e.getSQLState().equals("23000") && e.getErrorCode() == 1062) {
-	            throw new ErabiltzaileBalidazioaException("Erabiltzailea dagoeneko hautatuta dago.");
+	            throw new ErabiltzaileBalidazioaException();
 	        } else if (e_free.getIzena().isEmpty() && e_free.getErabiltzailea().isEmpty() && e_free.getPasahitza().isEmpty()) {
 	            JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu erregistratzeko.", "Errorea",
 	                    JOptionPane.ERROR_MESSAGE);
@@ -166,7 +166,8 @@ public class ErregistroNireProfilaDAO {
 	    } catch (SQLException e) {
 	    	//
 	        if (e.getSQLState().equals("23000") && e.getErrorCode() == 1062) {
-	            throw new ErabiltzaileBalidazioaException("Erabiltzailea dagoeneko hautatuta dago.");
+	            throw new ErabiltzaileBalidazioaException();
+	            
 	        } else if (e_premium.getIzena().isEmpty() && e_premium.getErabiltzailea().isEmpty() && e_premium.getPasahitza().isEmpty()) {
 	            JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu erregistratzeko.", "Errorea",
 	                    JOptionPane.ERROR_MESSAGE);
@@ -187,7 +188,8 @@ public class ErregistroNireProfilaDAO {
 	 */
 	public static void updateNireProfilaDatuak (Erabiltzailea erab) throws SQLException {
 		Konexioa.konexioaIreki();
-		String SQLquery = "UPDATE bezeroa SET Izena = '" + erab.getIzena() + "', Abizena = '" + erab.getAbizena() + "', Hizkuntza = '" + erab.getHizkuntza() + "', Erabiltzailea = '" + erab.getErabiltzailea() + "', Pasahitza = '" + erab.getPasahitza() + "', Jaiotza_data = '" + View_metodoak.dateToString(erab.getJaiotze_data())
+		String SQLquery = "UPDATE bezeroa SET Izena = '" + erab.getIzena() + "', Abizena = '" + erab.getAbizena() + "', Hizkuntza = '" + erab.getHizkuntza() + "', Erabiltzailea = '" + erab.getErabiltzailea() 
+		+ "', Pasahitza = '" + erab.getPasahitza() + "', Jaiotza_data = '" + View_metodoak.dateToString(erab.getJaiotze_data())
 		+ "' WHERE Erabiltzailea = '" + erab.getErabiltzailea() + "';";
 		Konexioa.query.executeUpdate(SQLquery);
 		if (Konexioa.query.executeUpdate(SQLquery) == 1) {

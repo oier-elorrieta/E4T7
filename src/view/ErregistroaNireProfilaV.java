@@ -8,9 +8,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -60,11 +63,13 @@ public class ErregistroaNireProfilaV extends JFrame {
 	private int hiz = 0;
 	boolean premiumKonprobatu = false;
 	private JTextField txtIraunDataPremium;
+	private String dataString;
 
 	/**
 	 * Create the frame.
 	 * @throws SQLException 
 	 */
+	@SuppressWarnings("deprecation")
 	public ErregistroaNireProfilaV() throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
@@ -139,11 +144,6 @@ public class ErregistroaNireProfilaV extends JFrame {
 		passwordFieldConfirm.setBounds(646, 219, 211, 25);
 		contentPane.add(passwordFieldConfirm);
 		
-		txtJaiotzeData = new JTextField();
-		txtJaiotzeData.setColumns(10);
-		txtJaiotzeData.setBounds(499, 396, 277, 25);
-		contentPane.add(txtJaiotzeData);
-		
 		JLabel lblHizkuntza = new JLabel("Hizkuntza:");
 		lblHizkuntza.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblHizkuntza.setBounds(141, 341, 91, 26);
@@ -185,10 +185,10 @@ public class ErregistroaNireProfilaV extends JFrame {
 		btnAtzera.setFocusPainted(false);
 		contentPane.add(btnAtzera);
 		
-		JLabel lblDataformatuaYyyymmdd = new JLabel("* Data-formatua -> YYYY-MM-DD");
-		lblDataformatuaYyyymmdd.setFont(new Font("Sitka Text", Font.ITALIC, 13));
-		lblDataformatuaYyyymmdd.setBounds(537, 282, 239, 26);
-		contentPane.add(lblDataformatuaYyyymmdd);
+		JLabel lblErabiltzaileWarning = new JLabel("* Hau ezin izango duzu aldatu etorkizunean\n");
+		lblErabiltzaileWarning.setFont(new Font("Sitka Text", Font.ITALIC, 13));
+		lblErabiltzaileWarning.setBounds(558, 160, 277, 26);
+		contentPane.add(lblErabiltzaileWarning);
 		
 		JButton btnPremiumErosi = new JButton("Premium erosi");
 		btnPremiumErosi.setForeground(Color.BLUE);
@@ -197,9 +197,22 @@ public class ErregistroaNireProfilaV extends JFrame {
 		btnPremiumErosi.setFocusPainted(false);
 		contentPane.add(btnPremiumErosi);
 		
-		JDateChooser dateChooser = new JDateChooser();
+		Date maxdata = new Date(110, 0, 1);
+		JDateChooser dateChooser = new JDateChooser(maxdata);
 		dateChooser.setBounds(250, 281, 256, 26);
+		dateChooser.setLocale(new Locale("es"));
+		dateChooser.setDateFormatString("yyyy-MM-dd");
+		dateChooser.setMaxSelectableDate(maxdata);
+		Date mindata = new Date(0);
+		mindata.setYear(1900 - 1900);
+		dateChooser.getJCalendar().setMinSelectableDate(mindata);
+		dateChooser.getDateEditor().getUiComponent().setFocusable(false);
 		contentPane.add(dateChooser);
+		
+		JLabel lblUrte = new JLabel("* 14 urte minimo izan behar dituzu");
+		lblUrte.setFont(new Font("Sitka Text", Font.ITALIC, 13));
+		lblUrte.setBounds(540, 281, 277, 26);
+		contentPane.add(lblUrte);
 		
 		JLabel lblIraungitzeData = new JLabel("Premium iraungintze-data:");
 		lblIraungitzeData.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -235,14 +248,17 @@ public class ErregistroaNireProfilaV extends JFrame {
 			lblErregistroa.setText("");
 			btnAtzera.setText("Menua");
 			lblErregistroa.setBounds(0, 2, 100, 2);
+			
 			// TEXT FIELD GUZTIETAN SARTU DATUAK
 			txtIzena.setText(SesioAldagaiak.bezeroa_logeatuta.getIzena());
 			txtAbizenak.setText(SesioAldagaiak.bezeroa_logeatuta.getAbizena());
 			txtErabiltzaile.setText(SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea());
 			passwordField.setText(SesioAldagaiak.bezeroa_logeatuta.getPasahitza());
-//			System.out.println(SesioAldagaiak.bezeroa_logeatuta.getJaiotze_data());
-//			txtJaiotzeData.setText(View_metodoak.dateToString(SesioAldagaiak.bezeroa_logeatuta.getJaiotze_data()));
+
+			// JAIOTZE DATAK SARTU
 			dateChooser.setDate(SesioAldagaiak.bezeroa_logeatuta.getJaiotze_data());
+
+			
 			for (int i = 0; i < hizkuntzakList.size(); i++) {
 				if (hizkuntzakList.get(i).getId().equals(SesioAldagaiak.bezeroa_logeatuta.getHizkuntza())) {
 					comboBoxHizkuntza.setSelectedItem(hizkuntzakList.get(i).getDeskribapena());
@@ -274,13 +290,12 @@ public class ErregistroaNireProfilaV extends JFrame {
 				hizkuntzaSt = hizkuntzakList.get(hiz).getId();
 				char[] charPass = passwordField.getPassword();
 		        String passwdErabil = new String(charPass);
+		        
 				try {
-					SesioAldagaiak.bezeroa_logeatuta = new Erabiltzailea(txtErabiltzaile.getText()+"&", txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, View_metodoak.stringToDate(txtJaiotzeData.getText()));
+					SesioAldagaiak.bezeroa_logeatuta = new Erabiltzailea(txtErabiltzaile.getText()+"&", txtErabiltzaile.getText(), passwdErabil, txtIzena.getText(), txtAbizenak.getText(), hizkuntzaSt, dateChooser.getDate());
 					ErregistroNireProfilaDAO.updateNireProfilaDatuak(SesioAldagaiak.bezeroa_logeatuta);
 					dispose();
 					JFrameSortu.menuaBezeroa();
-				} catch (ParseException e1) {
-					e1.printStackTrace();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -374,8 +389,12 @@ public class ErregistroaNireProfilaV extends JFrame {
 							JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 						} else {
 							// JAIOTZE DATA HARTU ETA PARSEATU + BALIDAZIOA
-							try {
-								String dateInString = txtJaiotzeData.getText();
+							try {	
+								Date sartutakoData = dateChooser.getDate();
+								
+								System.out.println(sartutakoData);
+								
+								String dateInString = View_metodoak.dateToString(sartutakoData);
 								View_metodoak.dataBalidatu(dateInString);
 								String DateSplit[] = dateInString.split("-");
 								dateJaioData = new Date((Integer.parseInt(DateSplit[0])-1900),(Integer.parseInt(DateSplit[1])-1),Integer.parseInt(DateSplit[2]));
@@ -403,7 +422,6 @@ public class ErregistroaNireProfilaV extends JFrame {
 									JOptionPane.showMessageDialog(null, "Errorea egon da datu basearen konexioarekin!", "Errorea", JOptionPane.ERROR_MESSAGE);
 									e1.printStackTrace();
 								} catch (ErabiltzaileBalidazioaException e1) {
-									e1.printStackTrace();
 									txtErabiltzaile.setText("");
 								}
 							} else {
@@ -450,8 +468,9 @@ public class ErregistroaNireProfilaV extends JFrame {
 						JOptionPane.showMessageDialog(null, "Formularioa bete behar duzu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 					} else {
 						// JAIOTZE DATA HARTU ETA PARSEATU + BALIDAZIOA
-						try {
-							String dateInString = txtJaiotzeData.getText();
+						try {	
+							Date sartutakoData = dateChooser.getDate();
+							String dateInString = View_metodoak.dateToString(sartutakoData);
 							View_metodoak.dataBalidatu(dateInString);
 							String DateSplit[] = dateInString.split("-");
 							dateJaioData = new Date((Integer.parseInt(DateSplit[0])-1900),(Integer.parseInt(DateSplit[1])-1),Integer.parseInt(DateSplit[2]));
@@ -470,12 +489,9 @@ public class ErregistroaNireProfilaV extends JFrame {
 								dispose();
 							} catch (ClassNotFoundException e1) {
 								JOptionPane.showMessageDialog(null, "Errorea egon da erregistratzean!", "Errorea", JOptionPane.ERROR_MESSAGE);
-								e1.printStackTrace();
 							} catch (SQLException e1) {
 								JOptionPane.showMessageDialog(null, "Errorea egon da datu basearen konexioarekin!", "Errorea", JOptionPane.ERROR_MESSAGE);
-								e1.printStackTrace();
 							} catch (ErabiltzaileBalidazioaException e1) {
-								e1.printStackTrace();
 								txtErabiltzaile.setText("");
 							}
 						} else {
