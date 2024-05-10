@@ -17,6 +17,7 @@ public class Abestia extends Audio {
 	 */
 	public Abestia(String titulua, Blob irudia, String iraupena) {
 		super(titulua, irudia, iraupena);
+		System.out.println("1");
 	}
 
 	/**
@@ -29,6 +30,7 @@ public class Abestia extends Audio {
 	 */
 	public Abestia(String idAudio, String titulua, String iraupena, int erreprodukzioak) {
 		super(idAudio, titulua, iraupena, erreprodukzioak);
+		System.out.println("2");
 	}
 
 	/**
@@ -40,6 +42,7 @@ public class Abestia extends Audio {
 	 */
 	public Abestia(String idAudio, String titulua, String iraupena) {
 		super(idAudio, titulua, iraupena);
+		System.out.println("3");
 	}
 
 
@@ -50,6 +53,7 @@ public class Abestia extends Audio {
 	 */
 	public Abestia(Blob irudia) {
 		super(irudia);
+		System.out.println("4");
 	}
 
 }
