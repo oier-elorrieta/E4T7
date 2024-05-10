@@ -54,6 +54,7 @@ public class ErreprodukzioaV extends JFrame {
 	private boolean listaAmaiera = false;
 	private ArrayList<Abestia> abestiList;
 	private boolean aurrekoListaamaitu = false;
+	private boolean like;
 	
 	/**
 	 * Create the frame.
@@ -159,7 +160,15 @@ public class ErreprodukzioaV extends JFrame {
 		btnHurrengoa.setFocusPainted(false);
 		contentPane.add(btnHurrengoa);
 		
-		JButton btnGustukoa = new JButton("🖤");
+		JButton btnGustukoa;
+		like = MenuaPlaylistSartuAbestiakDAO.gustokoaKargatu(abesti);
+		if (like) {
+			btnGustukoa = new JButton("🖤");
+		} else {
+			btnGustukoa = new JButton("💔");
+			
+		}
+		
 		btnGustukoa.setSelectedIcon(null);
 		btnGustukoa.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 18));
 		btnGustukoa.setBounds(620, 458, 121, 34);
@@ -179,7 +188,6 @@ public class ErreprodukzioaV extends JFrame {
 		lblInfoLista.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 15));
 		lblInfoLista.setBounds(0, 503, 890, 23);
 		contentPane.add(lblInfoLista);
-
 		
 		AudioInputStream aui;
 		
@@ -464,13 +472,14 @@ public class ErreprodukzioaV extends JFrame {
 		btnGustukoa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				boolean like = false;
 				try {
 					like = MenuaPlaylistSartuAbestiakDAO.gustokoaKargatu(abesti);
 					if (like) {
-						btnGustukoa.setText("🖤");
-					} else {
 						btnGustukoa.setText("💔");
+						MenuaPlaylistSartuAbestiakDAO.gustokoaEzabatu(abesti);
+					} else {
+						btnGustukoa.setText("🖤");
+						MenuaPlaylistSartuAbestiakDAO.gustokoanGorde(abesti);
 						
 					}
 					    

@@ -66,17 +66,22 @@ public class MenuaPlaylistSartuAbestiakDAO {
 	 *                      ezkero.
 	 */
 	public static boolean gustokoaKargatu(Abestia abesti) throws SQLException {
+		boolean dago = false;
+		int kanta;
 		Konexioa.konexioaIreki();
-		String SQLquery = "SELECT IdAudio FROM gustukoak WHERE IdAudio = '" + abesti.getIdAudio() + "' AND IDBezeroa = '" + SesioAldagaiak.bezeroa_logeatuta.getIdBezeroa() + "';";
+		String SQLquery = "SELECT count(IdAudio) FROM gustukoak WHERE IdAudio = '" + abesti.getIdAudio() + "' AND IDBezeroa = '" + SesioAldagaiak.bezeroa_logeatuta.getIdBezeroa() + "';";
 		ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
 		
-		if (!emaitza.next()) {
-			gustokoanGorde(abesti);
-			return true;
-		} else {
-			gustokoaEzabatu(abesti);
-			return false;
+		if(emaitza.next()){
+			kanta = emaitza.getInt("count(IdAudio)");
+			if (kanta == 1) {
+				dago = true;
+			} else if (kanta == 0) {
+				dago = false;
+			}
 		}
+		Konexioa.konexioaItxi();
+		return dago;
 	}
 	
 	/**
