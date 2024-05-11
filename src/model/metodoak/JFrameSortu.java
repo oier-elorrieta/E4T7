@@ -216,4 +216,16 @@ public class JFrameSortu {
 		PlaylistAbestiakV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		PlaylistAbestiakV.setVisible(true);
 	}
+
+	public static void adminMenua() {
+		AdminMenuaV adminMenua = new AdminMenuaV();
+        adminMenua.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        adminMenua.setVisible(true);
+	}
+	
+	public static void estatistikakAdminMenua() {
+		EstatistikakAdminMenuaV estatistikakAdminMenua = new EstatistikakAdminMenuaV();
+		estatistikakAdminMenua.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		estatistikakAdminMenua.setVisible(true);
+	}
 }

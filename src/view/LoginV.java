@@ -189,6 +189,16 @@ public class LoginV extends JFrame {
 	                txtFErabiltzaile.setText("");
 	                passwordField.setText("");
 	            }
+	        } else {
+				if (txtErabil.equals("admin") && passwdErabil.equals("12345")) {
+					dispose();
+					JFrameSortu.adminMenua();
+				} else {
+					JOptionPane.showMessageDialog(null, "Erabiltzailea edo pasahitza txarto dago.", "Errorea",
+							JOptionPane.ERROR_MESSAGE);
+					txtFErabiltzaile.setText("");
+					passwordField.setText("");
+				}
 	        }
 		}
 }
