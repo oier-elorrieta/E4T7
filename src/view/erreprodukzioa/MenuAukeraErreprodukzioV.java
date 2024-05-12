@@ -1,4 +1,4 @@
-package view;
+package view.erreprodukzioa;
 
 import java.awt.EventQueue;
 
@@ -12,6 +12,7 @@ import model.Artista;
 import model.metodoak.FilesMetodoak;
 import model.metodoak.JFrameSortu;
 import model.metodoak.View_metodoak;
+import view.LoginV;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -39,6 +40,7 @@ public class MenuAukeraErreprodukzioV extends JFrame {
 		setBounds(408, 643, 288, 189);
 		setResizable(false);
 		setUndecorated(true);
+		toFront();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

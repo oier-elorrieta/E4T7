@@ -1,4 +1,4 @@
-package view;
+package view.erreprodukzioa;
 
 import java.awt.EventQueue;
 
@@ -16,6 +16,7 @@ import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
 import model.sql.DiskaAbestiakDAO;
 import model.sql.PodcasterListDAO;
+import view.LoginV;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

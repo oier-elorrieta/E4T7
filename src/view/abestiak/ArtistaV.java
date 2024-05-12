@@ -1,4 +1,4 @@
-package view;
+package view.abestiak;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.sound.sampled.LineUnavailableException;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -28,21 +27,19 @@ import javax.swing.border.LineBorder;
 import model.Album;
 import model.Artista;
 import model.Musikaria;
-import model.Podcast;
-import model.Podcaster;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
 import model.sql.ArtistaDiskaDAO;
 import model.sql.ArtistaListDAO;
 import model.sql.Konexioa;
-import model.sql.PodcasterListDAO;
+import view.LoginV;
 
 import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class PodcasterV extends JFrame {
+public class ArtistaV extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -52,16 +49,16 @@ public class PodcasterV extends JFrame {
 	 * Create the frame.
 	 * @throws SQLException 
 	 */
-	public PodcasterV(Artista artista) throws SQLException {
+	public ArtistaV(Artista artista) throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
+		setResizable(false);
 		if (SesioAldagaiak.e_premium) {
 			setTitle(artista.getIzena() + " - JPAM Music PREMIUM");
 		} else {
 			setTitle(artista.getIzena() + " - JPAM Music FREE");
 		}
 		
-		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -87,81 +84,81 @@ public class PodcasterV extends JFrame {
 		lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezeroa_logeatuta.getIzena() + "!");
 		contentPane.add(lblUserizena);
 		
-		JLabel lblAukeratuAlbumBat = new JLabel("Aukeratu episodio bat:");
+		JLabel lblAukeratuAlbumBat = new JLabel("Aukeratu album bat:");
 		lblAukeratuAlbumBat.setFont(new Font("Trebuchet MS", Font.BOLD, 17));
 		lblAukeratuAlbumBat.setBounds(115, 67, 187, 23);
 		contentPane.add(lblAukeratuAlbumBat);
 		
-		JList<Podcast> PodcastList = new JList();
+		JList<Album> AlbumList = new JList();
 		
-		PodcastList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		PodcastList.setFont(new Font("Verdana", Font.BOLD, 16));
-		PodcastList.setBorder(new LineBorder(new Color(0, 0, 0)));
-		PodcastList.setBounds(18, 101, 405, 416);
+		AlbumList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		AlbumList.setFont(new Font("Verdana", Font.BOLD, 16));
+		AlbumList.setBorder(new LineBorder(new Color(0, 0, 0)));
+		AlbumList.setBounds(18, 101, 405, 416);
 		
 		Konexioa.konexioaIreki();
-		ArrayList<Podcast> PodcastJList = PodcasterListDAO.podcastKargatu(artista);
+		ArrayList<Album> AlbumakJList = ArtistaDiskaDAO.albumAbestiakKargatu(artista);
 		
-		DefaultListModel<Podcast> modelPodcast = new DefaultListModel<Podcast>();
+		DefaultListModel<Album> modelAlbum = new DefaultListModel<Album>();
 		
-		for (int i = 0; i < PodcastJList.size(); i++) {
-			modelPodcast.addElement(PodcastJList.get(i));
+		for (int i = 0; i < AlbumakJList.size(); i++) {
+			modelAlbum.addElement(AlbumakJList.get(i));
 		}
-		PodcastList.setModel(modelPodcast);
-		contentPane.add(PodcastList);
+		AlbumList.setModel(modelAlbum);
+		contentPane.add(AlbumList);
 		
-		Podcaster podcasterInformazioa = PodcasterListDAO.podcasterInfoKargatu(artista);
+		Musikaria artistInformazioa = ArtistaDiskaDAO.irudiaDeskribapenaKargatu(artista);
 		
-		JLabel lblArtista = new JLabel("PODCASTER - " + artista.getIzena());
+		JLabel lblArtista = new JLabel("ARTISTA - " + artista.getIzena());
 		lblArtista.setHorizontalAlignment(SwingConstants.CENTER);
 		lblArtista.setFont(new Font("Tahoma", Font.BOLD, 22));
 		lblArtista.setBounds(-1, 25, 890, 27);
 		contentPane.add(lblArtista);
 		
-		JLabel lblArtistarenInformazioa = new JLabel("Podcaster informazioa:");
+		JLabel lblArtistarenInformazioa = new JLabel("Artistaren informazioa:");
 		lblArtistarenInformazioa.setFont(new Font("Trebuchet MS", Font.BOLD, 17));
 		lblArtistarenInformazioa.setBounds(488, 67, 208, 23);
 		contentPane.add(lblArtistarenInformazioa);
 		
-		JLabel lblArgazkia = new JLabel(""); 
+		
+		JLabel lblArgazkia = new JLabel("");
 		lblArgazkia.setHorizontalAlignment(SwingConstants.CENTER);
 		lblArgazkia.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblArgazkia.setBounds(517, 99, 298, 214);
-		contentPane.add(lblArgazkia);
-		ImageIcon argazkiaPodcaster = new ImageIcon(podcasterInformazioa.getIrudia().getBytes(1, (int) podcasterInformazioa.getIrudia().length()));
-		Image img = argazkiaPodcaster.getImage();
+		ImageIcon argazkiaArtist = new ImageIcon(artistInformazioa.getIrudia().getBytes(1, (int) artistInformazioa.getIrudia().length()));
+        Image img = argazkiaArtist.getImage();
         Image imgScale = img.getScaledInstance(lblArgazkia.getWidth(), lblArgazkia.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon argazkia = new ImageIcon(imgScale);
-		lblArgazkia.setIcon(argazkia);
-		
+        lblArgazkia.setIcon(argazkia);
+		contentPane.add(lblArgazkia);
 		
 		JButton btnJarraitu = new JButton("Jarraitu");
 		btnJarraitu.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 19));
-		btnJarraitu.setFocusPainted(false);
 		btnJarraitu.setBounds(678, 501, 143, 40);
+		btnJarraitu.setFocusPainted(false);
 		contentPane.add(btnJarraitu);
 		
 		JTextPane txtInformazioa = new JTextPane();
 		txtInformazioa.setEditable(false);
 		txtInformazioa.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		txtInformazioa.setBounds(466, 282, 392, 215);
-		txtInformazioa.setText("Deskribapena: \n" + podcasterInformazioa.getDeskribapena());
+		txtInformazioa.setText("Deskribapena: \n" + artistInformazioa.getDeskribapena());
 		scrollPane.setViewportView(txtInformazioa);
 		
 		// JARRAITU BOTOIA
 		btnJarraitu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Podcast PodcastSelected = PodcastList.getSelectedValue();
+				Album albumSelected = AlbumList.getSelectedValue();
 				
-				if (PodcastSelected == null) {
-					JOptionPane.showMessageDialog(null, "Ez duzu podcast bat aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
+				if (albumSelected == null) {
+					JOptionPane.showMessageDialog(null, "Ez duzu album bat aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {
-					Podcast podcastAuxSelected = new Podcast(PodcastSelected.getTitulua(), PodcastSelected.getIrudia(), PodcastSelected.getIraupena(), PodcastSelected.getKolaboratzaile());
+					Album albumAuxSelected = new Album(albumSelected.getIzenburua(), albumSelected.getUrtea(), albumSelected.getKantaTotala(), albumSelected.getGeneroa());
 					dispose();
 					try {
-						JFrameSortu.erreprodukzioLehioaPodcast(artista, podcastAuxSelected);
-					} catch (SQLException | LineUnavailableException e1) {
+						JFrameSortu.albumKantakBezeroa(albumAuxSelected, artista);
+					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
 				}
@@ -174,7 +171,7 @@ public class PodcasterV extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				try {
-					JFrameSortu.podcastDeskubrituBezeroa();
+					JFrameSortu.musikaDeskubrituBezeroa();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -184,10 +181,10 @@ public class PodcasterV extends JFrame {
 		// NIRE PROFILA BOTOIA
 		btnNireProfila.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
 				try {
 					setVisible(false);
-					JFrameSortu.erregistroMenua(PodcasterV.this);
+					JFrameSortu.erregistroMenua(ArtistaV.this);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

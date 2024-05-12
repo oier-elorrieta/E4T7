@@ -1,4 +1,4 @@
-package view;
+package view.erreprodukzioa;
 
 import java.awt.EventQueue;
 
@@ -24,6 +24,7 @@ import model.sql.ArtistaDiskaDAO;
 import model.sql.DiskaAbestiakDAO;
 import model.sql.IragarkiLehioaDAO;
 import model.sql.MenuaPlaylistSartuAbestiakDAO;
+import view.LoginV;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

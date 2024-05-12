@@ -1,4 +1,4 @@
-package view;
+package view.abestiak;
 
 import java.awt.EventQueue;
 
@@ -22,6 +22,7 @@ import model.metodoak.View_metodoak;
 import model.sql.ArtistaDiskaDAO;
 import model.sql.DiskaAbestiakDAO;
 import model.sql.Konexioa;
+import view.LoginV;
 
 import javax.swing.JLabel;
 import java.awt.Font;

@@ -1,4 +1,4 @@
-package view;
+package view.admin;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
+import view.LoginV;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -85,7 +87,8 @@ public class AdminMenuaV extends JFrame {
 		// MUSIKA KUDEATU BOTOIA
 		btnMusikaKudeatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
+				JFrameSortu.adminMusikaKudeatu();
 			}
 		});
 		
@@ -100,7 +103,7 @@ public class AdminMenuaV extends JFrame {
 		btnEstatistikak.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				JFrameSortu.estatistikakAdminMenua();
+				JFrameSortu.adminEstatistikakMenua();
 			}
 		});
 	}

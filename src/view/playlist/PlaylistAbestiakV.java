@@ -1,4 +1,4 @@
-package view;
+package view.playlist;
 
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -19,6 +19,7 @@ import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
 import model.sql.PlaylistAbestiakDAO;
+import view.LoginV;
 
 import javax.swing.JLabel;
 import java.awt.Font;

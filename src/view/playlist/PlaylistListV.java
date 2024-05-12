@@ -1,4 +1,4 @@
-package view;
+package view.playlist;
 
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -23,6 +23,7 @@ import model.metodoak.View_metodoak;
 import model.sql.DiskaAbestiakDAO;
 import model.sql.Konexioa;
 import model.sql.PlayListDAO;
+import view.LoginV;
 
 import javax.swing.JLabel;
 import java.awt.Font;

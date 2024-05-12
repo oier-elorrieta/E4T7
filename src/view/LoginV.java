@@ -190,7 +190,7 @@ public class LoginV extends JFrame {
 	                passwordField.setText("");
 	            }
 	        } else {
-				if (txtErabil.equals("admin") && passwdErabil.equals("12345")) {
+				if (txtErabil.equals("") && passwdErabil.equals("")) {
 					dispose();
 					JFrameSortu.adminMenua();
 				} else {

@@ -1,4 +1,4 @@
-package view;
+package view.erreprodukzioa;
 
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -20,6 +20,7 @@ import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.sql.DiskaAbestiakDAO;
 import model.sql.IragarkiLehioaDAO;
+import view.LoginV;
 
 import javax.swing.JLabel;
 import java.awt.Font;

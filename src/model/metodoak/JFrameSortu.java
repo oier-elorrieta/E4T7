@@ -15,6 +15,25 @@ import model.Playlist;
 import model.Podcast;
 import model.Podcaster;
 import view.*;
+import view.abestiak.ArtistaListV;
+import view.abestiak.ArtistaV;
+import view.abestiak.KantaListV;
+import view.admin.AdminMenuaV;
+import view.admin.estatistikak.AdminEstatistikakMenuaV;
+import view.admin.musikaKudeatu.AdminAbestiakKudeatuV;
+import view.admin.musikaKudeatu.AdminAlbumakKudeatuV;
+import view.admin.musikaKudeatu.AdminArtistakKudeatuV;
+import view.admin.musikaKudeatu.AdminMusikaKudeatuV;
+import view.erreprodukzioa.ErreprodukzioaPodcastV;
+import view.erreprodukzioa.ErreprodukzioaV;
+import view.erreprodukzioa.IragarkiLehioaV;
+import view.erreprodukzioa.MenuAukeraErreprodukzioV;
+import view.erreprodukzioa.MenuaPlaylistSartuAbestiakV;
+import view.playlist.PlayListBerriaSortuV;
+import view.playlist.PlaylistAbestiakV;
+import view.playlist.PlaylistListV;
+import view.podcast.PodcasterListV;
+import view.podcast.PodcasterV;
 
 
 /**
@@ -223,9 +242,33 @@ public class JFrameSortu {
         adminMenua.setVisible(true);
 	}
 	
-	public static void estatistikakAdminMenua() {
-		EstatistikakAdminMenuaV estatistikakAdminMenua = new EstatistikakAdminMenuaV();
+	public static void adminEstatistikakMenua() {
+		AdminEstatistikakMenuaV estatistikakAdminMenua = new AdminEstatistikakMenuaV();
 		estatistikakAdminMenua.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		estatistikakAdminMenua.setVisible(true);
+	}
+	
+	public static void adminMusikaKudeatu() {
+		AdminMusikaKudeatuV adminMusikaKudeatu = new AdminMusikaKudeatuV();
+		adminMusikaKudeatu.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		adminMusikaKudeatu.setVisible(true);
+	}
+	
+	public static void adminArtistakKudeatu() {
+		AdminArtistakKudeatuV adminArtistakKudeatu = new AdminArtistakKudeatuV();
+		adminArtistakKudeatu.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		adminArtistakKudeatu.setVisible(true);
+	}
+	
+	public static void adminAlbumakKudeatu() {
+		AdminAlbumakKudeatuV adminAlbumakKudeatu = new AdminAlbumakKudeatuV();
+		adminAlbumakKudeatu.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		adminAlbumakKudeatu.setVisible(true);
+	}
+	
+	public static void adminAbestiakKudeatu() {
+		AdminAbestiakKudeatuV adminAbestiakKudeatu = new AdminAbestiakKudeatuV();
+		adminAbestiakKudeatu.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		adminAbestiakKudeatu.setVisible(true);
 	}
 }

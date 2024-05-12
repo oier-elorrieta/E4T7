@@ -1,4 +1,4 @@
-package view;
+package view.erreprodukzioa;
 
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -16,6 +16,7 @@ import model.Playlist;
 import model.metodoak.SesioAldagaiak;
 import model.sql.DiskaAbestiakDAO;
 import model.sql.MenuaPlaylistSartuAbestiakDAO;
+import view.LoginV;
 
 import javax.swing.JLabel;
 import java.awt.Font;

@@ -1,4 +1,4 @@
-package view;
+package view.admin.estatistikak;
 
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -11,13 +11,14 @@ import javax.swing.border.EmptyBorder;
 
 import model.metodoak.JFrameSortu;
 import model.metodoak.View_metodoak;
+import view.LoginV;
 
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
-public class EstatistikakAdminMenuaV extends JFrame {
+public class AdminEstatistikakMenuaV extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -25,10 +26,10 @@ public class EstatistikakAdminMenuaV extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public EstatistikakAdminMenuaV() {
+	public AdminEstatistikakMenuaV() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
-		setTitle("Estatistikak menua - JPAM Music");
+		setTitle("Estatistikak menua - ADMIN - JPAM Music");
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane = new JPanel();
@@ -81,6 +82,34 @@ public class EstatistikakAdminMenuaV extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				JFrameSortu.adminMenua();
+			}
+		});
+
+		// TOP GUSTUKO ABESTIAK BOTOIA
+		btnTopGustukoAbestiak.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		// TOP GUSTUKO PODCAST BOTOIA
+		btnTopGustukoPodcast.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		// TOP ENTZUNDAKOAK BOTOIA
+		btnTopEntzundakoak.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		// TOP PLAYLIST BOTOIA
+		btnTopPlaylist.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 	}
