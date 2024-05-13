@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import model.Abestia;
 import model.Playlist;
 import model.metodoak.SesioAldagaiak;
@@ -102,6 +104,19 @@ public class PlayListDAO {
             e.printStackTrace();
         } finally {
             Konexioa.konexioaItxi();
+        }
+	}
+	
+	public static void ezabatuAbestiaPlaylist(Playlist playlist, Abestia abestia) {
+		Konexioa.konexioaIreki();
+        String SQLquery = "DELETE FROM playlist_abestiak WHERE IDList = " + playlist.getIdPlaylist() + " AND IDAudio = " + abestia.getIdAudio() + ";";
+        try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery)) {
+            preparedStatement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Abestia ezabatu da " + playlist.getTitulua() + " playlistik.", "Ezabatu abestia", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Ezin izan da abestia ezabatu.", "Errorea", JOptionPane.ERROR_MESSAGE);
+        } finally {
+        	Konexioa.konexioaItxi();
         }
 	}
 }

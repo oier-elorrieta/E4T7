@@ -16,4 +16,5 @@ public class SesioAldagaiak {
 	public static boolean logeatuta = false;
 	public static boolean skip_abestia = true;
 	public static boolean iragarkiaIpini = true;
+	public static boolean playlist_erreprodukzioa = false;
 }

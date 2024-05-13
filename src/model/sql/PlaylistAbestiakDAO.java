@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import model.Abestia;
 import model.Album;
+import model.Artista;
+import model.Musikaria;
 import model.Playlist;
 import model.metodoak.SesioAldagaiak;
 
@@ -14,7 +16,7 @@ public class PlaylistAbestiakDAO {
 	public static ArrayList<Abestia> abestiakPlaylistKargatu(Playlist playlist) throws SQLException {
 		ArrayList<Abestia> abestiakListPlaylist = new ArrayList<Abestia>();
         Konexioa.konexioaIreki();
-        String SQLquery = "SELECT IdAudio, abestiIzena, iraupena FROM playlistAbestiakInfo WHERE IDList = '" + playlist.getIdPlaylist() + "';";
+        String SQLquery = "SELECT IdAudio, abestiIzena, iraupena, Irudia FROM playlistAbestiakInfo WHERE IDList = '" + playlist.getIdPlaylist() + "';";
         try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery);
                 ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
@@ -28,14 +30,66 @@ public class PlaylistAbestiakDAO {
         return abestiakListPlaylist;
 	}
 	
+	public static Abestia abestiaIrudiaKargatu(Playlist playlist, String idAudio) throws SQLException {
+		Abestia irudiakAbestiakPlaylist = null;
+        Konexioa.konexioaIreki();
+        String SQLquery = "SELECT Irudia FROM playlistAbestiakInfo WHERE IDList = '" + playlist.getIdPlaylist() + "' and IdAudio = '";
+        try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery);
+                ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+            	irudiakAbestiakPlaylist = new Abestia(resultSet.getBlob("Irudia"));
+            }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Konexioa.konexioaItxi();
+		}
+        return irudiakAbestiakPlaylist;
+	}
+	
+	public static ArrayList<Artista> abestiakArtistakPlaylistKargatu(Playlist playlist) throws SQLException {
+		ArrayList<Artista> artistakListPlaylist = new ArrayList<Artista>();
+        Konexioa.konexioaIreki();
+        String SQLquery = "SELECT artistaIzena FROM playlistAbestiakInfo WHERE IDList = '" + playlist.getIdPlaylist() + "';";
+        try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery);
+                ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+            	artistakListPlaylist.add(new Musikaria(resultSet.getString("artistaIzena")));
+            }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Konexioa.konexioaItxi();
+		}
+        return artistakListPlaylist;
+	}
+	
+	
+	public static ArrayList<Album> albumAbestiakPlaylistKargatu(Playlist playlist) throws SQLException {
+		ArrayList<Album> albumAbestiakListPlaylist = new ArrayList<Album>();
+        Konexioa.konexioaIreki();
+        String SQLquery = "SELECT albumIzena, albumGeneroa, albumUrtea FROM playlistAbestiakInfo WHERE IDList = '" + playlist.getIdPlaylist() + "';";
+        try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery);
+                ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+            	albumAbestiakListPlaylist.add(new Album(resultSet.getString("albumIzena"), resultSet.getString("albumUrtea"), resultSet.getString("albumGeneroa")));
+            }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Konexioa.konexioaItxi();
+		}
+        return albumAbestiakListPlaylist;
+	}
+	
 	public static ArrayList<Abestia> gustukoAbestiakKargatu(Playlist playlist) throws SQLException {
 		ArrayList<Abestia> abestiakListGustukoakPlaylist = new ArrayList<Abestia>();
 		Konexioa.konexioaIreki();
-		String SQLquery = "SELECT * FROM gustukoak join audio using(IdAudio) WHERE IDBezeroa = '" + SesioAldagaiak.bezeroa_logeatuta.getIdBezeroa() + "';";
+		String SQLquery = "SELECT * FROM gustukoak join AbestiInformazioa using (IdAudio) join audio using(IdAudio) WHERE IDBezeroa = '" + SesioAldagaiak.bezeroa_logeatuta.getIdBezeroa() + "';";
 		try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery);
 				ResultSet resultSet = preparedStatement.executeQuery()) {
 			while (resultSet.next()) {
-				abestiakListGustukoakPlaylist.add(new Abestia(resultSet.getString("Izena"), resultSet.getBlob("Irudia"),
+				abestiakListGustukoakPlaylist.add(new Abestia(resultSet.getString("Abesti izena"), resultSet.getBlob("Irudia"),
 						resultSet.getString("Iraupena")));
 			}
 		} catch (SQLException e) {
@@ -45,23 +99,40 @@ public class PlaylistAbestiakDAO {
 		}
 		return abestiakListGustukoakPlaylist;
 	}
-	/*
-	public static ArrayList<Album> albumAbestiakPlaylistKargatu(Playlist playlist) throws SQLException {
-		ArrayList<Album> albumAbestiakListPlaylist = new ArrayList<Album>();
-        Konexioa.konexioaIreki();
-        String SQLquery = "SELECT * FROM playlistAbestiakInfo WHERE IDList = '" + playlist.getIdPlaylist() + "';";
-        try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery);
-                ResultSet resultSet = preparedStatement.executeQuery()) {
-            while (resultSet.next()) {
-            	albumAbestiakListPlaylist.add(new Album());
-            }
+	
+	public static ArrayList<Album> gustukoAlbumAbestiakKargatu(Playlist playlist) throws SQLException {
+		ArrayList<Album> abestiakAlbumListGustukoakPlaylist = new ArrayList<Album>();
+		Konexioa.konexioaIreki();
+		String SQLquery = "SELECT * FROM gustukoak join AbestiInformazioa using (IdAudio) join audio using(IdAudio) WHERE IDBezeroa = '" + SesioAldagaiak.bezeroa_logeatuta.getIdBezeroa() + "';";
+		try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery);
+				ResultSet resultSet = preparedStatement.executeQuery()) {
+			while (resultSet.next()) {
+				abestiakAlbumListGustukoakPlaylist.add(new Album(resultSet.getString("Izenburua")));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			Konexioa.konexioaItxi();
 		}
-        return albumAbestiakListPlaylist;
-	}*/
+		return abestiakAlbumListGustukoakPlaylist;
+	}
+	
+	public static ArrayList<Artista> gustukoArtistaAbestiakKargatu(Playlist playlist) throws SQLException {
+		ArrayList<Artista> abestiakArtistaListGustukoakPlaylist = new ArrayList<Artista>();
+		Konexioa.konexioaIreki();
+		String SQLquery = "SELECT * FROM gustukoak join AbestiInformazioa using (IdAudio) join audio using(IdAudio) WHERE IDBezeroa = '" + SesioAldagaiak.bezeroa_logeatuta.getIdBezeroa() + "';";
+		try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery);
+				ResultSet resultSet = preparedStatement.executeQuery()) {
+			while (resultSet.next()) {
+				abestiakArtistaListGustukoakPlaylist.add(new Musikaria(resultSet.getString("Artista izena")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Konexioa.konexioaItxi();
+		}
+		return abestiakArtistaListGustukoakPlaylist;
+	}
 	
 	public static Abestia irudiakAbestiakPlaylistKargatu(Playlist playlist) throws SQLException {
 		Abestia abestiIrudia = null;

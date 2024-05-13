@@ -23,6 +23,8 @@ import model.metodoak.View_metodoak;
 import model.sql.DiskaAbestiakDAO;
 import model.sql.Konexioa;
 import model.sql.PlayListDAO;
+import model.sql.PlaylistBerriaSortuDAO;
+import salbuespenak.PlaylistEzinSortuException;
 import view.LoginV;
 
 import javax.swing.JLabel;
@@ -164,7 +166,6 @@ public class PlaylistListV extends JFrame {
 		// NIRE PROFILA BOTOIA
 		btnNireProfila.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				try {
 					setVisible(false);
 					JFrameSortu.erregistroMenua(PlaylistListV.this);
@@ -197,8 +198,20 @@ public class PlaylistListV extends JFrame {
 		btnBerriaSortu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				dispose();
-				JFrameSortu.playListBerriaSortu();
+				try {
+					if (!SesioAldagaiak.e_premium && PlaylistBerriaSortuDAO.konprobatuPlaylistKopurua() >= 3) {
+                        throw new PlaylistEzinSortuException();
+					} else {
+						dispose();
+						JFrameSortu.playListBerriaSortu();
+					}
+				} catch (PlaylistEzinSortuException e1) {
+
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, "Errorea egon da datu basearekin.", "Catastrophic Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				
 			}
 		});
 		

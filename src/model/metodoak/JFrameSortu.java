@@ -29,6 +29,7 @@ import view.erreprodukzioa.ErreprodukzioaV;
 import view.erreprodukzioa.IragarkiLehioaV;
 import view.erreprodukzioa.MenuAukeraErreprodukzioV;
 import view.erreprodukzioa.MenuaPlaylistSartuAbestiakV;
+import view.playlist.MenuaPlaylistAbestiakV;
 import view.playlist.PlayListBerriaSortuV;
 import view.playlist.PlaylistAbestiakV;
 import view.playlist.PlaylistListV;
@@ -270,5 +271,11 @@ public class JFrameSortu {
 		AdminAbestiakKudeatuV adminAbestiakKudeatu = new AdminAbestiakKudeatuV();
 		adminAbestiakKudeatu.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		adminAbestiakKudeatu.setVisible(true);
+	}
+
+	public static void menuaPlaylistAbestiak(Playlist playlist, Abestia abestia, Album album, Artista artista, JFrame PlaylistAbestiakV) {
+		MenuaPlaylistAbestiakV menuaPlaylistAbestiakV = new MenuaPlaylistAbestiakV(playlist, abestia, album, artista, PlaylistAbestiakV);
+		menuaPlaylistAbestiakV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		menuaPlaylistAbestiakV.setVisible(true);
 	}
 }

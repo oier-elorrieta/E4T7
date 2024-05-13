@@ -212,9 +212,16 @@ public class ErreprodukzioaV extends JFrame {
 					if (clipLehena.isRunning()) {
 						clipLehena.stop();
 					}
-					JFrameSortu.albumKantakBezeroa(album, artista);
+					if (SesioAldagaiak.playlist_erreprodukzioa) {
+						JFrameSortu.playlistListaBezeroa();
+						SesioAldagaiak.playlist_erreprodukzioa = false;
+					} else {
+						JFrameSortu.albumKantakBezeroa(album, artista);
+						SesioAldagaiak.playlist_erreprodukzioa = false;
+					}
 				} catch (SQLException e1) {
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Errore bat gertatu da. Saiatu berriro.", "Errorea",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -230,7 +237,8 @@ public class ErreprodukzioaV extends JFrame {
 					setVisible(false);
 					JFrameSortu.erregistroMenua(ErreprodukzioaV.this);
 				} catch (SQLException e1) {
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Errore bat gertatu da. Saiatu berriro.", "Errorea",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -289,9 +297,11 @@ public class ErreprodukzioaV extends JFrame {
 									clipAurrekoa = AudioSystem.getClip();
 									clipAurrekoa.open(aui);
 								} catch (UnsupportedAudioFileException | IOException ew) {
-									ew.printStackTrace();
+									JOptionPane.showMessageDialog(null, "Errorea egon da erreprodukzioan.", "Errorea",
+											JOptionPane.ERROR_MESSAGE);
 								} catch (LineUnavailableException e1) {
-									e1.printStackTrace();
+									JOptionPane.showMessageDialog(null, "Errorea egon da.", "Errorea",
+											JOptionPane.ERROR_MESSAGE);
 								}
 								
 								Abestia abestiaAurrekoa = new Abestia(abestiList.get(i-1).getTitulua(), abestiList.get(i-1).getIrudia(), abestiList.get(i-1).getIraupena());
@@ -397,7 +407,7 @@ public class ErreprodukzioaV extends JFrame {
 					
 					
 				} catch (SQLException | LineUnavailableException e1) {
-					e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, "Errorea egon da.", "Errorea", JOptionPane.ERROR_MESSAGE);
 				}
 				
 				} else if (!SesioAldagaiak.e_premium) {
@@ -407,7 +417,7 @@ public class ErreprodukzioaV extends JFrame {
 					try {
 						abestiList = DiskaAbestiakDAO.albumAbestiakKargatu(album);
 					} catch (SQLException e1) {
-						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, "Errorea egon da.", "Errorea", JOptionPane.ERROR_MESSAGE);
 					}
 					if (listaAmaiera) {
 						lblInfoLista.setText("Listaren amaierara iritsi zara!");
@@ -453,7 +463,7 @@ public class ErreprodukzioaV extends JFrame {
 										System.out.println(abestiaHurrengoa.getIdAudio());
 										JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
 									} catch (SQLException | LineUnavailableException e1) {
-										e1.printStackTrace();
+										JOptionPane.showMessageDialog(null, "Errorea egon da.", "Errorea", JOptionPane.ERROR_MESSAGE);
 									}
 								}
 									
@@ -488,7 +498,7 @@ public class ErreprodukzioaV extends JFrame {
                  
                     
 				} catch (SQLException e1) {
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Errorea egon da.", "Errorea", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

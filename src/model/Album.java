@@ -26,6 +26,27 @@ public class Album {
 		this.generoa = generoa;
 	}
 
+
+	public Album(String izenburua, String urtea, String generoa) {
+		this.izenburua = izenburua;
+		this.urtea = urtea;
+		this.generoa = generoa;
+	}
+
+
+
+
+	/**
+	 * Album klasearen eraikitzailea izenburua erabiliz.
+	 * 
+	 * @param izenburua albumaren izenburua
+	 */
+	public Album(String izenburua) {
+		this.izenburua = izenburua;
+	}
+
+
+
 	/**
 	 * Albumaren izenburua itzultzen du.
 	 * 

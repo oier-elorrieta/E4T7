@@ -30,6 +30,15 @@ public class Audio {
 		this.iraupena = iraupena;
 	}
 
+	public Audio(String idAudio, String titulua, Blob irudia, String iraupena) {
+		this.idAudio = idAudio;
+		this.titulua = titulua;
+		this.irudia = irudia;
+		this.iraupena = iraupena;
+	}
+
+
+
 	/**
 	 * Audio objektu berri bat sortzeko eraikitzailea.
 	 * 

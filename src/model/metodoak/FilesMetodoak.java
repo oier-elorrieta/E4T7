@@ -135,4 +135,9 @@ public class FilesMetodoak {
 		bufferedWriter.write("----------------------------------");
 		bufferedWriter.close();
 	}
+
+	public static void abestiaKonpartitu(Playlist playlist, Abestia abestia, Album album, Artista artista) {
+		
+		
+	}
 }

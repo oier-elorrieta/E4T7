@@ -18,6 +18,13 @@ public class Abestia extends Audio {
 	public Abestia(String titulua, Blob irudia, String iraupena) {
 		super(titulua, irudia, iraupena);
 	}
+	
+
+	public Abestia(String idAudio, String titulua, Blob irudia, String iraupena) {
+		super(idAudio, titulua, irudia, iraupena);
+	}
+
+
 
 	/**
 	 * Abestia klasearen eraikitzailea.
