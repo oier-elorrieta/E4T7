@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import model.Abestia;
 import model.Audio;
+import model.E_Free;
 import model.E_Premium;
 import model.Playlist;
 import model.metodoak.SesioAldagaiak;
@@ -20,7 +21,7 @@ public class MenuaPlaylistSartuAbestiakDAOTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-    	SesioAldagaiak.bezeroa_logeatuta = new E_Premium("analopez", "Ana", "Lopez", "EU", "EU", new Date(), new Date());
+    	SesioAldagaiak.bezeroa_logeatuta = new E_Free("a&", "a", "a", "EU", "EU", new Date());
 	}
 	
 	
@@ -28,8 +29,8 @@ public class MenuaPlaylistSartuAbestiakDAOTest {
     public void testPlaylistakKonprobatuAbestia() throws SQLException {
         Audio audio = new Audio("3", "Malamente", "00:02:30");
         boolean result = MenuaPlaylistSartuAbestiakDAO.playlistakKonprobatuAbestia(audio);
-        assertFalse(result);
-    }
+        assertTrue(result);
+    } 
 
     @Test
     public void testPlaylistGorde() throws SQLException {
@@ -40,30 +41,58 @@ public class MenuaPlaylistSartuAbestiakDAOTest {
     }
 
     @Test 
-    public void testGustokoaKargatu() throws SQLException {
+    public void testGustokoaKargatuT() throws SQLException {
         Abestia abesti = new Abestia("45", "Lovesick", "00:03:05");
         MenuaPlaylistSartuAbestiakDAO.gustokoaKargatu(abesti);
-        assertFalse(MenuaPlaylistSartuAbestiakDAO.playlistakKonprobatuAbestia(abesti));
+        assertTrue(MenuaPlaylistSartuAbestiakDAO.playlistakKonprobatuAbestia(abesti));
+    }
+
+    @Test 
+    public void testGustokoaKargatuF() throws SQLException {
+        Abestia abesti = new Abestia("41", "Natural", "00:03:09");
+        MenuaPlaylistSartuAbestiakDAO.gustokoaKargatu(abesti);
+        assertTrue(MenuaPlaylistSartuAbestiakDAO.playlistakKonprobatuAbestia(abesti));
+    }
+    
+    @Test
+    public void testPlaylistakKargatuFree() throws SQLException { 
+        SesioAldagaiak.bezeroa_logeatuta.setErabiltzailea("a");
+        ArrayList<Playlist> playlists = MenuaPlaylistSartuAbestiakDAO.playlistakKargatu();
+        Playlist playlist = new Playlist(18, "asas", 2, "a&", new Date());
+        
+        System.out.println(SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea());
+        
+        assertEquals(playlists.get(0).getIdPlaylist(), playlist.getIdPlaylist());
+        assertEquals(playlists.get(0).getTitulua(), playlist.getTitulua());
+        assertEquals(playlists.get(0).getIdBezeroa(), playlist.getIdBezeroa());
+    }
+    
+    @Test
+    public void testPlaylistakKargatuPremium() throws SQLException { 
+        SesioAldagaiak.bezeroa_logeatuta.setErabiltzailea("analopez");
+        ArrayList<Playlist> playlists = MenuaPlaylistSartuAbestiakDAO.playlistakKargatu();
+        Playlist playlist = new Playlist(13, "ANA LO", 2, "analopez&", new Date());
+        
+        System.out.println(SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea());
+        
+        assertEquals(playlists.get(0).getIdPlaylist(), playlist.getIdPlaylist());
+        assertEquals(playlists.get(0).getTitulua(), playlist.getTitulua());
+        assertEquals(playlists.get(0).getIdBezeroa(), playlist.getIdBezeroa());
     }
 
     @Test
-    public void testPlaylistakKargatu() throws SQLException { 
-        ArrayList<Playlist> playlists = MenuaPlaylistSartuAbestiakDAO.playlistakKargatu();
-        assertNotNull(playlists);
-        assertFalse(playlists.isEmpty());
+    public void testGustokoanGordeF() throws SQLException {
+        Abestia abesti = new Abestia("3", "Malamente", "00:02:30");
+        SesioAldagaiak.bezeroa_logeatuta.setIdBezeroa("a&");
+        MenuaPlaylistSartuAbestiakDAO.gustokoanGorde(abesti);
+        assertTrue(MenuaPlaylistSartuAbestiakDAO.gustokoaKargatu(abesti));
     }
-
+    
     @Test
     public void testGustokoaEzabatu() throws SQLException {
         Abestia abesti = new Abestia("3", "Malamente", "00:02:30");
         MenuaPlaylistSartuAbestiakDAO.gustokoaEzabatu(abesti);
-        assertFalse(MenuaPlaylistSartuAbestiakDAO.playlistakKonprobatuAbestia(abesti));
+        assertFalse(MenuaPlaylistSartuAbestiakDAO.gustokoaKargatu(abesti));
     }
-
-    @Test
-    public void testGustokoanGorde() throws SQLException {
-        Abestia abesti = new Abestia("3", "Malamente", "00:02:30");
-        MenuaPlaylistSartuAbestiakDAO.gustokoanGorde(abesti);
-        assertFalse(MenuaPlaylistSartuAbestiakDAO.playlistakKonprobatuAbestia(abesti));
-    }
+    
 }

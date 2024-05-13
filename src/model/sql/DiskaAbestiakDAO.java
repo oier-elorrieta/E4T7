@@ -52,7 +52,7 @@ public class DiskaAbestiakDAO {
         while (emaitza.next()) {
             albumInfo = new Abestia(emaitza.getBlob("a.Irudia"));
         }
-        Konexioa.konexioaItxi();
+        Konexioa.konexioaItxi(); 
         return albumInfo;
     }
     

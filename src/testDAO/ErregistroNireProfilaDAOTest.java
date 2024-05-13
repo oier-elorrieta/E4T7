@@ -44,7 +44,7 @@ public class ErregistroNireProfilaDAOTest {
 	        }
 	    }
 	    
-	     
+	      
 	    
 	    @Test
 	    public void testUpdatePremiumBezeroFree_Success() {

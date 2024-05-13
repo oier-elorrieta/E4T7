@@ -96,15 +96,10 @@ public class PlaylistTest {
        assertEquals("idau", playlist.getIdAudio());
    }
    
-   
-   
-   
-   
-   
    @Test
    public void testToString() {
 	   playlist = new Playlist(10, "Mi Playlist", 30, null, null);
-       assertEquals("Mi Playlist", playlist.toString());
+       assertEquals(playlist.getTitulua() + " - " + playlist.getKapazitatea() + " abesti", playlist.toString());
    }
    
    
@@ -118,8 +113,9 @@ public class PlaylistTest {
     public void testEqualsDifferentObject() {
         playlist = new Playlist(10, "Mi Playlist", 30, null, null);
         Playlist other = new Playlist(10, "Mi Playlist", 0, null, null);
-        assertTrue(playlist.equals(other));
+        assertFalse(playlist.equals(other));
     }
+    
     @Test
     public void testEqualsNull() {
         playlist = new Playlist(10, "Mi Playlist", 30, null, null);

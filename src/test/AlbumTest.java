@@ -9,12 +9,6 @@ import model.Audio;
 public class AlbumTest {
 
     @Test
-    public void testConstructor() {
-        Album album = new Album("Izenburua", "Urtea", 10, "Generoa");
-        assertNotNull(album);
-    }
-
-    @Test
     public void testGetIzenburua() {
         Album album = new Album("Izenburua", "Urtea", 10, "Generoa");
         assertEquals("Izenburua", album.getIzenburua());
@@ -27,11 +21,51 @@ public class AlbumTest {
         assertEquals("NewIzenburua", album.getIzenburua());
     }
     
+    @Test
 	public void testGetUrtea() {
 		Album album = new Album("Izenburua", "Urtea", 10, "Generoa");
-        album.setIzenburua("urtea1");
+		assertEquals("Urtea", album.getUrtea());
+	}
+	
+    @Test
+	public void testSetUrtea() {
+		Album album = new Album("Izenburua", "Urtea", 10, "Generoa");
+        album.setUrtea("urtea1");
 		assertEquals("urtea1", album.getUrtea());
 	}
+	
+    @Test
+	public void testGetKantTotala() {
+		Album album = new Album("Izenburua", "Urtea", 10, "Generoa");
+		assertEquals(10, album.getKantaTotala());
+	}
+    
+    @Test
+	public void testSetKantTotala() {
+		Album album = new Album("Izenburua", "Urtea", 10, "Generoa");
+        album.setKantaTotala(11);
+		assertEquals(11, album.getKantaTotala());
+	}
+	
+    @Test
+	public void testGetGeneroa() {
+		Album album = new Album("Izenburua", "Urtea", 10, "Generoa");
+		assertEquals("Generoa", album.getGeneroa());
+	}
+	
+    @Test
+	public void testSetGeneroa() {
+		Album album = new Album("Izenburua", "Urtea", 10, "Generoa");
+        album.setGeneroa("generoa1");
+		assertEquals("generoa1", album.getGeneroa());
+	}
+    
+    @Test
+	public void toStringTest() {
+		Album album = new Album("Izenburua", "Urtea", 10, "Generoa");
+		assertEquals( album.getIzenburua() + " - " + album.getUrtea() + " - " + album.getKantaTotala() + " kanta", album.toString());
+	}
+    
 
     @Test
     public void testEqualsSameObject() {
