@@ -78,7 +78,7 @@ public class ErreprodukzioaV extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 
 		JButton btnAtzera = View_metodoak.btn_Atzera();
-		contentPane.add(btnAtzera);
+		contentPane.add(btnAtzera); 
 		
 		JButton btnNireProfila = View_metodoak.btn_NireProfila();
 		contentPane.add(btnNireProfila);

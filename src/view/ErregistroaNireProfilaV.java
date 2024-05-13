@@ -274,7 +274,7 @@ public class ErregistroaNireProfilaV extends JFrame {
 				}
 			}
 		}else {
-			txtErabiltzaile.setEditable(true);
+			txtErabiltzaile.setEditable(true); 
 		}
 			
 		

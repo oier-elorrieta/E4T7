@@ -7,39 +7,53 @@ package testDAO;
 	import model.E_Free;
 	import model.E_Premium;
 	import model.Erabiltzailea;
-	import model.sql.LoginDAO;
+import model.metodoak.View_metodoak;
+import model.sql.LoginDAO;
 
 	public class LoginDAOTest {
 
 	    @Test
 	    public void testLoginKonexioaFreeUser() throws SQLException {
+	        String idBezeroa = "admin&";
 	        String username = "admin";
 	        String password = "12345";
 	        Erabiltzailea user = LoginDAO.loginKonexioa(username, password);
 
-	        assertNotNull(user);
+	        // Erabiltzailea mota Free da beraz E_Free objektua itzuli behar du.
 	        assertTrue(user instanceof E_Free);
+	        
+	        assertEquals(idBezeroa, user.getIdBezeroa());
+	        assertEquals("admin", user.getErabiltzailea());
+	        assertEquals("12345", user.getPasahitza());
 
 	    }
 
 	    @Test
 	    public void testLoginKonexioaPremiumUser() throws SQLException {
+	        String idBezeroa = "analopez&";
 	        String username = "analopez";
-	        String password = "123456";
+	        String password = "123456"; 
 
 	        Erabiltzailea user = LoginDAO.loginKonexioa(username, password);
 
-	        assertNotNull(user);
+	        // Erabiltzailea mota Premium da beraz E_Premium objektua itzuli behar du.
 	        assertTrue(user instanceof E_Premium);
+	        
+	        assertEquals(idBezeroa, user.getIdBezeroa());
+	        assertEquals("analopez", user.getErabiltzailea());
+	        assertEquals("123456", user.getPasahitza());
 
 	    }
 
 	    @Test
 	    public void testIraungitzeDataLortu() throws SQLException {
-	        String username = "analopez";
-	        Date expirationDate = LoginDAO.iraungitzeDataLortu(username);
-
-	        assertNotNull(expirationDate);
+	    	@SuppressWarnings("deprecation")
+			E_Premium user = new E_Premium("analopez&", "analopez", "123456", "Ana", "Lopez", "es", new Date(), new Date(125,4,13)); 
+	    	String iraungitzeDataStringTest = View_metodoak.dateToString(user.getIraungintze_data());
+	        Date iraungitzeData = LoginDAO.iraungitzeDataLortu(user.getErabiltzailea());
+	    	String iraungitzeDataString = View_metodoak.dateToString(iraungitzeData);
+	        assertEquals(iraungitzeDataStringTest, iraungitzeDataString);   
+	        
 	    }
 	}
 

@@ -32,5 +32,5 @@ public class DiskaAbestiakDAOTest {
         assertEquals(abestiList.get(1).getIraupena(), abestia2.getIraupena());
         assertEquals(abestiList.get(2).getIraupena(), abestia3.getIraupena());
                
-    }
+    } 
 }
