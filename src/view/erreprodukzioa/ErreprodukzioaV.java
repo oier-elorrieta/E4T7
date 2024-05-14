@@ -167,7 +167,6 @@ public class ErreprodukzioaV extends JFrame {
 			btnGustukoa = new JButton("🖤");
 		} else {
 			btnGustukoa = new JButton("💔");
-			
 		}
 		
 		btnGustukoa.setSelectedIcon(null);
@@ -341,12 +340,9 @@ public class ErreprodukzioaV extends JFrame {
 					abestiList = DiskaAbestiakDAO.albumAbestiakKargatu(album);
 					if (listaAmaiera) {
 						lblInfoLista.setText("Listaren amaierara iritsi zara!");
-						System.out.println("Amaiera");
 						return;
 					}
-					System.out.println("IRAGARKI IPINI: " + SesioAldagaiak.iragarkiaIpini);
 					if (!SesioAldagaiak.e_premium && SesioAldagaiak.iragarkiaIpini) {
-						System.out.println("IRAGARKIA");
 						dispose();
 						JFrameSortu.iragarkiLehioa(album, artista, abesti);
 						if (clipLehena.isRunning()) {
