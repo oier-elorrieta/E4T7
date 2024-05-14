@@ -65,6 +65,7 @@ public class ErreprodukzioaPlaylistAbestiakV extends JFrame {
 				index = 0;
 			}
 			if (index == abestiLista.size()) {
+				index = 0;
 				listaAmaiera = true;
 			}
 			abestiErreproduzitzen = abestiLista.get(index);
@@ -287,28 +288,6 @@ public class ErreprodukzioaPlaylistAbestiakV extends JFrame {
 		btnAurrekoa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				/*for (int i = 0; i < abestiLista.size(); i++) {
-					File f = new File(fileAudio);
-					AudioInputStream aui;
-						
-					try {
-						aui = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
-						clipAurrekoa = AudioSystem.getClip();
-						clipAurrekoa.open(aui);
-					} catch (UnsupportedAudioFileException | IOException ew) {
-						JOptionPane.showMessageDialog(null, "Errorea egon da erreprodukzioan.", "Errorea",
-								JOptionPane.ERROR_MESSAGE);
-					} catch (LineUnavailableException e1) {
-						JOptionPane.showMessageDialog(null, "Errorea egon da.", "Errorea",
-								JOptionPane.ERROR_MESSAGE);
-					}
-					if (clipLehena.isRunning()) {
-						clipLehena.stop();
-					}
-					if (clipAurrekoa.isRunning()) {
-						clipAurrekoa.stop();
-					}
-				}*/
 				if (index == -1) {
 					lblInfoLista.setText("Aurreko abestirik ez dago.");
 				} else {
@@ -327,36 +306,45 @@ public class ErreprodukzioaPlaylistAbestiakV extends JFrame {
 		btnHurrengoa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				for (int i = 0; i < abestiLista.size(); i++) {
-					if (SesioAldagaiak.skip_abestia && !listaAmaiera) {
-						SesioAldagaiak.skip_abestia = false;
-						View_metodoak.skipBaimendu();
-						if (!SesioAldagaiak.e_premium && SesioAldagaiak.iragarkiaIpini) {
+				if (SesioAldagaiak.skip_abestia && !listaAmaiera) {
+					SesioAldagaiak.skip_abestia = false;
+					View_metodoak.skipBaimendu();
+					if (!SesioAldagaiak.e_premium && SesioAldagaiak.iragarkiaIpini) {
+						dispose();
+						try {
+							JFrameSortu.iragarkiLehioa(album, artista, abestiErreproduzitzen);
+						} catch (SQLException e1) {
+							JOptionPane.showMessageDialog(null, "Errore bat gertatu da. Saiatu berriro.", "Errorea",
+									JOptionPane.ERROR_MESSAGE);
+						}
+						if (clipLehena.isRunning()) {
+							clipLehena.stop();
+						}
+						SesioAldagaiak.iragarkiaIpini = false;
+					} else {
+						if (index == abestiLista.size()) {
+							lblInfoLista.setText("Listaren amaierara iritsi zara.");
+							listaAmaiera = true;
+						} else {
 							dispose();
 							try {
-								JFrameSortu.iragarkiLehioa(album, artista, abestiErreproduzitzen);
+								JFrameSortu.erreprodukzioaPlaylistAbestiak(abestiLista, playlist, artista, index+1, album);
 							} catch (SQLException e1) {
 								JOptionPane.showMessageDialog(null, "Errore bat gertatu da. Saiatu berriro.", "Errorea",
 										JOptionPane.ERROR_MESSAGE);
 							}
-							if (clipLehena.isRunning()) {
-								clipLehena.stop();
-							}
-							SesioAldagaiak.iragarkiaIpini = false;
-						} else {
-							if (index == abestiLista.size()) {
-								lblInfoLista.setText("Listaren amaierara iritsi zara.");
-								listaAmaiera = true;
-							} else {
-								dispose();
-								try {
-									JFrameSortu.erreprodukzioaPlaylistAbestiak(abestiLista, playlist, artista, index+1, album);
-								} catch (SQLException e1) {
-									JOptionPane.showMessageDialog(null, "Errore bat gertatu da. Saiatu berriro.", "Errorea",
-											JOptionPane.ERROR_MESSAGE);
-								}
-							}
-						}	
+						}
+					}
+				} else if (!SesioAldagaiak.e_premium) {
+					JOptionPane.showMessageDialog(null, "Ezin duzu hurrengora pasatu!", "Free Erabiltzailea",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					dispose();
+					try {
+						JFrameSortu.erreprodukzioaPlaylistAbestiak(abestiLista, playlist, artista, index+1, album);
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(null, "Errore bat gertatu da. Saiatu berriro.", "Errorea",
+								JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}

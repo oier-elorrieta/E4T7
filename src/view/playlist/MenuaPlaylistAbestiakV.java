@@ -12,6 +12,7 @@ import model.Artista;
 import model.Playlist;
 import model.metodoak.FilesMetodoak;
 import model.metodoak.JFrameSortu;
+import model.sql.MenuaPlaylistSartuAbestiakDAO;
 import model.sql.PlayListDAO;
 import view.LoginV;
 
@@ -49,6 +50,8 @@ public class MenuaPlaylistAbestiakV extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		System.out.println();
 		
 		JButton btnEzabatuAbestia = new JButton("❌ Ezabatu abestia");
 		btnEzabatuAbestia.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -95,8 +98,18 @@ public class MenuaPlaylistAbestiakV extends JFrame {
 		btnEzabatuAbestia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				PlayListDAO.ezabatuAbestiaPlaylist(playlist, abestia);
-				PlaylistAbestiakV.dispose();
+				if (playlist.getTitulua().equals("Gustokoen zerrenda")) {
+					try {
+						MenuaPlaylistSartuAbestiakDAO.gustokoaEzabatu(abestia);
+						PlaylistAbestiakV.dispose();
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(null, "Errore bat gertatu da abestia ezabatzean", "Errorea",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				} else {
+					PlayListDAO.ezabatuAbestiaPlaylist(playlist, abestia);
+					PlaylistAbestiakV.dispose();
+				}
 				try {
 					JFrameSortu.playListAbestiak(playlist);
 				} catch (SQLException e1) {

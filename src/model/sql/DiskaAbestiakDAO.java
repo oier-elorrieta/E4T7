@@ -29,7 +29,7 @@ public class DiskaAbestiakDAO {
         Abestia abestiak = null;
          
         while (emaitza.next()) {
-            abestiak = new Abestia(emaitza.getString("IdAudio"), emaitza.getString("Izena"), emaitza.getString("Iraupena"), emaitza.getInt("count(e.IdAudio)"));
+            abestiak = new Abestia(emaitza.getString("IdAudio"), emaitza.getString("Izena"), emaitza.getString("Iraupena"), emaitza.getInt("count(IdAudio)"));
            
             abestiList.add(abestiak);
         }

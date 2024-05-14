@@ -109,7 +109,7 @@ public class PlayListDAO {
 	
 	public static void ezabatuAbestiaPlaylist(Playlist playlist, Abestia abestia) {
 		Konexioa.konexioaIreki();
-        String SQLquery = "DELETE FROM playlist_abestiak WHERE IDList = " + playlist.getIdPlaylist() + " AND IDAudio = " + abestia.getIdAudio() + ";";
+        String SQLquery = "DELETE FROM playlist_abestiak WHERE IDList = " + playlist.getIdPlaylist() + " AND IdAudio = " + abestia.getIdAudio() + ";";
         try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery)) {
             preparedStatement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Abestia ezabatu da " + playlist.getTitulua() + " playlistik.", "Ezabatu abestia", JOptionPane.INFORMATION_MESSAGE);
