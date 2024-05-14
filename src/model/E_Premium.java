@@ -14,6 +14,25 @@ public class E_Premium extends Erabiltzailea {
 	 * E_Premium klasearen eraikitzailea. Erabiltzailearen datuak eta iraungintze
 	 * data jasoko ditu.
 	 * 
+	 * @param idBezeroa        erabiltzailearen Id
+	 * @param erabiltzailea    erabiltzailearen izena
+	 * @param pasahitza        erabiltzailearen pasahitza
+	 * @param izena            erabiltzailearen izena
+	 * @param abizena          erabiltzailearen abizena
+	 * @param hizkuntza        erabiltzailearen hizkuntza
+	 * @param jaiotze_data     erabiltzailearen jaiotze data
+	 * @param iraungintze_data erabiltzailearen iraungintze data
+	 */
+	public E_Premium(String idBezeroa, String erabiltzailea, String pasahitza, String izena, String abizena,
+			String hizkuntza, Date jaiotze_data, Date iraungintze_data) {
+		super(idBezeroa, erabiltzailea, pasahitza, izena, abizena, hizkuntza, jaiotze_data);
+		this.iraungintze_data = iraungintze_data;
+	}
+
+	/**
+	 * E_Premium klasearen eraikitzailea. Erabiltzailearen datuak eta iraungintze
+	 * data jasoko ditu.
+	 * 
 	 * @param erabiltzailea    erabiltzailearen izena
 	 * @param pasahitza        erabiltzailearen pasahitza
 	 * @param izena            erabiltzailearen izena

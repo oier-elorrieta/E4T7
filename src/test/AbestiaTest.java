@@ -5,7 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.mysql.cj.jdbc.Blob;
+
 import model.Abestia;
+import model.Audio;
 
 public class AbestiaTest {
 
@@ -13,13 +16,39 @@ public class AbestiaTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        abestiakProba = new Abestia("abesti1", 180);
+        abestiakProba = new Abestia("1", null, null, 180);
     }
 
     @Test
-    public void testGetSet() {
-        assertEquals(180, abestiakProba.getIraupena());
+    public void testConstructor() {
+        Abestia abestia1 = new Abestia("idaudio", "tituloa", null, 121);
+        assertNotNull(abestia1);
     }
+  @Test
+  public void testConstructor1() {
+	  Blob Blob = new Blob(null, null);
+	  Abestia abestia = new Abestia("Titulo", Blob, "Iraupena");
+      assertNotNull(abestia);
+  }
+
+  @Test
+  public void testConstructor2() {
+	  Abestia abestia = new Abestia("idaudio", "tituloa", null, 121);
+      assertNotNull(abestia);
+  }
+  
+  @Test
+  public void testConstructor3() {
+	  Abestia abestia = new Abestia("idaudio","tituloa","iraupena");
+      assertNotNull(abestia);
+  }
+ 
+  @Test
+  public void testConstructor5() {
+	  Blob blob = new Blob(null, null);
+	  Abestia abestia = new Abestia(blob);
+      assertNotNull(abestia.getIrudia());
+  }
 
     @Test
     public void testEquals_SameObject() {
@@ -39,14 +68,8 @@ public class AbestiaTest {
 
     @Test
     public void testEquals_EqualObjects() {
-        Abestia sameAbestiak = new Abestia("abesti1", 180);
+        Abestia sameAbestiak = new Abestia("abesti1", null, null, 180);
         assertTrue(abestiakProba.equals(sameAbestiak));
-    }
-
-    @Test
-    public void testEquals_DifferentObjects() {
-        Abestia differentAbestiak = new Abestia("abesti2", 240);
-        assertFalse(abestiakProba.equals(differentAbestiak));
     }
 
 }

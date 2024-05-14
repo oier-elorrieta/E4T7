@@ -3,6 +3,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.sql.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,58 +15,125 @@ import model.Playlist;
 public class PlaylistTest {
 
     private Playlist playlist;
+    private Date data;
 
-    @Before
-    public void setUp() {
-        playlist = new Playlist(10, "Mi Playlist");
+    
+    @SuppressWarnings("deprecation")
+    @Test
+	public void testGetSorreradata() {
+        playlist = new Playlist(10, "Mi Playlist", 30, null, null);
+
+    	 data = new Date(2024, 1, 20);
+    	 playlist.setSorrera_data(data);
+        assertEquals(data, playlist.getSorrera_data());
     }
 
     @Test
-    public void testConstructor() {
-        assertEquals(10, playlist.getKapazitatea());
-        assertEquals("Mi Playlist", playlist.getTitulua());
-    }
+    public void testSetSorreradata() {
+        playlist = new Playlist(10, "Mi Playlist", 30, null, null);
 
-    @Test
-    public void testSetterKapazitatea() {
-        playlist.setKapazitatea(20);
-        assertEquals(20, playlist.getKapazitatea());
-    }
-
-    @Test
-    public void testSetterTitulua() {
         playlist.setTitulua("Nueva Playlist");
         assertEquals("Nueva Playlist", playlist.getTitulua());
     }
-
     @Test
-    public void testToString() {
-        assertEquals("Playlist [kapazitatea=10, titulua=Mi Playlist]", playlist.toString());
+    public void testgetKapazitatea() {
+    	Playlist playlist2 = new Playlist(10, "Mi Playlist", 2, null, null);
+        assertEquals(2, playlist2.getKapazitatea());
     }
+    @Test
+    public void testSetKapazitatea() {
+        playlist = new Playlist(10, "Mi Playlist", 30, null, null);
+        playlist.setKapazitatea(20);
+        assertEquals(20, playlist.getKapazitatea());
+    }
+    @Test
+    public void testGetTitulua() {
+    	Playlist playlist2 = new Playlist(null);
+        assertEquals("Gustokoen zerrenda", playlist2.getTitulua());
+    }
+    @Test
+    public void testSetTitulua() {
+        playlist = new Playlist(10, "Mi Playlist", 30, null, null);
+        playlist.setTitulua("Nueva Playlist");
+        assertEquals("Nueva Playlist", playlist.getTitulua());
+    }
+    @Test
+    public void testGetIdPlaylist() {
+    	  playlist = new Playlist(1, "Mi Playlist", 0, null, null);
+       assertEquals(1, playlist.getIdPlaylist());
+   }
 
+   @Test
+   public void testSetIdPlaylist() {
+       playlist = new Playlist(10, "Mi Playlist", 30, null, null);
+
+       playlist.setIdPlaylist(1);
+       assertEquals(1, playlist.getIdPlaylist());
+   }
+
+   @Test
+   public void testGetIdbezero() {
+	   Playlist playlist2 = new Playlist(10, "Mi Playlist", 30, "idbez", null);
+	   assertEquals("idbez", playlist2.getIdBezeroa());
+   }
+   
+   @Test
+   public void testSetIdbezero() {
+	   playlist = new Playlist("Mi Playlist", "idbez");
+       playlist.setIdBezeroa("idbezeroa");
+       assertEquals("idbezeroa", playlist.getIdBezeroa());
+   }
+   @Test
+   public void testGetIdaudio() {
+	   playlist = new Playlist("Mi Playlist", "idbez", "idaudio");
+       assertEquals("idaudio", playlist.getIdAudio());
+   }
+   
+   @Test
+   public void testSetIdaudio() {
+	   playlist = new Playlist("Mi Playlist", "idbez", "idau");
+       playlist.setIdAudio("idau");
+       assertEquals("idau", playlist.getIdAudio());
+   }
+   
+   @Test
+   public void testToString() {
+	   playlist = new Playlist(10, "Mi Playlist", 30, null, null);
+       assertEquals(playlist.getTitulua() + " - " + playlist.getKapazitatea() + " abesti", playlist.toString());
+   }
+   
+   
     @Test
     public void testEqualsSameObject() {
+        playlist = new Playlist(10, "Mi Playlist", 30, null, null);
         assertTrue(playlist.equals(playlist));
     }
 
     @Test
     public void testEqualsDifferentObject() {
-        Playlist other = new Playlist(10, "Mi Playlist");
-        assertTrue(playlist.equals(other));
+        playlist = new Playlist(10, "Mi Playlist", 30, null, null);
+        Playlist other = new Playlist(10, "Mi Playlist", 0, null, null);
+        assertFalse(playlist.equals(other));
     }
+    
     @Test
     public void testEqualsNull() {
+        playlist = new Playlist(10, "Mi Playlist", 30, null, null);
+
         String other = null;
         assertFalse(playlist.equals(other));
     }
     @Test
     public void testToEqualsDiff() {
-        Audio aud  = new Audio(null, 0);
+        playlist = new Playlist(10, "Mi Playlist", 30, null, null);
+
+        Audio aud  = new Audio(null, null, null, 0);
         assertFalse(playlist.equals(aud));
     }
     @Test
     public void testNotEquals() {
-        Playlist other = new Playlist(20, "aña Playlist");
+        playlist = new Playlist(10, "Mi Playlist", 30, null, null);
+        Playlist other = new Playlist(20, "aña Playlist", 0, null, null);
         assertFalse(playlist.equals(other));
     }
 

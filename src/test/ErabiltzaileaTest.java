@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Object;
 import model.Audio;
+import model.E_Free;
 import model.Erabiltzailea;
 
 public class ErabiltzaileaTest {
@@ -24,6 +25,17 @@ public class ErabiltzaileaTest {
         public void testConstructor() {
             erabiltzailea = new Erabiltzailea("erabiltzailea", "Pasahitza", "izena", "abizena", "Arabic", new Date());
             assertNotNull(erabiltzailea);
+        }
+        @Test
+        public void testsetIdbezeroa() {
+            erabiltzailea = new Erabiltzailea("idbez","erabiltzailea", "Pasahitza", "izena", "abizena", "Arabic", new Date());
+            assertEquals("idbez", erabiltzailea.getIdBezeroa());
+        }
+        @Test
+        public void testgetIdbezeroa() {
+            erabiltzailea = new Erabiltzailea("idbezeroaaa","erabiltzailea", "Pasahitza", "izena", "abizena", "English", new Date());
+            erabiltzailea.setIdBezeroa("idbez");
+            assertEquals("idbez", erabiltzailea.getIdBezeroa());
         }
         @Test
         public void testGetErabiltzailea() {
@@ -53,12 +65,12 @@ public class ErabiltzaileaTest {
         }
         @Test
         public void testGetHizkuntza() {
-            erabiltzailea = new Erabiltzailea("erabiltzailea", "Pasahitza", "izena", "abizena", "English", new Date());
+            erabiltzailea = new E_Free("id","erabiltzailea", "Pasahitza", "izena", "abizena", "English", new Date());
             assertEquals("English", erabiltzailea.getHizkuntza());
         }
         @Test
         public void testSetHizkuntza() {
-            erabiltzailea = new Erabiltzailea("erabiltzailea", "Pasahitza", "izena", "abizena", "English", new Date());
+            erabiltzailea = new E_Free("erabiltzailea", "Pasahitza", "izena", "abizena", "English",new Date());
             erabiltzailea.setHizkuntza("Euskera");
             assertEquals("Euskera", erabiltzailea.getHizkuntza());
         }
@@ -94,16 +106,21 @@ public class ErabiltzaileaTest {
         }
 //        @Test
 //        public void testSetJaiotzeData2() {
-//            erabiltzailea = new Erabiltzailea("erabiltzailea", "Pasahitza", "izena", "abizena", new Date());
+//            erabiltzailea = new E_Free("erabiltzailea", "Pasahitza", "izena", "abizena", null, new Date());
 //            Date gaurkoeguna = new Date();
 //            assertEquals(erabiltzailea.getJaiotze_data(), gaurkoeguna);
 //        }
         
-        @Test
+     @Test
         public void testToString() {
-            erabiltzailea = new Erabiltzailea("erabiltzailea", "Pasahitza", "izena", "abizena","English", new Date());
-            assertEquals("Erabiltzailea [erabiltzailea=" + erabiltzailea.getErabiltzailea() +", pasahitza="+ erabiltzailea.getPasahitza() + ", izena=" + erabiltzailea.getIzena() + ", abizena=" + erabiltzailea.getAbizena()
-                    +", hizkuntza=" + erabiltzailea.getHizkuntza() + ", jaiotze_data=" + erabiltzailea.getJaiotze_data() + "]", erabiltzailea.toString());    
+            // Crear un objeto Erabiltzailea con valores específicos
+            Erabiltzailea erabiltzailea = new Erabiltzailea("123", "usuario123", "contraseña", "Nombre", "Apellido", "eu", null);
+            
+            // Definir el resultado esperado del método toString()
+            String expectedToStringResult = "Erabiltzailea [idBezeroa=123, erabiltzailea=usuario123, pasahitza=contraseña, izena=Nombre, abizena=Apellido, hizkuntza=eu, jaiotze_data=null]";
+            
+            // Verificar si el resultado del método toString() coincide con el resultado esperado
+            assertEquals(expectedToStringResult, erabiltzailea.toString());
         }
         
         @Test
@@ -120,7 +137,7 @@ public class ErabiltzaileaTest {
         @Test
         public void testToEqualsDiff() {
             Erabiltzailea erabiltzailea1 = new Erabiltzailea("erabiltzailea","Pasahitza", "izena", "abizena","English", null);
-            Audio aud  = new Audio(null, 0);
+            Audio aud  = new Audio(null, null, null, 0);
             assertFalse(erabiltzailea1.equals(aud));
         }
     @Test

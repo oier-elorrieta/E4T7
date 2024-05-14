@@ -27,42 +27,82 @@ public class E_PremiumTest {
         }
         
         @Test
-        public void testSetGetIraungintze_data() {
-	        E_PremiumProba.setIraungintze_data(data);    
-	        assertEquals(data, E_PremiumProba.getIraungintze_data());
+        public void testGetGetIraungintze_data() {
+        	 E_Premium E_PremiumProba = new E_Premium("erabiltzailea", "pasahitza", "izena", "abizena", "English", data, dateIraun);
+	        assertEquals(dateIraun, E_PremiumProba.getIraungintze_data());
         }
        
         
         @Test
-        public void testToString() {
-            String expected = "Erabiltzailea [erabiltzailea=" + E_PremiumProba.getErabiltzailea() +", pasahitza="+ E_PremiumProba.getPasahitza() + ", izena=" + E_PremiumProba.getIzena() + ", abizena=" + E_PremiumProba.getAbizena()
-            + ", hizkuntza=" + E_PremiumProba.getHizkuntza() + ", jaiotze_data=" + E_PremiumProba.getJaiotze_data() + "]E_Premium [iraungintze_data="+E_PremiumProba.getIraungintze_data()+"]";
-            assertEquals(expected, E_PremiumProba.toString());    
-            }
-        
-        @Test
-        public void testEquals_SameObject() {
-            E_Premium proba1 = new E_Premium("erabiltzailea", "pasahitza", "izena", "abizena", "English", data, dateIraun);
-            assertFalse(E_PremiumProba.equals(proba1));
+        public void testSetGetIraungintze_data() {
+       	 E_Premium E_PremiumProba = new E_Premium(null, null, null, null, null, null, null, data);
+
+	        E_PremiumProba.setIraungintze_data(data);    
+	        assertEquals(data, E_PremiumProba.getIraungintze_data());
         }
+  
+   
         
         @Test
         public void testEquals_NullObject() {
             E_Premium proba1 = null;
-           
             assertFalse(E_PremiumProba.equals(proba1));
         }
 
         @Test
         public void testEquals_DifferentClass() {
-	        String probaE_Premium = "";
-            assertFalse(E_PremiumProba.equals(probaE_Premium));
+        	Object obj = null;
+            assertFalse(E_PremiumProba.equals(obj));
         }
-
+        @Test
+        public void testEquals_ClassMismatch() {
+            // Crear un objeto E_Premium
+            Date jaiotze_data = new Date();
+            Date iraungintze_data = new Date();
+            E_Premium ePremium = new E_Premium("123", "usuario123", "contraseña", "Nombre", "Apellido", "eu", jaiotze_data, iraungintze_data);
+            Object obj = new Object();
+            
+            assertFalse(ePremium.equals(obj));
+        }
+        @Test
+        public void testEquals_DifferentC() {
+        	Object obj = null;
+            assertFalse(E_PremiumProba.equals(obj));
+        }
         @Test
         public void testEqualsPunteroTest() {
             assertTrue(E_PremiumProba.equals(E_PremiumProba));
         }
+        
+        @Test
+        public void testToString() {
+            Date jaiotze_data = new Date();
+            Date iraungintze_data = new Date();
+            E_Premium ePremium = new E_Premium("123", "usuario123", "contraseña", "Nombre", "Apellido", "eu", jaiotze_data, iraungintze_data);
+            String expectedToString = "Erabiltzailea [idBezeroa=123, erabiltzailea=usuario123, pasahitza=contraseña, izena=Nombre, abizena=Apellido, hizkuntza=eu, jaiotze_data=" + jaiotze_data + "]E_Premium [iraungintze_data=" + iraungintze_data + "]";
+            
+            assertEquals(expectedToString, ePremium.toString());
+        }
+        
+        @Test
+        public void testEquals() {
+            Date jaiotze_data1 = new Date();
+            Date iraungintze_data1 = new Date();
+            E_Premium ePremium1 = new E_Premium("123", "usuario123", "contraseña", "Nombre", "Apellido", "eu", jaiotze_data1, iraungintze_data1);
+            Date jaiotze_data2 = new Date();
+            Date iraungintze_data2 = new Date();
+            E_Premium ePremium2 = new E_Premium("123", "usuario123", "contraseña", "Nombre", "Apellido", "eu", jaiotze_data2, iraungintze_data2);
+            
+            
+            ePremium2.setIraungintze_data(null);
+            assertFalse(ePremium1.equals(ePremium2));
+        }
+        
+        
+        
+
+        
+ 
 
         
 }

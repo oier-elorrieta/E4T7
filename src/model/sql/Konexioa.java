@@ -5,13 +5,22 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Konexioa klaseak datu-basearekin konexioa irekitzen du eta itxten du.
+ * Datu-basearekin konexioa irekitzean, MySQL JDBC Driver erabiltzen da.
+ * Konexioa irekitzen da URL, erabiltzailea eta pasahitzarekin. Konexioa
+ * irekitzerakoan, datu-basearekin kontsulta egiteko aukera ematen duen objektua
+ * sortzen da.
+ * 
+ */
 public class Konexioa {
+	
+	private static final String URL = "jdbc:mysql://10.5.6.223:3306/db_JPamt7";
+	private static final String USER = "administrador";
+	private static final String PASS = "admin123";
 
-	private static final String URL = "jdbc:mysql://localhost:3307/db_jpamt7";
-	private static final String USER = "root";
-	private static final String PASS = "";
-	protected static Connection konexioa;
-	protected static Statement query;
+	public static Connection konexioa;
+	public static Statement query;
 
 	/**
 	 * Metodo honek konexioa irekitzen du datu-basearekin. Konexioa irekitzean,
