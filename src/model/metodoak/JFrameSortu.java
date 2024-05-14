@@ -2,6 +2,7 @@ package model.metodoak;
 
 import java.awt.Font;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.JButton;
@@ -24,6 +25,7 @@ import view.admin.musikaKudeatu.AdminAbestiakKudeatuV;
 import view.admin.musikaKudeatu.AdminAlbumakKudeatuV;
 import view.admin.musikaKudeatu.AdminArtistakKudeatuV;
 import view.admin.musikaKudeatu.AdminMusikaKudeatuV;
+import view.erreprodukzioa.ErreprodukzioaPlaylistAbestiakV;
 import view.erreprodukzioa.ErreprodukzioaPodcastV;
 import view.erreprodukzioa.ErreprodukzioaV;
 import view.erreprodukzioa.IragarkiLehioaV;
@@ -277,5 +279,11 @@ public class JFrameSortu {
 		MenuaPlaylistAbestiakV menuaPlaylistAbestiakV = new MenuaPlaylistAbestiakV(playlist, abestia, album, artista, PlaylistAbestiakV);
 		menuaPlaylistAbestiakV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		menuaPlaylistAbestiakV.setVisible(true);
+	}
+	
+	public static void erreprodukzioaPlaylistAbestiak(ArrayList<Abestia> abestiLista, Playlist playlist, Artista artista, int indexAbesti, Album album) throws SQLException {
+		ErreprodukzioaPlaylistAbestiakV erreprodukzioaPAbestiakV = new ErreprodukzioaPlaylistAbestiakV(abestiLista, playlist, artista, album, indexAbesti);
+		erreprodukzioaPAbestiakV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		erreprodukzioaPAbestiakV.setVisible(true);
 	}
 }

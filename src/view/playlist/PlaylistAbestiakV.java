@@ -167,13 +167,14 @@ public class PlaylistAbestiakV extends JFrame {
 		btnMenuAbestiak.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (playlist.getTitulua().equals("Gustokoen zerrenda")) {
-					String valueSelected =  (String) PlaylistAbestiakList.getSelectedValue();
-					if (valueSelected == null) {
+					int valueSelected =  PlaylistAbestiakList.getSelectedIndex();
+					if (valueSelected == -1) {
 						JOptionPane.showMessageDialog(null, "Ez duzu abestirik hautatu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-					valueSelected.split("-");
-					String[] split = valueSelected.split("-");
+					String abestiaSelectedStr = (String) PlaylistAbestiakList.getSelectedValue();
+					abestiaSelectedStr.split("-");
+					String[] split = abestiaSelectedStr.split("-");
 					String abestia = split[0].trim();
 					String artista = split[1].trim();
 					String album = split[3].trim();
@@ -219,64 +220,45 @@ public class PlaylistAbestiakV extends JFrame {
 		// ERREPRODUZITU BOTOIA
 		btnErreproduzitu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String valueSelected =  (String) PlaylistAbestiakList.getSelectedValue();
-				if (valueSelected == null) {
+				int valueSelected = PlaylistAbestiakList.getSelectedIndex();
+				if (valueSelected == -1) {
 					JOptionPane.showMessageDialog(null, "Ez duzu abestirik hautatu erreproduzitzeko!", "Errorea", JOptionPane.ERROR_MESSAGE);
 				} else {
 					if (playlist.getTitulua().equals("Gustokoen zerrenda")) {
-						valueSelected.split("-");
-						String[] split = valueSelected.split("-");
-						String abestia = split[0].trim();
+						String abestiaSelectedStr = (String) PlaylistAbestiakList.getSelectedValue();
+						abestiaSelectedStr.split("-");
+						String[] split = abestiaSelectedStr.split("-");
 						String artista = split[1].trim();
 						String album = split[3].trim();
-						String idAudio = "";
-						Blob irudia = null;
-						String iraupena = "";
+
 						
-						for (int i = 0; i < gustukoAbestiakList.size(); i++) {
-							idAudio = gustukoAbestiakList.get(i).getIdAudio();
-							irudia = gustukoAbestiakList.get(i).getIrudia();
-							iraupena = gustukoAbestiakList.get(i).getIraupena();
-						}
-						
-						Abestia abestiaSelected = new Abestia(idAudio, abestia, irudia, iraupena);
 						Album albumSelected = new Album(album);
 						Artista artistaSelected = new Musikaria(artista);
 	
+						dispose();
 						try {
-							dispose();
-							JFrameSortu.erreprodukzioLehioa(albumSelected, artistaSelected, abestiaSelected);
-							SesioAldagaiak.playlist_erreprodukzioa = true;
-						} catch (SQLException | LineUnavailableException e1) {
-							JOptionPane.showMessageDialog(null, "Errorea gertatu da erreproduzitzean.", "Errorea", JOptionPane.ERROR_MESSAGE);
+							JFrameSortu.erreprodukzioaPlaylistAbestiak(gustukoAbestiakList, playlist, artistaSelected, valueSelected, albumSelected);
+						} catch (SQLException e1) {
+							JOptionPane.showMessageDialog(null, "Errore bat gertatu da abestia erreproduzitzean", "Errorea", JOptionPane.ERROR_MESSAGE);
 						}
+						SesioAldagaiak.playlist_erreprodukzioa = true;
 					} else {
-						valueSelected.split("-");
-						String[] split = valueSelected.split("-");
-						String abestia = split[0].trim();
+						String abestiaSelectedStr = (String) PlaylistAbestiakList.getSelectedValue();
+						abestiaSelectedStr.split("-");
+						String[] split = abestiaSelectedStr.split("-");
 						String artista = split[1].trim();
 						String album = split[3].trim();
-						String idAudio = "";
-						Blob irudia = null;
-						String iraupena = "";
 						
-						for (int i = 0; i < AbestiPlaylistJList.size(); i++) {
-							idAudio = AbestiPlaylistJList.get(i).getIdAudio();
-							irudia = AbestiPlaylistJList.get(i).getIrudia();
-							iraupena = AbestiPlaylistJList.get(i).getIraupena();
-						}
-						
-						Abestia abestiaSelected = new Abestia(idAudio, abestia, irudia, iraupena);
 						Album albumSelected = new Album(album);
 						Artista artistaSelected = new Musikaria(artista);
 	
+						dispose();
 						try {
-							dispose();
-							JFrameSortu.erreprodukzioLehioa(albumSelected, artistaSelected, abestiaSelected);
-							SesioAldagaiak.playlist_erreprodukzioa = true;
-						} catch (SQLException | LineUnavailableException e1) {
-							JOptionPane.showMessageDialog(null, "Errorea gertatu da erreproduzitzean.", "Errorea", JOptionPane.ERROR_MESSAGE);
+							JFrameSortu.erreprodukzioaPlaylistAbestiak(AbestiPlaylistJList, playlist, artistaSelected, valueSelected, albumSelected);
+						} catch (SQLException e1) {
+							JOptionPane.showMessageDialog(null, "Errore bat gertatu da abestia erreproduzitzean", "Errorea", JOptionPane.ERROR_MESSAGE);
 						}
+						SesioAldagaiak.playlist_erreprodukzioa = true;
 					}
 				}
 			}
