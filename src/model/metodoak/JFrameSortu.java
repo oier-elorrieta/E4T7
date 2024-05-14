@@ -255,7 +255,7 @@ public class JFrameSortu {
 		adminMusikaKudeatu.setVisible(true);
 	}
 	
-	public static void adminArtistakKudeatu() {
+	public static void adminArtistakKudeatu() throws SQLException {
 		AdminArtistakKudeatuV adminArtistakKudeatu = new AdminArtistakKudeatuV();
 		adminArtistakKudeatu.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		adminArtistakKudeatu.setVisible(true);

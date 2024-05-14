@@ -81,6 +81,11 @@ public class AdminAbestiakKudeatuV extends JFrame {
 		lblAukerak.setBounds(619, 147, 164, 23);
 		contentPane.add(lblAukerak);
 		
+		JButton btnEditatu = new JButton("Editatu");
+		btnEditatu.setFont(new Font("Segoe UI Historic", Font.BOLD, 19));
+		btnEditatu.setFocusPainted(false);
+		btnEditatu.setBounds(619, 355, 164, 51);
+		contentPane.add(btnEditatu);
 		
 		
 		// ATZERA BOTOIA
@@ -104,6 +109,13 @@ public class AdminAbestiakKudeatuV extends JFrame {
 				
 			}
 		});
+		
+		// EDITATZEKO BOTOIA
+		btnEditatu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		
 	}
-
 }

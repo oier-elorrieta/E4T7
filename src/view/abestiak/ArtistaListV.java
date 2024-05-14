@@ -25,6 +25,7 @@ import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
 import model.sql.ArtistaListDAO;
 import model.sql.Konexioa;
+import model.sql.admin.ArtistaCRUD;
 import view.LoginV;
 
 import java.awt.Color;

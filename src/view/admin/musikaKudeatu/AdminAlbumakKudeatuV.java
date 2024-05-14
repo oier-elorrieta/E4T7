@@ -81,6 +81,12 @@ public class AdminAlbumakKudeatuV extends JFrame {
 		btnEzabatu.setBounds(619, 272, 164, 51);
 		contentPane.add(btnEzabatu);
 		
+		JButton btnEditatu = new JButton("Editatu");
+		btnEditatu.setFont(new Font("Segoe UI Historic", Font.BOLD, 19));
+		btnEditatu.setFocusPainted(false);
+		btnEditatu.setBounds(619, 355, 164, 51);
+		contentPane.add(btnEditatu);
+		
 		
 		// ATZERA BOTOIA
 		btnAtzera.addActionListener(new ActionListener() {
@@ -103,6 +109,13 @@ public class AdminAlbumakKudeatuV extends JFrame {
 				
 			}
 		});
+		
+		// EDITATZEKO BOTOIA
+		btnEditatu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
 	}
 
 }

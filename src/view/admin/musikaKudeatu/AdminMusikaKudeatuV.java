@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -83,7 +84,12 @@ public class AdminMusikaKudeatuV extends JFrame {
 		btnArtistakKudeatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				JFrameSortu.adminArtistakKudeatu();
+				try {
+					JFrameSortu.adminArtistakKudeatu();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -102,5 +108,6 @@ public class AdminMusikaKudeatuV extends JFrame {
 				JFrameSortu.adminAbestiakKudeatu();
 			}
 		});
+		
 	}
 }
