@@ -19,6 +19,17 @@ public class Musikaria extends Artista {
 	}
 
 	/**
+	 * Musikaria klasearen eraikitzailea izena eta
+	 * deskribapenarekin.
+	 * 
+	 * @param izena           Musikariaren izena
+	 * @param deskribapena    Musikariaren deskribapena
+	 */
+	public Musikaria(String izena, String deskribapena) {
+		super(izena, deskribapena);
+	}
+
+	/**
 	 * Musikaria klasearen eraikitzailea irudia eta deskribapenarekin.
 	 * 
 	 * @param irudia       Musikariaren irudia

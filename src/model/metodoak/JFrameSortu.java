@@ -1,11 +1,9 @@
 package model.metodoak;
 
-import java.awt.Font;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.sound.sampled.LineUnavailableException;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -14,8 +12,9 @@ import model.Album;
 import model.Artista;
 import model.Playlist;
 import model.Podcast;
-import model.Podcaster;
-import view.*;
+import view.ErregistroaNireProfilaV;
+import view.LoginV;
+import view.MenuaV;
 import view.abestiak.ArtistaListV;
 import view.abestiak.ArtistaV;
 import view.abestiak.KantaListV;

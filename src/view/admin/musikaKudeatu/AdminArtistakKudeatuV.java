@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JList;
@@ -64,7 +65,11 @@ public class AdminArtistakKudeatuV extends JFrame {
 		panel.setPreferredSize(new Dimension(450, 300));
 		JTextField izenaField = new JTextField(10);
 		JTextField deskripzioField = new JTextField(10);
-
+		
+//		JScrollPane scrollPane = new JScrollPane();
+//        scrollPane.setBounds(10, 149, 409, 75);
+//        scrollPane.setViewportView(panel);
+		
 		JLabel izena_lbl = new JLabel("Izena: ");
 		izena_lbl.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 19));
 		
@@ -192,8 +197,10 @@ public class AdminArtistakKudeatuV extends JFrame {
 								}else {
 									try {
 										ArtistaCRUD.artistaUpdate(artistaSelected.getIzena(), izenatxt, deskripziotxt);
-										JOptionPane.showMessageDialog(null, "Artista berria ondo gorde da",
+										JOptionPane.showMessageDialog(null, "Artista ondo aldatu dira",
 												"Informazioa", JOptionPane.INFORMATION_MESSAGE);
+										dispose();
+										JFrameSortu.adminArtistakKudeatu();
 									} catch (SQLException e1) {
 										e1.printStackTrace();
 									}

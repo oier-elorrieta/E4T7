@@ -25,6 +25,20 @@ public abstract class Artista {
 	}
 
 	/**
+	 * Artista klasearen eraikitzailea izena, erreprodukzio kopuruarekin eta
+	 * deskribapenarekin.
+	 *
+	 * @param izena           artista izena
+	 * @param erreprodukzioak artista erreprodukzio kopurua
+	 * @param deskribapena    artista deskribapena
+	 */
+	public Artista(String izena, String deskribapena) {
+		this.izena = izena;
+		this.deskribapena = deskribapena;
+	}
+
+	
+	/**
 	 * Artista klasearen eraikitzailea irudia eta deskribapenarekin.
 	 *
 	 * @param irudia       artista irudia
