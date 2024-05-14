@@ -4,14 +4,20 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import model.Album;
+import model.Artista;
 import model.metodoak.JFrameSortu;
 import model.metodoak.View_metodoak;
+import model.sql.admin.AlbumaCRUD;
 import view.LoginV;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -20,16 +26,21 @@ import javax.swing.JList;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.ListSelectionModel;
+import javax.swing.JScrollPane;
 
 public class AdminAlbumakKudeatuV extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JList AlbumList;
+	private ArrayList<Album> AlbumakJList;
+
 
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
 	 */
-	public AdminAlbumakKudeatuV() {
+	public AdminAlbumakKudeatuV() throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		setTitle("Albumak kudeatu - ADMIN - JPAM Music");
@@ -56,12 +67,25 @@ public class AdminAlbumakKudeatuV extends JFrame {
 		lblHemenAlbumakKudeatu.setBounds(0, 44, 890, 34);
 		contentPane.add(lblHemenAlbumakKudeatu);
 		
-		JList ArtistaList = new JList();
-		ArtistaList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		ArtistaList.setFont(new Font("Verdana", Font.BOLD, 16));
-		ArtistaList.setBorder(new LineBorder(new Color(0, 0, 0)));
-		ArtistaList.setBounds(56, 95, 444, 404);
-		contentPane.add(ArtistaList);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(56, 95, 444, 404);
+		contentPane.add(scrollPane);
+		
+		AlbumList = new JList();
+		AlbumList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		AlbumList.setFont(new Font("Verdana", Font.BOLD, 16));
+		AlbumList.setBorder(new LineBorder(new Color(0, 0, 0)));
+		
+		AlbumakJList = AlbumaCRUD.albumIzenakKargatu();
+		DefaultListModel<String> modelAlbum = new DefaultListModel<String>();
+
+		for (int i = 0; i < AlbumakJList.size(); i++) {
+			modelAlbum.addElement(AlbumakJList.get(i).getIzenburua());
+		}
+		
+		AlbumList.setModel(modelAlbum);
+		AlbumList.setBounds(56, 95, 444, 404);
+		scrollPane.setViewportView(AlbumList);
 		
 		JButton btnBerriaSartu = new JButton("Berria sartu");
 		btnBerriaSartu.setFont(new Font("Segoe UI Historic", Font.BOLD, 19));
@@ -117,5 +141,4 @@ public class AdminAlbumakKudeatuV extends JFrame {
 		});
 		
 	}
-
 }

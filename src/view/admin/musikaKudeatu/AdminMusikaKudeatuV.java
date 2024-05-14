@@ -97,7 +97,12 @@ public class AdminMusikaKudeatuV extends JFrame {
 		btnAlbumakKudeatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				JFrameSortu.adminAlbumakKudeatu();
+				try {
+					JFrameSortu.adminAlbumakKudeatu();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		

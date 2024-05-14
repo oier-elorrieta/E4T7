@@ -24,25 +24,27 @@ public class ArtistaCRUD {
 		return artistakList;
 	}
 
-//	public static void artistaInsert() throws SQLException {
-//		Konexioa.konexioaIreki();
-//		ArrayList<Artista> artistakList = new ArrayList<Artista>();
-//		String SQLquery = "SELECT IzenArtistikoa FROM musikaria";
-//		ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
-//		Artista artistAux = null;
-//
-//		while (emaitza.next()) {
-//			artistAux = new Musikaria(emaitza.getString("IzenArtistikoa"));
-//			artistakList.add(artistAux);
-//		}
-//		Konexioa.konexioaItxi();
-//	}
+	public static void artistaInsert(String izenArtistikoa, String mota, String deskripzioaBerria) throws SQLException {
+		Konexioa.konexioaIreki();
+		
+		System.out.println(izenArtistikoa);
+		System.out.println(mota);
+		System.out.println(deskripzioaBerria);
+		
+		String SQLquery = "INSERT INTO musikaria (IzenArtistikoa, Irudia, Ezaugarria, Deskribapena) "
+				+ "VALUES ('" + izenArtistikoa + "', '" + null + "', '" + mota + "', '" + deskripzioaBerria +   "')";
+		Konexioa.query.executeUpdate(SQLquery);
+
+		Konexioa.konexioaItxi();
+	}
 
 	public static void artistaDelete(String izenArtistikoa) throws SQLException {
 		Konexioa.konexioaIreki();
-		String SQLquery = "DELETE FROM musikaria WHERE IzenArtistikoa = '" + izenArtistikoa + "'";
-
-		Konexioa.query.executeQuery(SQLquery);
+		
+		String IdArtista = IdArtistaLortu(izenArtistikoa);
+		
+		String SQLquery = "DELETE FROM musikaria WHERE IDMusikaria = '" + IdArtista + "'";
+		Konexioa.query.executeUpdate(SQLquery);
 
 		Konexioa.konexioaItxi();
 	}
@@ -55,7 +57,7 @@ public class ArtistaCRUD {
 
 		String SQLquery = "UPDATE musikaria SET IzenArtistikoa = '" + izenBerria + "', Deskribapena = '" + deskripzioaBerria + "' WHERE IDMusikaria = '"+ IdArtista + "'";
 		Konexioa.query.executeUpdate(SQLquery);
-
+		
 		Konexioa.konexioaItxi();
 	}
 
