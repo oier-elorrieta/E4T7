@@ -24,6 +24,9 @@ import view.admin.musikaKudeatu.AdminAbestiakKudeatuV;
 import view.admin.musikaKudeatu.AdminAlbumakKudeatuV;
 import view.admin.musikaKudeatu.AdminArtistakKudeatuV;
 import view.admin.musikaKudeatu.AdminMusikaKudeatuV;
+import view.admin.podcastKudeatu.AdminMenuaPodcastKudeatuV;
+import view.admin.podcastKudeatu.AdminPodcastKudeatuV;
+import view.admin.podcastKudeatu.AdminPodcasterKudeatuV;
 import view.erreprodukzioa.ErreprodukzioaPlaylistAbestiakV;
 import view.erreprodukzioa.ErreprodukzioaPodcastV;
 import view.erreprodukzioa.ErreprodukzioaV;
@@ -290,5 +293,23 @@ public class JFrameSortu {
 		ErreprodukzioaPlaylistAbestiakV erreprodukzioaPAbestiakV = new ErreprodukzioaPlaylistAbestiakV(abestiLista, playlist, artista, album, indexAbesti);
 		erreprodukzioaPAbestiakV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		erreprodukzioaPAbestiakV.setVisible(true);
+	}
+	
+	public static void adminMenuaPodcasterKudeatu() {
+		AdminMenuaPodcastKudeatuV AdminMenuaPodcastKudeatuV = new AdminMenuaPodcastKudeatuV();
+		AdminMenuaPodcastKudeatuV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		AdminMenuaPodcastKudeatuV.setVisible(true);
+	}
+	
+	public static void adminPodcasterKudeatu() {
+		AdminPodcasterKudeatuV adminPodcasterKudeatuV = new AdminPodcasterKudeatuV();
+		adminPodcasterKudeatuV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		adminPodcasterKudeatuV.setVisible(true);
+	}
+	
+	public static void adminPodcastKudeatu() {
+		AdminPodcastKudeatuV adminPodcastKudeatuV = new AdminPodcastKudeatuV();
+		adminPodcastKudeatuV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		adminPodcastKudeatuV.setVisible(true);
 	}
 }

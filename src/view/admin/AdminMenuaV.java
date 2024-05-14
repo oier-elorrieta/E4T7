@@ -95,7 +95,8 @@ public class AdminMenuaV extends JFrame {
 		// PODCASTAK KUDEATU BOTOIA
 		btnPodcastakKudeatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
+				JFrameSortu.adminMenuaPodcasterKudeatu();
 			}
 		});
 		

@@ -264,15 +264,29 @@ public class PlaylistListV extends JFrame {
 	                int menuAukera = JOptionPane.showOptionDialog(null, "Exportatu nahi duzu?\nPlaylist-a: " + playlistSelected.getTitulua(), "Exportatu",
 	                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerakMenu, aukerakMenu[0]);
 	                if (menuAukera == JOptionPane.YES_OPTION) {
-	                	try {
-							FilesMetodoak.exportatuPlaylistFiles(playlistSelected);
-							JOptionPane.showMessageDialog(null, "PlayList-a exportatu da!", "PlayList-a [Exportatu]",
-									JOptionPane.INFORMATION_MESSAGE);
-						} catch (IOException e1) {
-							e1.printStackTrace();
-							JOptionPane.showMessageDialog(null, "Errorea egon da.", "Catastrophic Error",
-									JOptionPane.ERROR_MESSAGE);
-						}
+	                	if (playlistSelected.getTitulua().equals("Gustokoen zerrenda")) {
+	                		try {
+								FilesMetodoak.exportatuGustokoaPlaylistFiles();
+								JOptionPane.showMessageDialog(null, "PlayList-a exportatu da!", "PlayList-a [Exportatu]",
+										JOptionPane.INFORMATION_MESSAGE);
+							} catch (IOException | SQLException e1) {
+								JOptionPane.showMessageDialog(null, "Errorea egon da.", "Catastrophic Error",
+										JOptionPane.ERROR_MESSAGE);
+							}
+	                	} else {
+	                		try {
+								FilesMetodoak.exportatuPlaylistFiles(playlistSelected);
+								JOptionPane.showMessageDialog(null, "PlayList-a exportatu da!", "PlayList-a [Exportatu]",
+										JOptionPane.INFORMATION_MESSAGE);
+							} catch (IOException e1) {
+								e1.printStackTrace();
+								JOptionPane.showMessageDialog(null, "Errorea egon da.", "Catastrophic Error",
+										JOptionPane.ERROR_MESSAGE);
+							} catch (SQLException e1) {
+								JOptionPane.showMessageDialog(null, "Errorea egon da datu basearekin.",
+										"Catastrophic Error", JOptionPane.ERROR_MESSAGE);
+							}
+	                	}
 	                }
                 }
 			}

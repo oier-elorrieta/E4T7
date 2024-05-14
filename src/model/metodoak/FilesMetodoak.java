@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import model.Abestia;
@@ -11,6 +13,8 @@ import model.Album;
 import model.Artista;
 import model.Playlist;
 import model.Podcast;
+import model.sql.PlayListDAO;
+import model.sql.PlaylistAbestiakDAO;
 
 public class FilesMetodoak {
 	/**
@@ -104,11 +108,16 @@ public class FilesMetodoak {
 		bufferedWriter.close();
 	}
 	
-	public static void exportatuPlaylistFiles(Playlist playlist) throws IOException {
+	public static void exportatuPlaylistFiles(Playlist playlist) throws IOException, SQLException {
 		Date dataOrain = new Date();
 		String rutaArchivo = "SharedPlaylist_" + playlist.getTitulua() + "_" + dataOrain.getTime() + ".txt";
 		File archivo = new File(rutaArchivo);
 		FileWriter write = new FileWriter(archivo);
+		
+		ArrayList<Abestia> abestiakPlaylist = PlaylistAbestiakDAO.abestiakPlaylistKargatu(playlist);
+		ArrayList<Album> albumakPlaylist = PlaylistAbestiakDAO.albumAbestiakPlaylistKargatu(playlist);
+		ArrayList<Artista> artistakPlaylist = PlaylistAbestiakDAO.abestiakArtistakPlaylistKargatu(playlist);
+		
 		BufferedWriter bufferedWriter = new BufferedWriter(write);
 
 		bufferedWriter.write("PLAYLIST-AREN INFORMAZIOA");
@@ -133,7 +142,89 @@ public class FilesMetodoak {
 		bufferedWriter.write("Erabiltzailea: " + SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea());
 		bufferedWriter.newLine();
 		bufferedWriter.write("----------------------------------");
+		bufferedWriter.newLine();
+		bufferedWriter.write("ABESTIAK PLAYLIST-AN");
+		bufferedWriter.newLine();
 		bufferedWriter.close();
+		
+		for (int i = 0; i < abestiakPlaylist.size(); i++) {
+			Abestia abestia = abestiakPlaylist.get(i);
+			Album album = albumakPlaylist.get(i);
+			Artista artista = artistakPlaylist.get(i);
+			write = new FileWriter(archivo, true);
+			bufferedWriter = new BufferedWriter(write);
+			bufferedWriter.newLine();
+			bufferedWriter.write("Abestia: " + abestia.getTitulua());
+			bufferedWriter.newLine();
+			bufferedWriter.write("Artista: " + artista.getIzena());
+			bufferedWriter.newLine();
+			bufferedWriter.write("Albuma: " + album.getIzenburua());
+			bufferedWriter.newLine();
+			bufferedWriter.write("Iraupena: " + abestia.getIraupena());
+			bufferedWriter.newLine();
+			bufferedWriter.write("------------------------------------------------------------------------------");
+			bufferedWriter.newLine();
+			bufferedWriter.close();
+		}
+	}
+	
+	public static void exportatuGustokoaPlaylistFiles() throws IOException, SQLException {
+		Date dataOrain = new Date();
+		String rutaArchivo = "SharedPlaylist_GustokoenZerrenda_" + dataOrain.getTime() + ".txt";
+		File archivo = new File(rutaArchivo);
+		FileWriter write = new FileWriter(archivo);
+		Playlist playlist = new Playlist("Gustokoen zerrenda");
+		
+		ArrayList<Abestia> abestiakPlaylist = PlaylistAbestiakDAO.gustukoAbestiakKargatu(playlist);
+		ArrayList<Album> albumakPlaylist = PlaylistAbestiakDAO.gustukoAlbumAbestiakKargatu(playlist);
+		ArrayList<Artista> artistakPlaylist = PlaylistAbestiakDAO.gustukoArtistaAbestiakKargatu(playlist);
+		
+		BufferedWriter bufferedWriter = new BufferedWriter(write);
+
+		bufferedWriter.write("PLAYLIST-AREN INFORMAZIOA");
+		bufferedWriter.newLine();
+		bufferedWriter.write("----------------------------------");
+		bufferedWriter.newLine();
+		bufferedWriter.write("Playlist izena: Gustokoen zerrenda");
+		bufferedWriter.newLine();
+		bufferedWriter.write("Kapazitatea: " + PlayListDAO.gustokoAbestiKantitatea() + " abesti.");
+		bufferedWriter.newLine();
+		bufferedWriter.write("------------------------------------------------------------------------------");
+		bufferedWriter.newLine();
+		bufferedWriter.write("BEZEROAREN INFORMAZIOA");
+		bufferedWriter.newLine();
+		bufferedWriter.write("----------------------------------");
+		bufferedWriter.newLine();
+		bufferedWriter.write("Bezeroa izen-abizenak: " + SesioAldagaiak.bezeroa_logeatuta.getIzena() + " "
+				+ SesioAldagaiak.bezeroa_logeatuta.getAbizena());
+		bufferedWriter.newLine();
+		bufferedWriter.write("Erabiltzailea: " + SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea());
+		bufferedWriter.newLine();
+		bufferedWriter.write("----------------------------------");
+		bufferedWriter.newLine();
+		bufferedWriter.write("ABESTIAK PLAYLIST-AN");
+		bufferedWriter.newLine();
+		bufferedWriter.close();
+		
+		for (int i = 0; i < abestiakPlaylist.size(); i++) {
+			Abestia abestia = abestiakPlaylist.get(i);
+			Album album = albumakPlaylist.get(i);
+			Artista artista = artistakPlaylist.get(i);
+			write = new FileWriter(archivo, true);
+			bufferedWriter = new BufferedWriter(write);
+			bufferedWriter.newLine();
+			bufferedWriter.write("Abestia: " + abestia.getTitulua());
+			bufferedWriter.newLine();
+			bufferedWriter.write("Artista: " + artista.getIzena());
+			bufferedWriter.newLine();
+			bufferedWriter.write("Albuma: " + album.getIzenburua());
+			bufferedWriter.newLine();
+			bufferedWriter.write("Iraupena: " + abestia.getIraupena());
+			bufferedWriter.newLine();
+			bufferedWriter.write("------------------------------------------------------------------------------");
+			bufferedWriter.newLine();
+			bufferedWriter.close();
+		}
 	}
 
 	public static void abestiaKonpartitu(Playlist playlist, Abestia abestia, Album album, Artista artista) {
