@@ -10,6 +10,8 @@ import model.metodoak.*;
 import model.*;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
@@ -19,7 +21,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
-public class Menua extends JFrame {
+public class MenuaV extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -27,9 +29,16 @@ public class Menua extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Menua() {
+	public MenuaV(JFrame jframe) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
+		if (SesioAldagaiak.e_premium) {
+			setTitle("Menua - JPAM Music PREMIUM");
+		} else {
+			setTitle("Menua - JPAM Music FREE");
+		}
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -74,28 +83,46 @@ public class Menua extends JFrame {
 		lblUserizena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
 		lblUserizena.setBounds(693, 11, 187, 34);
 		// ATERA ERABILTZAILEAREN IZENA
-		lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezero_Ondo.getIzena() + "!");
+		lblUserizena.setText("Kaixo, " + SesioAldagaiak.bezeroa_logeatuta.getIzena() + "!");
 		contentPane.add(lblUserizena);
+
 		
 		// MUSIKA DESKUBRITU BOTOIA
 		btnMusikaDeskubritu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				dispose();
+				try {
+					JFrameSortu.musikaDeskubrituBezeroa();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		// POSCASTAK DESKUBRITU BOTOIA
 		btnPodcastakDeskubritu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				dispose();
+				try {
+					JFrameSortu.podcastDeskubrituBezeroa();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		// NIRE PLAYLISTAK BOTOIA
 		btnNirePlaylistak.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				dispose();
+				try {
+					JFrameSortu.playlistListaBezeroa();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -103,9 +130,9 @@ public class Menua extends JFrame {
 		btnNireProfila.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dispose();
 				try {
-					JFrameSortu.erregistroMenua();
+					setVisible(false);
+					JFrameSortu.erregistroMenua(MenuaV.this);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
