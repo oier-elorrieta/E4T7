@@ -1,18 +1,62 @@
 package model;
 
+import java.sql.Blob;
+
 /**
- * Abestiak klasea, Audio klasearen luzapena da. Abestiak klaseak titulua eta
- * iraupena gordetzen ditu.
+ * Abestia klasea Audio klasearen luzapena da. Abestia klaseak musika
+ * fitxategiak kudeatzeko funtzionalitateak eskaintzen ditu.
  */
 public class Abestia extends Audio {
 
 	/**
-	 * Abestiak klasearen eraikitzailea.
+	 * Abestia klasearen eraikitzailea.
 	 * 
+	 * @param titulua  abestiaren titulua
+	 * @param irudia   abestiaren irudia
+	 * @param iraupena abestiaren iraupena
+	 */
+	public Abestia(String titulua, Blob irudia, String iraupena) {
+		super(titulua, irudia, iraupena);
+	}
+	
+
+	public Abestia(String idAudio, String titulua, Blob irudia, String iraupena) {
+		super(idAudio, titulua, irudia, iraupena);
+	}
+
+
+
+	/**
+	 * Abestia klasearen eraikitzailea.
+	 * 
+	 * @param idAudio         abestiaren identifikadorea
+	 * @param titulua         abestiaren titulua
+	 * @param iraupena        abestiaren iraupena
+	 * @param erreprodukzioak abestiaren erreprodukzio kopurua
+	 */
+	public Abestia(String idAudio, String titulua, String iraupena, int erreprodukzioak) {
+		super(idAudio, titulua, iraupena, erreprodukzioak);
+	}
+
+	/**
+	 * Abestia klasearen eraikitzailea.
+	 * 
+	 * @param idAudio  abestiaren identifikadorea
 	 * @param titulua  abestiaren titulua
 	 * @param iraupena abestiaren iraupena
 	 */
-	public Abestia(String titulua, int iraupena) {
-		super(titulua, iraupena);
+	public Abestia(String idAudio, String titulua, String iraupena) {
+		super(idAudio, titulua, iraupena);
 	}
+
+
+	/**
+	 * Abestia klasearen eraikitzailea.
+	 * 
+	 * @param irudia abestiaren irudia
+	 */
+	public Abestia(Blob irudia) {
+		super(irudia);
+	}
+
 }

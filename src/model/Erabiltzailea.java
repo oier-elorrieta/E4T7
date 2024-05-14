@@ -4,10 +4,10 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * Erabiltzailea klasea erabiltzailearen datuak gordetzeko eta kudeatzeko
- * erabiliko da.
+ * Erabiltzailea klasea erabiltzailearen informazioa gordetzeko erabiliko da.
  */
 public class Erabiltzailea {
+	private String idBezeroa;
 	private String erabiltzailea;
 	private String pasahitza;
 	private String izena;
@@ -16,13 +16,37 @@ public class Erabiltzailea {
 	private Date jaiotze_data;
 
 	/**
-	 * Erabiltzailea klasearen eraikitzailea.
-	 * 
-	 * @param erabiltzailea erabiltzailearen izena
+	 * Erabiltzailea klasearen objektu berri bat sortzen du parametroetan
+	 * zehaztutako balioekin.
+	 *
+	 * @param idBezeroa     erabiltzailearen ID-a
+	 * @param erabiltzailea erabiltzailearen erabiltzaile izena
 	 * @param pasahitza     erabiltzailearen pasahitza
 	 * @param izena         erabiltzailearen izena
 	 * @param abizena       erabiltzailearen abizena
-	 * @param hizkuntza     erabiltzailearen hizkuntza
+	 * @param hizkuntza     erabiltzailearen hizkuntza aukera
+	 * @param jaiotze_data  erabiltzailearen jaiotze data
+	 */
+	public Erabiltzailea(String idBezeroa, String erabiltzailea, String pasahitza, String izena, String abizena,
+			String hizkuntza, Date jaiotze_data) {
+		this.idBezeroa = idBezeroa;
+		this.erabiltzailea = erabiltzailea;
+		this.pasahitza = pasahitza;
+		this.izena = izena;
+		this.abizena = abizena;
+		this.hizkuntza = hizkuntza;
+		this.jaiotze_data = jaiotze_data;
+	}
+
+	/**
+	 * Erabiltzailea klasearen objektu berri bat sortzen du parametroetan
+	 * zehaztutako balioekin.
+	 *
+	 * @param erabiltzailea erabiltzailearen erabiltzaile izena
+	 * @param pasahitza     erabiltzailearen pasahitza
+	 * @param izena         erabiltzailearen izena
+	 * @param abizena       erabiltzailearen abizena
+	 * @param hizkuntza     erabiltzailearen hizkuntza aukera
 	 * @param jaiotze_data  erabiltzailearen jaiotze data
 	 */
 	public Erabiltzailea(String erabiltzailea, String pasahitza, String izena, String abizena, String hizkuntza,
@@ -36,6 +60,24 @@ public class Erabiltzailea {
 	}
 
 	/**
+	 * Bezeroaren ID-a itzultzen du.
+	 *
+	 * @return bezeroaren ID-a
+	 */
+	public String getIdBezeroa() {
+		return idBezeroa;
+	}
+
+	/**
+	 * Metodo honek Erabiltzailearen bezeroaren identifikazioa ezartzen du.
+	 *
+	 * @param idBezeroa Erabiltzailearen bezeroaren identifikazioa
+	 */
+	public void setIdBezeroa(String idBezeroa) {
+		this.idBezeroa = idBezeroa;
+	}
+
+	/**
 	 * Metodo honek erabiltzailearen izena itzultzen du.
 	 *
 	 * @return erabiltzailearen izena
@@ -45,7 +87,7 @@ public class Erabiltzailea {
 	}
 
 	/**
-	 * Metodo honek Erabiltzailea klaseko erabiltzailea atributua ezartzen du.
+	 * Metodo honek Erabiltzailea klasearen erabiltzailea atributua ezartzen du.
 	 *
 	 * @param erabiltzailea Erabiltzailearen izena
 	 */
@@ -72,16 +114,16 @@ public class Erabiltzailea {
 	}
 
 	/**
-	 * Metodo honek Erabiltzailearen izena itzultzen du.
+	 * Erabiltzailearen izena itzultzen du.
 	 *
-	 * @return Erabiltzailearen izena
+	 * @return erabiltzailearen izena
 	 */
 	public String getIzena() {
 		return izena;
 	}
 
 	/**
-	 * Metodo honek Erabiltzailearen izena ezarriko du.
+	 * Erabiltzailearen izena ezartzen du.
 	 *
 	 * @param izena Erabiltzailearen izena
 	 */
@@ -90,17 +132,17 @@ public class Erabiltzailea {
 	}
 
 	/**
-	 * Metodo honek abizena atributuaren balioa itzultzen du.
+	 * Erabiltzailearen abizena itzultzen du.
 	 *
-	 * @return abizena atributuaren balioa
+	 * @return erabiltzailearen abizena
 	 */
 	public String getAbizena() {
 		return abizena;
 	}
 
 	/**
-	 * Metodo honek abizena atributuari balioa esleitzen dio.
-	 * 
+	 * Erabiltzailearen abizena ezartzen du.
+	 *
 	 * @param abizena Erabiltzailearen abizena
 	 */
 	public void setAbizena(String abizena) {
@@ -118,7 +160,7 @@ public class Erabiltzailea {
 
 	/**
 	 * Metodo honek Erabiltzailearen hizkuntza ezarriko du.
-	 *
+	 * 
 	 * @param hizkuntza Erabiltzailearen hizkuntza
 	 */
 	public void setHizkuntza(String hizkuntza) {
@@ -135,18 +177,19 @@ public class Erabiltzailea {
 	}
 
 	/**
-	 * Metodo honek jaiotze_data atributuaren balioa ezartzen du.
-	 *
-	 * @param jaiotze_data jaiotze data berria
+	 * Metodo honek jaiotze data ezartzen du.
+	 * 
+	 * @param jaiotze_data jaiotze data
 	 */
 	public void setJaiotze_data(Date jaiotze_data) {
 		this.jaiotze_data = jaiotze_data;
 	}
 
 	/**
-	 * Metodo honek objektu hau eta beste objektu bat alderatzen ditu.
+	 * Metodo honek objektu hau eta beste objektua alderatzen ditu, berdintasunaren
+	 * arabera.
 	 * 
-	 * @param obj Beste objektua alderatzeko.
+	 * @param obj Beste objektua alderatzeko
 	 * @return True, objektuak berdinak diren adierazten badu. False, bestela.
 	 */
 	@Override
@@ -159,19 +202,20 @@ public class Erabiltzailea {
 			return false;
 		Erabiltzailea other = (Erabiltzailea) obj;
 		return Objects.equals(abizena, other.abizena) && Objects.equals(erabiltzailea, other.erabiltzailea)
-				&& Objects.equals(hizkuntza, other.hizkuntza) && Objects.equals(izena, other.izena)
-				&& Objects.equals(jaiotze_data, other.jaiotze_data) && Objects.equals(pasahitza, other.pasahitza);
+				&& Objects.equals(hizkuntza, other.hizkuntza) && Objects.equals(idBezeroa, other.idBezeroa)
+				&& Objects.equals(izena, other.izena) && Objects.equals(jaiotze_data, other.jaiotze_data)
+				&& Objects.equals(pasahitza, other.pasahitza);
 	}
 
 	/**
-	 * Objektuaren String irudikapen bat itzultzen du.
+	 * Itzultzen du objektuaren kate errepresentazio bat.
 	 *
-	 * @return objektuaren String-irudikapen bat.
+	 * @return objektuaren kate errepresentazio bat.
 	 */
 	@Override
 	public String toString() {
-		return "Erabiltzailea [erabiltzailea=" + erabiltzailea + ", pasahitza=" + pasahitza + ", izena=" + izena
-				+ ", abizena=" + abizena + ", hizkuntza=" + hizkuntza + ", jaiotze_data=" + jaiotze_data + "]";
+		return "Erabiltzailea [idBezeroa=" + idBezeroa + ", erabiltzailea=" + erabiltzailea + ", pasahitza=" + pasahitza
+				+ ", izena=" + izena + ", abizena=" + abizena + ", hizkuntza=" + hizkuntza + ", jaiotze_data="
+				+ jaiotze_data + "]";
 	}
-
 }
