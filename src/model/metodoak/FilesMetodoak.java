@@ -227,8 +227,44 @@ public class FilesMetodoak {
 		}
 	}
 
-	public static void abestiaKonpartitu(Playlist playlist, Abestia abestia, Album album, Artista artista) {
-		
-		
+	public static void abestiaKonpartituPlaylist(Playlist playlist, Abestia abestia, Album album, Artista artista) throws IOException {
+		Date dataOrain = new Date();
+		String rutaArchivo = "SharedPlaylistSong_" + dataOrain.getTime() + ".txt";
+		File archivo = new File(rutaArchivo);
+		FileWriter write = new FileWriter(archivo);
+		BufferedWriter bufferedWriter = new BufferedWriter(write);
+
+		bufferedWriter.write("PLAYLIST-AREN INFORMAZIOA");
+		bufferedWriter.newLine();
+		bufferedWriter.write("----------------------------------");
+		bufferedWriter.newLine();
+		bufferedWriter.write("Playlist izena: " + playlist.getTitulua());
+		bufferedWriter.newLine();
+		bufferedWriter.write("----------------------------------");
+		bufferedWriter.newLine();
+		bufferedWriter.write("ABESTIAREN INFORMAZIOA");
+		bufferedWriter.newLine();
+		bufferedWriter.write("Abestia: " + abestia.getTitulua());
+		bufferedWriter.newLine();
+		bufferedWriter.write("Artista: " + artista.getIzena());
+		bufferedWriter.newLine();
+		bufferedWriter.write("Albuma: " + album.getIzenburua());
+		bufferedWriter.newLine();
+		bufferedWriter.write("Iraupena: " + abestia.getIraupena());
+		bufferedWriter.newLine();
+		bufferedWriter.write("------------------------------------------------------------------------------");
+		bufferedWriter.newLine();
+		bufferedWriter.write("BEZEROAREN INFORMAZIOA");
+		bufferedWriter.newLine();
+		bufferedWriter.write("----------------------------------");
+		bufferedWriter.newLine();
+		bufferedWriter.write("Bezeroa izen-abizenak: " + SesioAldagaiak.bezeroa_logeatuta.getIzena() + " "
+				+ SesioAldagaiak.bezeroa_logeatuta.getAbizena());
+		bufferedWriter.newLine();
+		bufferedWriter.write("Erabiltzailea: " + SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea());
+		bufferedWriter.newLine();
+		bufferedWriter.write("----------------------------------");
+		bufferedWriter.newLine();
+		bufferedWriter.close();
 	}
 }

@@ -303,14 +303,11 @@ public class ErreprodukzioaV extends JFrame {
 											JOptionPane.ERROR_MESSAGE);
 								}
 								
-								Abestia abestiaAurrekoa = new Abestia(abestiList.get(i-1).getTitulua(), abestiList.get(i-1).getIrudia(), abestiList.get(i-1).getIraupena());
+								Abestia abestiaAurrekoa = new Abestia(abestiList.get(i-1).getIdAudio(), abestiList.get(i-1).getTitulua(), abestiList.get(i-1).getIrudia(), abestiList.get(i-1).getIraupena());
 								
 								if (clipLehena.isRunning()) {
 									clipLehena.stop();
 								}
-								/*if (clipHurrengoa.isRunning()) {
-									clipHurrengoa.stop();
-								}*/
 								if (clipAurrekoa.isRunning()) {
 									clipAurrekoa.stop();
 								}
@@ -358,7 +355,7 @@ public class ErreprodukzioaV extends JFrame {
 								if (abesti.getTitulua().equals(abestiList.get(i).getTitulua())) {
 									File f = new File(fileAudio);
 									AudioInputStream aui2;
-									
+									System.out.println("ID AUDIO 1º: " + abesti.getIdAudio());
 									try {
 										aui2 = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
 										clipHurrengoa = AudioSystem.getClip();
@@ -369,7 +366,7 @@ public class ErreprodukzioaV extends JFrame {
 										e1.printStackTrace();
 									}
 									
-									Abestia abestiaHurrengoa = new Abestia(abestiList.get(i+1).getTitulua(), abestiList.get(i+1).getIrudia(), abestiList.get(i+1).getIraupena());
+									Abestia abestiaHurrengoa = new Abestia(abestiList.get(i+1).getIdAudio(), abestiList.get(i+1).getTitulua(), abestiList.get(i+1).getIrudia(), abestiList.get(i+1).getIraupena());
 									
 									if (clipLehena.isRunning()) {
 										clipLehena.stop();
@@ -382,15 +379,6 @@ public class ErreprodukzioaV extends JFrame {
 										SesioAldagaiak.iragarkiaIpini = true;
 									} else {
 										SesioAldagaiak.iragarkiaIpini = false;
-									}
-									
-									Long clipPos = clipLehena.getMicrosecondPosition();
-									int secondsInt = (int) (clipPos / 1000000);
-									String seconds = Integer.toString(secondsInt % 60);
-									System.out.println(abesti.getIraupena().split(":")[2] + " = " + seconds);
-									if (abesti.getIraupena().split(":")[2].equals(seconds)) {
-										dispose();
-										JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
 									}
 									
 									dispose();
@@ -417,7 +405,6 @@ public class ErreprodukzioaV extends JFrame {
 					}
 					if (listaAmaiera) {
 						lblInfoLista.setText("Listaren amaierara iritsi zara!");
-						System.out.println("Amaiera");
 						return;
 					}
 					for (; i < abestiList.size(); i++) {
@@ -439,7 +426,7 @@ public class ErreprodukzioaV extends JFrame {
 										e1.printStackTrace();
 									}
 									
-									Abestia abestiaHurrengoa = new Abestia(abestiList.get(i+1).getTitulua(), abestiList.get(i+1).getIrudia(), abestiList.get(i+1).getIraupena());
+									Abestia abestiaHurrengoa = new Abestia(abestiList.get(i+1).getIdAudio(), abestiList.get(i+1).getTitulua(), abestiList.get(i+1).getIrudia(), abestiList.get(i+1).getIraupena());
 									
 									if (clipLehena.isRunning()) {
 										clipLehena.stop();
@@ -456,13 +443,11 @@ public class ErreprodukzioaV extends JFrame {
 									
 									dispose();
 									try {
-										System.out.println(abestiaHurrengoa.getIdAudio());
 										JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
 									} catch (SQLException | LineUnavailableException e1) {
 										JOptionPane.showMessageDialog(null, "Errorea egon da.", "Errorea", JOptionPane.ERROR_MESSAGE);
 									}
 								}
-									
 						}
 				}
 			}
@@ -489,10 +474,7 @@ public class ErreprodukzioaV extends JFrame {
 						btnGustukoa.setText("🖤");
 						MenuaPlaylistSartuAbestiakDAO.gustokoanGorde(abesti);
 						
-					}
-					    
-                 
-                    
+					}   
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, "Errorea egon da.", "Errorea", JOptionPane.ERROR_MESSAGE);
 				}

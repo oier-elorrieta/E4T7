@@ -36,6 +36,7 @@ public class Podcast extends Audio {
 	 * @param iraupena       podcast-aren iraupena
 	 * @param kolaboratzaile podcast-aren kolaboratzailea
 	 */
+	
 	public Podcast(String titulua, Blob irudia, String iraupena, String kolaboratzaile) {
 		super(titulua, irudia, iraupena);
 		this.kolaboratzaile = kolaboratzaile;

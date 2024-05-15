@@ -71,7 +71,7 @@ public class PodcasterListDAO {
         Podcast podcast = null;
         
         while (emaitza.next()) {
-           podcast = new Podcast (emaitza.getString("Izena"), emaitza.getBlob("a.Irudia"), emaitza.getString("Iraupena"), emaitza.getString("Kolaboratzaileak"));
+           podcast = new Podcast(emaitza.getString("Izena"), emaitza.getBlob("a.Irudia"), emaitza.getString("Iraupena"), emaitza.getString("Kolaboratzaileak"));
            
            PodcastList.add(podcast);
         }
