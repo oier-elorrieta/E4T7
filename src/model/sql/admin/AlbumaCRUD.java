@@ -37,7 +37,7 @@ public class AlbumaCRUD {
 	public static void albumDelete(Album album) throws SQLException {
 		Konexioa.konexioaIreki();
 
-		int idAlbum = albumIDLortu(album);
+		int idAlbum = albumIDLortu(album.getIzenburua());
 		
 		String SQLquery = "DELETE FROM album WHERE IdAlbum = '" + idAlbum + "'";
 		Konexioa.query.executeUpdate(SQLquery);
@@ -49,7 +49,7 @@ public class AlbumaCRUD {
 	public static void albumUpdate(Album album, Album albumBerria) throws SQLException {
 		Konexioa.konexioaIreki();
 
-		int idAlbum = albumIDLortu(album);
+		int idAlbum = albumIDLortu(album.getIzenburua());
 		
 		String SQLquery = "UPDATE album SET Izenburua = '" + albumBerria.getIzenburua() + "', Urtea = '" + albumBerria.getUrtea()
 				+ "', Generoa = '" + albumBerria.getGeneroa() + "' where IdAlbum = '" + idAlbum + "'";
@@ -59,17 +59,16 @@ public class AlbumaCRUD {
 
 	}
 
-	public static int albumIDLortu(Album album) throws SQLException {
-		int IdAlbum	= 0;
-				
-		String SQLquery = "SELECT IdAlbum FROM album WHERE Izenburua = '"+album.getIzenburua()+"'";
-		ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
+	public static int albumIDLortu(String albumIzena) throws SQLException {
+	    int IdAlbum = 0;
 
-		while (emaitza.next()) {
-			IdAlbum = emaitza.getInt("IDAlbum");
-		}
-		
-		return IdAlbum;
+	    String SQLquery = "SELECT IdAlbum FROM album WHERE Izenburua = '" + albumIzena + "'";
+	    ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
 
+	    while (emaitza.next()) {
+	        IdAlbum = emaitza.getInt("IDAlbum");
+	    }
+
+	    return IdAlbum;
 	}
 }

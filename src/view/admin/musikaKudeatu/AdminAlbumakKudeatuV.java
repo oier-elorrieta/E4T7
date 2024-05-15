@@ -67,7 +67,7 @@ public class AdminAlbumakKudeatuV extends JFrame implements IadminBotoiak {
 	 * 
 	 * @throws SQLException
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public AdminAlbumakKudeatuV() throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
@@ -84,12 +84,11 @@ public class AdminAlbumakKudeatuV extends JFrame implements IadminBotoiak {
 
 		titulotxtpane = new JTextPane();
 
+		Date maxdata = new Date();
 		urteaDateChooser = new JDateChooser();
 		urteaDateChooser.setLocale(new Locale("es"));
 		urteaDateChooser.setDateFormatString("yyyy-MM-dd");
-		Date mindata = new Date(0);
-		mindata.setYear(1900 - 1900);
-		urteaDateChooser.getJCalendar().setMinSelectableDate(mindata);
+		urteaDateChooser.setMaxSelectableDate(maxdata);
 		urteaDateChooser.getDateEditor().getUiComponent().setFocusable(false);
 
 		generoaComboBox = new JComboBox();
@@ -309,7 +308,6 @@ public class AdminAlbumakKudeatuV extends JFrame implements IadminBotoiak {
 					try {
 						date = View_metodoak.stringToDate(albuma.getUrtea());
 					} catch (ParseException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 

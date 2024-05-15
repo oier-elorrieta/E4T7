@@ -163,4 +163,32 @@ public class View_metodoak {
 		Date date = formatter.parse(data);
 		return date;
 	}
+	
+	/**
+	 * Metodo honek spinner-eko data formatua zuzentzen du.
+	 * 
+	 * @param String data
+	 * @return Date formotuan
+	 * @throws ParseException
+	 */
+	public static Date spinnerFormatuaOrdua(String data) throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+
+		Date date = dateFormat.parse(data);
+		return date;
+	}
+	
+	/**
+	 * Metodo honek spinner-eko data hartzen du eta String moduan bildatzen du.
+	 * 
+	 * @param data objektu moduan
+	 * @return String moduan
+	 * @throws ParseException
+	 */
+	public static String spinnerFormatuaString(Object object) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        return dateFormat.format(object);
+    }
+	
+	
 }
