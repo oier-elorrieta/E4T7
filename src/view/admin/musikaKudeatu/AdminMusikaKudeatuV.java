@@ -110,7 +110,12 @@ public class AdminMusikaKudeatuV extends JFrame {
 		btnAbestiakKudeatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				JFrameSortu.adminAbestiakKudeatu();
+				try {
+					JFrameSortu.adminAbestiakKudeatu();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		

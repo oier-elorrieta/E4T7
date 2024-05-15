@@ -24,6 +24,7 @@ import model.interfazeak.IadminBotoiak;
 import model.metodoak.JFrameSortu;
 import model.metodoak.View_metodoak;
 import model.sql.admin.AlbumaCRUD;
+import model.sql.admin.ArtistaCRUD;
 import view.LoginV;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -54,10 +55,12 @@ public class AdminAlbumakKudeatuV extends JFrame implements IadminBotoiak {
 	private JLabel titulo_lbl;
 	private JLabel urtea_lbl;
 	private JLabel generoa_lbl;
+	private JLabel musikari_lbl;
 
 	private JTextPane titulotxtpane;
 	private JDateChooser urteaDateChooser;
 	private JComboBox generoaComboBox;
+	private JComboBox musikariComboBox;
 
 	/**
 	 * Create the frame.
@@ -80,7 +83,6 @@ public class AdminAlbumakKudeatuV extends JFrame implements IadminBotoiak {
 		panel.setPreferredSize(new Dimension(450, 300));
 
 		titulotxtpane = new JTextPane();
-		panel.add(titulotxtpane);
 
 		urteaDateChooser = new JDateChooser();
 		urteaDateChooser.setLocale(new Locale("es"));
@@ -89,7 +91,6 @@ public class AdminAlbumakKudeatuV extends JFrame implements IadminBotoiak {
 		mindata.setYear(1900 - 1900);
 		urteaDateChooser.getJCalendar().setMinSelectableDate(mindata);
 		urteaDateChooser.getDateEditor().getUiComponent().setFocusable(false);
-		panel.add(urteaDateChooser);
 
 		generoaComboBox = new JComboBox();
 		generoaComboBox.addItem("Rock");
@@ -100,7 +101,6 @@ public class AdminAlbumakKudeatuV extends JFrame implements IadminBotoiak {
 		generoaComboBox.addItem("Country pop");
 		generoaComboBox.addItem("Pop rock");
 		generoaComboBox.addItem("Rock alternativo");
-		panel.add(generoaComboBox);
 
 		titulo_lbl = new JLabel("Titulua: ");
 		titulo_lbl.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 19));
@@ -110,6 +110,23 @@ public class AdminAlbumakKudeatuV extends JFrame implements IadminBotoiak {
 
 		generoa_lbl = new JLabel("Generoa: ");
 		generoa_lbl.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
+
+		panel.add(titulo_lbl);
+		panel.add(titulotxtpane);
+
+		panel.add(urtea_lbl);
+		panel.add(urteaDateChooser);
+
+		panel.add(generoa_lbl);
+		panel.add(generoaComboBox);
+
+		musikariComboBox = new JComboBox<String>();
+		for (Artista artista : ArtistaCRUD.artistaIzenakKargatu()) {
+			musikariComboBox.addItem(artista.getIzena());
+		}
+
+		musikari_lbl = new JLabel("Musikaria: ");
+		musikari_lbl.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 19));
 
 		JButton btnAtzera = View_metodoak.btn_Atzera();
 		contentPane.add(btnAtzera);
@@ -182,7 +199,7 @@ public class AdminAlbumakKudeatuV extends JFrame implements IadminBotoiak {
 		// BERRIA SARTZEKO BOTOIA
 		btnBerriaSartu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				btnInsert();
 			}
 		});
 
@@ -204,7 +221,46 @@ public class AdminAlbumakKudeatuV extends JFrame implements IadminBotoiak {
 
 	@Override
 	public void btnInsert() {
-		// TODO Auto-generated method stub
+		boolean errorea = false;
+
+		do {
+
+			panel.add(musikari_lbl);
+			panel.add(musikariComboBox);
+
+			int opcion = JOptionPane.showConfirmDialog(null, panel, "Album berria sartu", JOptionPane.OK_CANCEL_OPTION,
+					JOptionPane.PLAIN_MESSAGE);
+
+			if (opcion == JOptionPane.OK_OPTION) {
+				String titulua = titulotxtpane.getText();
+				Date urtea = urteaDateChooser.getDate();
+				String generoa = generoaComboBox.getSelectedItem().toString();
+				String musikaria = musikariComboBox.getSelectedItem().toString();
+
+				if (titulua.isEmpty() || urtea == null) {
+					JOptionPane.showMessageDialog(null, "Datu guztiak bete behar dira!", "Errorea",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					Album albumBerria = new Album(titulua, View_metodoak.dateToString(urtea), generoa);
+					try {
+						AlbumaCRUD.albumInsert(albumBerria, ArtistaCRUD.IdArtistaLortu(musikaria));
+						JOptionPane.showMessageDialog(null, "Albuma ondo sartu da", "Egina",
+								JOptionPane.INFORMATION_MESSAGE);
+						errorea = true;
+						dispose();
+						JFrameSortu.adminAlbumakKudeatu();
+					} catch (SQLException e) {
+						JOptionPane.showMessageDialog(null, "Errorea gertatu da albuma sartzean", "Errorea",
+								JOptionPane.ERROR_MESSAGE);
+						e.printStackTrace();
+					}
+				}
+
+			} else {
+				errorea = true;
+			}
+
+		} while (!errorea);
 
 	}
 
@@ -214,23 +270,26 @@ public class AdminAlbumakKudeatuV extends JFrame implements IadminBotoiak {
 			JOptionPane.showMessageDialog(null, "Ez duzu artistarik aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 		} else {
 			for (int i = 0; i < AlbumakJList.size(); i++) {
-				Album albuma = AlbumakJList.get(i);
-				int opcion = JOptionPane.showConfirmDialog(null, "Ziur zaude album hau ezabatu nahi duzula?",
-						"Album ezabatu", JOptionPane.YES_NO_OPTION);
-				
-				if (opcion == JOptionPane.YES_OPTION) {
-					try {
-						AlbumaCRUD.albumDelete(albuma);
-						JOptionPane.showMessageDialog(null, "Artista ondo ezabatu da", "Informazioa",
-								JOptionPane.INFORMATION_MESSAGE);
-						dispose();
-						JFrameSortu.adminAlbumakKudeatu();
-					}catch (Exception e) {
-						JOptionPane.showMessageDialog(null, "Errorea gertatu da albuma ezabatzean", "Errorea",
-								JOptionPane.ERROR_MESSAGE);
-						e.printStackTrace();
+				if (AlbumakJList.get(i).getIzenburua().equals(AlbumList.getSelectedValue())) {
+					Album albuma = AlbumakJList.get(i);
+					int opcion = JOptionPane.showConfirmDialog(null, "Ziur zaude album hau ezabatu nahi duzula?",
+							"Album ezabatu", JOptionPane.YES_NO_OPTION);
+
+					if (opcion == JOptionPane.YES_OPTION) {
+						try {
+							AlbumaCRUD.albumDelete(albuma);
+							JOptionPane.showMessageDialog(null, "Album ondo ezabatu da", "Informazioa",
+									JOptionPane.INFORMATION_MESSAGE);
+							dispose();
+							JFrameSortu.adminAlbumakKudeatu();
+						} catch (Exception e) {
+							JOptionPane.showMessageDialog(null, "Errorea gertatu da albuma ezabatzean", "Errorea",
+									JOptionPane.ERROR_MESSAGE);
+							e.printStackTrace();
+						}
 					}
 				}
+
 			}
 		}
 
@@ -272,6 +331,13 @@ public class AdminAlbumakKudeatuV extends JFrame implements IadminBotoiak {
 							if (titulua.isEmpty() || urtea == null) {
 								JOptionPane.showMessageDialog(null, "Datu guztiak bete behar dira!", "Errorea",
 										JOptionPane.ERROR_MESSAGE);
+								
+							}else if (titulua.equals(albuma.getIzenburua()) && urtea.equals(date) && generoa.equals(albuma.getGeneroa())) {
+		                               
+		                            JOptionPane.showMessageDialog(null, "Ez duzu aldaketarik egin", "Informazioa",
+		                                    JOptionPane.INFORMATION_MESSAGE);
+		                            errorea = true;
+		                        	
 							} else {
 								Album albumBerria = new Album(titulua, View_metodoak.dateToString(urtea), generoa);
 								try {

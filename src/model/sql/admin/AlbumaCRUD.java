@@ -24,11 +24,11 @@ public class AlbumaCRUD {
 		return albumList;
 	}
 	
-	public static void albumInsert(Album albumBerria) throws SQLException {
+	public static void albumInsert(Album albumBerria, String idMusikari) throws SQLException {
 		Konexioa.konexioaIreki();
 
 		String SQLquery = "INSERT INTO album (Izenburua, Urtea, Generoa, IDMusikaria) " + "VALUES ('" + albumBerria.getIzenburua() + "', '"
-				+ albumBerria.getUrtea() + "', '" + albumBerria.getGeneroa() + "')";
+				+ albumBerria.getUrtea() + "', '" + albumBerria.getGeneroa() + "', '" + idMusikari + "')";
 		Konexioa.query.executeUpdate(SQLquery);
 
 		Konexioa.konexioaItxi();
