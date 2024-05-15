@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -18,7 +20,7 @@ import javax.swing.border.LineBorder;
 
 import model.Artista;
 import model.Musikaria;
-import model.interfazeak.adminBotoiak;
+import model.interfazeak.IadminBotoiak;
 import model.metodoak.JFrameSortu;
 import model.metodoak.View_metodoak;
 import model.sql.ArtistaListDAO;
@@ -38,7 +40,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
-public class AdminArtistakKudeatuV extends JFrame implements adminBotoiak {
+public class AdminArtistakKudeatuV extends JFrame implements IadminBotoiak {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -48,8 +50,8 @@ public class AdminArtistakKudeatuV extends JFrame implements adminBotoiak {
 	private JLabel izena_lbl;
 	private JLabel Deskripzio_lbl;
 	private JLabel mota_lbl;
-	private JTextField izenaField;
-	private JTextField deskripzioField;
+	private JTextPane izenatxtpane;
+	private JTextPane deskripziotxtpane;
 	private JComboBox motaField;
 
 	/**
@@ -74,12 +76,8 @@ public class AdminArtistakKudeatuV extends JFrame implements adminBotoiak {
 
 		panel = new JPanel(new GridLayout(0, 1));
 		panel.setPreferredSize(new Dimension(450, 300));
-		izenaField = new JTextField(10);
-		deskripzioField = new JTextField(10);
-
-//		JScrollPane scrollPane = new JScrollPane();
-//        scrollPane.setBounds(10, 149, 409, 75);
-//        scrollPane.setViewportView(panel);
+		izenatxtpane = new JTextPane();
+		deskripziotxtpane = new JTextPane();
 
 		izena_lbl = new JLabel("Izena: ");
 		izena_lbl.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 19));
@@ -91,12 +89,12 @@ public class AdminArtistakKudeatuV extends JFrame implements adminBotoiak {
 		mota_lbl.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
 
 		panel.add(izena_lbl);
-		panel.add(izenaField);
+		panel.add(izenatxtpane);
 		panel.add(Deskripzio_lbl);
-		panel.add(deskripzioField);
+		panel.add(deskripziotxtpane);
 
-		izenaField.setPreferredSize(new Dimension(200, 30));
-		deskripzioField.setPreferredSize(new Dimension(200, 30));
+		izenatxtpane.setPreferredSize(new Dimension(200, 30));
+		deskripziotxtpane.setPreferredSize(new Dimension(200, 30));
 		motaField = new JComboBox();
 		motaField.addItem("Bakarlaria");
 		motaField.addItem("Taldea");
@@ -197,8 +195,8 @@ public class AdminArtistakKudeatuV extends JFrame implements adminBotoiak {
 					JOptionPane.PLAIN_MESSAGE);
 
 			if (opcion == JOptionPane.OK_OPTION) {
-				String izenatxt = izenaField.getText();
-				String deskripziotxt = deskripzioField.getText();
+				String izenatxt = izenatxtpane.getText();
+				String deskripziotxt = deskripziotxtpane.getText();
 				String motatxt = motaField.getSelectedItem().toString();
 
 				if (izenatxt.isEmpty() || deskripziotxt.isEmpty()) {
@@ -256,8 +254,8 @@ public class AdminArtistakKudeatuV extends JFrame implements adminBotoiak {
 	        for (Artista a1 : ArtistakJList) {
 	            if (a1.getIzena().equals(ArtistaList.getSelectedValue().toString())) {
 	                Artista artistaSelected = a1;
-	                izenaField.setText(artistaSelected.getIzena());
-	                deskripzioField.setText(artistaSelected.getDeskribapena());
+	                izenatxtpane.setText(artistaSelected.getIzena());
+	                deskripziotxtpane.setText(artistaSelected.getDeskribapena());
 
 	                boolean errorea = false;
 	                do {
@@ -265,8 +263,8 @@ public class AdminArtistakKudeatuV extends JFrame implements adminBotoiak {
 	                            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
 	                    if (opcion == JOptionPane.OK_OPTION) {
-	                        String izenatxt = izenaField.getText();
-	                        String deskripziotxt = deskripzioField.getText();
+	                        String izenatxt = izenatxtpane.getText();
+	                        String deskripziotxt = deskripziotxtpane.getText();
 
 	                        if (izenatxt.isEmpty() || deskripziotxt.isEmpty()) {
 	                            JOptionPane.showMessageDialog(null, "Ezin duzu hutsik utzi", "Error",

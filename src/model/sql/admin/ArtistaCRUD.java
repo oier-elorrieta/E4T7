@@ -3,12 +3,15 @@ package model.sql.admin;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 
 import model.Artista;
 import model.Musikaria;
+import model.metodoak.SesioAldagaiak;
 import model.sql.Konexioa;
 
 public class ArtistaCRUD {
+	
 	public static ArrayList<Artista> artistaIzenakKargatu() throws SQLException {
 		Konexioa.konexioaIreki();
 		ArrayList<Artista> artistakList = new ArrayList<Artista>();
@@ -27,12 +30,8 @@ public class ArtistaCRUD {
 	public static void artistaInsert(String izenArtistikoa, String mota, String deskripzioaBerria) throws SQLException {
 		Konexioa.konexioaIreki();
 		
-		System.out.println(izenArtistikoa);
-		System.out.println(mota);
-		System.out.println(deskripzioaBerria);
-		
 		String SQLquery = "INSERT INTO musikaria (IzenArtistikoa, Irudia, Ezaugarria, Deskribapena) "
-				+ "VALUES ('" + izenArtistikoa + "', '" + null + "', '" + mota + "', '" + deskripzioaBerria +   "')";
+				+ "VALUES ('" + izenArtistikoa + "', FROM_BASE64('" + SesioAldagaiak.IrudiaBLOB + "') , '" + mota + "', '" + deskripzioaBerria +   "')";
 		Konexioa.query.executeUpdate(SQLquery);
 
 		Konexioa.konexioaItxi();

@@ -1,6 +1,6 @@
 package model.interfazeak;
 
-public interface AtzeraProfilaBotoiak {
+public interface IAtzeraProfilaBotoiak {
 	public void btnAtzera();
 	public void btnNireProfila();
 }
