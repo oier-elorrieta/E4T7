@@ -295,13 +295,13 @@ public class JFrameSortu {
 		erreprodukzioaPAbestiakV.setVisible(true);
 	}
 	
-	public static void adminMenuaPodcasterKudeatu() {
+	public static void adminMenuaPodcastKudeatu() {
 		AdminMenuaPodcastKudeatuV AdminMenuaPodcastKudeatuV = new AdminMenuaPodcastKudeatuV();
 		AdminMenuaPodcastKudeatuV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		AdminMenuaPodcastKudeatuV.setVisible(true);
 	}
 	
-	public static void adminPodcasterKudeatu() {
+	public static void adminPodcasterKudeatu() throws SQLException {
 		AdminPodcasterKudeatuV adminPodcasterKudeatuV = new AdminPodcasterKudeatuV();
 		adminPodcasterKudeatuV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		adminPodcasterKudeatuV.setVisible(true);

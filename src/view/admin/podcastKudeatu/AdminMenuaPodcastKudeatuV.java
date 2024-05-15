@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +15,8 @@ import model.metodoak.JFrameSortu;
 import model.metodoak.View_metodoak;
 import view.LoginV;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
@@ -28,7 +31,7 @@ public class AdminMenuaPodcastKudeatuV extends JFrame {
 	public AdminMenuaPodcastKudeatuV() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
-		setTitle("Musika kudeatu - ADMIN - JPAM Music");
+		setTitle("Podcast kudeatu - ADMIN - JPAM Music");
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane = new JPanel();
@@ -76,7 +79,12 @@ public class AdminMenuaPodcastKudeatuV extends JFrame {
 		btnPodcasterakKudeatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				JFrameSortu.adminPodcasterKudeatu();
+				try {
+					JFrameSortu.adminPodcasterKudeatu();
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, "Errore bat gertatu da Podcasterak kargatzean.", "Errorea",
+                            JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		
