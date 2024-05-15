@@ -172,42 +172,33 @@ public class PlaylistAbestiakV extends JFrame {
 						JOptionPane.showMessageDialog(null, "Ez duzu abestirik hautatu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-					String abestiaSelectedStr = (String) PlaylistAbestiakList.getSelectedValue();
-					abestiaSelectedStr.split("-");
-					String[] split = abestiaSelectedStr.split("-");
-					String abestia = split[0].trim();
-					String artista = split[1].trim();
-					String album = split[3].trim();
-					String idAudio = "";
-					String iraupena = "";
 					
-					for (int i = 0; i < gustukoAbestiakList.size(); i++) {
-						idAudio = gustukoAbestiakList.get(i).getIdAudio();
-						iraupena = gustukoAbestiakList.get(i).getIraupena();
-					}
+					String album = gustukoAlbumList.get(valueSelected).getIzenburua();
+					String artista = gustukoArtistaList.get(valueSelected).getIzena();
+					String abestia = gustukoAbestiakList.get(valueSelected).getTitulua();
+					String idAudio = gustukoAbestiakList.get(valueSelected).getIdAudio();
+					String iraupena = gustukoAbestiakList.get(valueSelected).getIraupena();
 					
+					idAudio = gustukoAbestiakList.get(valueSelected).getIdAudio();
+					iraupena = gustukoAbestiakList.get(valueSelected).getIraupena();
+
 					Abestia abestiaSelected = new Abestia(idAudio, abestia, iraupena);
 					Album albumSelected = new Album(album);
 					Artista artistaSelected = new Musikaria(artista);
 					JFrameSortu.menuaPlaylistAbestiak(playlist, abestiaSelected, albumSelected, artistaSelected, PlaylistAbestiakV.this);
 				} else {
-					String valueSelected =  (String) PlaylistAbestiakList.getSelectedValue();
-					if (valueSelected == null) {
+					int valueSelected =  PlaylistAbestiakList.getSelectedIndex();
+					if (valueSelected == -1) {
 						JOptionPane.showMessageDialog(null, "Ez duzu abestirik hautatu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-					valueSelected.split("-");
-					String[] split = valueSelected.split("-");
-					String abestia = split[0].trim();
-					String artista = split[1].trim();
-					String album = split[3].trim();
-					String idAudio = "";
-					String iraupena = "";
 					
-					for (int i = 0; i < AbestiPlaylistJList.size(); i++) {
-						idAudio = AbestiPlaylistJList.get(i).getIdAudio();
-						iraupena = AbestiPlaylistJList.get(i).getIraupena();
-					}
+					System.out.println("INT: " + valueSelected);
+					String album = AbestiPlaylistJList.get(valueSelected).getTitulua();
+					String artista = artistaList.get(valueSelected).getIzena();
+					String abestia = AbestiPlaylistJList.get(valueSelected).getTitulua();
+					String idAudio = AbestiPlaylistJList.get(valueSelected).getIdAudio();
+					String iraupena = AbestiPlaylistJList.get(valueSelected).getIraupena();
 					
 					Abestia abestiaSelected = new Abestia(idAudio, abestia, iraupena);
 					Album albumSelected = new Album(album);

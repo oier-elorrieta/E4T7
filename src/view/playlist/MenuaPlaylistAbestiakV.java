@@ -51,8 +51,6 @@ public class MenuaPlaylistAbestiakV extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		System.out.println();
-		
 		JButton btnEzabatuAbestia = new JButton("❌ Ezabatu abestia");
 		btnEzabatuAbestia.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnEzabatuAbestia.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 14));
@@ -127,7 +125,12 @@ public class MenuaPlaylistAbestiakV extends JFrame {
                 int menuAukera = JOptionPane.showOptionDialog(null, "Konpartitu nahi duzu?", "Konpartitu",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerakMenu, aukerakMenu[0]);
                 if (menuAukera == JOptionPane.YES_OPTION) {
-                	FilesMetodoak.abestiaKonpartitu(playlist, abestia, album, artista);
+                	try {
+						FilesMetodoak.abestiaKonpartituPlaylist(playlist, abestia, album, artista);
+					} catch (IOException e1) {
+						JOptionPane.showMessageDialog(null, "Errore bat gertatu da abestia konpartitzean", "Errorea",
+								JOptionPane.ERROR_MESSAGE);
+					}
 					JOptionPane.showMessageDialog(null, "Zure abestia konpartitu da Files batera!", "Konpartitu",
 							JOptionPane.INFORMATION_MESSAGE);
 					dispose();

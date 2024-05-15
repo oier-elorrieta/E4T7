@@ -20,6 +20,8 @@ import view.LoginV;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Menu;
+
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
@@ -85,6 +87,7 @@ public class MenuaPlaylistSartuAbestiakV extends JFrame {
 		ArrayList<Playlist> PlaylistJList = MenuaPlaylistSartuAbestiakDAO.playlistakKargatu();
 		DefaultListModel<Playlist> modelPlaylist = new DefaultListModel<Playlist>();
 		Playlist playlistGustokoa = new Playlist("");
+		playlistGustokoa.setKapazitatea(MenuaPlaylistSartuAbestiakDAO.gustokoAbestiKantitatea());
 
 		modelPlaylist.addElement(playlistGustokoa);
 		for (int i = 0; i < PlaylistJList.size(); i++) {
@@ -135,14 +138,19 @@ public class MenuaPlaylistSartuAbestiakV extends JFrame {
 				}
 				if (Playlista.getSelectedIndex() == 0) {
 					try {
-						MenuaPlaylistSartuAbestiakDAO.gustokoaKargatu(abesti);
-						dispose();
+						boolean dagoPlaylist = MenuaPlaylistSartuAbestiakDAO.gustokoaKargatu(abesti);
+						if (dagoPlaylist) {
+							JOptionPane.showMessageDialog(null, "Abestia gustokoen zerrendan dago jada!", "Errorea",
+									JOptionPane.ERROR_MESSAGE);
+						} else {
+							MenuaPlaylistSartuAbestiakDAO.gustokoanGorde(abesti);
+							dispose();
+						}
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
 				} else {
 					try {
-						System.out.println(MenuaPlaylistSartuAbestiakDAO.playlistakKonprobatuAbestia(abesti));
 						if (MenuaPlaylistSartuAbestiakDAO.playlistakKonprobatuAbestia(abesti)) {
 							MenuaPlaylistSartuAbestiakDAO.playlistGorde(Playlista.getSelectedValue().getIdPlaylist(), abesti);
 							JOptionPane.showMessageDialog(null, "PlayList-ean gehitu da abestia!", "Playlistean sartu",
@@ -155,7 +163,6 @@ public class MenuaPlaylistSartuAbestiakV extends JFrame {
 					} catch (SQLException e1) {
 						JOptionPane.showMessageDialog(null, "Errorea egon da datu basearekin!", "Errorea",
 								JOptionPane.ERROR_MESSAGE);
-						e1.printStackTrace();
 					}
 				}
 			}

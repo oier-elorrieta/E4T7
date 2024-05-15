@@ -84,6 +84,22 @@ public class MenuaPlaylistSartuAbestiakDAO {
 		return dago;
 	}
 	
+	public static int gustokoAbestiKantitatea() {
+		int kantitatea = 0;
+		try {
+			Konexioa.konexioaIreki();
+			String SQLquery = "SELECT count(IdAudio) FROM gustukoak WHERE IDBezeroa = '" + SesioAldagaiak.bezeroa_logeatuta.getIdBezeroa() + "';";
+			ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
+			if (emaitza.next()) {
+				kantitatea = emaitza.getInt("count(IdAudio)");
+			}
+			Konexioa.konexioaItxi();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Errorea egon da datu basearekin.", "Errorea", JOptionPane.ERROR_MESSAGE);
+		}
+		return kantitatea;
+	}
+	
 	/**
 	 * Playlist batean audio bat sartzen du datu basean.
 	 *
@@ -95,32 +111,18 @@ public class MenuaPlaylistSartuAbestiakDAO {
 	 */
 	public static ArrayList<Playlist> playlistakKargatu() throws SQLException {
 		Konexioa.konexioaIreki();
-		String SQLquery = "SELECT IDList, Izenburua, Sorrera_data, IDBezeroa FROM playlist WHERE IDBezeroa = (SELECT IDBezeroa FROM bezeroa WHERE Erabiltzailea = '" + SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea() + "');";
+		String SQLquery = "SELECT IDList, Izenburua, Sorrera_data, count(IdAudio) as Kapazitatea, IDBezeroa FROM playlist JOIN playlist_abestiak using (IDList) WHERE IDBezeroa = (SELECT IDBezeroa FROM bezeroa WHERE Erabiltzailea = '" + SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea() + "') GROUP BY 1, 2, 3, 5;";
 		ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
-		ArrayList<Playlist> playlistFree = new ArrayList<Playlist>();  
-		ArrayList<Playlist> playlistPremium = new ArrayList<Playlist>();
+		ArrayList<Playlist> playlistAbestiak = new ArrayList<Playlist>();
 		int kont = 0;
 		while (emaitza.next()) {
-            Playlist playlistGuztiak = new Playlist(emaitza.getInt("IDList"), emaitza.getString("Izenburua"), 0, emaitza.getString("IdBezeroa"), emaitza.getDate("Sorrera_data"));
+            Playlist playlistGuztiak = new Playlist(emaitza.getInt("IDList"), emaitza.getString("Izenburua"), emaitza.getInt("Kapazitatea"), emaitza.getString("IdBezeroa"), emaitza.getDate("Sorrera_data"));
             
-            if(kont < 2) {
-            	playlistFree.add(kont, playlistGuztiak);
-            }
-            playlistPremium.add(playlistGuztiak);
-            kont++;
+            playlistAbestiak.add(playlistGuztiak);
         }
 		
 		Konexioa.konexioaItxi();
-		
-        if (!SesioAldagaiak.e_premium) {
-             if (playlistFree.size() > 2) {
-            	 playlistFree.clear();
-             }
-             return playlistFree;
-        } else {
-            return playlistPremium;
-        }
-        
+        return playlistAbestiak;
 	}
 	
 	/**
