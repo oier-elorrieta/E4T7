@@ -41,6 +41,11 @@ public class Podcast extends Audio {
 		super(titulua, irudia, iraupena);
 		this.kolaboratzaile = kolaboratzaile;
 	}
+	
+	public Podcast(String titulua, String kolaboratzaile) {
+		super(titulua);
+		this.kolaboratzaile = kolaboratzaile;
+	}
 
 	/**
 	 * Kolaboratzailea itzultzen du.

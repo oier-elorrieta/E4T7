@@ -87,6 +87,11 @@ public class Audio {
 		this.irudia = irudia;
 	}
 
+	
+	public Audio(String titulua) {
+		this.titulua = titulua;
+	}
+
 	/************************************************/
 	
 	/**

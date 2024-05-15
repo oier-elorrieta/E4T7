@@ -28,4 +28,15 @@ public class Podcaster extends Artista {
 		super(irudia, deskribapena);
 	}
 
+	/**
+	 * Podcaster klasearen hirugarren konstruktorea.
+	 * 
+	 * @param izena        Podcaster-aren izena
+	 * @param deskribapena Podcaster-aren deskribapena
+	 */
+	public Podcaster(String izena, String deskribapena) {
+		super(izena, deskribapena);
+	}
+	
+
 }
