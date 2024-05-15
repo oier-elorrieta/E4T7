@@ -60,6 +60,13 @@ public class Playlist {
 		this.idAudio = idAudio;
 	}
 	
+	
+
+	public Playlist(int idPlaylist, String titulua, int kapazitatea) {
+		this.idPlaylist = idPlaylist;
+		this.titulua = titulua;
+		this.kapazitatea = kapazitatea;
+	}
 
 	public Playlist(int idPlaylist, String titulua, int kapazitatea, Date sorrera_data) {
 		this.idPlaylist = idPlaylist;
