@@ -20,6 +20,10 @@ import view.abestiak.ArtistaV;
 import view.abestiak.KantaListV;
 import view.admin.AdminMenuaV;
 import view.admin.estatistikak.AdminEstatistikakMenuaV;
+import view.admin.estatistikak.TopEntzundakoakStatsV;
+import view.admin.estatistikak.TopGustukoAbestiakStatsV;
+import view.admin.estatistikak.TopGustukoPodcastStatsV;
+import view.admin.estatistikak.TopPlayListStatsV;
 import view.admin.musikaKudeatu.AdminAbestiakKudeatuV;
 import view.admin.musikaKudeatu.AdminAlbumakKudeatuV;
 import view.admin.musikaKudeatu.AdminArtistakKudeatuV;
@@ -220,14 +224,31 @@ public class JFrameSortu {
 		IragarkiLehioaPlaylistV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		IragarkiLehioaPlaylistV.setVisible(true);
 	}
-	/**
-	 * Bezeroaren podcast erreprodukzio lehioa sortzeko metodoa.
-	 * 
-	 * @param podcaster
-	 * @param podcast
-	 * @throws SQLException
-	 * @throws LineUnavailableException
-	 */
+	
+	public static void statsTopGustukoAbestiak() {
+		TopGustukoAbestiakStatsV TopGustukoAbestiakStatsV = new TopGustukoAbestiakStatsV();
+		TopGustukoAbestiakStatsV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		TopGustukoAbestiakStatsV.setVisible(true);
+	}
+	
+	public static void statsTopGustukoPodcast() {
+		TopGustukoPodcastStatsV TopGustukoPodcastStatsV = new TopGustukoPodcastStatsV();
+		TopGustukoPodcastStatsV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		TopGustukoPodcastStatsV.setVisible(true);
+	}
+	
+	public static void statsTopEntzundakoak() {
+		TopEntzundakoakStatsV TopEntzundakoakStatsV = new TopEntzundakoakStatsV();
+		TopEntzundakoakStatsV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		TopEntzundakoakStatsV.setVisible(true);
+	}
+	
+	public static void statsTopPlayList() {
+		TopPlayListStatsV TopPlayListStatsV = new TopPlayListStatsV();
+		TopPlayListStatsV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		TopPlayListStatsV.setVisible(true);
+	}
+	
 	public static void erreprodukzioLehioaPodcast(Artista podcaster, Podcast podcast)
 			throws SQLException, LineUnavailableException {
 		ErreprodukzioaPodcastV ErreprodukzioaPodcastV = new ErreprodukzioaPodcastV(podcaster, podcast);

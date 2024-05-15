@@ -88,28 +88,32 @@ public class AdminEstatistikakMenuaV extends JFrame {
 		// TOP GUSTUKO ABESTIAK BOTOIA
 		btnTopGustukoAbestiak.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
+				JFrameSortu.statsTopGustukoAbestiak();
 			}
 		});
 		
 		// TOP GUSTUKO PODCAST BOTOIA
 		btnTopGustukoPodcast.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
+				JFrameSortu.statsTopGustukoPodcast();
 			}
 		});
 		
 		// TOP ENTZUNDAKOAK BOTOIA
 		btnTopEntzundakoak.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
+				JFrameSortu.statsTopEntzundakoak();
 			}
 		});
 		
 		// TOP PLAYLIST BOTOIA
 		btnTopPlaylist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
+				JFrameSortu.statsTopPlayList();
 			}
 		});
 	}
