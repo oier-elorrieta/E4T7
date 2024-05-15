@@ -339,9 +339,9 @@ public class ErreprodukzioaPodcastV extends JFrame {
 						FilesMetodoak.konpartituFilesPodcast(podcast, podcaster);
 						JOptionPane.showMessageDialog(null, "Zure podcast-a konpartitu da Files batera!", "Konpartitu",
 								JOptionPane.INFORMATION_MESSAGE);
-						dispose();
 					} catch (IOException e1) {
-						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, "Ezin izan da podcast-a konpartitu.", "Errorea",
+								JOptionPane.ERROR_MESSAGE);
 					}
                 }
 			}
