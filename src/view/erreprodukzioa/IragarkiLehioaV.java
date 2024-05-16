@@ -172,7 +172,7 @@ public class IragarkiLehioaV extends JFrame {
 	                		dispose();
 	    					try {
 								JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
-							} catch (AudioaNotFoundExcepcion e) {
+							} catch (AudioaNotFoundExcepcion | IOException e) {
 								
 							}
 	    					
@@ -180,7 +180,7 @@ public class IragarkiLehioaV extends JFrame {
 	                		dispose();
 	                		try {
 								JFrameSortu.erreprodukzioLehioa(album, artista, abesti);
-							} catch (AudioaNotFoundExcepcion e) {
+							} catch (AudioaNotFoundExcepcion | IOException e) {
 								
 							}
 	                	}

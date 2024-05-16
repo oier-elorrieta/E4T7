@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import model.Abestia;
+import model.Album;
+import model.Artista;
+import model.Erabiltzailea;
 import model.Playlist;
 import model.metodoak.SesioAldagaiak;
 
@@ -52,6 +55,39 @@ public class PlayListDAO {
         return playListList;
 	}
 	
+	public static void playlistGordeInportatu(Playlist playlist, Erabiltzailea bezeroa) throws SQLException {
+		Konexioa.konexioaIreki();
+		String SQLquery = "INSERT INTO playlist (Izenburua, Sorrera_data, Kapazitatea) VALUES (?, ?, ?);";
+		
+		try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery)) {
+			preparedStatement.setString(2, playlist.getTitulua());
+			preparedStatement.setDate(3, (java.sql.Date) playlist.getSorrera_data());
+			preparedStatement.setInt(4, playlist.getKapazitatea());
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Ezin izan da playlista gorde.", "Errorea", JOptionPane.ERROR_MESSAGE);
+		} finally {
+			Konexioa.konexioaItxi();
+		}
+	}
+	
+	public static void abestiakGordePlaylistInport(ArrayList<Abestia> abestiak, Artista artista, Album album, Playlist playlist) throws SQLException {
+		Konexioa.konexioaIreki();
+		String SQLquery = "INSERT INTO playlist_abestiak (IDList, IDAudio) VALUES (?, ?);";
+		
+		try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery)) {
+			for (Abestia abestia : abestiak) {
+				preparedStatement.setInt(1, playlist.getIdPlaylist());
+				preparedStatement.setString(2, abestia.getIdAudio());
+				preparedStatement.executeUpdate();
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Ezin izan dira abestiak gehitu.", "Errorea",
+					JOptionPane.ERROR_MESSAGE);
+		} finally {
+			Konexioa.konexioaItxi();
+		}
+	}
 	
 	/**
 	 * PlayListean dauden abesti kopurua lortzeko metodoa.

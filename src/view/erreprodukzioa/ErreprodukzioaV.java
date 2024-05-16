@@ -65,9 +65,10 @@ public class ErreprodukzioaV extends JFrame {
 	 * 
 	 * @throws SQLException
 	 * @throws LineUnavailableException
+	 * @throws IOException 
 	 */
 	public ErreprodukzioaV(Album album, Artista artista, Abestia abesti)
-			throws SQLException, LineUnavailableException, AudioaNotFoundExcepcion {
+			throws SQLException, LineUnavailableException, AudioaNotFoundExcepcion, IOException {
 	
 		fileAudio = "\\\\10.5.6.223\\audios\\" + abesti.getTitulua() + ".wav";
 
@@ -199,20 +200,19 @@ public class ErreprodukzioaV extends JFrame {
 		contentPane.add(lblInfoLista);
 
 		AudioInputStream aui;
-
+		
 		try {
 			File f = new File(fileAudio);
 			aui = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
 			clipLehena = AudioSystem.getClip();
 			clipLehena.open(aui);
 		} catch (UnsupportedAudioFileException | IOException e) {
-			throw new AudioaNotFoundExcepcion();
-		} catch (LineUnavailableException e1) {
-			throw new AudioaNotFoundExcepcion();
+			fileAudio = "\\\\10.5.6.223\\audios\\default.wav";
 		} catch (Exception e) {
-			throw new AudioaNotFoundExcepcion();
+			fileAudio = "\\\\10.5.6.223\\audios\\default.wav";
 		}
-
+		
+		
 		// ATZERA BOTOIA
 		btnAtzera.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -326,7 +326,7 @@ public class ErreprodukzioaV extends JFrame {
 								dispose();
 								try {
 									JFrameSortu.erreprodukzioLehioa(album, artista, abestiaAurrekoa);
-								} catch (AudioaNotFoundExcepcion e1) {
+								} catch (AudioaNotFoundExcepcion | IOException e1) {
 									// TODO Auto-generated catch block
 
 								}
@@ -370,7 +370,6 @@ public class ErreprodukzioaV extends JFrame {
 								if (abesti.getTitulua().equals(abestiList.get(i).getTitulua())) {
 									File f = new File(fileAudio);
 									AudioInputStream aui2;
-									System.out.println("ID AUDIO 1º: " + abesti.getIdAudio());
 									try {
 										aui2 = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
 										clipHurrengoa = AudioSystem.getClip();
@@ -401,7 +400,7 @@ public class ErreprodukzioaV extends JFrame {
 									dispose();
 									try {
 										JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
-									} catch (AudioaNotFoundExcepcion e1) {
+									} catch (AudioaNotFoundExcepcion | IOException e1) {
 										// TODO Auto-generated catch block
 									}
 								}
@@ -466,7 +465,7 @@ public class ErreprodukzioaV extends JFrame {
 							try {
 								try {
 									JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
-								} catch (AudioaNotFoundExcepcion e1) {
+								} catch (AudioaNotFoundExcepcion | IOException e1) {
 								}
 							} catch (SQLException | LineUnavailableException e1) {
 								JOptionPane.showMessageDialog(null, "Errorea egon da.", "Errorea",

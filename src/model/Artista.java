@@ -23,6 +23,10 @@ public abstract class Artista {
 		this.izena = izena;
 		this.erreprodukzioak = erreprodukzioak;
 	}
+	
+	public Artista() {
+		
+	}
 
 	/**
 	 * Artista klasearen eraikitzailea izena, erreprodukzio kopuruarekin eta

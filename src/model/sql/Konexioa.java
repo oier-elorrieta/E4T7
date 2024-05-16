@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
 /**
  * Konexioa klaseak datu-basearekin konexioa irekitzen du eta itxten du.
  * Datu-basearekin konexioa irekitzean, MySQL JDBC Driver erabiltzen da.
@@ -17,8 +19,8 @@ import java.sql.Statement;
 public class Konexioa {
 	
 	private static final String URL = "jdbc:mysql://10.5.6.223:3306/db_JPamt7";
-	private static final String USER = "administrador";
-	private static final String PASS = "admin123";
+	private static String user = "administrador";
+	private static String pass = "admin123";
 
 	public static Connection konexioa;
 	public static Statement query;
@@ -35,7 +37,7 @@ public class Konexioa {
 	public static void konexioaIreki() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			konexioa = DriverManager.getConnection(URL, USER, PASS);
+			konexioa = DriverManager.getConnection(URL, user, pass);
 			query = konexioa.createStatement();
 
 		} catch (ClassNotFoundException e) {
@@ -55,6 +57,22 @@ public class Konexioa {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static boolean konexioaIrekiAdmin(String usertxt, String passwdtxt) {
+		boolean kon = true;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			konexioa = DriverManager.getConnection(URL, usertxt, pass);
+			query = konexioa.createStatement();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erabiltzaile hori ez dauka baimenik.", "Errorea",
+					JOptionPane.ERROR_MESSAGE);
+			kon = false;
+		}
+		return kon;
 	}
 
 }

@@ -1,16 +1,23 @@
 package model.metodoak;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+
+import javax.swing.JOptionPane;
 
 import model.Abestia;
 import model.Album;
 import model.Artista;
+import model.Erabiltzailea;
+import model.Musikaria;
 import model.Playlist;
 import model.Podcast;
 import model.sql.PlayListDAO;
@@ -266,5 +273,78 @@ public class FilesMetodoak {
 		bufferedWriter.write("----------------------------------");
 		bufferedWriter.newLine();
 		bufferedWriter.close();
+	}
+	
+	public static void inportatuPlaylist() throws SQLException, ParseException {
+		String filePath = "playlistInport.txt";
+		
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            String listIzena = "";
+            String sortze_data = "";
+            String kapazitatea = "";
+            String bezIzenAb = "";
+            String erab = "";
+            String abestia = "";
+            String artista = "";
+            String albuma = "";
+            String iraupena = "";
+            String idList = "";
+            String idAudio = "";
+            Artista artistaAux = null;
+            Abestia abestiaAux;
+            Album albumAux = null;
+            ArrayList<Abestia> abestiak = null;
+            
+            while ((line = br.readLine()) != null) {
+            	if (line.startsWith("IDList:")) {
+            		idList = line.substring(7).trim();
+            	} else if (line.startsWith("Playlist izena:")) {
+                    listIzena = line.substring(15).trim();
+                } else if (line.startsWith("Playlist sorrera data:")) {
+                    sortze_data = line.substring(23).trim();
+                } else if (line.startsWith("Kapazitatea:")) {
+                    kapazitatea = line.substring(12).trim();
+                } else if (line.startsWith("Bezeroa izen-abizenak:")) {
+                    bezIzenAb = line.substring(21).trim();
+                } else if (line.startsWith("Erabiltzailea:")) {
+                    erab = line.substring(14).trim();
+                } else if (line.startsWith("IdAudio:")) {
+                	idAudio = line.substring(8).trim();
+                } else if (line.startsWith("Abestia:")) {
+                    abestia = line.substring(8).trim();
+                } else if (line.startsWith("Artista:")) {
+                    artista = line.substring(9).trim();
+                } else if (line.startsWith("Albuma:")) {
+                    albuma = line.substring(8).trim();
+                } else if (line.startsWith("Iraupena:")) {
+                    iraupena = line.substring(10).trim();
+                }
+                abestiak = new ArrayList<>();
+                abestiaAux = new Abestia();
+                abestiaAux.setIdAudio(idAudio);
+                abestiaAux.setTitulua(abestia);
+                abestiaAux.setIraupena(iraupena);
+                abestiak.add(abestiaAux);
+                artistaAux = new Musikaria();
+                artistaAux.setIzena(artista);
+                albumAux = new Album();
+                albumAux.setIzenburua(albuma);
+            }
+            Playlist playlist = new Playlist();
+            playlist.setTitulua(listIzena);
+            playlist.setIdPlaylist(Integer.parseInt(idList));
+            playlist.setSorrera_data(View_metodoak.stringToDate(sortze_data));
+            playlist.setKapazitatea(Integer.parseInt(kapazitatea));
+            
+            Erabiltzailea bezeroa = new Erabiltzailea();
+            bezeroa.setIzena(bezIzenAb);
+            bezeroa.setErabiltzailea(erab);
+            
+            PlayListDAO.playlistGordeInportatu(playlist, bezeroa);
+            PlayListDAO.abestiakGordePlaylistInport(abestiak, artistaAux, albumAux, playlist);
+        } catch (IOException e) {
+        	JOptionPane.showMessageDialog(null, "Errorea fitxategia irakurtzean.");
+        }
 	}
 }

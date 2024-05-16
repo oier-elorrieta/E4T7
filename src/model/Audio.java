@@ -37,7 +37,8 @@ public class Audio {
 		this.iraupena = iraupena;
 	}
 
-
+	public Audio() {
+	}
 
 	/**
 	 * Audio objektu berri bat sortzeko eraikitzailea.

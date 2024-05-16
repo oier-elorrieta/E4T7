@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -247,8 +248,15 @@ public class PlaylistListV extends JFrame {
 		btnInportatu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				playlistSelected = PlaylistList.getSelectedValue();
-				
+				try {
+					FilesMetodoak.inportatuPlaylist();
+					JOptionPane.showMessageDialog(null, "PlayList-a inportatu da!", "PlayList-a [Inportatu]",
+							JOptionPane.INFORMATION_MESSAGE);
+					JFrameSortu.playlistListaBezeroa();
+				} catch (SQLException | ParseException e1) {
+					JOptionPane.showMessageDialog(null, "Errorea egon da inportatzean.", "Catastrophic Error", JOptionPane.ERROR_MESSAGE);
+					e1.printStackTrace();
+				}
 			}
 		});
 		

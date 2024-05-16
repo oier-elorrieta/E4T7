@@ -114,7 +114,6 @@ public class MenuaPlaylistSartuAbestiakDAO {
 		String SQLquery = "SELECT IDList, Izenburua, Sorrera_data, count(IdAudio) as Kapazitatea, IDBezeroa FROM playlist JOIN playlist_abestiak using (IDList) WHERE IDBezeroa = (SELECT IDBezeroa FROM bezeroa WHERE Erabiltzailea = '" + SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea() + "') GROUP BY 1, 2, 3, 5;";
 		ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
 		ArrayList<Playlist> playlistAbestiak = new ArrayList<Playlist>();
-		int kont = 0;
 		while (emaitza.next()) {
             Playlist playlistGuztiak = new Playlist(emaitza.getInt("IDList"), emaitza.getString("Izenburua"), emaitza.getInt("Kapazitatea"), emaitza.getString("IdBezeroa"), emaitza.getDate("Sorrera_data"));
             
