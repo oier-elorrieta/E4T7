@@ -17,7 +17,7 @@ public class PodcastCRUD {
 		ArrayList<Podcast> podcastList = new ArrayList<Podcast>();
 		String SQLquery = "SELECT Izena, Kolaboratzaileak, Iraupena FROM audio JOIN podcast USING (IdAudio);";
 		ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
-		Podcast podcastAux = null;
+		Podcast podcastAux = null; 
 
 		while (emaitza.next()) {
 			podcastAux = new Podcast(emaitza.getString("Izena"), null, emaitza.getString("Iraupena"), emaitza.getString("Kolaboratzaileak"));
