@@ -19,7 +19,7 @@ import model.interfazeak.IadminBotoiak;
 import model.metodoak.JFrameSortu;
 import model.metodoak.View_metodoak;
 import model.sql.admin.ArtistaCRUD;
-import model.sql.admin.PodcasterCRUD;
+import model.sql.admin.*;
 import view.LoginV;
 import javax.swing.JList;
 import javax.swing.JOptionPane;

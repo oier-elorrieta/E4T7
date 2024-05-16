@@ -236,9 +236,19 @@ public class AdminAlbumakKudeatuV extends JFrame implements IadminBotoiak {
 				String generoa = generoaComboBox.getSelectedItem().toString();
 				String musikaria = musikariComboBox.getSelectedItem().toString();
 
+				for (int i = 0; i < AlbumakJList.size(); i++) {
+					if (AlbumakJList.get(i).getIzenburua().equals(titulua)) {
+						errorea = true;
+					}
+				}
+
 				if (titulua.isEmpty() || urtea == null) {
 					JOptionPane.showMessageDialog(null, "Datu guztiak bete behar dira!", "Errorea",
 							JOptionPane.ERROR_MESSAGE);
+				} else if (errorea == true) {
+					JOptionPane.showMessageDialog(null, "Album hori dagoeneko existitzen da", "Errorea",
+							JOptionPane.ERROR_MESSAGE);
+					errorea = false;
 				} else {
 					Album albumBerria = new Album(titulua, View_metodoak.dateToString(urtea), generoa);
 					try {
@@ -325,17 +335,30 @@ public class AdminAlbumakKudeatuV extends JFrame implements IadminBotoiak {
 							String titulua = titulotxtpane.getText();
 							Date urtea = urteaDateChooser.getDate();
 							String generoa = generoaComboBox.getSelectedItem().toString();
+							
+							
+							for (int f = 0; f < AlbumakJList.size(); f++) {
+								if (AlbumakJList.get(f).getIzenburua().equals(titulua)) {
+									errorea = true;
+								}
+							}
 
 							if (titulua.isEmpty() || urtea == null) {
 								JOptionPane.showMessageDialog(null, "Datu guztiak bete behar dira!", "Errorea",
 										JOptionPane.ERROR_MESSAGE);
+
+							} else if (titulua.equals(albuma.getIzenburua()) && urtea.equals(date)
+									&& generoa.equals(albuma.getGeneroa())) {
+
+								JOptionPane.showMessageDialog(null, "Ez duzu aldaketarik egin", "Informazioa",
+										JOptionPane.INFORMATION_MESSAGE);
+								errorea = true;
+
+							} else if (errorea == true) {
+								JOptionPane.showMessageDialog(null, "Album hori dagoeneko existitzen da", "Errorea",
+										JOptionPane.ERROR_MESSAGE);
+								errorea = false;
 								
-							}else if (titulua.equals(albuma.getIzenburua()) && urtea.equals(date) && generoa.equals(albuma.getGeneroa())) {
-		                               
-		                            JOptionPane.showMessageDialog(null, "Ez duzu aldaketarik egin", "Informazioa",
-		                                    JOptionPane.INFORMATION_MESSAGE);
-		                            errorea = true;
-		                        	
 							} else {
 								Album albumBerria = new Album(titulua, View_metodoak.dateToString(urtea), generoa);
 								try {

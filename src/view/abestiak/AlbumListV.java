@@ -39,7 +39,7 @@ import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class ArtistaV extends JFrame {
+public class AlbumListV extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -49,7 +49,7 @@ public class ArtistaV extends JFrame {
 	 * 
 	 * @throws SQLException
 	 */
-	public ArtistaV(Artista artista) throws SQLException {
+	public AlbumListV(Artista artista) throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		setResizable(false);
@@ -191,7 +191,7 @@ public class ArtistaV extends JFrame {
 				dispose();
 				try {
 					setVisible(false);
-					JFrameSortu.erregistroMenua(ArtistaV.this);
+					JFrameSortu.erregistroMenua(AlbumListV.this);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

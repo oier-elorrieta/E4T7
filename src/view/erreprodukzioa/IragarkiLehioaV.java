@@ -20,6 +20,7 @@ import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.sql.DiskaAbestiakDAO;
 import model.sql.IragarkiLehioaDAO;
+import salbuespenak.AudioaNotFoundExcepcion;
 import view.LoginV;
 
 import javax.swing.JLabel;
@@ -169,11 +170,19 @@ public class IragarkiLehioaV extends JFrame {
 	                	
 	                	if (!listaAmaiera) {
 	                		dispose();
-	    					JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
+	    					try {
+								JFrameSortu.erreprodukzioLehioa(album, artista, abestiaHurrengoa);
+							} catch (AudioaNotFoundExcepcion e) {
+								
+							}
 	    					
 	                	} else {
 	                		dispose();
-	                		JFrameSortu.erreprodukzioLehioa(album, artista, abesti);
+	                		try {
+								JFrameSortu.erreprodukzioLehioa(album, artista, abesti);
+							} catch (AudioaNotFoundExcepcion e) {
+								
+							}
 	                	}
 	                		
 	                	
