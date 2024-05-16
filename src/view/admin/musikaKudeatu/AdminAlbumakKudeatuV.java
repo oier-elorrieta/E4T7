@@ -158,7 +158,7 @@ public class AdminAlbumakKudeatuV extends JFrame implements IadminBotoiak {
 		for (int i = 0; i < AlbumakJList.size(); i++) {
 			modelAlbum.addElement(AlbumakJList.get(i).getIzenburua());
 		}
-
+		
 		AlbumList.setModel(modelAlbum);
 		AlbumList.setBounds(56, 95, 444, 404);
 		scrollPane.setViewportView(AlbumList);
