@@ -22,6 +22,7 @@ import model.metodoak.View_metodoak;
 import model.sql.ArtistaDiskaDAO;
 import model.sql.DiskaAbestiakDAO;
 import model.sql.Konexioa;
+import salbuespenak.AudioaNotFoundExcepcion;
 import view.LoginV;
 
 import javax.swing.JLabel;
@@ -155,7 +156,11 @@ public class KantaListV extends JFrame {
 					Abestia abestiAuxSelected = new Abestia(abestiSelected.getIdAudio(), abestiSelected.getTitulua(), abestiSelected.getIraupena(), abestiSelected.getErreprodukzioak());
 					dispose();
 					try {
-						JFrameSortu.erreprodukzioLehioa(album, artista, abestiAuxSelected);
+						try {
+							JFrameSortu.erreprodukzioLehioa(album, artista, abestiAuxSelected);
+						} catch (AudioaNotFoundExcepcion e1) {
+							
+						}
 						DiskaAbestiakDAO.abestiaErreprodukzioaGehitu(abestiAuxSelected);
 					} catch (SQLException | LineUnavailableException e1) {
 						e1.printStackTrace();

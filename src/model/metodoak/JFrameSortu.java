@@ -12,11 +12,12 @@ import model.Album;
 import model.Artista;
 import model.Playlist;
 import model.Podcast;
+import salbuespenak.AudioaNotFoundExcepcion;
 import view.ErregistroaNireProfilaV;
 import view.LoginV;
 import view.MenuaV;
 import view.abestiak.ArtistaListV;
-import view.abestiak.ArtistaV;
+import view.abestiak.AlbumListV;
 import view.abestiak.KantaListV;
 import view.admin.AdminMenuaV;
 import view.admin.estatistikak.AdminEstatistikakMenuaV;
@@ -110,7 +111,7 @@ public class JFrameSortu {
 	 * @throws SQLException
 	 */
 	public static void albumakArtistakBezeroa(Album album, Artista artista) throws SQLException {
-		ArtistaV artistaAlbumV = new ArtistaV(artista);
+		AlbumListV artistaAlbumV = new AlbumListV(artista);
 		artistaAlbumV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		artistaAlbumV.setVisible(true);
 	}
@@ -197,9 +198,10 @@ public class JFrameSortu {
 	 * @param abesti
 	 * @throws SQLException
 	 * @throws LineUnavailableException
+	 * @throws AudioaNotFoundExcepcion 
 	 */
 	public static void erreprodukzioLehioa(Album album, Artista artista, Abestia abesti)
-			throws SQLException, LineUnavailableException {
+			throws SQLException, LineUnavailableException, AudioaNotFoundExcepcion {
 		ErreprodukzioaV ErreprodukzioaV = new ErreprodukzioaV(album, artista, abesti);
 		ErreprodukzioaV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		ErreprodukzioaV.setVisible(true);

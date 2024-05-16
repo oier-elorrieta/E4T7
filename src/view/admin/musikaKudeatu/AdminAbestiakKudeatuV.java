@@ -1,53 +1,45 @@
 package view.admin.musikaKudeatu;
 
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Formatter;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import model.Abestia;
 import model.Album;
-import model.Artista;
-import model.Musikaria;
 import model.interfazeak.IadminBotoiak;
 import model.metodoak.JFrameSortu;
 import model.metodoak.View_metodoak;
 import model.sql.Konexioa;
 import model.sql.admin.AbestiCRUD;
 import model.sql.admin.AlbumaCRUD;
-import model.sql.admin.ArtistaCRUD;
 import view.LoginV;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-
-import javax.swing.ListSelectionModel;
-import javax.swing.SpinnerDateModel;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
 
 public class AdminAbestiakKudeatuV extends JFrame implements IadminBotoiak {
 
@@ -65,7 +57,8 @@ public class AdminAbestiakKudeatuV extends JFrame implements IadminBotoiak {
 	private JSpinner spinner;
 	private JTextField tf;
 	private JSpinner.DateEditor editor;
-	
+	private SpinnerDateModel spinnerModel;
+
 	private JTextPane tituloTxtpane;
 	private JComboBox albumComboBox;
 
@@ -134,6 +127,13 @@ public class AdminAbestiakKudeatuV extends JFrame implements IadminBotoiak {
 		for (int i = 0; i < albumList.size(); i++) {
 			albumComboBox.addItem(albumList.get(i).getIzenburua());
 		}
+
+		spinnerModel = new SpinnerDateModel();
+		spinner = new JSpinner(spinnerModel);
+		editor = new JSpinner.DateEditor(spinner, "HH:mm:ss");
+		spinner.setEditor(editor);
+		tf = ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField();
+		tf.setEditable(false);
 
 		JLabel lblArtistakKudeatu = new JLabel("ABESTIAK KUDEATU");
 		lblArtistakKudeatu.setHorizontalAlignment(SwingConstants.CENTER);
@@ -205,26 +205,20 @@ public class AdminAbestiakKudeatuV extends JFrame implements IadminBotoiak {
 	@Override
 	public void btnInsert() {
 
-		SpinnerDateModel model = null;
+		panel.add(spinner);
 
 		try {
-			model = new SpinnerDateModel(View_metodoak.spinnerFormatuaOrdua("00:00:00"), null, null, Calendar.SECOND);
+			java.util.Date newDate = View_metodoak.spinnerFormatuaOrdua("00:00:00");
+			spinnerModel.setValue(newDate);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		JSpinner spinner = new JSpinner(model);
 
-		JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner, "HH:mm:ss");
-		spinner.setEditor(editor);
-
-		JTextField tf = ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField();
-		tf.setEditable(false);
-
-		panel.add(spinner);
 		panel.add(album_lbl);
 		panel.add(albumComboBox);
 
 		boolean errorea = false;
+		tituloTxtpane.setText("");
 
 		do {
 			int opcion = JOptionPane.showConfirmDialog(null, panel, "Album berria sartu", JOptionPane.OK_CANCEL_OPTION,
@@ -243,10 +237,7 @@ public class AdminAbestiakKudeatuV extends JFrame implements IadminBotoiak {
 
 				for (int i = 0; i < AbestiJList.size(); i++) {
 					if (tituluaBerria.equals(AbestiJList.get(i).getTitulua())) {
-						JOptionPane.showMessageDialog(null, "Abesti hori badago sartuta", "Errorea",
-								JOptionPane.ERROR_MESSAGE);
-						errorea = false;
-						break;
+						errorea = true;
 					}
 				}
 
@@ -268,6 +259,11 @@ public class AdminAbestiakKudeatuV extends JFrame implements IadminBotoiak {
 					JOptionPane.showMessageDialog(null, "Iraupena ezin da izan 0!", "Errorea",
 							JOptionPane.ERROR_MESSAGE);
 					errorea = false;
+				} else if (errorea == true) {
+
+					JOptionPane.showMessageDialog(null, "Abestia badago sartuta", "Errorea", JOptionPane.ERROR_MESSAGE);
+					errorea = false;
+
 				} else {
 					try {
 						AbestiCRUD.audioInsert(tituluaBerria, iraupenaBerria, idAlbum);
@@ -330,7 +326,19 @@ public class AdminAbestiakKudeatuV extends JFrame implements IadminBotoiak {
 		if (AbestiList.getSelectedValue() == null) {
 			JOptionPane.showMessageDialog(null, "Ez duzu abestirik aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 		} else {
-			outerLoop:
+
+			panel.remove(album_lbl);
+			panel.remove(albumComboBox);
+			panel.add(spinner);
+
+			java.util.Date iraupenErrorea = null;
+
+			try {
+				iraupenErrorea = View_metodoak.spinnerFormatuaOrdua("00:00:00");
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
 			for (Abestia abesti : AbestiJList) {
 				if (abesti.getTitulua().equals(AbestiList.getSelectedValue())) {
 					Abestia abestiSelect = abesti;
@@ -338,22 +346,12 @@ public class AdminAbestiakKudeatuV extends JFrame implements IadminBotoiak {
 					tituloTxtpane.setText(abestiSelect.getTitulua());
 					java.util.Date iraupenaZaharra = null;
 
-					SpinnerDateModel model = null;
 					try {
-						model = new SpinnerDateModel(View_metodoak.spinnerFormatuaOrdua(abestiSelect.getIraupena()),
-								null, null, Calendar.SECOND);
+						java.util.Date newDate = View_metodoak.spinnerFormatuaOrdua(abestiSelect.getIraupena());
+						spinnerModel.setValue(newDate);
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
-					spinner = new JSpinner(model);
-
-					editor = new JSpinner.DateEditor(spinner, "HH:mm:ss");
-					spinner.setEditor(editor);
-
-					tf = ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField();
-					tf.setEditable(false);
-
-					panel.add(spinner);
 
 					boolean errorea = false;
 
@@ -370,23 +368,12 @@ public class AdminAbestiakKudeatuV extends JFrame implements IadminBotoiak {
 						if (aukera == JOptionPane.OK_OPTION) {
 							String titulua = tituloTxtpane.getText();
 							String iraupena = View_metodoak.spinnerFormatuaString(spinner.getValue());
-							
+
 							for (int i = 0; i < AbestiJList.size(); i++) {
 								if (titulua.equals(AbestiJList.get(i).getTitulua())) {
-									JOptionPane.showMessageDialog(null, "Abesti hori badago sartuta", "Errorea",
-											JOptionPane.ERROR_MESSAGE);
 									errorea = true;
-									dispose();
-									try {
-										JFrameSortu.adminAbestiakKudeatu();
-									} catch (SQLException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-									break outerLoop;
 								}
 							}
-
 
 							if (titulua.equals("") || iraupena == null) {
 								JOptionPane.showMessageDialog(null, "Eremu guztiak bete behar dira!", "Errorea",
@@ -398,6 +385,15 @@ public class AdminAbestiakKudeatuV extends JFrame implements IadminBotoiak {
 								JOptionPane.showMessageDialog(null, "Ez duzu aldaketarik egin", "Informazioa",
 										JOptionPane.INFORMATION_MESSAGE);
 								errorea = true;
+							} else if (spinner.getValue().equals(iraupenErrorea)) {
+								JOptionPane.showMessageDialog(null, "Iraupena ezin da izan 0!", "Errorea",
+										JOptionPane.ERROR_MESSAGE);
+								errorea = false;
+							} else if (errorea == true) {
+								JOptionPane.showMessageDialog(null, "Abestia badago sartuta", "Errorea",
+										JOptionPane.ERROR_MESSAGE);
+								errorea = false;
+
 							} else {
 								try {
 									AbestiCRUD.abestiUpdate(abestiSelect, titulua, iraupena);
