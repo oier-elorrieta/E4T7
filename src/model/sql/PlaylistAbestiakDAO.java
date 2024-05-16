@@ -13,6 +13,13 @@ import model.Playlist;
 import model.metodoak.SesioAldagaiak;
 
 public class PlaylistAbestiakDAO {
+	
+	/**
+	 * Playlist baten abestiak kargatzeko metodoa.
+	 * 
+	 * @param Playlist
+	 * @throws SQLException
+	 */
 	public static ArrayList<Abestia> abestiakPlaylistKargatu(Playlist playlist) throws SQLException {
 		ArrayList<Abestia> abestiakListPlaylist = new ArrayList<Abestia>();
         Konexioa.konexioaIreki();
@@ -30,23 +37,12 @@ public class PlaylistAbestiakDAO {
         return abestiakListPlaylist;
 	}
 	
-	/*public static Abestia abestiaIrudiaKargatu(Playlist playlist, String idAudio) throws SQLException {
-		Abestia irudiakAbestiakPlaylist = null;
-        Konexioa.konexioaIreki();
-        String SQLquery = "SELECT Irudia FROM playlistAbestiakInfo WHERE IDList = '" + playlist.getIdPlaylist() + "' and IdAudio = '";
-        try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery);
-                ResultSet resultSet = preparedStatement.executeQuery()) {
-            while (resultSet.next()) {
-            	irudiakAbestiakPlaylist = new Abestia(resultSet.getBlob("Irudia"));
-            }
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			Konexioa.konexioaItxi();
-		}
-        return irudiakAbestiakPlaylist;
-	}*/
-	
+	/**
+	 * Playlist baten artistak kargatzeko metodoa.
+	 * 
+	 * @param idAudio
+	 * @throws SQLException
+	 */
 	public static Artista ArtistakPlaylistKargatu(String idAudio) throws SQLException {
 		Artista artistakPlaylist = null;
         Konexioa.konexioaIreki();
@@ -64,6 +60,12 @@ public class PlaylistAbestiakDAO {
         return artistakPlaylist;
 	}
 	
+	/**
+	 * Playlist baten albumak kargatzeko metodoa.
+	 * 
+	 * @param idAudio
+	 * @throws SQLException
+	 */
 	public static Album albumaPlaylistKargatu(String idAudio) throws SQLException {
 		Album albumPlaylist = null;
         Konexioa.konexioaIreki();
@@ -81,6 +83,12 @@ public class PlaylistAbestiakDAO {
         return albumPlaylist;
 	}
 	
+	/**
+	 * Gustoko zerrendako abestiak kargatzeko metodoa.
+	 * 
+	 * @param idAudio
+	 * @throws SQLException
+	 */
 	public static Album albumaGustokoaPlaylistKargatu(String idAudio) throws SQLException {
 		Album albumPlaylist = null;
         Konexioa.konexioaIreki();
@@ -98,6 +106,12 @@ public class PlaylistAbestiakDAO {
         return albumPlaylist;
 	}
 	
+	/**
+	 * Gustoko zerrendako artistak kargatzeko metodoa.
+	 * 
+	 * @param idAudio
+	 * @throws SQLException
+	 */
 	public static Artista ArtistakGustokoaPlaylistKargatu(String idAudio) throws SQLException {
 		Artista artistakPlaylist = null;
         Konexioa.konexioaIreki();
@@ -114,7 +128,13 @@ public class PlaylistAbestiakDAO {
 		}
         return artistakPlaylist;
 	}
-	
+
+	/**
+	 * Playlist baten artistak kargatzeko metodoa.
+	 * 
+	 * @param Playlist
+	 * @throws SQLException
+	 */
 	public static ArrayList<Artista> abestiakArtistakPlaylistKargatu(Playlist playlist) throws SQLException {
 		ArrayList<Artista> artistakListPlaylist = new ArrayList<Artista>();
         Konexioa.konexioaIreki();
@@ -132,7 +152,12 @@ public class PlaylistAbestiakDAO {
         return artistakListPlaylist;
 	}
 	
-	
+	/**
+	 * Playlist baten albumak kargatzeko metodoa.
+	 * 
+	 * @param Playlist
+	 * @throws SQLException
+	 */
 	public static ArrayList<Album> albumAbestiakPlaylistKargatu(Playlist playlist) throws SQLException {
 		ArrayList<Album> albumAbestiakListPlaylist = new ArrayList<Album>();
         Konexioa.konexioaIreki();
@@ -150,6 +175,12 @@ public class PlaylistAbestiakDAO {
         return albumAbestiakListPlaylist;
 	}
 	
+	/**
+	 * Gustoko zerrendako abestiak kargatzeko metodoa.
+	 * 
+	 * @param Playlist
+	 * @throws SQLException
+	 */
 	public static ArrayList<Abestia> gustukoAbestiakKargatu(Playlist playlist) throws SQLException {
 		ArrayList<Abestia> abestiakListGustukoakPlaylist = new ArrayList<Abestia>();
 		Konexioa.konexioaIreki();
@@ -168,6 +199,12 @@ public class PlaylistAbestiakDAO {
 		return abestiakListGustukoakPlaylist;
 	}
 	
+	/**
+	 * Gustoko zerrendako albumak kargatzeko metodoa.
+	 * 
+	 * @param Playlist
+	 * @throws SQLException
+	 */
 	public static ArrayList<Album> gustukoAlbumAbestiakKargatu(Playlist playlist) throws SQLException {
 		ArrayList<Album> abestiakAlbumListGustukoakPlaylist = new ArrayList<Album>();
 		Konexioa.konexioaIreki();
@@ -185,6 +222,12 @@ public class PlaylistAbestiakDAO {
 		return abestiakAlbumListGustukoakPlaylist;
 	}
 	
+	/**
+	 * Gustoko zerrendako artistak kargatzeko metodoa.
+	 * 
+	 * @param Playlist
+	 * @throws SQLException
+	 */
 	public static ArrayList<Artista> gustukoArtistaAbestiakKargatu(Playlist playlist) throws SQLException {
 		ArrayList<Artista> abestiakArtistaListGustukoakPlaylist = new ArrayList<Artista>();
 		Konexioa.konexioaIreki();
@@ -200,22 +243,5 @@ public class PlaylistAbestiakDAO {
 			Konexioa.konexioaItxi();
 		}
 		return abestiakArtistaListGustukoakPlaylist;
-	}
-	
-	public static Abestia irudiakAbestiakPlaylistKargatu(Playlist playlist) throws SQLException {
-		Abestia abestiIrudia = null;
-        Konexioa.konexioaIreki();
-        String SQLquery = "SELECT irudia FROM playlistAbestiakInfo WHERE IDList = '" + playlist.getIdPlaylist() + "';";
-        try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery);
-                ResultSet resultSet = preparedStatement.executeQuery()) {
-            while (resultSet.next()) {
-            	abestiIrudia = new Abestia(resultSet.getBlob("irudia"));
-            }
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			Konexioa.konexioaItxi();
-		}
-        return abestiIrudia;
 	}
 }

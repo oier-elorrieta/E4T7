@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class Konexioa {
 	
-	private static final String URL = "jdbc:mysql://10.5.6.223:3306/db_JPamt7";
+	private static final String URL = "jdbc:mysql://10.5.6.223/db_JPamt7";
 	private static String user = "administrador";
 	private static String pass = "admin123";
 

@@ -1,7 +1,9 @@
 package testDAO;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -41,6 +43,13 @@ public class KonexioaTest {
 		assertNotNull("El objeto de consulta no debería ser nulo después de abrirse", Konexioa.query);
 	}
 	
+	@Test
+	public void testKonexioaIrekiAdmin() {
+		assertTrue(Konexioa.konexioaIrekiAdmin("administrador", "admin123"));
+	}
 
-
+	@Test
+	public void testKonexioaIrekiAdminFail() {
+		assertFalse(Konexioa.konexioaIrekiAdmin("analopez", "123456"));
+	}
 }
