@@ -70,16 +70,30 @@ public class TopGustukoPodcastStatsV extends JFrame {
         table = new JTable(model);
 
         try {
-            ArrayList<Abestia> abestiak = EstatistikakDAO.getTotalaTopGustukoPodcastStats();
+            ArrayList<Abestia> abestiak = EstatistikakDAO.getTopGustukoPodcastStats("Totalak");
             for (Abestia abesti : abestiak) {
                 model.addRow(new Object[]{abesti.getIdAudio(), abesti.getTitulua(), abesti.getIraupena(), abesti.getErreprodukzioak()});
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Datu basearekin arazoak daude.");
         }
-
-        
+   
 		scrollPane.setViewportView(table);
+		
+		JButton btnAstean = new JButton("Astean");
+		btnAstean.setFocusPainted(false);
+		btnAstean.setBounds(295, 521, 89, 23);
+		contentPane.add(btnAstean);
+		
+		JButton btnHilabetean = new JButton("Hilabetean");
+		btnHilabetean.setFocusPainted(false);
+		btnHilabetean.setBounds(394, 521, 100, 23);
+		contentPane.add(btnHilabetean);
+		
+		JButton btnUrtean = new JButton("Urtean");
+		btnUrtean.setFocusPainted(false);
+		btnUrtean.setBounds(504, 521, 89, 23);
+		contentPane.add(btnUrtean);
 		
 		
 		// ATZERA BOTOIA
@@ -89,6 +103,68 @@ public class TopGustukoPodcastStatsV extends JFrame {
 				JFrameSortu.adminEstatistikakMenua();
 			}
 		});
+		
+		// ASTEAN BOTOIA
+		btnAstean.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DefaultTableModel modelAstean = new DefaultTableModel();
+					modelAstean.addColumn("IdAudio");
+				    modelAstean.addColumn("Podcast izena");
+				    modelAstean.addColumn("Iraupena");
+				    modelAstean.addColumn("Gustoko totalak");
+		            ArrayList<Abestia> abestiak = EstatistikakDAO.getTopGustukoPodcastStats("Astean");
+		            for (Abestia abesti : abestiak) {
+		                modelAstean.addRow(new Object[]{abesti.getIdAudio(), abesti.getTitulua(), abesti.getIraupena(), abesti.getErreprodukzioak()});
+		            }
+		            table.setModel(modelAstean);
+		            table.repaint();
+		        } catch (SQLException e1) {
+		            JOptionPane.showMessageDialog(null, "Datu basearekin arazoak daude.");
+		        }
+			}
+		});
+		
+		// HILABETEAN BOTOIA
+		btnHilabetean.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DefaultTableModel modelHila = new DefaultTableModel();
+					modelHila.addColumn("IdAudio");
+				    modelHila.addColumn("Podcast izena");
+				    modelHila.addColumn("Iraupena");
+				    modelHila.addColumn("Gustoko totalak");
+		            ArrayList<Abestia> abestiak = EstatistikakDAO.getTopGustukoPodcastStats("Hilabetean");
+		            for (Abestia abesti : abestiak) {
+		                modelHila.addRow(new Object[]{abesti.getIdAudio(), abesti.getTitulua(), abesti.getIraupena(), abesti.getErreprodukzioak()});
+		            }
+		            table.setModel(modelHila);
+		            table.repaint();
+		        } catch (SQLException e1) {
+		            JOptionPane.showMessageDialog(null, "Datu basearekin arazoak daude.");
+		        }
+			}
+		});
+		
+		// URTEAN BOTOIA
+		btnUrtean.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DefaultTableModel modelUrtean = new DefaultTableModel();
+					modelUrtean.addColumn("IdAudio");
+				    modelUrtean.addColumn("Podcast izena");
+				    modelUrtean.addColumn("Iraupena");
+				    modelUrtean.addColumn("Gustoko totalak");
+		            ArrayList<Abestia> abestiak = EstatistikakDAO.getTopGustukoPodcastStats("Urtean");
+		            for (Abestia abesti : abestiak) {
+		                modelUrtean.addRow(new Object[]{abesti.getIdAudio(), abesti.getTitulua(), abesti.getIraupena(), abesti.getErreprodukzioak()});
+		            }
+		            table.setModel(modelUrtean);
+		            table.repaint();
+		        } catch (SQLException e1) {
+		            JOptionPane.showMessageDialog(null, "Datu basearekin arazoak daude.");
+		        }
+			}
+		});
 	}
-
 }

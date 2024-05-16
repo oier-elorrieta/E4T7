@@ -52,7 +52,7 @@ public class TopEntzundakoakStatsV extends JFrame {
 		scrollPane.setBounds(52, 75, 787, 443);
 		contentPane.add(scrollPane);
 		
-		JLabel lblTopGustukoAbestiak = new JLabel("TOP GUSTUKO PODCAST");
+		JLabel lblTopGustukoAbestiak = new JLabel("TOP ENTZUNDAKOAK");
 		lblTopGustukoAbestiak.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTopGustukoAbestiak.setFont(new Font("Tahoma", Font.BOLD, 22));
 		lblTopGustukoAbestiak.setBounds(0, 21, 890, 27);
@@ -71,7 +71,7 @@ public class TopEntzundakoakStatsV extends JFrame {
         table = new JTable(model);
 
         try {
-            ArrayList<Abestia> abestiak = EstatistikakDAO.getTotalaTopEntzunaldiakStats();
+            ArrayList<Abestia> abestiak = EstatistikakDAO.getTopEntzunaldiakStats("Totalak");
             for (Abestia abesti : abestiak) {
                 model.addRow(new Object[]{abesti.getIdAudio(), abesti.getTitulua(), abesti.getIraupena(), abesti.getErreprodukzioak()});
             }
@@ -82,6 +82,21 @@ public class TopEntzundakoakStatsV extends JFrame {
         
 		scrollPane.setViewportView(table);
 		
+		JButton btnAstean = new JButton("Astean");
+		btnAstean.setFocusPainted(false);
+		btnAstean.setBounds(302, 521, 89, 23);
+		contentPane.add(btnAstean);
+		
+		JButton btnHilabetean = new JButton("Hilabetean");
+		btnHilabetean.setFocusPainted(false);
+		btnHilabetean.setBounds(401, 521, 100, 23);
+		contentPane.add(btnHilabetean);
+		
+		JButton btnUrtean = new JButton("Urtean");
+		btnUrtean.setFocusPainted(false);
+		btnUrtean.setBounds(511, 521, 89, 23);
+		contentPane.add(btnUrtean);
+		
 		
 		// ATZERA BOTOIA
 		btnAtzera.addActionListener(new ActionListener() {
@@ -90,6 +105,69 @@ public class TopEntzundakoakStatsV extends JFrame {
 				JFrameSortu.adminEstatistikakMenua();
 			}
 		});
+		
+		// ASTEAN BOTOIA
+		btnAstean.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DefaultTableModel modelAstean = new DefaultTableModel();
+					modelAstean.addColumn("IdAudio");
+				    modelAstean.addColumn("Abesti/Podcast izena");
+				    modelAstean.addColumn("Iraupena");
+				    modelAstean.addColumn("Entzunaldi totalak");
+		            ArrayList<Abestia> abestiak = EstatistikakDAO.getTopEntzunaldiakStats("Astean");
+		            for (Abestia abesti : abestiak) {
+		                modelAstean.addRow(new Object[]{abesti.getIdAudio(), abesti.getTitulua(), abesti.getIraupena(), abesti.getErreprodukzioak()});
+		            }
+		            table.setModel(modelAstean);
+		            table.repaint();
+		        } catch (SQLException e1) {
+		            JOptionPane.showMessageDialog(null, "Datu basearekin arazoak daude.");
+		        }
+			}
+		});
+		
+		// HILABETEAN BOTOIA
+		btnHilabetean.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DefaultTableModel modelHila = new DefaultTableModel();
+					modelHila.addColumn("IdAudio");
+				    modelHila.addColumn("Abesti/Podcast izena");
+				    modelHila.addColumn("Iraupena");
+				    modelHila.addColumn("Entzunaldi totalak");
+		            ArrayList<Abestia> abestiak = EstatistikakDAO.getTopEntzunaldiakStats("Hilabetean");
+		            for (Abestia abesti : abestiak) {
+		                modelHila.addRow(new Object[]{abesti.getIdAudio(), abesti.getTitulua(), abesti.getIraupena(), abesti.getErreprodukzioak()});
+		            }
+		            table.setModel(modelHila);
+		            table.repaint();
+		        } catch (SQLException e1) {
+		            JOptionPane.showMessageDialog(null, "Datu basearekin arazoak daude.");
+		        }
+			}
+		});
+		
+		// URTEAN BOTOIA
+		btnUrtean.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DefaultTableModel modelUrtean = new DefaultTableModel();
+					modelUrtean.addColumn("IdAudio");
+				    modelUrtean.addColumn("Abesti/Podcast izena");
+				    modelUrtean.addColumn("Iraupena");
+				    modelUrtean.addColumn("Entzunaldi totalak");
+		            ArrayList<Abestia> abestiak = EstatistikakDAO.getTopEntzunaldiakStats("Urtean");
+		            for (Abestia abesti : abestiak) {
+		                modelUrtean.addRow(new Object[]{abesti.getIdAudio(), abesti.getTitulua(), abesti.getIraupena(), abesti.getErreprodukzioak()});
+		            }
+		            table.setModel(modelUrtean);
+		            table.repaint();
+		        } catch (SQLException e1) {
+		            JOptionPane.showMessageDialog(null, "Datu basearekin arazoak daude.");
+		        }
+			}
+		});		
 	}
 
 }

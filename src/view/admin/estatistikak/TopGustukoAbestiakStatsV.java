@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -72,7 +73,7 @@ public class TopGustukoAbestiakStatsV extends JFrame {
         model.isCellEditable(0, 0);
 
         try {
-            ArrayList<Abestia> abestiak = EstatistikakDAO.getTotalaTopGustukoAbestiakStats("Totalak");
+            ArrayList<Abestia> abestiak = EstatistikakDAO.getTopGustukoAbestiakStats("Totalak");
             for (Abestia abesti : abestiak) {
                 model.addRow(new Object[]{abesti.getIdAudio(), abesti.getTitulua(), abesti.getIraupena(), abesti.getErreprodukzioak()});
             }
@@ -84,14 +85,17 @@ public class TopGustukoAbestiakStatsV extends JFrame {
 		
 		JButton btnAstean = new JButton("Astean");
 		btnAstean.setBounds(314, 521, 89, 23);
+		btnAstean.setFocusPainted(false);
 		contentPane.add(btnAstean);
 		
 		JButton btnHilabetean = new JButton("Hilabetean");
-		btnHilabetean.setBounds(413, 521, 89, 23);
+		btnHilabetean.setBounds(413, 521, 100, 23);
+		btnHilabetean.setFocusPainted(false);
 		contentPane.add(btnHilabetean);
 		
 		JButton btnUrtean = new JButton("Urtean");
-		btnUrtean.setBounds(512, 521, 89, 23);
+		btnUrtean.setBounds(523, 521, 89, 23);
+		btnUrtean.setFocusPainted(false);
 		contentPane.add(btnUrtean);
 		
 		
@@ -108,12 +112,17 @@ public class TopGustukoAbestiakStatsV extends JFrame {
 		btnAstean.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					dispose();
-					JFrameSortu.statsTopGustukoAbestiak();
-		            ArrayList<Abestia> abestiak = EstatistikakDAO.getTotalaTopGustukoAbestiakStats("Egunero");
+					DefaultTableModel modelAstean = new DefaultTableModel();
+					modelAstean.addColumn("IdAudio");
+				    modelAstean.addColumn("Abesti izena");
+				    modelAstean.addColumn("Iraupena");
+				    modelAstean.addColumn("Gustoko totalak");
+		            ArrayList<Abestia> abestiak = EstatistikakDAO.getTopGustukoAbestiakStats("Astean");
 		            for (Abestia abesti : abestiak) {
-		                model.addRow(new Object[]{abesti.getIdAudio(), abesti.getTitulua(), abesti.getIraupena(), abesti.getErreprodukzioak()});
+		                modelAstean.addRow(new Object[]{abesti.getIdAudio(), abesti.getTitulua(), abesti.getIraupena(), abesti.getErreprodukzioak()});
 		            }
+		            table.setModel(modelAstean);
+		            table.repaint();
 		        } catch (SQLException e1) {
 		            JOptionPane.showMessageDialog(null, "Datu basearekin arazoak daude.");
 		        }
@@ -123,14 +132,42 @@ public class TopGustukoAbestiakStatsV extends JFrame {
 		// HILABETEAN BOTOIA
 		btnHilabetean.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				try {
+					DefaultTableModel modelHila = new DefaultTableModel();
+					modelHila.addColumn("IdAudio");
+				    modelHila.addColumn("Abesti izena");
+				    modelHila.addColumn("Iraupena");
+				    modelHila.addColumn("Gustoko totalak");
+		            ArrayList<Abestia> abestiak = EstatistikakDAO.getTopGustukoAbestiakStats("Hilabetean");
+		            for (Abestia abesti : abestiak) {
+		                modelHila.addRow(new Object[]{abesti.getIdAudio(), abesti.getTitulua(), abesti.getIraupena(), abesti.getErreprodukzioak()});
+		            }
+		            table.setModel(modelHila);
+		            table.repaint();
+		        } catch (SQLException e1) {
+		            JOptionPane.showMessageDialog(null, "Datu basearekin arazoak daude.");
+		        }
 			}
 		});
 		
 		// URTEAN BOTOIA
 		btnUrtean.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				try {
+					DefaultTableModel modelUrtean = new DefaultTableModel();
+					modelUrtean.addColumn("IdAudio");
+				    modelUrtean.addColumn("Abesti izena");
+				    modelUrtean.addColumn("Iraupena");
+				    modelUrtean.addColumn("Gustoko totalak");
+		            ArrayList<Abestia> abestiak = EstatistikakDAO.getTopGustukoAbestiakStats("Urtean");
+		            for (Abestia abesti : abestiak) {
+		                modelUrtean.addRow(new Object[]{abesti.getIdAudio(), abesti.getTitulua(), abesti.getIraupena(), abesti.getErreprodukzioak()});
+		            }
+		            table.setModel(modelUrtean);
+		            table.repaint();
+		        } catch (SQLException e1) {
+		            JOptionPane.showMessageDialog(null, "Datu basearekin arazoak daude.");
+		        }
 			}
 		});
 	}
