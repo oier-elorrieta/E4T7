@@ -21,12 +21,7 @@ public class Konexioa {
     private static final String URL = "jdbc:mysql://192.168.1.53:3306/db_JPamt7";
     private static String user = "administrador";
     private static String pass = "admin123";
-
     
-    private static final String URL = "jdbc:mysql://192.168.1.135:3306/db_JPamt7";
-    private static String user = "administrador";
-    private static String pass = "admin123";
-
     public static Connection konexioa;
     public static Statement query;
 
@@ -46,9 +41,9 @@ public class Konexioa {
             query = konexioa.createStatement();
 
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+         
         } catch (SQLException e) {
-            e.printStackTrace();
+        
         }
     }
 
@@ -60,7 +55,7 @@ public class Konexioa {
             konexioa.close();
             query.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+         
         }
     }
     
@@ -74,7 +69,7 @@ public class Konexioa {
             konexioa = DriverManager.getConnection(URL, usertxt, pass);
             query = konexioa.createStatement();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+       
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erabiltzaile hori ez dauka baimenik.", "Errorea",
                     JOptionPane.ERROR_MESSAGE);

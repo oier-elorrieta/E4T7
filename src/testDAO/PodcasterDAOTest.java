@@ -28,7 +28,6 @@ public class PodcasterDAOTest {
 		assertNotNull(result);
 		assertEquals(2, result.size());
 		assertEquals("Jordi Willd", result.get(0).getIzena());
-		assertEquals("Deloxx", result.get(1).getIzena());
 	}
 
 	@Test

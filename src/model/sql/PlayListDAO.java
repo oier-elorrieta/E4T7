@@ -53,39 +53,7 @@ public class PlayListDAO {
         return playListList;
 	}
 	
-	public static void playlistGordeInportatu(Playlist playlist, Erabiltzailea bezeroa) throws SQLException {
-		Konexioa.konexioaIreki();
-		String SQLquery = "INSERT INTO playlist (Izenburua, Sorrera_data, Kapazitatea) VALUES (?, ?, ?);";
-		
-		try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery)) {
-			preparedStatement.setString(2, playlist.getTitulua());
-			preparedStatement.setDate(3, (java.sql.Date) playlist.getSorrera_data());
-			preparedStatement.setInt(4, playlist.getKapazitatea());
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Ezin izan da playlista gorde.", "Errorea", JOptionPane.ERROR_MESSAGE);
-		} finally {
-			Konexioa.konexioaItxi();
-		}
-	}
-	
-	public static void abestiakGordePlaylistInport(ArrayList<Abestia> abestiak, Artista artista, Album album, Playlist playlist) throws SQLException {
-		Konexioa.konexioaIreki();
-		String SQLquery = "INSERT INTO playlist_abestiak (IDList, IDAudio) VALUES (?, ?);";
-		
-		try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery)) {
-			for (Abestia abestia : abestiak) {
-				preparedStatement.setInt(1, playlist.getIdPlaylist());
-				preparedStatement.setString(2, abestia.getIdAudio());
-				preparedStatement.executeUpdate();
-			}
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Ezin izan dira abestiak gehitu.", "Errorea",
-					JOptionPane.ERROR_MESSAGE);
-		} finally {
-			Konexioa.konexioaItxi();
-		}
-	}
+
 	
 	/**
 	 * PlayListean dauden abesti kopurua lortzeko metodoa.
@@ -104,7 +72,6 @@ public class PlayListDAO {
                 return kantitatea;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
 		} finally {
 			Konexioa.konexioaItxi();
 		}
@@ -122,25 +89,83 @@ public class PlayListDAO {
 				return kantitatea;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 		} finally {
 			Konexioa.konexioaItxi();
 		}
 		return 0;
 	}
 	
+	/**
+	 * Playlist berria sortzeko metodoa.
+	 * 
+	 * @param playlist Playlist berria.
+	 * @throws SQLException SQL errorea gertatzen bada.
+	 */
+	
+	
+	public static void playlistGordeInportatu(Playlist playlist, Erabiltzailea bezeroa) throws SQLException {
+		Konexioa.konexioaIreki();
+		String SQLquery = "INSERT INTO playlist (Izenburua, Sorrera_data, IDBezeroa) VALUES (?, ?, ?);";
+		
+		try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery)) {
+			preparedStatement.setString(1, playlist.getTitulua());
+			preparedStatement.setDate(2, (java.sql.Date) playlist.getSorrera_data());
+			preparedStatement.setString(3, bezeroa.getIdBezeroa());
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Ezin izan da playlista gorde.", "Errorea", JOptionPane.ERROR_MESSAGE);
+		} finally {
+			Konexioa.konexioaItxi();
+		}
+	}
+
+	/**
+	 * Playlist berria sortzeko metodoa.
+	 * 
+	 * @param playlist Playlist berria.
+	 * @throws SQLException SQL errorea gertatzen bada.
+	 */
+	public static void abestiakGordePlaylistInport(ArrayList<Abestia> abestiak, Artista artista, Album album, Playlist playlist) throws SQLException {
+		Konexioa.konexioaIreki();
+		String SQLquery = "INSERT INTO playlist_abestiak (IDList, IDAudio) VALUES (?, ?);";
+		
+		try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery)) {
+			for (Abestia abestia : abestiak) {
+				preparedStatement.setInt(1, playlist.getIdPlaylist());
+				preparedStatement.setString(2, abestia.getIdAudio());
+				preparedStatement.executeUpdate();
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Ezin izan dira abestiak gehitu.", "Errorea",
+					JOptionPane.ERROR_MESSAGE);
+		} finally {
+			Konexioa.konexioaItxi();
+		}
+	}
+
+	/**
+	 * Playlist berria sortzeko metodoa.
+	 * 
+	 * @param playlist Playlist berria.
+	 * @throws SQLException SQL errorea gertatzen bada.
+	 */
 	public static void playlistEzabatu(Playlist playlist) {
 		Konexioa.konexioaIreki();
         String SQLquery = "DELETE FROM playlist WHERE IDList = " + playlist.getIdPlaylist() + ";";
         try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
         } finally {
             Konexioa.konexioaItxi();
         }
 	}
-	
+
+	/**
+	 * Playlist berria sortzeko metodoa.
+	 * 
+	 * @param playlist Playlist berria.
+	 * @throws SQLException SQL errorea gertatzen bada.
+	 */
 	public static void ezabatuAbestiaPlaylist(Playlist playlist, Abestia abestia) {
 		Konexioa.konexioaIreki();
         String SQLquery = "DELETE FROM playlist_abestiak WHERE IDList = " + playlist.getIdPlaylist() + " AND IdAudio = " + abestia.getIdAudio() + ";";

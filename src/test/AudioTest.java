@@ -46,13 +46,14 @@ public class AudioTest {
       
         @Test
         public void testgetTitulua() {
-            Audio audio1 = new Audio("tituloa",null);
+            Audio audio1 = new Audio("tituloa");
             assertEquals("tituloa", audio1.getTitulua());
         }
 
         @Test
         public void testgetErroprodukzioa() {
-            Audio audio1 = new Audio("tituloa", null, null, 5);
+            Audio audio1 = new Audio("idaudio", "titulua", null, "iraupena");
+            audio1.setErreprodukzioak(5);
             assertEquals(5, audio1.getErreprodukzioak());
         }
 
@@ -73,8 +74,10 @@ public class AudioTest {
         public void testgetBlobEquals() {
       	  Blob blob = new Blob(null, null);
           Audio audio = new Audio("Titulo", blob, "Iraupena");
-          assertEquals(blob, audio.getIrudia());
-          assertNotNull(blob);
+          Blob blob2 = new Blob(null, null);
+          audio.setIrudia(blob2);
+          assertEquals(blob2, audio.getIrudia());
+          assertNotNull(blob2);
         }
         
         @Test
