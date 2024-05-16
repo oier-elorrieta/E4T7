@@ -2,6 +2,7 @@ package model.sql.admin;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.Artista;
@@ -26,25 +27,33 @@ public class PodcastCRUD {
 		return podcastList;
 	}
 	
-	public static void podcastAudio(Podcast podcastBerria) throws SQLException {
+	public static void podcastAudio(Podcast podcastBerria, String idPodcaster) throws SQLException {
 		Konexioa.konexioaIreki();
 		
 		String SQLquery = "INSERT INTO audio (Izena, Irudia, Iraupena, Mota) "
-				+ "VALUES ('" + podcastBerria.getTitulua() + "', FROM_BASE64('" + SesioAldagaiak.IrudiaBLOB + "') ,'" + podcastBerria.getIraupena() + "' ,'" 
-				+ "Podcast" + "')";
-		Konexioa.query.executeUpdate(SQLquery);
+				+ "VALUES ('" + podcastBerria.getTitulua() + "', FROM_BASE64('" + SesioAldagaiak.IrudiaBLOB + "') ,'" + podcastBerria.getIraupena() 
+				+ "' , 'Podcasta')";
+		int idAudioBerria = -1;
+	    Konexioa.query.executeUpdate(SQLquery, Statement.RETURN_GENERATED_KEYS);
+	    ResultSet rs = Konexioa.query.getGeneratedKeys();
+	    if (rs.next()) {
+	    	idAudioBerria = rs.getInt(1);
+	    }
 
+	    podcastInsert(idAudioBerria, idPodcaster, podcastBerria.getKolaboratzaile());
 		Konexioa.konexioaItxi();
 	}
 	
-	public static void podcastInsert(String izenArtistikoa, String deskripzioaBerria) throws SQLException {
-		Konexioa.konexioaIreki();
+	public static void podcastInsert(int idAudioBerria, String idPodcaster, String kolaboratzaile) throws SQLException {
 		
-		String SQLquery = "INSERT INTO audio (Izena, Irudia, Iraupena, Mota) "
-				+ "VALUES ('" + izenArtistikoa + "', FROM_BASE64('" + SesioAldagaiak.IrudiaBLOB + "') ,'" + deskripzioaBerria + "')";
+		System.out.println(idAudioBerria);
+		System.out.println(idPodcaster);
+		
+		String SQLquery = "INSERT INTO podcast (IdAudio, Kolaboratzaileak, IDPodcaster) VALUES ('" + idAudioBerria 
+                + "' ,'" + kolaboratzaile + "' ,'" + idPodcaster + "')";
+		
 		Konexioa.query.executeUpdate(SQLquery);
 
-		Konexioa.konexioaItxi();
 	}
 	
 	public static void podcastDelete(Podcast podcast) throws SQLException {

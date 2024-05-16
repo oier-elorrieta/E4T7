@@ -1,6 +1,5 @@
 package view.erreprodukzioa;
 
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;

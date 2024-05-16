@@ -20,11 +20,14 @@ import javax.swing.border.EmptyBorder;
 
 import model.Artista;
 import model.Podcast;
+import model.Podcaster;
 import model.interfazeak.IadminBotoiak;
 import model.metodoak.JFrameSortu;
 import model.metodoak.View_metodoak;
+import model.sql.Konexioa;
 import model.sql.admin.AbestiCRUD;
 import model.sql.admin.PodcastCRUD;
+import model.sql.admin.PodcasterCRUD;
 import view.LoginV;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -55,15 +58,20 @@ public class AdminPodcastKudeatuV extends JFrame implements IadminBotoiak {
 	private JLabel titulo_lbl;
 	private JLabel iraupena_lbl;
 	private JLabel kolaboratzaile_lbl;
+	private JLabel podcaster_lbl;
 
 	private JTextPane tituloTxtpane;
 	private JTextPane kolaboratzaileTxtpane;
-
+	
+	private JComboBox podcasterComboBox;
+	private ArrayList<Artista> PodcasterJList;
+	
 	/**
 	 * Create the frame.
 	 * 
 	 * @throws SQLException
 	 */
+	@SuppressWarnings("unchecked")
 	public AdminPodcastKudeatuV() throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
@@ -122,6 +130,17 @@ public class AdminPodcastKudeatuV extends JFrame implements IadminBotoiak {
 		panel.add(tituloTxtpane);
 
 		panel.add(iraupena_lbl);
+		
+		podcaster_lbl = new JLabel("Podcaster-a: ");
+		podcaster_lbl.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
+		
+		podcasterComboBox = new JComboBox<String>();
+		PodcasterJList = PodcasterCRUD.podcasterIzenakKargatu();
+		
+		for (int i = 0; i < PodcasterJList.size(); i++) {
+			podcasterComboBox.addItem(PodcasterJList.get(i).getIzena());
+		}
+		
 
 		JLabel lblHemenPodcastakKudeatu = new JLabel("Hemen Podcastak kudeatu dezakezu.");
 		lblHemenPodcastakKudeatu.setHorizontalAlignment(SwingConstants.CENTER);
@@ -163,7 +182,7 @@ public class AdminPodcastKudeatuV extends JFrame implements IadminBotoiak {
 		btnAtzera.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				JFrameSortu.adminMusikaKudeatu();
+				JFrameSortu.adminMenuaPodcastKudeatu();
 			}
 		});
 
@@ -203,6 +222,9 @@ public class AdminPodcastKudeatuV extends JFrame implements IadminBotoiak {
 
 		panel.add(kolaboratzaile_lbl);
 		panel.add(kolaboratzaileTxtpane);
+		
+		panel.add(podcaster_lbl);
+		panel.add(podcasterComboBox);
 
 		boolean errorea = false;
 		tituloTxtpane.setText("");
@@ -223,6 +245,19 @@ public class AdminPodcastKudeatuV extends JFrame implements IadminBotoiak {
 				String tituluaBerria = tituloTxtpane.getText();
 				String iraupenaBerria = View_metodoak.spinnerFormatuaString(spinner.getValue());
 				String KolaboratzaileBerria = kolaboratzaileTxtpane.getText();
+				
+				Konexioa.konexioaIreki();
+				String IdPodcaster = "-1";
+				try {
+					IdPodcaster = PodcasterCRUD.IdPodcasterLortu(podcasterComboBox.getSelectedItem().toString());
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if (KolaboratzaileBerria.equals("")) {
+					KolaboratzaileBerria = "Inork";
+				}
 				
 				Podcast podcastBerria = new Podcast(tituluaBerria, null, iraupenaBerria, KolaboratzaileBerria);
 
@@ -247,7 +282,7 @@ public class AdminPodcastKudeatuV extends JFrame implements IadminBotoiak {
 
 				} else {
 					try {
-						PodcastCRUD.podcastAudio(podcastBerria);
+						PodcastCRUD.podcastAudio(podcastBerria, IdPodcaster);
 						JOptionPane.showMessageDialog(null, "Podcast ondo sartu da", "Egina",
 								JOptionPane.INFORMATION_MESSAGE);
 						errorea = true;
@@ -261,6 +296,8 @@ public class AdminPodcastKudeatuV extends JFrame implements IadminBotoiak {
 
 				}
 
+			}else {
+				errorea = true;
 			}
 
 		} while (!errorea);

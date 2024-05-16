@@ -16,10 +16,17 @@ import javax.swing.JOptionPane;
  * 
  */
 public class Konexioa {
+<<<<<<< HEAD
     
     private static final String URL = "jdbc:mysql://192.168.0.7:3306/db_JPamt7";
     private static String user = "administrador";
     private static String pass = "admin123";
+=======
+	
+	private static final String URL = "jdbc:mysql://192.168.0.7:3306/db_JPamt7";
+	private static String user = "administrador";
+	private static String pass = "admin123";
+>>>>>>> c6c518ac3615bc675e10c7e223600bdc22ed873a
 
     public static Connection konexioa;
     public static Statement query;
@@ -46,6 +53,7 @@ public class Konexioa {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Itxi konexioa eta kontsulta funtzioa.
      */
@@ -75,5 +83,36 @@ public class Konexioa {
         }
         return kon;
     }
+=======
+	/**
+	 * Itxi konexioa eta kontsulta funtzioa.
+	 */
+	public static void konexioaItxi() {
+		try {
+			konexioa.close();
+			query.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static boolean konexioaIrekiAdmin(String usertxt, String passwdtxt) {
+		boolean kon = true;
+		try {
+			usertxt = "administrador";
+			passwdtxt = "admin";
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			konexioa = DriverManager.getConnection(URL, usertxt, pass);
+			query = konexioa.createStatement();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erabiltzaile hori ez dauka baimenik.", "Errorea",
+					JOptionPane.ERROR_MESSAGE);
+			kon = false;
+		}
+		return kon;
+	}
+>>>>>>> c6c518ac3615bc675e10c7e223600bdc22ed873a
 
 }

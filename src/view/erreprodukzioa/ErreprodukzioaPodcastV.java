@@ -1,21 +1,19 @@
 package view.erreprodukzioa;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import model.Abestia;
 import model.Artista;
 import model.Podcast;
-import model.Podcaster;
+import model.interfazeak.IAtzeraProfilaBotoiak;
 import model.metodoak.FilesMetodoak;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
-import model.sql.DiskaAbestiakDAO;
 import model.sql.PodcasterListDAO;
+import salbuespenak.AudioaNotFoundExcepcion;
 import view.LoginV;
 
 import javax.swing.JLabel;
@@ -37,13 +35,12 @@ import javax.swing.SwingConstants;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-public class ErreprodukzioaPodcastV extends JFrame {
+public class ErreprodukzioaPodcastV extends JFrame implements IAtzeraProfilaBotoiak {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -53,162 +50,151 @@ public class ErreprodukzioaPodcastV extends JFrame {
 	private ArrayList<Podcast> podcastList;
 	private boolean aurrekoListaamaitu = false;
 	private boolean listaAmaiera = false;
-	private FloatControl abiaduraKontrola;
-	private float speed = 1.0f;
+	private Artista podcaster;
 
 	/**
 	 * Create the frame.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
+	 * @throws AudioaNotFoundExcepcion 
 	 */
-	public ErreprodukzioaPodcastV(Artista podcaster, Podcast podcast) throws SQLException {
+	public ErreprodukzioaPodcastV(Artista podcaster, Podcast podcast) throws SQLException, AudioaNotFoundExcepcion {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		setResizable(false);
 		if (SesioAldagaiak.e_premium) {
-			setTitle(podcast.getTitulua() + " - " + podcaster.getIzena() + " | Podcast erreprodukzioa · JPAM Music PREMIUM");
+			setTitle(podcast.getTitulua() + " - " + podcaster.getIzena()
+					+ " | Podcast erreprodukzioa · JPAM Music PREMIUM");
 		} else {
-			setTitle(podcast.getTitulua() + " - " + podcaster.getIzena() + " | Podcast erreprodukzioa · JPAM Music FREE");
+			setTitle(podcast.getTitulua() + " - " + podcaster.getIzena()
+					+ " | Podcast erreprodukzioa · JPAM Music FREE");
 		}
-		
+
 		contentPane = new JPanel();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginV.class.getResource("/images/jpam_logo.png")));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
+
 		JButton btnAtzera = View_metodoak.btn_Atzera();
 		contentPane.add(btnAtzera);
-		
+
 		JButton btnNireProfila = View_metodoak.btn_NireProfila();
 		contentPane.add(btnNireProfila);
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblErreproduzitzen = new JLabel("ERREPRODUZITZEN ORAIN...");
 		lblErreproduzitzen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblErreproduzitzen.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblErreproduzitzen.setBounds(0, 23, 890, 27);
 		contentPane.add(lblErreproduzitzen);
-		
+
 		JLabel lblKaixo = new JLabel("");
 		lblKaixo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblKaixo.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
 		lblKaixo.setBounds(693, 11, 187, 34);
 		lblKaixo.setText("Kaixo, " + SesioAldagaiak.bezeroa_logeatuta.getIzena() + "!");
 		contentPane.add(lblKaixo);
-		
+
 		JLabel lblAbestiIzena = new JLabel((String) null);
 		lblAbestiIzena.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAbestiIzena.setFont(new Font("Segoe UI Historic", Font.BOLD, 18));
 		lblAbestiIzena.setBounds(0, 369, 890, 23);
 		lblAbestiIzena.setText(podcast.getTitulua());
 		contentPane.add(lblAbestiIzena);
-		
+
 		JLabel lblArtistaIzena = new JLabel((String) null);
 		lblArtistaIzena.setHorizontalAlignment(SwingConstants.CENTER);
 		lblArtistaIzena.setFont(new Font("Segoe UI Semilight", Font.ITALIC, 16));
 		lblArtistaIzena.setBounds(0, 393, 890, 23);
 		lblArtistaIzena.setText(podcaster.getIzena() + ", " + podcast.getKolaboratzaile());
 		contentPane.add(lblArtistaIzena);
-		
+
 		JLabel lblIraupena = new JLabel((String) null);
 		lblIraupena.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIraupena.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
 		lblIraupena.setBounds(0, 417, 890, 23);
 		lblIraupena.setText(podcast.getIraupena());
 		contentPane.add(lblIraupena);
-		
+
 		JButton btnKonpartitu = new JButton("↪️ Konpartitu");
 		btnKonpartitu.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnKonpartitu.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 17));
 		btnKonpartitu.setFocusPainted(false);
 		btnKonpartitu.setBounds(686, 459, 172, 34);
 		contentPane.add(btnKonpartitu);
-		
+
 		JButton btnAurrekoa = new JButton("⏮");
 		btnAurrekoa.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnAurrekoa.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 20));
 		btnAurrekoa.setFocusPainted(false);
 		btnAurrekoa.setBounds(291, 458, 89, 34);
 		contentPane.add(btnAurrekoa);
-		
+
 		JButton btnPlayPause = new JButton("▶");
 		btnPlayPause.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnPlayPause.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 18));
 		btnPlayPause.setFocusPainted(false);
 		btnPlayPause.setBounds(401, 458, 89, 34);
 		contentPane.add(btnPlayPause);
-		
+
 		JButton btnHurrengoa = new JButton("⏭");
 		btnHurrengoa.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnHurrengoa.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 20));
 		btnHurrengoa.setFocusPainted(false);
 		btnHurrengoa.setBounds(509, 458, 89, 34);
 		contentPane.add(btnHurrengoa);
-		
+
 		JLabel lblArgazkiaPodcast = new JLabel("");
 		lblArgazkiaPodcast.setHorizontalAlignment(SwingConstants.CENTER);
 		lblArgazkiaPodcast.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblArgazkiaPodcast.setBounds(252, 57, 388, 305);
-	
+
 		ImageIcon argazkiaPodcast = new ImageIcon(podcast.getIrudia().getBytes(1, (int) podcast.getIrudia().length()));
 		Image img = argazkiaPodcast.getImage();
-        Image imgScale = img.getScaledInstance(lblArgazkiaPodcast.getWidth(), lblArgazkiaPodcast.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon argazkia = new ImageIcon(imgScale);
-        lblArgazkiaPodcast.setIcon(argazkia);
+		Image imgScale = img.getScaledInstance(lblArgazkiaPodcast.getWidth(), lblArgazkiaPodcast.getHeight(),
+				Image.SCALE_SMOOTH);
+		ImageIcon argazkia = new ImageIcon(imgScale);
+		lblArgazkiaPodcast.setIcon(argazkia);
 		contentPane.add(lblArgazkiaPodcast);
-		
+
 		JLabel lblInfoLista = new JLabel("");
 		lblInfoLista.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfoLista.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 15));
 		lblInfoLista.setBounds(0, 503, 890, 23);
 		contentPane.add(lblInfoLista);
-		
+
 		String fileAudio = "\\\\10.5.6.223\\audios\\" + podcast.getTitulua() + ".wav";
 		File f = new File(fileAudio);
 		AudioInputStream aui;
-		
+
 		try {
 			aui = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
 			clipLehena = AudioSystem.getClip();
 			clipLehena.open(aui);
 		} catch (UnsupportedAudioFileException | IOException e) {
-			e.printStackTrace();
+			dispose();
+			JFrameSortu.podcastKantakBezeroa(podcaster);
+			throw new AudioaNotFoundExcepcion();
 		} catch (LineUnavailableException e1) {
-			e1.printStackTrace();
+			throw new AudioaNotFoundExcepcion();
 		}
-		
-		
 		// ATZERA BOTOIA
 		btnAtzera.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				try {
-					if (clipLehena.isRunning()) {
-						clipLehena.stop();
-					}
-					setVisible(false);
-					JFrameSortu.podcastKantakBezeroa(podcaster);;
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+				btnAtzera();
+
 			}
 		});
-		
+
 		// NIRE PROFILA BOTOIA
 		btnNireProfila.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				try {
-					if (clipLehena.isRunning()) {
-						clipLehena.stop();
-					}
-					JFrameSortu.erregistroMenua(ErreprodukzioaPodcastV.this);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+				btnNireProfila();
 			}
 		});
-		
+
 		// PLAY-PAUSE BOTOIA
 		btnPlayPause.addMouseListener(new MouseAdapter() {
 			@Override
@@ -222,10 +208,9 @@ public class ErreprodukzioaPodcastV extends JFrame {
 				}
 			}
 		});
-		
-		
-	// AURREKO PODCASTERA JOATEKO BOTOIA
-	btnAurrekoa.addMouseListener(new MouseAdapter() {
+
+		// AURREKO PODCASTERA JOATEKO BOTOIA
+		btnAurrekoa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
@@ -234,14 +219,14 @@ public class ErreprodukzioaPodcastV extends JFrame {
 						lblInfoLista.setText("Ezin zara atzerago joan!");
 					}
 					for (int i = 0; i < podcastList.size(); i++) {
-						if (i-1 == -1) {
+						if (i - 1 == -1) {
 							aurrekoListaamaitu = true;
 						} else {
 							if (podcast.getTitulua().equals(podcastList.get(i).getTitulua())) {
 								String fileAudio = "\\\\10.5.6.223\\audios\\" + podcast.getTitulua() + ".wav";
 								File f = new File(fileAudio);
 								AudioInputStream aui;
-								
+
 								try {
 									aui = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
 									clipAurrekoa = AudioSystem.getClip();
@@ -251,29 +236,35 @@ public class ErreprodukzioaPodcastV extends JFrame {
 								} catch (LineUnavailableException e1) {
 									e1.printStackTrace();
 								}
-								
-								Podcast podcastAurrekoa = new Podcast(podcastList.get(i-1).getTitulua(), podcastList.get(i-1).getIrudia(), podcastList.get(i-1).getIraupena(), podcastList.get(i-1).getKolaboratzaile());
-								
+
+								Podcast podcastAurrekoa = new Podcast(podcastList.get(i - 1).getTitulua(),
+										podcastList.get(i - 1).getIrudia(), podcastList.get(i - 1).getIraupena(),
+										podcastList.get(i - 1).getKolaboratzaile());
+
 								if (clipLehena.isRunning()) {
 									clipLehena.stop();
 								}
-								
+
 								if (clipAurrekoa.isRunning()) {
 									clipAurrekoa.stop();
 								}
-								
+
 								dispose();
-								JFrameSortu.erreprodukzioLehioaPodcast(podcaster, podcastAurrekoa);
+								try {
+									JFrameSortu.erreprodukzioLehioaPodcast(podcaster, podcastAurrekoa);
+								} catch (AudioaNotFoundExcepcion e1) {
+									
+								}
 							}
 						}
-						
+
 					}
 				} catch (SQLException | LineUnavailableException e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
-		
+
 		// HURRENGO PODCASTERA JOATEKO BOTOIA
 		btnHurrengoa.addMouseListener(new MouseAdapter() {
 			@Override
@@ -286,15 +277,15 @@ public class ErreprodukzioaPodcastV extends JFrame {
 						return;
 					}
 					for (; i < podcastList.size(); i++) {
-						if (i == podcastList.size()-1) {	
+						if (i == podcastList.size() - 1) {
 							listaAmaiera = true;
-		                    break;
+							break;
 						} else {
 							if (podcast.getTitulua().equals(podcastList.get(i).getTitulua())) {
 								String fileAudio = "\\\\10.5.6.223\\audios\\" + podcast.getTitulua() + ".wav";
 								File f = new File(fileAudio);
 								AudioInputStream aui;
-									
+
 								try {
 									aui = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
 									clipHurrengoa = AudioSystem.getClip();
@@ -304,38 +295,44 @@ public class ErreprodukzioaPodcastV extends JFrame {
 								} catch (LineUnavailableException e1) {
 									e1.printStackTrace();
 								}
-								
-								Podcast podcastHurrengoa = new Podcast(podcastList.get(i+1).getTitulua(), podcastList.get(i+1).getIrudia(), podcastList.get(i+1).getIraupena(), podcastList.get(i+1).getKolaboratzaile());
-								
+
+								Podcast podcastHurrengoa = new Podcast(podcastList.get(i + 1).getTitulua(),
+										podcastList.get(i + 1).getIrudia(), podcastList.get(i + 1).getIraupena(),
+										podcastList.get(i + 1).getKolaboratzaile());
+
 								if (clipLehena.isRunning()) {
 									clipLehena.stop();
 								}
 								if (clipHurrengoa.isRunning()) {
 									clipHurrengoa.stop();
 								}
-								
+
 								dispose();
-								JFrameSortu.erreprodukzioLehioaPodcast(podcaster, podcastHurrengoa);
-							}	
+								try {
+									JFrameSortu.erreprodukzioLehioaPodcast(podcaster, podcastHurrengoa);
+								} catch (AudioaNotFoundExcepcion e1) {
+									
+								}
+							}
 						}
-						
+
 					}
 				} catch (SQLException | LineUnavailableException e1) {
 					e1.printStackTrace();
 				}
-				
+
 			}
 		});
-		
+
 		// KONPARTITZEKO BOTOIA
 		btnKonpartitu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Object[] aukerakMenu = { "Bai", "Ez" };
-                int menuAukera = JOptionPane.showOptionDialog(null, "Konpartitu nahi duzu?", "Konpartitu",
-                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerakMenu, aukerakMenu[0]);
-                if (menuAukera == JOptionPane.YES_OPTION) {
-                	try {
+				int menuAukera = JOptionPane.showOptionDialog(null, "Konpartitu nahi duzu?", "Konpartitu",
+						JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, aukerakMenu, aukerakMenu[0]);
+				if (menuAukera == JOptionPane.YES_OPTION) {
+					try {
 						FilesMetodoak.konpartituFilesPodcast(podcast, podcaster);
 						JOptionPane.showMessageDialog(null, "Zure podcast-a konpartitu da Files batera!", "Konpartitu",
 								JOptionPane.INFORMATION_MESSAGE);
@@ -343,8 +340,35 @@ public class ErreprodukzioaPodcastV extends JFrame {
 						JOptionPane.showMessageDialog(null, "Ezin izan da podcast-a konpartitu.", "Errorea",
 								JOptionPane.ERROR_MESSAGE);
 					}
-                }
+				}
 			}
 		});
+	}
+
+	@Override
+	public void btnAtzera() {
+		try {
+			if (clipLehena.isRunning()) {
+				clipLehena.stop();
+			}
+			setVisible(false);
+			JFrameSortu.podcastKantakBezeroa(podcaster);
+			;
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public void btnNireProfila() {
+		try {
+			if (clipLehena.isRunning()) {
+				clipLehena.stop();
+			}
+			JFrameSortu.erregistroMenua(ErreprodukzioaPodcastV.this);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
 }
