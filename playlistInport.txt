@@ -1,9 +1,9 @@
 PLAYLIST-AREN INFORMAZIOA
 ----------------------------------
 IDList: 4
-Playlist izena: Playlist 4
+Playlist izena: Playlist Inport
 Playlist sorrera data: 2023-08-05
-Kapazitatea: 2 abesti.
+Kapazitatea: 2
 ------------------------------------------------------------------------------
 BEZEROAREN INFORMAZIOA
 ----------------------------------

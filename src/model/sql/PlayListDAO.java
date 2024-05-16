@@ -57,23 +57,36 @@ public class PlayListDAO {
 	
 	public static void playlistGordeInportatu(Playlist playlist, Erabiltzailea bezeroa) throws SQLException {
 		Konexioa.konexioaIreki();
-		String SQLquery = "INSERT INTO playlist (IDBezeroa, Izenburua, Kapazitatea, Sorrera_data) VALUES (?, ?, ?, ?, ?);";
+		String SQLquery = "INSERT INTO playlist (Izenburua, Sorrera_data, Kapazitatea) VALUES (?, ?, ?);";
+		
 		try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery)) {
-			preparedStatement.setString(2, bezeroa.getIdBezeroa());
-			preparedStatement.setString(3, playlist.getTitulua());
+			preparedStatement.setString(2, playlist.getTitulua());
+			preparedStatement.setDate(3, (java.sql.Date) playlist.getSorrera_data());
 			preparedStatement.setInt(4, playlist.getKapazitatea());
-			preparedStatement.setDate(5, (java.sql.Date) playlist.getSorrera_data());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Ezin izan da playlista gorde.", "Errorea", JOptionPane.ERROR_MESSAGE);
+		} finally {
+			Konexioa.konexioaItxi();
 		}
-		Konexioa.konexioaItxi();
 	}
 	
-	public static void abestiakGordePlaylistInport(ArrayList<Abestia> abestiak, Artista artista, Album album) throws SQLException {
+	public static void abestiakGordePlaylistInport(ArrayList<Abestia> abestiak, Artista artista, Album album, Playlist playlist) throws SQLException {
 		Konexioa.konexioaIreki();
+		String SQLquery = "INSERT INTO playlist_abestiak (IDList, IDAudio) VALUES (?, ?);";
 		
-		Konexioa.konexioaItxi();
+		try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery)) {
+			for (Abestia abestia : abestiak) {
+				preparedStatement.setInt(1, playlist.getIdPlaylist());
+				preparedStatement.setString(2, abestia.getIdAudio());
+				preparedStatement.executeUpdate();
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Ezin izan dira abestiak gehitu.", "Errorea",
+					JOptionPane.ERROR_MESSAGE);
+		} finally {
+			Konexioa.konexioaItxi();
+		}
 	}
 	
 	/**

@@ -1,5 +1,6 @@
 package model.metodoak;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -199,9 +200,10 @@ public class JFrameSortu {
 	 * @throws SQLException
 	 * @throws LineUnavailableException
 	 * @throws AudioaNotFoundExcepcion 
+	 * @throws IOException 
 	 */
 	public static void erreprodukzioLehioa(Album album, Artista artista, Abestia abesti)
-			throws SQLException, LineUnavailableException, AudioaNotFoundExcepcion {
+			throws SQLException, LineUnavailableException, AudioaNotFoundExcepcion, IOException {
 		ErreprodukzioaV ErreprodukzioaV = new ErreprodukzioaV(album, artista, abesti);
 		ErreprodukzioaV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		ErreprodukzioaV.setVisible(true);

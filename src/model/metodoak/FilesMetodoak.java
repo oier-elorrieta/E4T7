@@ -289,33 +289,40 @@ public class FilesMetodoak {
             String artista = "";
             String albuma = "";
             String iraupena = "";
+            String idList = "";
+            String idAudio = "";
             Artista artistaAux = null;
             Abestia abestiaAux;
             Album albumAux = null;
             ArrayList<Abestia> abestiak = null;
             
             while ((line = br.readLine()) != null) {
-                if (line.startsWith("Playlist izena:")) {
-                    listIzena = "Playlist izena: " + line.substring(15).trim();
+            	if (line.startsWith("IDList:")) {
+            		idList = line.substring(7).trim();
+            	} else if (line.startsWith("Playlist izena:")) {
+                    listIzena = line.substring(15).trim();
                 } else if (line.startsWith("Playlist sorrera data:")) {
-                    sortze_data = "Playlist sorrera data: " + line.substring(21).trim();
+                    sortze_data = line.substring(23).trim();
                 } else if (line.startsWith("Kapazitatea:")) {
-                    kapazitatea = "Kapazitatea: " + line.substring(12).trim();
+                    kapazitatea = line.substring(12).trim();
                 } else if (line.startsWith("Bezeroa izen-abizenak:")) {
-                    bezIzenAb = "Bezeroa izen-abizenak: " + line.substring(21).trim();
+                    bezIzenAb = line.substring(21).trim();
                 } else if (line.startsWith("Erabiltzailea:")) {
-                    erab = "Erabiltzailea: " + line.substring(14).trim();
+                    erab = line.substring(14).trim();
+                } else if (line.startsWith("IdAudio:")) {
+                	idAudio = line.substring(8).trim();
                 } else if (line.startsWith("Abestia:")) {
-                    abestia = "Abestia: " + line.substring(8).trim();
+                    abestia = line.substring(8).trim();
                 } else if (line.startsWith("Artista:")) {
-                    artista = "Artista: " + line.substring(9).trim();
+                    artista = line.substring(9).trim();
                 } else if (line.startsWith("Albuma:")) {
-                    albuma = "Albuma: " + line.substring(8).trim();
+                    albuma = line.substring(8).trim();
                 } else if (line.startsWith("Iraupena:")) {
-                    iraupena =  "Iraupena: " + line.substring(10).trim();
+                    iraupena = line.substring(10).trim();
                 }
                 abestiak = new ArrayList<>();
                 abestiaAux = new Abestia();
+                abestiaAux.setIdAudio(idAudio);
                 abestiaAux.setTitulua(abestia);
                 abestiaAux.setIraupena(iraupena);
                 abestiak.add(abestiaAux);
@@ -326,6 +333,7 @@ public class FilesMetodoak {
             }
             Playlist playlist = new Playlist();
             playlist.setTitulua(listIzena);
+            playlist.setIdPlaylist(Integer.parseInt(idList));
             playlist.setSorrera_data(View_metodoak.stringToDate(sortze_data));
             playlist.setKapazitatea(Integer.parseInt(kapazitatea));
             
@@ -334,11 +342,9 @@ public class FilesMetodoak {
             bezeroa.setErabiltzailea(erab);
             
             PlayListDAO.playlistGordeInportatu(playlist, bezeroa);
-            PlayListDAO.abestiakGordePlaylistInport(abestiak, artistaAux, albumAux);
-
+            PlayListDAO.abestiakGordePlaylistInport(abestiak, artistaAux, albumAux, playlist);
         } catch (IOException e) {
         	JOptionPane.showMessageDialog(null, "Errorea fitxategia irakurtzean.");
-            e.printStackTrace();
         }
 	}
 }

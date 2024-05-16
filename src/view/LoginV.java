@@ -169,7 +169,6 @@ public class LoginV extends JFrame {
 	        String passwdErabil = new String(charPass);
 	        // KONPROBATU BEZEROA EDO ADMIN AUKERA
 	        if (comboBox.getSelectedIndex() == 0) {
-	            Konexioa.konexioaIreki();
 	            try {
 	                BezeroOndo = LoginDAO.loginKonexioa(txtErabil, passwdErabil);
 	            } catch (SQLException e1) {
@@ -190,12 +189,10 @@ public class LoginV extends JFrame {
 	                passwordField.setText("");
 	            }
 	        } else {
-				if (txtErabil.equals("") && passwdErabil.equals("")) {
+				if (Konexioa.konexioaIrekiAdmin(txtErabil, passwdErabil)) {
 					dispose();
 					JFrameSortu.adminMenua();
 				} else {
-					JOptionPane.showMessageDialog(null, "Erabiltzailea edo pasahitza txarto dago.", "Errorea",
-							JOptionPane.ERROR_MESSAGE);
 					txtFErabiltzaile.setText("");
 					passwordField.setText("");
 				}

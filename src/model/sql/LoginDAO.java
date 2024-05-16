@@ -72,6 +72,8 @@ public class LoginDAO {
 
 		return e1;
 	}
+	
+	
 
 	/**
 	 * Metodo honek erabiltzailearen iraungitze data lortzen du.
