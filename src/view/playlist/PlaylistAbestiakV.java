@@ -20,6 +20,7 @@ import model.Album;
 import model.Artista;
 import model.Musikaria;
 import model.Playlist;
+import model.interfazeak.IAtzeraProfilaBotoiak;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
@@ -36,7 +37,7 @@ import java.awt.Color;
 import javax.swing.ListSelectionModel;
 import javax.swing.JScrollPane;
 
-public class PlaylistAbestiakV extends JFrame {
+public class PlaylistAbestiakV extends JFrame implements IAtzeraProfilaBotoiak {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -142,24 +143,14 @@ public class PlaylistAbestiakV extends JFrame {
 		// ATZERA BOTOIA
 		btnAtzera.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				try {
-					JFrameSortu.playlistListaBezeroa();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+				btnAtzera();
 			}
 		});
 		
 		// NIRE PROFILA BOTOIA
 		btnNireProfila.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					setVisible(false);
-					JFrameSortu.erregistroMenua(PlaylistAbestiakV.this);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+				btnNireProfila();
 			}
 		});
 		
@@ -254,5 +245,25 @@ public class PlaylistAbestiakV extends JFrame {
 				}
 			}
 		});
+	}
+
+	@Override
+	public void btnAtzera() {
+		dispose();
+		try {
+			JFrameSortu.playlistListaBezeroa();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	@Override
+	public void btnNireProfila() {
+		try {
+			setVisible(false);
+			JFrameSortu.erregistroMenua(PlaylistAbestiakV.this);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
 }

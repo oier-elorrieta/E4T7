@@ -22,6 +22,10 @@ public class Konexioa {
     private static String user = "administrador";
     private static String pass = "admin123";
 
+    
+    private static final String URL = "jdbc:mysql://192.168.1.135:3306/db_JPamt7";
+    private static String user = "administrador";
+    private static String pass = "admin123";
 
     public static Connection konexioa;
     public static Statement query;
@@ -48,7 +52,6 @@ public class Konexioa {
         }
     }
 
-
     /**
      * Itxi konexioa eta kontsulta funtzioa.
      */
@@ -61,8 +64,7 @@ public class Konexioa {
         }
     }
     
-    
-    
+      
     public static boolean konexioaIrekiAdmin(String usertxt, String passwdtxt) {
         boolean kon = true;
         try {
@@ -82,7 +84,5 @@ public class Konexioa {
     }
 
 	
-
-
 
 }

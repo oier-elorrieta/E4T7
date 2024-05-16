@@ -16,6 +16,7 @@ import model.Abestia;
 import model.Album;
 import model.Artista;
 import model.Musikaria;
+import model.interfazeak.IAtzeraProfilaBotoiak;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
@@ -44,16 +45,20 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.ListSelectionModel;
 
-public class KantaListV extends JFrame {
+public class KantaListV extends JFrame implements IAtzeraProfilaBotoiak {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private Album albumParam;
+	private Artista artistaParam;
 
 	/**
 	 * Create the frame.
 	 * @throws SQLException 
 	 */
 	public KantaListV(Album album, Artista artista) throws SQLException {
+		albumParam = album;
+		artistaParam = artista;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		setResizable(false);
@@ -173,25 +178,35 @@ public class KantaListV extends JFrame {
 		// ATZERA BOTOIA
 			btnAtzera.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					dispose();
-					try {
-						JFrameSortu.albumakArtistakBezeroa(album, artista);
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
+					btnAtzera();
 				}
 			});
 			
 			// NIRE PROFILA BOTOIA
 			btnNireProfila.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					try {
-						setVisible(false);
-						JFrameSortu.erregistroMenua(KantaListV.this);
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
+					btnNireProfila();
 				}
 			});
+	}
+
+	@Override
+	public void btnAtzera() {
+		dispose();
+		try {
+			JFrameSortu.albumakArtistakBezeroa(albumParam, artistaParam);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	@Override
+	public void btnNireProfila() {
+		try {
+			setVisible(false);
+			JFrameSortu.erregistroMenua(KantaListV.this);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
 }

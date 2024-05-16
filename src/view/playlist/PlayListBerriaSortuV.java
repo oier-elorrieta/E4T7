@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import model.Playlist;
+import model.interfazeak.IAtzeraProfilaBotoiak;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
@@ -25,7 +26,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 
-public class PlayListBerriaSortuV extends JFrame {
+public class PlayListBerriaSortuV extends JFrame implements IAtzeraProfilaBotoiak {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -97,25 +98,14 @@ public class PlayListBerriaSortuV extends JFrame {
 		// ATZERA BOTOIA
 		btnAtzera.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				try {
-					JFrameSortu.playlistListaBezeroa();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+				btnAtzera();
 			}
 		});
 		
 		// NIRE PROFILA BOTOIA
 		btnNireProfila.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				try {
-					setVisible(false);
-					JFrameSortu.erregistroMenua(PlayListBerriaSortuV.this);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+				btnNireProfila();
 			}
 		});
 
@@ -136,5 +126,25 @@ public class PlayListBerriaSortuV extends JFrame {
 				}
 			}
 		});
+	}
+
+	@Override
+	public void btnAtzera() {
+		dispose();
+		try {
+			JFrameSortu.playlistListaBezeroa();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	@Override
+	public void btnNireProfila() {
+		try {
+			setVisible(false);
+			JFrameSortu.erregistroMenua(PlayListBerriaSortuV.this);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
 }

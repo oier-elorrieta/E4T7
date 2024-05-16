@@ -30,6 +30,7 @@ import model.Artista;
 import model.Musikaria;
 import model.Podcast;
 import model.Podcaster;
+import model.interfazeak.IAtzeraProfilaBotoiak;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
@@ -44,7 +45,7 @@ import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class PodcasterV extends JFrame {
+public class PodcasterV extends JFrame implements IAtzeraProfilaBotoiak {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -178,26 +179,37 @@ public class PodcasterV extends JFrame {
 		// ATZERA BOTOIA
 		btnAtzera.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				try {
-					JFrameSortu.podcastDeskubrituBezeroa();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+				btnAtzera();
 			}
 		});
 		
 		// NIRE PROFILA BOTOIA
 		btnNireProfila.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				try {
-					setVisible(false);
-					JFrameSortu.erregistroMenua(PodcasterV.this);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+				btnNireProfila();
 			}
 		});
+	}
+
+
+	@Override
+	public void btnAtzera() {
+		dispose();
+		try {
+			JFrameSortu.podcastDeskubrituBezeroa();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+
+	@Override
+	public void btnNireProfila() {
+		try {
+			setVisible(false);
+			JFrameSortu.erregistroMenua(PodcasterV.this);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
 }
