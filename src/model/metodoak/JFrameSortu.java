@@ -254,7 +254,7 @@ public class JFrameSortu {
 	}
 	
 	public static void erreprodukzioLehioaPodcast(Artista podcaster, Podcast podcast)
-			throws SQLException, LineUnavailableException {
+			throws SQLException, LineUnavailableException, AudioaNotFoundExcepcion {
 		ErreprodukzioaPodcastV ErreprodukzioaPodcastV = new ErreprodukzioaPodcastV(podcaster, podcast);
 		ErreprodukzioaPodcastV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		ErreprodukzioaPodcastV.setVisible(true);

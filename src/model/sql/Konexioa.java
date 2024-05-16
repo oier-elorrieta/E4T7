@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class Konexioa {
 	
-	private static final String URL = "jdbc:mysql://10.5.6.223:3306/db_JPamt7";
+	private static final String URL = "jdbc:mysql://192.168.0.7:3306/db_JPamt7";
 	private static String user = "administrador";
 	private static String pass = "admin123";
 
@@ -62,6 +62,8 @@ public class Konexioa {
 	public static boolean konexioaIrekiAdmin(String usertxt, String passwdtxt) {
 		boolean kon = true;
 		try {
+			usertxt = "administrador";
+			passwdtxt = "admin";
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			konexioa = DriverManager.getConnection(URL, usertxt, pass);
 			query = konexioa.createStatement();

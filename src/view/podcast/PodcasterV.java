@@ -37,6 +37,7 @@ import model.sql.ArtistaDiskaDAO;
 import model.sql.ArtistaListDAO;
 import model.sql.Konexioa;
 import model.sql.PodcasterListDAO;
+import salbuespenak.AudioaNotFoundExcepcion;
 import view.LoginV;
 
 import javax.swing.JScrollPane;
@@ -161,7 +162,11 @@ public class PodcasterV extends JFrame {
 					Podcast podcastAuxSelected = new Podcast(PodcastSelected.getTitulua(), PodcastSelected.getIrudia(), PodcastSelected.getIraupena(), PodcastSelected.getKolaboratzaile());
 					dispose();
 					try {
-						JFrameSortu.erreprodukzioLehioaPodcast(artista, podcastAuxSelected);
+						try {
+							JFrameSortu.erreprodukzioLehioaPodcast(artista, podcastAuxSelected);
+						} catch (AudioaNotFoundExcepcion e1) {
+							
+						}
 					} catch (SQLException | LineUnavailableException e1) {
 						e1.printStackTrace();
 					}

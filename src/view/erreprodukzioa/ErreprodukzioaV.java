@@ -1,7 +1,5 @@
 package view.erreprodukzioa;
 
-import java.awt.EventQueue;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -16,13 +14,11 @@ import javax.swing.border.EmptyBorder;
 import model.Abestia;
 import model.Album;
 import model.Artista;
-import model.Musikaria;
+import model.interfazeak.IAtzeraProfilaBotoiak;
 import model.metodoak.JFrameSortu;
 import model.metodoak.SesioAldagaiak;
 import model.metodoak.View_metodoak;
-import model.sql.ArtistaDiskaDAO;
 import model.sql.DiskaAbestiakDAO;
-import model.sql.IragarkiLehioaDAO;
 import model.sql.MenuaPlaylistSartuAbestiakDAO;
 import salbuespenak.AudioaNotFoundExcepcion;
 import view.LoginV;
@@ -41,13 +37,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ErreprodukzioaV extends JFrame {
+public class ErreprodukzioaV extends JFrame implements IAtzeraProfilaBotoiak {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -59,17 +53,19 @@ public class ErreprodukzioaV extends JFrame {
 	private boolean aurrekoListaamaitu = false;
 	private boolean like;
 	private String fileAudio = null;
+	private Album album;
+	private Artista artista;
 
 	/**
 	 * Create the frame.
 	 * 
 	 * @throws SQLException
 	 * @throws LineUnavailableException
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public ErreprodukzioaV(Album album, Artista artista, Abestia abesti)
 			throws SQLException, LineUnavailableException, AudioaNotFoundExcepcion, IOException {
-	
+
 		fileAudio = "\\\\10.5.6.223\\audios\\" + abesti.getTitulua() + ".wav";
 
 		// ------------------------------
@@ -200,55 +196,32 @@ public class ErreprodukzioaV extends JFrame {
 		contentPane.add(lblInfoLista);
 
 		AudioInputStream aui;
-		
+
 		try {
 			File f = new File(fileAudio);
 			aui = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
 			clipLehena = AudioSystem.getClip();
 			clipLehena.open(aui);
 		} catch (UnsupportedAudioFileException | IOException e) {
-			fileAudio = "\\\\10.5.6.223\\audios\\default.wav";
-		} catch (Exception e) {
-			fileAudio = "\\\\10.5.6.223\\audios\\default.wav";
+			dispose();
+			JFrameSortu.albumKantakBezeroa(album, artista);
+			throw new AudioaNotFoundExcepcion();
+		} catch (LineUnavailableException e1) {
+			throw new AudioaNotFoundExcepcion();
 		}
-		
-		
+
 		// ATZERA BOTOIA
 		btnAtzera.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				try {
-					if (clipLehena.isRunning()) {
-						clipLehena.stop();
-					}
-					if (SesioAldagaiak.playlist_erreprodukzioa) {
-						JFrameSortu.playlistListaBezeroa();
-						SesioAldagaiak.playlist_erreprodukzioa = false;
-					} else {
-						JFrameSortu.albumKantakBezeroa(album, artista);
-						SesioAldagaiak.playlist_erreprodukzioa = false;
-					}
-				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, "Errore bat gertatu da. Saiatu berriro.", "Errorea",
-							JOptionPane.ERROR_MESSAGE);
-				}
+				btnAtzera();
 			}
 		});
 
 		// NIRE PROFILA BOTOIA
 		btnNireProfila.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				try {
-					if (clipLehena.isRunning()) {
-						clipLehena.stop();
-					}
-					setVisible(false);
-					JFrameSortu.erregistroMenua(ErreprodukzioaV.this);
-				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, "Errore bat gertatu da. Saiatu berriro.", "Errorea",
-							JOptionPane.ERROR_MESSAGE);
-				}
+				btnNireProfila();
 			}
 		});
 
@@ -504,5 +477,39 @@ public class ErreprodukzioaV extends JFrame {
 				}
 			}
 		});
+	}
+
+	@Override
+	public void btnAtzera() {
+		try {
+			if (clipLehena.isRunning()) {
+				clipLehena.stop();
+			}
+			if (SesioAldagaiak.playlist_erreprodukzioa) {
+				JFrameSortu.playlistListaBezeroa();
+				SesioAldagaiak.playlist_erreprodukzioa = false;
+			} else {
+				JFrameSortu.albumKantakBezeroa(album, artista);
+				SesioAldagaiak.playlist_erreprodukzioa = false;
+			}
+		} catch (SQLException e1) {
+			JOptionPane.showMessageDialog(null, "Errore bat gertatu da. Saiatu berriro.", "Errorea",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+	}
+
+	@Override
+	public void btnNireProfila() {
+		try {
+			if (clipLehena.isRunning()) {
+				clipLehena.stop();
+			}
+			setVisible(false);
+			JFrameSortu.erregistroMenua(ErreprodukzioaV.this);
+		} catch (SQLException e1) {
+			JOptionPane.showMessageDialog(null, "Errore bat gertatu da. Saiatu berriro.", "Errorea",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }
