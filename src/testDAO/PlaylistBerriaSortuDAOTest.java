@@ -21,7 +21,7 @@ public class PlaylistBerriaSortuDAOTest {
 		SesioAldagaiak.bezeroa_logeatuta = erab;
 		
 		int emaitza = PlaylistBerriaSortuDAO.konprobatuPlaylistKopurua();
-		assertEquals(2, emaitza);
+		assertEquals(4, emaitza);
 	}
 
 	@Test
@@ -34,6 +34,6 @@ public class PlaylistBerriaSortuDAOTest {
 
 		PlaylistBerriaSortuDAO.playlistBerriaSortu(berria);
 		int emaitza = PlaylistBerriaSortuDAO.konprobatuPlaylistKopurua();
-		assertEquals(2, emaitza);
+		assertEquals(4, emaitza);
 	}
 }

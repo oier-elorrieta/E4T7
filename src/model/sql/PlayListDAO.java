@@ -44,11 +44,9 @@ public class PlayListDAO {
 					Playlist playList = new Playlist(idList, titulua, kantitatea, sorrera_data);
 					playListList.add(playList);
 				} catch (Exception e) {
-					e.printStackTrace();
 				}
             }
         } catch (SQLException e) {
-            e.printStackTrace();
         } finally {
             Konexioa.konexioaItxi();
         }

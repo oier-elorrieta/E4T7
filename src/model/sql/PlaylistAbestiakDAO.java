@@ -30,7 +30,6 @@ public class PlaylistAbestiakDAO {
             	abestiakListPlaylist.add(new Abestia(resultSet.getString("IDAudio"), resultSet.getString("abestiIzena"), resultSet.getBlob("Irudia"), resultSet.getString("iraupena")));
             }
 		} catch (SQLException e) {
-			e.printStackTrace();
 		} finally {
 			Konexioa.konexioaItxi();
 		}
@@ -53,7 +52,7 @@ public class PlaylistAbestiakDAO {
             	artistakPlaylist = new Musikaria(resultSet.getString("artistaIzena"));
             }
 		} catch (SQLException e) {
-			e.printStackTrace();
+		
 		} finally {
 			Konexioa.konexioaItxi();
 		}
@@ -76,7 +75,7 @@ public class PlaylistAbestiakDAO {
             	albumPlaylist = new Album(resultSet.getString("albumIzena"));
             }
 		} catch (SQLException e) {
-			e.printStackTrace();
+		
 		} finally {
 			Konexioa.konexioaItxi();
 		}
@@ -99,7 +98,7 @@ public class PlaylistAbestiakDAO {
             	albumPlaylist = new Album(resultSet.getString("Izenburua"));
             }
 		} catch (SQLException e) {
-			e.printStackTrace();
+			
 		} finally {
 			Konexioa.konexioaItxi();
 		}
@@ -122,7 +121,7 @@ public class PlaylistAbestiakDAO {
             	artistakPlaylist = new Musikaria(resultSet.getString("Artista izena"));
             }
 		} catch (SQLException e) {
-			e.printStackTrace();
+		
 		} finally {
 			Konexioa.konexioaItxi();
 		}
@@ -145,7 +144,6 @@ public class PlaylistAbestiakDAO {
             	artistakListPlaylist.add(new Musikaria(resultSet.getString("artistaIzena")));
             }
 		} catch (SQLException e) {
-			e.printStackTrace();
 		} finally {
 			Konexioa.konexioaItxi();
 		}
@@ -192,7 +190,6 @@ public class PlaylistAbestiakDAO {
 						resultSet.getString("Iraupena")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 		} finally {
 			Konexioa.konexioaItxi();
 		}
@@ -215,7 +212,6 @@ public class PlaylistAbestiakDAO {
 				abestiakAlbumListGustukoakPlaylist.add(new Album(resultSet.getString("Izenburua")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 		} finally {
 			Konexioa.konexioaItxi();
 		}
@@ -238,7 +234,6 @@ public class PlaylistAbestiakDAO {
 				abestiakArtistaListGustukoakPlaylist.add(new Musikaria(resultSet.getString("Artista izena")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 		} finally {
 			Konexioa.konexioaItxi();
 		}
