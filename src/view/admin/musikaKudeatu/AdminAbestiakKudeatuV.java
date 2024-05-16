@@ -297,8 +297,8 @@ public class AdminAbestiakKudeatuV extends JFrame implements IadminBotoiak {
 				if (abesti.getTitulua().equals(AbestiList.getSelectedValue())) {
 					Abestia abestiSelect = abesti;
 
-					int opcion = JOptionPane.showConfirmDialog(null, "Ziur zaude album hau ezabatu nahi duzula?",
-							"Album ezabatu", JOptionPane.YES_NO_OPTION);
+					int opcion = JOptionPane.showConfirmDialog(null, "Ziur zaude abesti hau ezabatu nahi duzula?",
+							"Abesti ezabatu", JOptionPane.YES_NO_OPTION);
 
 					if (opcion == JOptionPane.YES_OPTION) {
 						try {

@@ -227,6 +227,11 @@ public class AdminAlbumakKudeatuV extends JFrame implements IadminBotoiak {
 			panel.add(musikari_lbl);
 			panel.add(musikariComboBox);
 
+			titulotxtpane.setText("");
+			urteaDateChooser.setDate(new Date());
+            generoaComboBox.setSelectedIndex(0);			
+            musikariComboBox.setSelectedIndex(0);
+                        
 			int opcion = JOptionPane.showConfirmDialog(null, panel, "Album berria sartu", JOptionPane.OK_CANCEL_OPTION,
 					JOptionPane.PLAIN_MESSAGE);
 
@@ -310,6 +315,10 @@ public class AdminAlbumakKudeatuV extends JFrame implements IadminBotoiak {
 		if (AlbumList.getSelectedValue() == null) {
 			JOptionPane.showMessageDialog(null, "Ez duzu artistarik aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
 		} else {
+			
+			panel.remove(musikari_lbl);
+			panel.remove(musikariComboBox);
+			
 			for (int i = 0; i < AlbumakJList.size(); i++) {
 				if (AlbumakJList.get(i).getIzenburua().equals(AlbumList.getSelectedValue())) {
 					Album albuma = AlbumakJList.get(i);

@@ -330,7 +330,7 @@ public class JFrameSortu {
 		adminPodcasterKudeatuV.setVisible(true);
 	}
 	
-	public static void adminPodcastKudeatu() {
+	public static void adminPodcastKudeatu() throws SQLException {
 		AdminPodcastKudeatuV adminPodcastKudeatuV = new AdminPodcastKudeatuV();
 		adminPodcastKudeatuV.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		adminPodcastKudeatuV.setVisible(true);

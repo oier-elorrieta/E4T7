@@ -92,7 +92,12 @@ public class AdminMenuaPodcastKudeatuV extends JFrame {
 		btnPodcastakKudeatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			 	dispose();
-			    JFrameSortu.adminPodcastKudeatu();
+			    try {
+					JFrameSortu.adminPodcastKudeatu();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 	}

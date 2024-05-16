@@ -52,7 +52,7 @@ public class AdminArtistakKudeatuV extends JFrame implements IadminBotoiak {
 	private JLabel mota_lbl;
 	private JTextPane izenatxtpane;
 	private JTextPane deskripziotxtpane;
-	private JComboBox motaField;
+	private JComboBox motaComboBox;
 
 	/**
 	 * Create the frame.
@@ -95,9 +95,9 @@ public class AdminArtistakKudeatuV extends JFrame implements IadminBotoiak {
 
 		izenatxtpane.setPreferredSize(new Dimension(200, 30));
 		deskripziotxtpane.setPreferredSize(new Dimension(200, 30));
-		motaField = new JComboBox();
-		motaField.addItem("Bakarlaria");
-		motaField.addItem("Taldea");
+		motaComboBox = new JComboBox();
+		motaComboBox.addItem("Bakarlaria");
+		motaComboBox.addItem("Taldea");
 
 		ArtistaList = new JList();
 		ArtistaList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -189,7 +189,7 @@ public class AdminArtistakKudeatuV extends JFrame implements IadminBotoiak {
 
 		do {
 			panel.add(mota_lbl);
-			panel.add(motaField);
+			panel.add(motaComboBox);
 
 			int opcion = JOptionPane.showConfirmDialog(null, panel, "Aldatu Datuak", JOptionPane.OK_CANCEL_OPTION,
 					JOptionPane.PLAIN_MESSAGE);
@@ -197,10 +197,22 @@ public class AdminArtistakKudeatuV extends JFrame implements IadminBotoiak {
 			if (opcion == JOptionPane.OK_OPTION) {
 				String izenatxt = izenatxtpane.getText();
 				String deskripziotxt = deskripziotxtpane.getText();
-				String motatxt = motaField.getSelectedItem().toString();
+				String motatxt = motaComboBox.getSelectedItem().toString();
+
+				for (int i = 0; i < ArtistakJList.size(); i++) {
+					if (ArtistakJList.get(i).getIzena().equals(izenatxt)) {
+						errorea = true;
+					}
+				}
 
 				if (izenatxt.isEmpty() || deskripziotxt.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Ezin duzu hutsik utzi", "Error", JOptionPane.ERROR_MESSAGE);
+					errorea = false;
+
+				} else if (errorea) {
+					JOptionPane.showMessageDialog(null, "Artista hori jada existitzen da", "Errorea",
+							JOptionPane.ERROR_MESSAGE);
+					errorea = false;
 				} else {
 					try {
 						ArtistaCRUD.artistaInsert(izenatxt, motatxt, deskripziotxt);
@@ -248,50 +260,65 @@ public class AdminArtistakKudeatuV extends JFrame implements IadminBotoiak {
 
 	@Override
 	public void btnUpdate() {
-	    if (ArtistaList.getSelectedValue() == null) {
-	        JOptionPane.showMessageDialog(null, "Ez duzu artistarik aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
-	    } else {
-	        for (Artista a1 : ArtistakJList) {
-	            if (a1.getIzena().equals(ArtistaList.getSelectedValue().toString())) {
-	                Artista artistaSelected = a1;
-	                izenatxtpane.setText(artistaSelected.getIzena());
-	                deskripziotxtpane.setText(artistaSelected.getDeskribapena());
+		
+		panel.remove(mota_lbl);
+		panel.remove(motaComboBox);
+		
+		if (ArtistaList.getSelectedValue() == null) {
+			JOptionPane.showMessageDialog(null, "Ez duzu artistarik aukeratu!", "Errorea", JOptionPane.ERROR_MESSAGE);
+		} else {
+			for (Artista a1 : ArtistakJList) {
+				if (a1.getIzena().equals(ArtistaList.getSelectedValue().toString())) {
+					Artista artistaSelected = a1;
+					izenatxtpane.setText(artistaSelected.getIzena());
+					deskripziotxtpane.setText(artistaSelected.getDeskribapena());
 
-	                boolean errorea = false;
-	                do {
-	                    int opcion = JOptionPane.showConfirmDialog(null, panel, "Aldatu Datuak",
-	                            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+					boolean errorea = false;
+					do {
+						int opcion = JOptionPane.showConfirmDialog(null, panel, "Aldatu Datuak",
+								JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-	                    if (opcion == JOptionPane.OK_OPTION) {
-	                        String izenatxt = izenatxtpane.getText();
-	                        String deskripziotxt = deskripziotxtpane.getText();
+						if (opcion == JOptionPane.OK_OPTION) {
+							String izenatxt = izenatxtpane.getText();
+							String deskripziotxt = deskripziotxtpane.getText();
 
-	                        if (izenatxt.isEmpty() || deskripziotxt.isEmpty()) {
-	                            JOptionPane.showMessageDialog(null, "Ezin duzu hutsik utzi", "Error",
-	                                    JOptionPane.ERROR_MESSAGE);
-	                        } else if (izenatxt.equals(artistaSelected.getIzena())
-	                                && deskripziotxt.equals(artistaSelected.getDeskribapena())) {
-	                            JOptionPane.showMessageDialog(null, "Ez duzu aldaketarik egin", "Informazioa",
-	                                    JOptionPane.INFORMATION_MESSAGE);
-	                            errorea = true;
-	                        } else {
-	                            try {
-	                                ArtistaCRUD.artistaUpdate(artistaSelected.getIzena(), izenatxt, deskripziotxt);
-	                                JOptionPane.showMessageDialog(null, "Artista ondo aldatu dira", "Informazioa",
-	                                        JOptionPane.INFORMATION_MESSAGE);
-	                                dispose();
-	                                JFrameSortu.adminArtistakKudeatu();
-	                                errorea = true; 
-	                            } catch (SQLException e1) {
-	                                e1.printStackTrace();
-	                            }
-	                        }
-	                    } else {
-	                    	errorea = true; 
-	                    }
-	                } while (!errorea);
-	            }
-	        }
-	    }
+							for (int i = 0; i < ArtistakJList.size(); i++) {
+								if (ArtistakJList.get(i).getIzena().equals(izenatxt)) {
+									errorea = true;
+								}
+							}
+
+							if (izenatxt.isEmpty() || deskripziotxt.isEmpty()) {
+								JOptionPane.showMessageDialog(null, "Ezin duzu hutsik utzi", "Error",
+										JOptionPane.ERROR_MESSAGE);
+							} else if (izenatxt.equals(artistaSelected.getIzena())
+									&& deskripziotxt.equals(artistaSelected.getDeskribapena())) {
+								JOptionPane.showMessageDialog(null, "Ez duzu aldaketarik egin", "Informazioa",
+										JOptionPane.INFORMATION_MESSAGE);
+								errorea = true;
+
+							} else if (errorea) {
+								JOptionPane.showMessageDialog(null, "Artista hori jada existitzen da", "Errorea",
+										JOptionPane.ERROR_MESSAGE);
+								errorea = false;
+							} else {
+								try {
+									ArtistaCRUD.artistaUpdate(artistaSelected.getIzena(), izenatxt, deskripziotxt);
+									JOptionPane.showMessageDialog(null, "Artista ondo aldatu dira", "Informazioa",
+											JOptionPane.INFORMATION_MESSAGE);
+									dispose();
+									JFrameSortu.adminArtistakKudeatu();
+									errorea = true;
+								} catch (SQLException e1) {
+									e1.printStackTrace();
+								}
+							}
+						} else {
+							errorea = true;
+						}
+					} while (!errorea);
+				}
+			}
+		}
 	}
 }
