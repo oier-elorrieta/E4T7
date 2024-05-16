@@ -31,6 +31,10 @@ public class Playlist {
 		this.Sorrera_data = Sorrera_data;
 	}
 	
+	public Playlist() {
+		
+	}
+	
 	/**
 	 * Playlist klasearen eraikitzailea.
 	 * @param idPlaylist

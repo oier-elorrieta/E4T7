@@ -37,6 +37,10 @@ public class Erabiltzailea {
 		this.hizkuntza = hizkuntza;
 		this.jaiotze_data = jaiotze_data;
 	}
+	
+	public Erabiltzailea() {
+
+	}
 
 	/**
 	 * Erabiltzailea klasearen objektu berri bat sortzen du parametroetan

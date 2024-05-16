@@ -37,7 +37,7 @@ public class LoginDAO {
 		Konexioa.konexioaIreki();
 		Erabiltzailea e1 = null;
 		String SQLquery = "SELECT IDBezeroa, Erabiltzailea, Pasahitza, Mota, Izena, Abizena, Hizkuntza, Jaiotza_data FROM bezeroa WHERE Erabiltzailea LIKE '"
-				+ user + "' AND Pasahitza = '" + passwd + "'";
+				+ user + "' AND Pasahitza = '" + passwd + "' AND Aktiboa = true;";
 
 		try (PreparedStatement preparedStatement = Konexioa.konexioa.prepareStatement(SQLquery);
 				ResultSet resultSet = preparedStatement.executeQuery()) {

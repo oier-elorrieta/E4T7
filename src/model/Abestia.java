@@ -24,7 +24,9 @@ public class Abestia extends Audio {
 		super(idAudio, titulua, irudia, iraupena);
 	}
 
-
+	public Abestia() {
+		super();
+	}
 
 	/**
 	 * Abestia klasearen eraikitzailea.

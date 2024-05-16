@@ -248,7 +248,11 @@ public class PlaylistListV extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				playlistSelected = PlaylistList.getSelectedValue();
-				
+				if (playlistSelected == null) {
+					JOptionPane.showMessageDialog(null, "Ez duzu PlayList bat aukeratu!", "Catastrophic Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+					
+				}
 			}
 		});
 		

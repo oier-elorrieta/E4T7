@@ -185,7 +185,7 @@ public class LoginV extends JFrame {
 	                }
 	                JFrameSortu.menuaBezeroa(LoginV.this);
 	            } else {
-	                JOptionPane.showMessageDialog(null, "Erabiltzailea edo pasahitza txarto dago.", "Errorea", JOptionPane.ERROR_MESSAGE);
+	                JOptionPane.showMessageDialog(null, "Erabiltzailea edo pasahitza txarto dago ala ez dago aktiboa.", "Errorea", JOptionPane.ERROR_MESSAGE);
 	                txtFErabiltzaile.setText("");
 	                passwordField.setText("");
 	            }

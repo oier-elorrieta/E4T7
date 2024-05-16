@@ -1,16 +1,23 @@
 package model.metodoak;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+
+import javax.swing.JOptionPane;
 
 import model.Abestia;
 import model.Album;
 import model.Artista;
+import model.Erabiltzailea;
+import model.Musikaria;
 import model.Playlist;
 import model.Podcast;
 import model.sql.PlayListDAO;
@@ -266,5 +273,72 @@ public class FilesMetodoak {
 		bufferedWriter.write("----------------------------------");
 		bufferedWriter.newLine();
 		bufferedWriter.close();
+	}
+	
+	public static void inportatuPlaylist() throws SQLException, ParseException {
+		String filePath = "playlistInport.txt";
+		
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            String listIzena = "";
+            String sortze_data = "";
+            String kapazitatea = "";
+            String bezIzenAb = "";
+            String erab = "";
+            String abestia = "";
+            String artista = "";
+            String albuma = "";
+            String iraupena = "";
+            Artista artistaAux = null;
+            Abestia abestiaAux;
+            Album albumAux = null;
+            ArrayList<Abestia> abestiak = null;
+            
+            while ((line = br.readLine()) != null) {
+                if (line.startsWith("Playlist izena:")) {
+                    listIzena = "Playlist izena: " + line.substring(15).trim();
+                } else if (line.startsWith("Playlist sorrera data:")) {
+                    sortze_data = "Playlist sorrera data: " + line.substring(21).trim();
+                } else if (line.startsWith("Kapazitatea:")) {
+                    kapazitatea = "Kapazitatea: " + line.substring(12).trim();
+                } else if (line.startsWith("Bezeroa izen-abizenak:")) {
+                    bezIzenAb = "Bezeroa izen-abizenak: " + line.substring(21).trim();
+                } else if (line.startsWith("Erabiltzailea:")) {
+                    erab = "Erabiltzailea: " + line.substring(14).trim();
+                } else if (line.startsWith("Abestia:")) {
+                    abestia = "Abestia: " + line.substring(8).trim();
+                } else if (line.startsWith("Artista:")) {
+                    artista = "Artista: " + line.substring(9).trim();
+                } else if (line.startsWith("Albuma:")) {
+                    albuma = "Albuma: " + line.substring(8).trim();
+                } else if (line.startsWith("Iraupena:")) {
+                    iraupena =  "Iraupena: " + line.substring(10).trim();
+                }
+                abestiak = new ArrayList<>();
+                abestiaAux = new Abestia();
+                abestiaAux.setTitulua(abestia);
+                abestiaAux.setIraupena(iraupena);
+                abestiak.add(abestiaAux);
+                artistaAux = new Musikaria();
+                artistaAux.setIzena(artista);
+                albumAux = new Album();
+                albumAux.setIzenburua(albuma);
+            }
+            Playlist playlist = new Playlist();
+            playlist.setTitulua(listIzena);
+            playlist.setSorrera_data(View_metodoak.stringToDate(sortze_data));
+            playlist.setKapazitatea(Integer.parseInt(kapazitatea));
+            
+            Erabiltzailea bezeroa = new Erabiltzailea();
+            bezeroa.setIzena(bezIzenAb);
+            bezeroa.setErabiltzailea(erab);
+            
+            PlayListDAO.playlistGordeInportatu(playlist, bezeroa);
+            PlayListDAO.abestiakGordePlaylistInport(abestiak, artistaAux, albumAux);
+
+        } catch (IOException e) {
+        	JOptionPane.showMessageDialog(null, "Errorea fitxategia irakurtzean.");
+            e.printStackTrace();
+        }
 	}
 }

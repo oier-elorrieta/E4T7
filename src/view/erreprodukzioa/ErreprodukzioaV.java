@@ -355,7 +355,6 @@ public class ErreprodukzioaV extends JFrame {
 								if (abesti.getTitulua().equals(abestiList.get(i).getTitulua())) {
 									File f = new File(fileAudio);
 									AudioInputStream aui2;
-									System.out.println("ID AUDIO 1º: " + abesti.getIdAudio());
 									try {
 										aui2 = AudioSystem.getAudioInputStream(f.getAbsoluteFile());
 										clipHurrengoa = AudioSystem.getClip();
