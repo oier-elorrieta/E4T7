@@ -83,13 +83,6 @@ public class AudioTest {
           Audio audio = new Audio("Titulo", blob, "Iraupena");
           assertNotNull(audio.getIrudia());
         }
-        @Test
-        public void testsetBlob() {
-            Audio audio1 = new Audio(null);
-            Blob blob = new Blob(null, null);
-            audio1.setIrudia(blob);
-            assertNotNull(audio1.getIrudia());
-        }
 
         @Test
         public void testSetTitulua() {

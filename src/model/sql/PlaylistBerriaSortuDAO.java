@@ -7,7 +7,7 @@ import model.Playlist;
 import model.metodoak.SesioAldagaiak;
 
 public class PlaylistBerriaSortuDAO {
-	
+
 	public static int konprobatuPlaylistKopurua() throws SQLException {
 		Konexioa.konexioaIreki();
 		String SQLquery = "SELECT COUNT(*) FROM playlist WHERE IDBezeroa = '"
@@ -19,7 +19,7 @@ public class PlaylistBerriaSortuDAO {
 		Konexioa.konexioaItxi();
 		return 0;
 	}
-	
+
 	/**
 	 * Metodo honek datu basean playlist berri bat sortzen du.
 	 * 
@@ -28,8 +28,9 @@ public class PlaylistBerriaSortuDAO {
 	 */
 	public static void playlistBerriaSortu(Playlist playlist) throws SQLException {
 		Konexioa.konexioaIreki();
-		String SQLquery = "INSERT INTO playlist (Izenburua, Sorrera_data, IDBezeroa) VALUES ('" + playlist.getTitulua() + "', CURRENT_DATE, '" + SesioAldagaiak.bezeroa_logeatuta.getIdBezeroa() + "');";
+		String SQLquery = "INSERT INTO playlist (Izenburua, Sorrera_data, IDBezeroa) VALUES ('" + playlist.getTitulua()
+				+ "', CURRENT_DATE, '" + SesioAldagaiak.bezeroa_logeatuta.getIdBezeroa() + "');";
 		Konexioa.query.executeUpdate(SQLquery);
 		Konexioa.konexioaItxi();
-    }
+	}
 }

@@ -31,12 +31,22 @@ public class Playlist {
 		this.Sorrera_data = Sorrera_data;
 	}
 	
-	public Playlist() {
-		
-	}
-	
 	/**
 	 * Playlist klasearen eraikitzailea.
+	 * 
+	 * @param idPlaylist
+	 * @param titulua
+	 * @param kapazitatea
+	 */
+	public Playlist(int idPlaylist, String titulua, int kapazitatea) {
+		this.idPlaylist = idPlaylist;
+		this.titulua = titulua;
+		this.kapazitatea = kapazitatea;
+	}
+
+	/**
+	 * Playlist klasearen eraikitzailea.
+	 * 
 	 * @param idPlaylist
 	 * @param titulua
 	 * @param kapazitatea
@@ -63,20 +73,28 @@ public class Playlist {
 		this.idBezeroa = idBezeroa;
 		this.idAudio = idAudio;
 	}
-	
-	
 
-	public Playlist(int idPlaylist, String titulua, int kapazitatea) {
-		this.idPlaylist = idPlaylist;
-		this.titulua = titulua;
-		this.kapazitatea = kapazitatea;
-	}
-
+	/**
+	 * Playlist klasearen eraikitzailea.
+	 * 
+	 * @param idPlaylist
+	 * @param titulua
+	 * @param kapazitatea
+	 * @param sorrera_data
+	 */
 	public Playlist(int idPlaylist, String titulua, int kapazitatea, Date sorrera_data) {
 		this.idPlaylist = idPlaylist;
 		this.titulua = titulua;
 		this.kapazitatea = kapazitatea;
 		Sorrera_data = sorrera_data;
+	}
+	
+	
+	/**
+	 * Playlist klasearen hutsa.
+	 */
+	public Playlist() {
+		
 	}
 
 	/**
@@ -89,7 +107,12 @@ public class Playlist {
 		this.titulua = "Gustokoen zerrenda";
 		this.idAudio = idBezeroa;
 	}
-	
+
+	/**
+	 * Playlist gustokoaren klasearen eraikitzailea.
+	 * 
+	 * @param titulua Playlist objektuaren titulua
+	 */
 	public Playlist(String titulua) {
 		this.titulua = "Gustokoen zerrenda";
 	}
