@@ -37,28 +37,28 @@ public class ArtistaTest {
 
 	@Test
 	public void testSetIrudia() {
-		Artista artista = new Musikaria( "describapena", "describapena");
 		Blob irudia = new Blob(null, null);
+		Artista artista = new Musikaria( irudia, "describapena");
 		artista.setIrudia(irudia);
 		assertEquals(irudia, artista.getIrudia());
 	}
 
 	@Test
 	public void testgetErreprodukzioak() {
-		Artista artista = new Musikaria("izena", 0);
+		Artista artista = new Podcaster("izena", 0);
 		assertEquals(0, artista.getErreprodukzioak());
 	}
 
 	@Test
 	public void testSetErreprodukzioak() {
-		Artista artista = new Podcaster("izena", 0);
+		Artista artista = new Musikaria();
 		artista.setErreprodukzioak(10);
 		assertEquals(10, artista.getErreprodukzioak());
 	}
 
 	@Test
 	public void testgetDescribapena() {
-		Artista artista = new Musikaria( "describapena", "describapena");
+		Artista artista = new Podcaster( "izena", "describapena");
 		assertEquals("describapena", artista.getDeskribapena());
 	}
 

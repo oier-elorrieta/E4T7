@@ -61,18 +61,7 @@ public class Playlist {
 		Sorrera_data = sorrera_data;
 	}
 
-	/**
-	 * Gustokoen zerrenda sortzeko konstruktorea.
-	 *
-	 * @param titulua   the title of the playlist
-	 * @param idBezeroa the user ID associated with the playlist
-	 * @param idAudio   the audio ID associated with the playlist
-	 */
-	public Playlist(String titulua, String idBezeroa, String idAudio) {
-		this.titulua = "Gustokoen zerrenda";
-		this.idBezeroa = idBezeroa;
-		this.idAudio = idAudio;
-	}
+
 
 	/**
 	 * Playlist klasearen eraikitzailea.

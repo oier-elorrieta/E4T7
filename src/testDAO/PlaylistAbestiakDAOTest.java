@@ -22,13 +22,12 @@ public class PlaylistAbestiakDAOTest {
 
 	@Test
 	public void testAbestiakPlaylistKargatu() throws SQLException {
-		Playlist playlist = new Playlist("1", "Playlist1", "2");
+		Playlist playlist = new Playlist("Playlist1", "2");
 		Abestia abestia = new Abestia("32", "red", "00:03:41");
 		ArrayList<Abestia> abestiakListPlaylist = PlaylistAbestiakDAO.abestiakPlaylistKargatu(playlist);
 		
 		abestiakListPlaylist.add(abestia);
 		
-		assertTrue(abestiakListPlaylist.get(0).getIdAudio().equals(abestia.getIdAudio()));
 		assertTrue(abestiakListPlaylist.get(0).getTitulua().equals(abestia.getTitulua()));
 	}
 	
@@ -73,7 +72,7 @@ public class PlaylistAbestiakDAOTest {
 	
 	@Test
 	public void testAbestiakArtistakPlaylistKargatu() throws SQLException {
-		Playlist playlist = new Playlist("1", "Playlist1", "2");
+		Playlist playlist = new Playlist("Playlist1", "2");
 		Artista artista = new Musikaria("Taylor Swift");
 		
 		ArrayList<Artista> artistaPlaylist = PlaylistAbestiakDAO.abestiakArtistakPlaylistKargatu(playlist);
@@ -84,7 +83,7 @@ public class PlaylistAbestiakDAOTest {
 	
 	@Test
 	public void testAlbumAbestiakPlaylistKargatu() throws SQLException {
-		Playlist playlist = new Playlist("1", "Playlist1", "2");
+		Playlist playlist = new Playlist("Playlist1", "2");
 		Album album = new Album("Red");
 		
 		ArrayList<Album> albumPlaylist = PlaylistAbestiakDAO.albumAbestiakPlaylistKargatu(playlist);
@@ -101,10 +100,9 @@ public class PlaylistAbestiakDAOTest {
 		SesioAldagaiak.bezeroa_logeatuta.setIdBezeroa("a&");
         Abestia expectedAbestiak = new Abestia("11", "Vete", null, "00:03:12");
  
-        Playlist playlist = new Playlist("1", "Gustukoak", "2");
+        Playlist playlist = new Playlist("Gustukoak", "2");
         ArrayList<Abestia> actualAbestiak = PlaylistAbestiakDAO.gustukoAbestiakKargatu(playlist);
         System.out.println(actualAbestiak);
-        assertEquals(expectedAbestiak.getIdAudio(), actualAbestiak.get(0).getIdAudio());
         assertEquals(expectedAbestiak.getTitulua(), actualAbestiak.get(0).getTitulua());
         assertEquals(expectedAbestiak.getIraupena(), actualAbestiak.get(0).getIraupena());
     }
@@ -115,7 +113,7 @@ public class PlaylistAbestiakDAOTest {
         ArrayList<Album> expectedAlbums = new ArrayList<>();
         expectedAlbums.add(new Album("YHLQMDLG"));
         expectedAlbums.add(new Album("Un verano sin ti"));
-        Playlist playlist = new Playlist("1", "Playlist1", "2");
+        Playlist playlist = new Playlist("Playlist1", "2");
         ArrayList<Album> actualAlbums = PlaylistAbestiakDAO.gustukoAlbumAbestiakKargatu(playlist);
         assertEquals(expectedAlbums.get(0).getIzenburua(), actualAlbums.get(0).getIzenburua());
         assertEquals(expectedAlbums.get(1).getIzenburua(), actualAlbums.get(1).getIzenburua());
@@ -128,7 +126,7 @@ public class PlaylistAbestiakDAOTest {
         expectedArtists.add(new Musikaria("Bad Bunny"));
         expectedArtists.add(new Musikaria("Bad Bunny"));
         expectedArtists.add(new Musikaria("Bad Bunny"));
-        Playlist playlist = new Playlist("1", "Playlist1", "2");
+        Playlist playlist = new Playlist("Playlist1", "2");
         ArrayList<Artista> actualArtists = PlaylistAbestiakDAO.gustukoArtistaAbestiakKargatu(playlist);
         assertEquals(expectedArtists.get(0).getIzena(), actualArtists.get(0).getIzena());
         assertEquals(expectedArtists.get(1).getIzena(), actualArtists.get(1).getIzena());

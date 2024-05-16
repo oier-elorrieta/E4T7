@@ -22,7 +22,6 @@ public class Konexioa {
     private static String user = "administrador";
     private static String pass = "admin123";
 
-
     public static Connection konexioa;
     public static Statement query;
 
@@ -42,9 +41,9 @@ public class Konexioa {
             query = konexioa.createStatement();
 
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+         
         } catch (SQLException e) {
-            e.printStackTrace();
+        
         }
     }
 
@@ -56,7 +55,7 @@ public class Konexioa {
             konexioa.close();
             query.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+         
         }
     }
     
@@ -64,13 +63,11 @@ public class Konexioa {
     public static boolean konexioaIrekiAdmin(String usertxt, String passwdtxt) {
         boolean kon = true;
         try {
-            usertxt = "administrador";
-            passwdtxt = "admin";
             Class.forName("com.mysql.cj.jdbc.Driver");
             konexioa = DriverManager.getConnection(URL, usertxt, pass);
             query = konexioa.createStatement();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+       
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erabiltzaile hori ez dauka baimenik.", "Errorea",
                     JOptionPane.ERROR_MESSAGE);
