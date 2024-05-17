@@ -182,7 +182,7 @@ public class AdminPodcasterKudeatuV extends JFrame implements IadminBotoiak {
 				String deskripziotxt = deskripziotxtpane.getText();
 
 				for (int i = 0; i < PodcasterJList.size(); i++) {
-					if (PodcasterJList.get(i).getIzena().equals(PodcasterJList.get(i).getIzena())) {
+					if (PodcasterJList.get(i).getIzena().equals(izenatxt)) {
 						errorea = true;
 					}
 				}
@@ -254,17 +254,17 @@ public class AdminPodcasterKudeatuV extends JFrame implements IadminBotoiak {
 					do {
 						int opcion = JOptionPane.showConfirmDialog(null, panel, "Aldatu Datuak",
 								JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
-						for (int i = 0; i < PodcasterJList.size(); i++) {
-							if (PodcasterJList.get(i).getIzena().equals(PodcasterJList.get(i).getIzena())) {
-								errorea = true;
-							}
-						}
-
+						
 						if (opcion == JOptionPane.OK_OPTION) {
 							String izenatxt = izenatxtpane.getText();
 							String deskripziotxt = deskripziotxtpane.getText();
-
+							
+							for (int i = 0; i < PodcasterJList.size(); i++) {
+								if (PodcasterJList.get(i).getIzena().equals(izenatxt)) {
+									errorea = true;
+								}
+							}
+							
 							if (izenatxt.isEmpty() || deskripziotxt.isEmpty()) {
 								JOptionPane.showMessageDialog(null, "Ezin duzu hutsik utzi", "Error",
 										JOptionPane.ERROR_MESSAGE);

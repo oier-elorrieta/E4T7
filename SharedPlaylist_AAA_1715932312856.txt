@@ -1,0 +1,24 @@
+PLAYLIST-AREN INFORMAZIOA
+----------------------------------
+Playlist izena: AAA
+Playlist sorrera data: 2024-05-17
+Kapazitatea: 2 abesti.
+------------------------------------------------------------------------------
+BEZEROAREN INFORMAZIOA
+----------------------------------
+Bezeroa izen-abizenak: pap p
+Erabiltzailea: p
+----------------------------------
+ABESTIAK PLAYLIST-AN
+
+Abestia: Blanco
+Artista: J Balvin
+Albuma: Colores
+Iraupena: 00:02:25
+------------------------------------------------------------------------------
+
+Abestia: Yesterday
+Artista: Imagine Dragons
+Albuma: Evolve
+Iraupena: 00:03:25
+------------------------------------------------------------------------------
