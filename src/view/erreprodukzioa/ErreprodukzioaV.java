@@ -66,6 +66,8 @@ public class ErreprodukzioaV extends JFrame implements IAtzeraProfilaBotoiak {
 	public ErreprodukzioaV(Album album, Artista artista, Abestia abesti)
 			throws SQLException, LineUnavailableException, AudioaNotFoundExcepcion, IOException {
 
+		this.album = album;
+		this.artista = artista;
 		fileAudio = "\\\\10.5.6.223\\audios\\" + abesti.getTitulua() + ".wav";
 
 		// ------------------------------
