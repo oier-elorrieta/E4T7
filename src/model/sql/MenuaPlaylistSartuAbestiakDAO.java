@@ -111,7 +111,7 @@ public class MenuaPlaylistSartuAbestiakDAO {
 	 */
 	public static ArrayList<Playlist> playlistakKargatu() throws SQLException {
 		Konexioa.konexioaIreki();
-		String SQLquery = "SELECT IDList, Izenburua, Sorrera_data, count(IdAudio) as Kapazitatea, IDBezeroa FROM playlist JOIN playlist_abestiak using (IDList) WHERE IDBezeroa = (SELECT IDBezeroa FROM bezeroa WHERE Erabiltzailea = '" + SesioAldagaiak.bezeroa_logeatuta.getErabiltzailea() + "') GROUP BY 1, 2, 3, 5;";
+		String SQLquery = "SELECT IDList, Izenburua, Sorrera_data, count(IdAudio) as Kapazitatea, IDBezeroa FROM playlist LEFT JOIN playlist_abestiak using (IDList) WHERE IDBezeroa = '" + SesioAldagaiak.bezeroa_logeatuta.getIdBezeroa() + "' GROUP BY 1, 2, 3, 5;";
 		ResultSet emaitza = Konexioa.query.executeQuery(SQLquery);
 		ArrayList<Playlist> playlistAbestiak = new ArrayList<Playlist>();
 		while (emaitza.next()) {

@@ -28,6 +28,7 @@ public class PlaylistBerriaSortuDAO {
 	 */
 	public static void playlistBerriaSortu(Playlist playlist) throws SQLException {
 		Konexioa.konexioaIreki();
+		System.out.println(playlist.getTitulua());
 		String SQLquery = "INSERT INTO playlist (Izenburua, Sorrera_data, IDBezeroa) VALUES ('" + playlist.getTitulua()
 				+ "', CURRENT_DATE, '" + SesioAldagaiak.bezeroa_logeatuta.getIdBezeroa() + "');";
 		Konexioa.query.executeUpdate(SQLquery);
