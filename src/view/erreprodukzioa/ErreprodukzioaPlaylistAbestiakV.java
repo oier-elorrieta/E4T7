@@ -317,7 +317,6 @@ public class ErreprodukzioaPlaylistAbestiakV extends JFrame implements IAtzeraPr
 						} else {
 							dispose();
 							try {
-								System.out.println(abestiLista);
 								JFrameSortu.erreprodukzioaPlaylistAbestiak(abestiLista, playlist, artista, index + 1,
 										album);
 							} catch (SQLException e1) {
@@ -330,7 +329,6 @@ public class ErreprodukzioaPlaylistAbestiakV extends JFrame implements IAtzeraPr
 					JOptionPane.showMessageDialog(null, "Ezin duzu hurrengora pasatu!", "Free Erabiltzailea",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					System.out.println("ELSE");
 					dispose();
 					try {
 						JFrameSortu.erreprodukzioaPlaylistAbestiak(abestiLista, playlist, artista, index + 1, album);

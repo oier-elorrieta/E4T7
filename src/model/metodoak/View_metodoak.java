@@ -128,7 +128,6 @@ public class View_metodoak {
 		TimerTask task = new TimerTask() {
 			public void run() {
 				SesioAldagaiak.skip_abestia = true;
-				System.out.println("skip");
 			}
 		};
 

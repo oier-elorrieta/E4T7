@@ -387,9 +387,6 @@ public class ErregistroaNireProfilaV extends JFrame {
 							// JAIOTZE DATA HARTU ETA PARSEATU + BALIDAZIOA
 							try {	
 								Date sartutakoData = dateChooser.getDate();
-								
-								System.out.println(sartutakoData);
-								
 								String dateInString = View_metodoak.dateToString(sartutakoData);
 								View_metodoak.dataBalidatu(dateInString);
 								String DateSplit[] = dateInString.split("-");

@@ -184,7 +184,6 @@ public class PlaylistAbestiakV extends JFrame implements IAtzeraProfilaBotoiak {
 						return;
 					}
 					
-					System.out.println("INT: " + valueSelected);
 					String album = AbestiPlaylistJList.get(valueSelected).getTitulua();
 					String artista = artistaList.get(valueSelected).getIzena();
 					String abestia = AbestiPlaylistJList.get(valueSelected).getTitulua();
