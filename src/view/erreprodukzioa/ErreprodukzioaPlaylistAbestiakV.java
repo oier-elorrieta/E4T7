@@ -59,7 +59,7 @@ public class ErreprodukzioaPlaylistAbestiakV extends JFrame implements IAtzeraPr
 	public ErreprodukzioaPlaylistAbestiakV(ArrayList<Abestia> abestiLista, Playlist playlist, Artista artista,
 			Album album, int indexAbesti) throws SQLException {
 		index = indexAbesti;
-
+		this.playlist = playlist;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		for (int i = 0; i < abestiLista.size(); i++) {
 			if (index == -1) {
@@ -237,7 +237,6 @@ public class ErreprodukzioaPlaylistAbestiakV extends JFrame implements IAtzeraPr
 		btnNireProfila.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnNireProfila();
-
 			}
 		});
 

@@ -127,15 +127,9 @@ public class PlaylistListV extends JFrame implements IAtzeraProfilaBotoiak {
 		btnEzabatu.setFocusPainted(false);
 		contentPane.add(btnEzabatu);
 		
-		JButton btnInportatu = new JButton("Inportatu");
-		btnInportatu.setFont(new Font("Segoe UI Historic", Font.BOLD, 19));
-		btnInportatu.setBounds(620, 308, 164, 51);
-		btnInportatu.setFocusPainted(false);
-		contentPane.add(btnInportatu);
-		
 		JButton btnExportatu = new JButton("Exportatu");
 		btnExportatu.setFont(new Font("Segoe UI Historic", Font.BOLD, 19));
-		btnExportatu.setBounds(620, 384, 164, 51);
+		btnExportatu.setBounds(620, 311, 164, 51);
 		btnExportatu.setFocusPainted(false);
 		contentPane.add(btnExportatu);
 		
@@ -235,22 +229,6 @@ public class PlaylistListV extends JFrame implements IAtzeraProfilaBotoiak {
 								JOptionPane.ERROR_MESSAGE);
 						e1.printStackTrace();
 					}
-				}
-			}
-		});
-		
-		// INPORTATU BOTOIA
-		btnInportatu.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				try {
-					FilesMetodoak.inportatuPlaylist();
-					JOptionPane.showMessageDialog(null, "PlayList-a inportatu da!", "PlayList-a [Inportatu]",
-							JOptionPane.INFORMATION_MESSAGE);
-					JFrameSortu.playlistListaBezeroa();
-				} catch (SQLException | ParseException e1) {
-					JOptionPane.showMessageDialog(null, "Errorea egon da inportatzean.", "Catastrophic Error", JOptionPane.ERROR_MESSAGE);
-					e1.printStackTrace();
 				}
 			}
 		});

@@ -62,6 +62,7 @@ public class ErreprodukzioaPodcastV extends JFrame implements IAtzeraProfilaBoto
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 250, 906, 594);
 		setResizable(false);
+		this.podcaster = podcaster;
 		if (SesioAldagaiak.e_premium) {
 			setTitle(podcast.getTitulua() + " - " + podcaster.getIzena()
 					+ " | Podcast erreprodukzioa · JPAM Music PREMIUM");
